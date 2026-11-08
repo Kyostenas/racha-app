@@ -40,6 +40,20 @@ try {
   await page.getByTestId('streak').waitFor();
   await context.setOffline(false);
   await page.screenshot({ path: 'docs/capturas/18-pages-en-vivo.png', fullPage: false });
+  await page.getByRole('button', { name: 'Ajustes', exact: true }).click();
+  await page.getByRole('button', { name: 'Avanzado › IA' }).click();
+  await page
+    .getByText('Tu clave se guarda solo en este teléfono, sin candado.', { exact: false })
+    .waitFor();
+  assert.equal(await page.locator('.ai-details').getAttribute('open'), null);
+  assert.equal(
+    await page
+      .getByRole('button', { name: 'En tu cel · Próximamente', exact: true })
+      .evaluate((e) => getComputedStyle(e).textTransform),
+    'none',
+  );
+  assert.match(await page.locator('.danger').innerText(), /en este teléfono o computadora/);
+  await page.screenshot({ path: 'docs/capturas/22-ia-en-vivo.png', fullPage: true });
   assert.deepEqual(failures, []);
   console.log(
     JSON.stringify({
