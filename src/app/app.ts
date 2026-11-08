@@ -374,12 +374,15 @@ export class App implements OnInit {
   }
   async setAi(mode: 'apagada' | 'propia') {
     if (mode === 'apagada') {
-      await this.saveSettings({
-        ...this.settings(),
-        ia: 'apagada',
-        clave: '',
-        consentimientoIA: false,
-      });
+      if (
+        !(await this.saveSettings({
+          ...this.settings(),
+          ia: 'apagada',
+          clave: '',
+          consentimientoIA: false,
+        }))
+      )
+        return;
       this.aiForm.clave = '';
       this.aiForm.consentimientoIA = false;
       this.message.set('IA apagada. Clave eliminada del dispositivo.');
@@ -504,6 +507,9 @@ export class App implements OnInit {
         consentimientoIA: false,
       };
       this.pantry = [];
+      this.pantrySearch = '';
+      this.advanced.set(false);
+      this.themeEditor.set(false);
       this.form = {
         intencion: 'mantener',
         dormirMejor: true,

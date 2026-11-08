@@ -11,7 +11,11 @@ const paletteSchema = z.object({
   textoSuave: z.string(),
   exito: z.string(),
 });
-export type Palette = z.infer<typeof paletteSchema> & { urgente: string; superficieAlta: string };
+export type Palette = z.infer<typeof paletteSchema> & {
+  urgente: string;
+  sobreAcento: string;
+  superficieAlta: string;
+};
 export const tokensSchema = z.object({
   temas: z.record(z.string(), paletteSchema),
   oled: z.object({
@@ -42,7 +46,12 @@ export function onColor(c: string): string {
 export function themePalette(tokens: Tokens, s: Ajustes): Palette {
   const base = tokens.temas[s.tema] ?? tokens.temas['racha'];
   if (!base) throw new Error('Faltan tokens Racha.');
-  let p: Palette = { ...base, urgente: '#FF4D4D', superficieAlta: base.superficie };
+  let p: Palette = {
+    ...base,
+    urgente: '#FF4D4D',
+    sobreAcento: onColor(base.acento),
+    superficieAlta: base.superficie,
+  };
   if (s.tema === 'personalizado' && s.personalizado) {
     const custom = customThemeSchema.parse(s.personalizado);
     const text = onColor(custom.fondo);
@@ -58,7 +67,7 @@ export function themePalette(tokens: Tokens, s: Ajustes): Palette {
     };
   }
   if (s.oled && s.tema !== 'altoContraste') p = { ...p, ...tokens.oled, tinta: p.primario };
-  return p;
+  return { ...p, sobreAcento: onColor(p.acento) };
 }
 export function applyTheme(
   tokens: Tokens,
@@ -72,5 +81,5 @@ export function applyTheme(
   for (const [key, value] of Object.entries(p)) root.style.setProperty('--' + key, value);
   root.style.colorScheme = p.fondo === '#000000' ? 'dark' : 'light';
   document.querySelector('meta[name="theme-color"]')?.setAttribute('content', p.fondo);
-  return p;
+  return { ...p, sobreAcento: onColor(p.acento) };
 }

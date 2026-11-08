@@ -1,5 +1,5 @@
 import { test, expect, Page } from '@playwright/test';
-import { mkdir } from 'node:fs/promises';
+import { mkdir, readFile } from 'node:fs/promises';
 const shots = 'docs/capturas';
 async function shot(page: Page, name: string) {
   await page.evaluate(() => document.fonts.ready);
@@ -87,6 +87,9 @@ test('Ana: onboarding, fuente, hábito, racha, temas, privacidad, offline y borr
   const download = await downloadPromise;
   expect(download.suggestedFilename()).toBe('racha-logro.png');
   await download.saveAs(`${shots}/logro-exportado.png`);
+  const png = await readFile(`${shots}/logro-exportado.png`);
+  expect(png.readUInt32BE(16)).toBe(1080);
+  expect(png.readUInt32BE(20)).toBe(1080);
   await page.getByRole('button', { name: 'Ajustes', exact: true }).click();
   await expect(page.locator('html')).toHaveAttribute('data-tema', 'racha');
   await page.getByLabel('Modo OLED').check();
@@ -212,4 +215,21 @@ test('desktop, crear tema y persistir', async ({ page }) => {
   await page.reload();
   await expect(page.getByTestId('streak')).toBeVisible();
   await expect(page.locator('html')).toHaveAttribute('data-tema', 'personalizado');
+});
+
+test('capturas OLED para las slides con todas las pantallas principales', async ({ page }) => {
+  await onboard(page);
+  await page.getByRole('button', { name: /Elegir agua en una comida/ }).click();
+  await page.getByRole('button', { name: 'Ajustes', exact: true }).click();
+  await page.getByLabel('Modo OLED').check();
+  for (const [button, name] of [
+    ['Hoy', '14-hoy-oled-pantalla'],
+    ['Plan', '15-plan-oled-pantalla'],
+    ['Progreso', '16-progreso-oled-pantalla'],
+  ]) {
+    await page.getByRole('button', { name: button, exact: true }).click();
+    await page.screenshot({ path: `${shots}/${name}.png`, fullPage: false });
+  }
+  await page.getByRole('button', { name: 'Ver mi logro', exact: true }).click();
+  await page.screenshot({ path: `${shots}/17-logro-oled-pantalla.png`, fullPage: false });
 });

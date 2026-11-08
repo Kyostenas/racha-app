@@ -227,7 +227,7 @@ button.primary,
 .stamp {
   border: 3px solid var(--tinta);
   background: var(--acento);
-  color: #000;
+  color: var(--sobreAcento, #000);
   display: block;
   font: 700 14px 'Space Grotesk';
   padding: 16px;
@@ -237,7 +237,7 @@ button.primary,
 .notice {
   border: 3px solid var(--tinta);
   background: var(--acento);
-  color: #000;
+  color: var(--sobreAcento, #000);
   padding: 18px;
   margin-bottom: 24px;
   font-size: 14px;
@@ -531,7 +531,7 @@ summary {
   gap: 30px;
   min-height: 160px;
   background: var(--acento);
-  color: #000;
+  color: var(--sobreAcento, #000);
   border: 3px solid var(--tinta);
   padding: 24px;
   margin-bottom: 24px;
