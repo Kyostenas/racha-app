@@ -1,0 +1,234 @@
+{
+  "estado": "PASS",
+  "alimentos": 300,
+  "ejercicios": 80,
+  "categorias_alimentos": {
+    "bebidas": 10,
+    "carnes": 30,
+    "cereales": 37,
+    "frutas": 46,
+    "grasas": 15,
+    "huevo": 5,
+    "lacteos": 25,
+    "leguminosas": 20,
+    "otros": 10,
+    "pescados": 20,
+    "semillas": 15,
+    "verduras": 67
+  },
+  "categorias_ejercicios": {
+    "cardio": 10,
+    "estiramientos": 22,
+    "fuerza": 43,
+    "pliometría": 5
+  },
+  "niveles_ejercicios": {
+    "intermedio": 7,
+    "principiante": 73
+  },
+  "musculos_primarios": {
+    "abdomen": 18,
+    "abductores": 1,
+    "antebrazos": 1,
+    "bíceps": 1,
+    "cuello": 2,
+    "cuádriceps": 19,
+    "dorsales": 1,
+    "espalda baja": 4,
+    "espalda media": 2,
+    "glúteos": 5,
+    "hombros": 5,
+    "pantorrillas": 2,
+    "parte posterior de los muslos": 7,
+    "pecho": 6,
+    "trapecios": 1,
+    "tríceps": 5
+  },
+  "alimentos_con_faltantes": [
+    {
+      "id": "usda-169383",
+      "nombre": "Pimiento amarillo crudo",
+      "campos": [
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-169270",
+      "nombre": "Flor de calabaza cruda",
+      "campos": [
+        "fibra_g",
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-169916",
+      "nombre": "Naranja Valencia cruda",
+      "campos": [
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-167750",
+      "nombre": "Tuna cruda",
+      "campos": [
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-170683",
+      "nombre": "Amaranto cocido",
+      "campos": [
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-170286",
+      "nombre": "Trigo sarraceno crudo",
+      "campos": [
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-168920",
+      "nombre": "Maíz blanco en grano seco",
+      "campos": [
+        "fibra_g",
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-169699",
+      "nombre": "Cuscús seco",
+      "campos": [
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-169705",
+      "nombre": "Avena en grano cruda",
+      "campos": [
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-168873",
+      "nombre": "Salvado de avena cocido",
+      "campos": [
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-168874",
+      "nombre": "Quinoa cruda",
+      "campos": [
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-168901",
+      "nombre": "Pasta casera con huevo cocida",
+      "campos": [
+        "fibra_g",
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-168902",
+      "nombre": "Pasta casera sin huevo cocida",
+      "campos": [
+        "fibra_g",
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-174284",
+      "nombre": "Lenteja roja seca cruda",
+      "campos": [
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-169282",
+      "nombre": "Soya verde cruda",
+      "campos": [
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-172441",
+      "nombre": "Soya tostada en seco",
+      "campos": [
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-172475",
+      "nombre": "Tofu firme con sulfato de calcio",
+      "campos": [
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-167902",
+      "nombre": "Carne molida de cerdo cruda",
+      "campos": [
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-173686",
+      "nombre": "Salmón del Atlántico silvestre crudo",
+      "campos": [
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-171998",
+      "nombre": "Salmón del Atlántico silvestre cocido con calor seco",
+      "campos": [
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-175179",
+      "nombre": "Camarón crudo",
+      "campos": [
+        "fibra_g",
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-175180",
+      "nombre": "Camarón cocido",
+      "campos": [
+        "fibra_g",
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-174204",
+      "nombre": "Jaiba azul cruda",
+      "campos": [
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-173573",
+      "nombre": "Aceite de aguacate",
+      "campos": [
+        "azucares_g"
+      ]
+    },
+    {
+      "id": "usda-170554",
+      "nombre": "Chía seca",
+      "campos": [
+        "azucares_g"
+      ]
+    }
+  ],
+  "fuentes_sha256": {
+    "USDA_SR_Legacy": "0fe8ae486a2c8eb42cb96413f058deb51863a46c8fb8eeb4b1fb45006dd338ef",
+    "free-exercise-db": "5bb747e3fc658f095a60dcbf6d53c96627acdcc6ffb6fffde86f7e26995d40bf"
+  }
+}

@@ -1,0 +1,108 @@
+[
+  {
+    "id": "arroz-huevo-tomate",
+    "nombre": "Arroz con huevo y tomate",
+    "ingredientes": [
+      {
+        "alimento": "usda-168878",
+        "gramos": 150
+      },
+      {
+        "alimento": "usda-171287",
+        "gramos": 100
+      },
+      {
+        "alimento": "usda-170457",
+        "gramos": 120
+      }
+    ],
+    "pasos": [
+      "Lava el tomate bajo agua corriente y córtalo. Lávate las manos antes de cocinar.",
+      "En un sartén antiadherente, cocina el huevo con el tomate y un poco de agua. No dejes el huevo líquido: alcanza 71 °C en el centro.",
+      "Añade el arroz ya cocido y calienta por completo. Si es una sobra refrigerada, recalienta a 74 °C. Sirve de inmediato."
+    ],
+    "source_ref": [
+      "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+      "https://www.foodsafety.gov/keep-food-safe/4-steps-to-food-safety"
+    ]
+  },
+  {
+    "id": "avena-fruta",
+    "nombre": "Avena con plátano y manzana",
+    "ingredientes": [
+      {
+        "alimento": "usda-169705",
+        "gramos": 40
+      },
+      {
+        "alimento": "usda-173944",
+        "gramos": 100
+      },
+      {
+        "alimento": "usda-171688",
+        "gramos": 100
+      }
+    ],
+    "pasos": [
+      "Lava la manzana bajo agua corriente. Pela el plátano.",
+      "Cuece la avena en aproximadamente 200 ml de agua potable, siguiendo también las indicaciones del empaque, hasta que esté suave.",
+      "Añade la fruta cortada y sirve. No hace falta leche."
+    ],
+    "source_ref": [
+      "https://www.foodsafety.gov/keep-food-safe/4-steps-to-food-safety"
+    ]
+  },
+  {
+    "id": "arroz-frijoles",
+    "nombre": "Tazón de arroz, frijoles y tomate",
+    "ingredientes": [
+      {
+        "alimento": "usda-168878",
+        "gramos": 120
+      },
+      {
+        "alimento": "usda-173735",
+        "gramos": 100
+      },
+      {
+        "alimento": "usda-170457",
+        "gramos": 100
+      }
+    ],
+    "pasos": [
+      "Lava y corta el tomate. Usa frijoles y arroz ya cocidos.",
+      "Calienta arroz y frijoles con un poco de agua. Si son sobras refrigeradas, recalienta a 74 °C.",
+      "Sirve con el tomate. Refrigera las sobras pronto: no más de 2 horas fuera (1 hora si hace más de 32 °C)."
+    ],
+    "source_ref": [
+      "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
+      "https://www.foodsafety.gov/keep-food-safe/4-steps-to-food-safety"
+    ]
+  },
+  {
+    "id": "pollo-arroz",
+    "nombre": "Tazón de pollo, arroz y tomate",
+    "ingredientes": [
+      {
+        "alimento": "usda-168878",
+        "gramos": 120
+      },
+      {
+        "alimento": "usda-171477",
+        "gramos": 100
+      },
+      {
+        "alimento": "usda-170457",
+        "gramos": 100
+      }
+    ],
+    "pasos": [
+      "Lava y corta el tomate. Esta receta parte de pechuga y arroz ya cocidos.",
+      "Calienta el pollo y arroz completamente; para sobras refrigeradas, alcanza 74 °C.",
+      "Sirve con el tomate y consume enseguida."
+    ],
+    "source_ref": [
+      "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures"
+    ]
+  }
+]

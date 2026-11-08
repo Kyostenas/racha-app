@@ -1,0 +1,853 @@
+[
+  {
+    "id": "Arm_Circles",
+    "nombre": "Círculos de brazos",
+    "instrucciones": [
+      "De pie, extiende los brazos a los lados, paralelos al suelo y perpendiculares al torso.",
+      "Haz lentamente círculos de unos 30 cm de diámetro con los brazos extendidos. Respira normalmente.",
+      "Continúa unos 10 segundos y después invierte el sentido."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "3_4_Sit-Up",
+    "nombre": "Abdominal de tres cuartos",
+    "instrucciones": [
+      "Acuéstate boca arriba, asegura los pies y flexiona las rodillas.",
+      "Coloca las manos detrás o a los lados de la cabeza, con la espalda en el suelo.",
+      "Flexiona la cadera y la columna para acercar el torso a las rodillas.",
+      "Al llegar arriba, el torso queda perpendicular al suelo. Baja solo tres cuartas partes del recorrido.",
+      "Repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Air_Bike",
+    "nombre": "Bicicleta abdominal",
+    "instrucciones": [
+      "Acuéstate boca arriba con la zona lumbar contra el suelo y las manos junto a la cabeza. No fuerces el cuello; eleva los hombros.",
+      "Levanta las piernas con los muslos perpendiculares al suelo y las pantorrillas paralelas a él.",
+      "Pedalea lentamente: extiende la pierna derecha, acerca la rodilla izquierda y lleva el codo derecho hacia ella al exhalar.",
+      "Vuelve al inicio al inhalar.",
+      "Repite hacia el otro lado, acercando el codo izquierdo a la rodilla derecha al exhalar.",
+      "Alterna hasta completar las repeticiones indicadas por lado."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Alternate_Heel_Touchers",
+    "nombre": "Toques alternos de talón",
+    "instrucciones": [
+      "Acuéstate con las rodillas flexionadas, pies apoyados y separados unos 45–60 cm; extiende los brazos a los lados.",
+      "Eleva el torso unos 8–10 cm hacia la derecha y toca el talón derecho. Exhala y mantén un segundo.",
+      "Regresa despacio al inhalar.",
+      "Repite hacia la izquierda y vuelve al inicio. Tocar ambos talones cuenta como una repetición.",
+      "Continúa alternando hasta completar las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Bench_Dips",
+    "nombre": "Fondos de tríceps en banco",
+    "instrucciones": [
+      "Coloca un banco detrás de ti, transversal al cuerpo. Apoya las manos en el borde al ancho de hombros, con los brazos extendidos y las piernas al frente.",
+      "Inhala y baja flexionando los codos hasta formar un ángulo ligeramente menor de 90°. Mantén los codos cerca del cuerpo y los antebrazos hacia abajo.",
+      "Empuja con los tríceps para volver a la posición inicial.",
+      "Repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Bent-Knee_Hip_Raise",
+    "nombre": "Elevación de cadera con rodillas flexionadas",
+    "instrucciones": [
+      "Acuéstate boca arriba con los brazos a los lados.",
+      "Flexiona las rodillas unos 75° y eleva los pies unos 5 cm.",
+      "Exhala y acerca las rodillas conservando ese ángulo; gira la pelvis hacia atrás hasta despegar la cadera y dejar las rodillas sobre el pecho.",
+      "Contrae el abdomen un segundo arriba. Regresa despacio al inhalar, siempre con control.",
+      "Repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Body-Up",
+    "nombre": "Extensión de tríceps desde plancha",
+    "instrucciones": [
+      "Apóyate en puntas de los pies y antebrazos, separados al ancho de hombros. Mantén el torso recto.",
+      "Presiona las palmas contra el suelo y extiende los codos para elevar el cuerpo, sin perder la rigidez del torso.",
+      "Flexiona lentamente los codos hasta volver a apoyar los antebrazos.",
+      "Repite."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Bodyweight_Squat",
+    "nombre": "Sentadilla sin peso",
+    "instrucciones": [
+      "De pie, separa los pies al ancho de hombros. Puedes poner las manos detrás de la cabeza.",
+      "Flexiona rodillas y cadera, llevando la cadera hacia atrás.",
+      "Baja hasta la profundidad que puedas y vuelve de inmediato al inicio. Mantén cabeza y pecho elevados y dirige las rodillas hacia afuera."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Butt_Lift_Bridge",
+    "nombre": "Puente de glúteos",
+    "instrucciones": [
+      "Acuéstate boca arriba con los brazos a los lados, rodillas flexionadas y pies al ancho de hombros.",
+      "Empuja principalmente con los talones para levantar la cadera, conservando la espalda recta. Exhala y sostén un segundo arriba.",
+      "Regresa despacio al inhalar."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Chin-Up",
+    "nombre": "Dominada con palmas hacia ti",
+    "instrucciones": [
+      "Sujeta una barra de dominadas con las palmas hacia ti y las manos a una distancia menor al ancho de hombros.",
+      "Extiende los brazos, conserva el torso lo más recto posible, una ligera curva lumbar y el pecho hacia afuera.",
+      "Exhala y sube hasta que la cabeza esté a la altura de la barra. Usa los bíceps, con los codos cerca del cuerpo y sin balancear el torso; los antebrazos solo sujetan.",
+      "Contrae los bíceps un segundo. Inhala y baja despacio hasta extender los brazos.",
+      "Repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Cocoons",
+    "nombre": "Encogimiento abdominal completo",
+    "instrucciones": [
+      "Acuéstate boca arriba con las piernas rectas y los brazos extendidos detrás de la cabeza.",
+      "Acerca las rodillas al pecho y gira la pelvis para despegar los glúteos. Flexiona la columna y trae los brazos por encima de la cabeza al mismo tiempo.",
+      "Haz una pausa breve y vuelve al inicio."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Cross-Body_Crunch",
+    "nombre": "Abdominal cruzado",
+    "instrucciones": [
+      "Acuéstate boca arriba y flexiona las rodillas unos 60°.",
+      "Apoya los pies en el suelo y coloca las manos suavemente detrás de la cabeza.",
+      "Exhala y eleva el hombro y codo derechos hacia la rodilla izquierda mientras la acercas al hombro. Contrae el abdomen; no te limites a mover el codo.",
+      "Inhala al bajar y repite con el codo izquierdo y la rodilla derecha.",
+      "Continúa alternando hasta completar las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Crunch_-_Hands_Overhead",
+    "nombre": "Abdominal con brazos extendidos sobre la cabeza",
+    "instrucciones": [
+      "Acuéstate con la espalda apoyada y las rodillas flexionadas, con un ángulo de unos 60° entre muslos y pantorrillas.",
+      "Apoya los pies y extiende los brazos sobre la cabeza con las palmas cruzadas.",
+      "Exhala y eleva ligeramente los omóplatos. Mantén los brazos alineados con cabeza, cuello y hombros, sin adelantarlos. Sostén un segundo.",
+      "Baja lentamente al inhalar.",
+      "Repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Crunches",
+    "nombre": "Abdominal corto",
+    "instrucciones": [
+      "Acuéstate boca arriba con los pies apoyados en el suelo o en un banco y rodillas a 90°. Si usas banco, separa los pies 8–10 cm y junta las puntas.",
+      "Apoya las manos suavemente a los lados de la cabeza y mantén los codos hacia adentro. No entrelaces los dedos detrás de la cabeza.",
+      "Presiona la zona lumbar contra el suelo y empieza a elevar los hombros.",
+      "Exhala y contrae el abdomen; eleva los hombros solo unos 10 cm sin despegar la zona lumbar. Mantén un segundo y evita tomar impulso.",
+      "Inhala mientras bajas lentamente.",
+      "Repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Dead_Bug",
+    "nombre": "Bicho muerto",
+    "instrucciones": [
+      "Acuéstate boca arriba con los brazos extendidos hacia el techo.",
+      "Eleva las piernas con caderas y rodillas a 90°.",
+      "Exhala con fuerza, baja las costillas, aplana la espalda contra el suelo y gira la pelvis hacia arriba contrayendo los glúteos. Conserva esa posición.",
+      "Extiende una pierna desde cadera y rodilla hasta dejarla apenas por encima del suelo.",
+      "No cambies la posición lumbar ni de la pelvis; evita arquear la espalda.",
+      "Mantén la tensión y devuelve la pierna al inicio.",
+      "Alterna las piernas hasta completar la serie."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Elbow_to_Knee",
+    "nombre": "Codo a rodilla cruzado",
+    "instrucciones": [
+      "Acuéstate con la pierna derecha cruzada sobre la rodilla izquierda flexionada. Entrelaza las manos detrás de la cabeza y apoya los omóplatos.",
+      "Flexiona la columna y gira el torso para acercar el codo izquierdo a la rodilla derecha.",
+      "Vuelve al inicio y completa las repeticiones antes de cambiar de lado."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Flutter_Kicks",
+    "nombre": "Patadas alternas boca abajo en banco",
+    "instrucciones": [
+      "Acuéstate boca abajo en un banco plano, con la cadera en el borde, piernas rectas y pies elevados. Sujeta el borde delantero con las manos.",
+      "Contrae glúteos y parte posterior de los muslos, y alinea las piernas con la cadera.",
+      "Eleva la pierna izquierda por encima de la derecha.",
+      "Baja la izquierda mientras elevas la derecha.",
+      "Alterna como al nadar hasta completar las repeticiones por pierna. Muévete con control y respira normalmente."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Freehand_Jump_Squat",
+    "nombre": "Sentadilla con salto",
+    "instrucciones": [
+      "Cruza los brazos sobre el pecho.",
+      "Separa los pies al ancho de hombros y mantén cabeza elevada y espalda recta.",
+      "Inhala y baja en sentadilla hasta que los muslos estén paralelos al suelo o más abajo, sin encorvarte.",
+      "Exhala y salta verticalmente lo más alto posible, empujando principalmente con la parte delantera de los pies.",
+      "Al volver al suelo, baja de inmediato en sentadilla y salta otra vez.",
+      "Completa las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Glute_Kickback",
+    "nombre": "Patada de glúteo en cuatro puntos",
+    "instrucciones": [
+      "Apoya manos y rodillas en el suelo o tapete. Separa las manos al ancho de hombros, extiende los brazos, mira al frente y flexiona las rodillas a 90°.",
+      "Exhala y eleva la pierna derecha manteniendo la rodilla a 90°, hasta alinear el muslo con la espalda. Contrae el glúteo y sostén un segundo.",
+      "Inhala al volver al inicio y repite con la pierna izquierda.",
+      "Alterna hasta completar las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Incline_Push-Up",
+    "nombre": "Lagartija inclinada con apoyo elevado",
+    "instrucciones": [
+      "Colócate frente a un banco o plataforma firme. Apoya las manos en el borde, un poco más abiertas que los hombros.",
+      "Lleva los pies hacia atrás y mantén brazos y cuerpo rectos, con los brazos perpendiculares al torso. Flexiona los codos y acerca el pecho al borde.",
+      "Empuja hasta extender los brazos. Repite sin doblar el cuerpo."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Isometric_Chest_Squeezes",
+    "nombre": "Presión de palmas para pecho",
+    "instrucciones": [
+      "Sentado o de pie, flexiona los codos a 90° y junta las palmas delante del pecho, con los dedos al frente.",
+      "Presiona una mano contra la otra y contrae el pecho. Aumenta la tensión gradualmente y respira normalmente.",
+      "Mantén durante los segundos indicados.",
+      "Suelta la tensión lentamente.",
+      "Descansa el tiempo indicado y repite."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Knee_Tuck_Jump",
+    "nombre": "Salto con rodillas al pecho",
+    "instrucciones": [
+      "De pie, flexiona ligeramente las rodillas. Coloca las manos frente al pecho, palmas abajo y puntas de los dedos juntas.",
+      "Baja rápidamente un cuarto de sentadilla y salta, llevando las rodillas hacia las palmas.",
+      "Salta lo más alto posible, vuelve a extender las piernas y aterriza flexionando las rodillas para absorber el impacto."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Leg_Pull-In",
+    "nombre": "Encogimiento de piernas acostado",
+    "instrucciones": [
+      "Acuéstate en un tapete con las piernas extendidas y las palmas junto al cuerpo o debajo de los glúteos.",
+      "Exhala, flexiona las rodillas y acerca los muslos al abdomen hasta llevar las rodillas al pecho. Contrae el abdomen un segundo, con las pantorrillas paralelas al suelo.",
+      "Inhala al regresar al inicio.",
+      "Repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Oblique_Crunches_-_On_The_Floor",
+    "nombre": "Abdominal lateral en el suelo",
+    "instrucciones": [
+      "Acuéstate sobre el costado derecho, con una pierna encima de la otra y las rodillas ligeramente flexionadas.",
+      "Coloca la mano izquierda detrás de la cabeza.",
+      "Eleva el codo izquierdo al contraer el abdomen, enfocando el esfuerzo en los músculos laterales.",
+      "Sube lo que puedas, mantén un segundo y baja lentamente.",
+      "Inhala al bajar y exhala al subir."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Plank",
+    "nombre": "Plancha sobre antebrazos",
+    "instrucciones": [
+      "Colócate boca abajo, apoyando puntas de los pies y antebrazos, con los codos directamente debajo de los hombros.",
+      "Mantén el cuerpo recto y sostén la posición el mayor tiempo posible. La fuente propone elevar un brazo o una pierna para aumentar la dificultad."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Push-Up_Wide",
+    "nombre": "Lagartija con manos abiertas",
+    "instrucciones": [
+      "Adopta una plancha sobre manos y puntas de los pies, con las manos bien separadas y codos extendidos. Mantén el cuerpo recto sin dejar caer la cadera.",
+      "Inhala y flexiona los codos para bajar el pecho hacia el suelo.",
+      "Exhala y empuja con el pecho hasta extender los codos y regresar al inicio.",
+      "Haz una pausa arriba y repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Push-Ups_-_Close_Triceps_Position",
+    "nombre": "Lagartija cerrada para tríceps",
+    "instrucciones": [
+      "Apoya las manos en el suelo a una distancia menor que el ancho de hombros. Sostén el torso con los brazos extendidos.",
+      "Inhala y baja hasta que el pecho casi toque el suelo.",
+      "Exhala y empuja con tríceps y pecho hasta volver al inicio, contrayendo el pecho.",
+      "Haz una pausa de un segundo y repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Pushups",
+    "nombre": "Lagartijas",
+    "instrucciones": [
+      "Apoya las manos en el suelo, separadas unos 90 cm, y sostén el cuerpo con los brazos extendidos.",
+      "Inhala y baja hasta que el pecho casi toque el suelo.",
+      "Exhala y empuja hasta volver al inicio, contrayendo el pecho.",
+      "Haz una pausa breve arriba y repite las veces indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Reverse_Crunch",
+    "nombre": "Abdominal inverso",
+    "instrucciones": [
+      "Acuéstate boca arriba con las piernas extendidas y los brazos a los lados, palmas en el suelo. No muevas los brazos durante el ejercicio.",
+      "Eleva los muslos hasta dejarlos perpendiculares al suelo, con los pies juntos y las pantorrillas paralelas al suelo.",
+      "Inhala y acerca las piernas al torso, girando la pelvis hacia atrás y despegando la cadera hasta llevar las rodillas al pecho.",
+      "Mantén un segundo y regresa las piernas al inicio al exhalar.",
+      "Repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Russian_Twist",
+    "nombre": "Giro ruso",
+    "instrucciones": [
+      "Acuéstate con las rodillas flexionadas y los pies sujetos bajo un objeto inmóvil o por otra persona.",
+      "Eleva el torso formando una V con los muslos. Extiende los brazos al frente, perpendiculares al torso, con las manos juntas.",
+      "Exhala y gira el torso hacia la derecha hasta que los brazos queden paralelos al suelo.",
+      "Mantén un segundo y vuelve al inicio exhalando, como indica la fuente. Repite hacia el lado contrario.",
+      "Completa las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Wrist_Circles",
+    "nombre": "Círculos de muñecas",
+    "instrucciones": [
+      "De pie, separa los pies al ancho de hombros y extiende los brazos a los lados a la altura de hombros, formando una T, con las palmas hacia abajo.",
+      "Mantén el cuerpo quieto y gira ambas muñecas hacia adelante en círculos, como dibujándolos con las manos. Respira normalmente.",
+      "Repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Front_Leg_Raises",
+    "nombre": "Balanceo frontal de pierna",
+    "instrucciones": [
+      "Párate junto a una silla u otro soporte y sujétate con una mano.",
+      "Balancea una pierna recta hacia adelante y después hacia atrás hasta donde permita tu flexibilidad. Repite de 5 a 10 veces y cambia de pierna."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Single_Leg_Glute_Bridge",
+    "nombre": "Puente de glúteo a una pierna",
+    "instrucciones": [
+      "Acuéstate con las rodillas flexionadas y los pies apoyados.",
+      "Eleva una pierna y acerca esa rodilla al pecho.",
+      "Empuja con el talón apoyado y extiende la cadera para despegar los glúteos del suelo.",
+      "Sube lo más que puedas, haz una pausa y vuelve al inicio."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Sit-Up",
+    "nombre": "Abdominal completo",
+    "instrucciones": [
+      "Acuéstate con las rodillas flexionadas y los pies sujetos bajo un objeto inmóvil o por otra persona.",
+      "Coloca las manos detrás de la cabeza con los dedos entrelazados.",
+      "Exhala y eleva el torso formando una V con los muslos.",
+      "Mantén la contracción un segundo y baja al inhalar.",
+      "Repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Spider_Crawl",
+    "nombre": "Escalador lateral tipo araña",
+    "instrucciones": [
+      "Colócate boca abajo, apoyando manos y puntas de los pies, con pies juntos, cuerpo recto y codos flexionados a 90°.",
+      "Despega un pie, gira la pierna hacia afuera y lleva la rodilla hacia el codo lo más adelante posible.",
+      "Vuelve al inicio y repite del otro lado."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Split_Jump",
+    "nombre": "Salto en desplante sin cambiar piernas",
+    "instrucciones": [
+      "Adopta un desplante: un pie adelante, rodilla flexionada y rodilla trasera casi tocando el suelo.",
+      "Alinea la rodilla delantera con el centro del pie.",
+      "Extiende ambas piernas y salta lo más alto posible, ayudándote con los brazos.",
+      "Junta los pies en el aire y sepáralos otra vez a la posición inicial al aterrizar.",
+      "Absorbe el impacto regresando al desplante."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Star_Jump",
+    "nombre": "Salto de estrella",
+    "instrucciones": [
+      "De pie, separa los pies al ancho de hombros y mantén los brazos cerca del cuerpo.",
+      "Baja media sentadilla y salta lo más alto posible, extendiendo el cuerpo y abriendo brazos y piernas.",
+      "Al aterrizar, recoge brazos y piernas y absorbe el impacto flexionando las piernas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Step-up_with_Knee_Raise",
+    "nombre": "Subida a banco con elevación de rodilla",
+    "instrucciones": [
+      "Párate frente a un cajón o banco de altura adecuada, con los pies juntos.",
+      "Apoya el pie izquierdo arriba y extiende esa cadera y rodilla para subir. Al llegar arriba, eleva la rodilla derecha lo más que puedas.",
+      "Invierte el movimiento para bajar y repite con la pierna contraria."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Tuck_Crunch",
+    "nombre": "Abdominal corto con piernas recogidas",
+    "instrucciones": [
+      "Acuéstate boca arriba con la espalda apoyada y brazos a los lados, palmas abajo.",
+      "Cruza un tobillo sobre el otro y eleva las piernas hasta dejar los muslos perpendiculares al suelo, con las rodillas ligeramente flexionadas y las pantorrillas paralelas al suelo.",
+      "Cruza los brazos sobre el pecho.",
+      "Exhala y eleva lentamente el torso sin despegar la zona lumbar.",
+      "Inhala al bajar despacio al inicio.",
+      "Repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Push_Up_to_Side_Plank",
+    "nombre": "Lagartija con plancha lateral",
+    "instrucciones": [
+      "Adopta una posición de lagartija sobre las puntas de los pies, con las manos apenas más abiertas que los hombros.",
+      "Flexiona los codos para hacer una lagartija, manteniendo el cuerpo recto.",
+      "Al subir, carga el peso al lado izquierdo y gira el cuerpo mientras elevas el brazo derecho hacia el techo en plancha lateral.",
+      "Vuelve a apoyar la mano, haz otra lagartija y gira al otro lado.",
+      "Alterna los lados durante 10 repeticiones o más, según la fuente."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Scissors_Jump",
+    "nombre": "Salto de tijera en desplante",
+    "instrucciones": [
+      "Adopta un desplante, con un pie adelante y la rodilla trasera casi tocando el suelo.",
+      "Alinea la rodilla delantera con el centro del pie. Extiende ambas piernas y salta, ayudándote con los brazos.",
+      "En el aire, cambia las piernas: lleva la delantera atrás y la trasera adelante.",
+      "Aterriza en desplante para absorber el impacto y repite."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "90_90_Hamstring",
+    "nombre": "Extensión de rodilla con cadera a 90°",
+    "instrucciones": [
+      "Acuéstate boca arriba con una pierna extendida en el suelo.",
+      "Flexiona la otra cadera y rodilla a 90°. Puedes sostener el muslo con las manos.",
+      "Extiende esa pierna hacia arriba, haz una pausa breve y vuelve al inicio.",
+      "Repite de 10 a 20 veces y cambia de pierna."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Ankle_Circles",
+    "nombre": "Círculos de tobillos",
+    "instrucciones": [
+      "Sujétate de un objeto firme, como un soporte para sentadillas.",
+      "Eleva el pie derecho unos 5 cm y dibuja círculos amplios con el dedo gordo. Cada círculo cuenta como una repetición; respira normalmente.",
+      "Completa las repeticiones y cambia de pie."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Calf_Stretch_Hands_Against_Wall",
+    "nombre": "Estiramiento de pantorrilla contra pared",
+    "instrucciones": [
+      "Párate frente a una pared, a cierta distancia, con un pie más adelantado que el otro.",
+      "Inclínate y apoya las manos en la pared, alineando talón, cadera y cabeza.",
+      "Mantén el talón en el suelo de 10 a 20 segundos y cambia de lado."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Cat_Stretch",
+    "nombre": "Estiramiento del gato",
+    "instrucciones": [
+      "Apoya manos y rodillas en el suelo.",
+      "Mete el abdomen y redondea columna, zona lumbar, hombros y cuello, dejando caer la cabeza.",
+      "Mantén 15 segundos."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Childs_Pose",
+    "nombre": "Postura del niño",
+    "instrucciones": [
+      "Apoya manos y rodillas y camina con las manos hacia adelante.",
+      "Lleva los glúteos hacia los talones, dejando deslizar los brazos por el suelo para estirar la columna.",
+      "Ya sentado sobre los talones, lleva las manos junto a los pies, relájate y respira hacia la espalda. Apoya la frente en el suelo. Evita esta posición si tienes problemas de rodillas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Chin_To_Chest_Stretch",
+    "nombre": "Estiramiento de barbilla al pecho",
+    "instrucciones": [
+      "Siéntate en el suelo.",
+      "Coloca las manos detrás de la cabeza, dedos entrelazados, pulgares hacia abajo y codos al frente. Lleva lentamente la cabeza hacia el pecho con ayuda de las manos. Mantén de 20 a 30 segundos."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Dynamic_Chest_Stretch",
+    "nombre": "Apertura dinámica de pecho",
+    "instrucciones": [
+      "De pie, junta las manos al frente con los brazos extendidos.",
+      "Sin doblar los brazos, ábrelos hacia atrás lo más posible y vuelve al frente, como una palmada exagerada. Repite de 5 a 10 veces aumentando la velocidad."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Hamstring_Stretch",
+    "nombre": "Estiramiento posterior de muslo con cinta",
+    "instrucciones": [
+      "Acuéstate boca arriba con una pierna elevada y la cadera a 90°. Deja la otra pierna apoyada en el suelo.",
+      "Pasa un cinturón, banda o cuerda por la parte delantera de la planta del pie elevado.",
+      "Tira de la cinta hasta sentir tensión en pantorrilla y parte posterior del muslo. Mantén de 10 a 30 segundos y cambia de pierna."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Hug_Knees_To_Chest",
+    "nombre": "Rodillas al pecho",
+    "instrucciones": [
+      "Acuéstate boca arriba y acerca ambas rodillas al pecho.",
+      "Sostén por debajo de las rodillas, no por encima, para no presionar las articulaciones.",
+      "Acerca lentamente las rodillas hacia los hombros para estirar también los glúteos."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Inchworm",
+    "nombre": "Caminata de gusano",
+    "instrucciones": [
+      "De pie, junta los pies. Con las piernas rectas, inclínate y apoya las manos en el suelo frente a ti.",
+      "Camina lentamente con las manos hacia adelante, alternándolas y flexionando solo la cadera, sin doblar las piernas.",
+      "Avanza hasta quedar en posición de lagartija, con el cuerpo paralelo al suelo.",
+      "Mantén las manos quietas y acerca los pies con pasos cortos de pocos centímetros.",
+      "Continúa hasta llevar los pies junto a las manos, manteniendo las piernas rectas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Kneeling_Hip_Flexor",
+    "nombre": "Estiramiento de flexor de cadera de rodillas",
+    "instrucciones": [
+      "Arrodíllate en un tapete. Adelanta el pie derecho y apoya la planta; extiende la pierna izquierda atrás con el empeine en el suelo.",
+      "Desplaza el peso hacia adelante hasta sentir el estiramiento en la cadera. Mantén 15 segundos y cambia de lado."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "On_Your_Side_Quad_Stretch",
+    "nombre": "Estiramiento de cuádriceps de lado",
+    "instrucciones": [
+      "Acuéstate sobre el costado derecho con la rodilla derecha flexionada a 90° y apoyada delante del cuerpo para estabilizarte.",
+      "Flexiona la rodilla izquierda hacia atrás y sujeta el pie con la mano izquierda. Lleva la cadera izquierda hacia adelante y empuja el pie contra la mano para estirar el flexor de cadera. Cambia de lado."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Shoulder_Circles",
+    "nombre": "Círculos de hombros",
+    "instrucciones": [
+      "Relaja los hombros y deja los brazos a los lados, o sobre el regazo si estás sentado. Gira suavemente los hombros hacia adelante, arriba, atrás y abajo.",
+      "Invierte el sentido. Puedes alternar los hombros o mover ambos a la vez."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Shoulder_Stretch",
+    "nombre": "Estiramiento de hombro cruzado",
+    "instrucciones": [
+      "Cruza el brazo izquierdo por delante del cuerpo y mantenlo recto."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Side_Neck_Stretch",
+    "nombre": "Estiramiento lateral de cuello",
+    "instrucciones": [
+      "Relaja los hombros e inclina suavemente la cabeza hacia uno de ellos.",
+      "Ayuda al estiramiento con un tirón suave en el costado de la cabeza."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Standing_Hip_Circles",
+    "nombre": "Círculos de cadera de pie",
+    "instrucciones": [
+      "Párate sobre una pierna y sujétate de un soporte vertical.",
+      "Eleva la rodilla libre a 90°.",
+      "Abre la cadera lo más posible, intentando dibujar un círculo amplio con la rodilla.",
+      "Haz varias repeticiones lentamente y cambia de lado."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Standing_Toe_Touches",
+    "nombre": "Flexión de tronco de pie",
+    "instrucciones": [
+      "Párate con espacio delante y detrás.",
+      "Flexiona la cintura con las piernas rectas y deja colgar el torso al frente, con brazos y manos relajados. Mantén de 10 a 20 segundos."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Triceps_Stretch",
+    "nombre": "Estiramiento de tríceps sobre la cabeza",
+    "instrucciones": [
+      "Lleva una mano detrás de la cabeza, sujeta el codo con la otra y tira suavemente. Mantén de 10 a 20 segundos y cambia de lado."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Superman",
+    "nombre": "Superman en el suelo",
+    "instrucciones": [
+      "Acuéstate boca abajo en el suelo o tapete, con el cuerpo recto y los brazos extendidos al frente.",
+      "Exhala y eleva a la vez brazos, piernas y pecho. Contrae la espalda baja y mantén dos segundos, como si volaras.",
+      "Inhala y baja lentamente brazos, piernas y pecho al inicio.",
+      "Repite las repeticiones indicadas en tu programa."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Bent_Over_Two-Dumbbell_Row",
+    "nombre": "Remo inclinado con dos mancuernas",
+    "instrucciones": [
+      "Sujeta una mancuerna en cada mano, palmas hacia el torso. Flexiona ligeramente las rodillas e inclina el torso casi paralelo al suelo, con espalda recta y cabeza elevada. Deja colgar los brazos.",
+      "Exhala y sube las mancuernas a los lados del cuerpo, sin mover el torso y con los codos cerca de él. Los antebrazos solo sujetan; contrae la espalda un segundo arriba.",
+      "Inhala y baja las mancuernas lentamente.",
+      "Repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Dumbbell_Alternate_Bicep_Curl",
+    "nombre": "Curl alterno de bíceps con mancuernas",
+    "instrucciones": [
+      "De pie y con el torso erguido, sujeta una mancuerna en cada mano. Mantén los codos cerca del cuerpo y las palmas hacia los muslos.",
+      "Sin mover el brazo superior, flexiona el codo derecho y gira la palma hacia adelante. Exhala y sube hasta el hombro; contrae el bíceps un segundo. Solo se mueve el antebrazo.",
+      "Inhala y baja lentamente, girando la palma otra vez hacia el muslo.",
+      "Repite con el brazo izquierdo; ambos lados cuentan como una repetición.",
+      "Continúa alternando hasta completar las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Dumbbell_Lunges",
+    "nombre": "Desplantes con mancuernas",
+    "instrucciones": [
+      "Párate erguido con una mancuerna en cada mano a los lados.",
+      "Da un paso de unos 60 cm con la pierna derecha. Inhala al bajar, manteniendo el torso erguido y el equilibrio. La fuente indica mantener la espinilla delantera vertical y la rodilla sin rebasar los dedos del pie.",
+      "Exhala y empuja principalmente con el talón para volver al inicio.",
+      "Completa las repeticiones y después cambia a la pierna izquierda."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Dumbbell_Shrug",
+    "nombre": "Encogimiento de hombros con mancuernas",
+    "instrucciones": [
+      "Párate erguido con una mancuerna en cada mano, palmas hacia el cuerpo y brazos extendidos a los lados.",
+      "Exhala y eleva los hombros lo más posible. Mantén un segundo. Deja los brazos rectos y no ayudes con los bíceps; solo suben y bajan los hombros.",
+      "Baja las mancuernas al inicio.",
+      "Repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Dumbbell_Squat",
+    "nombre": "Sentadilla con mancuernas",
+    "instrucciones": [
+      "Párate erguido con una mancuerna en cada mano y las palmas hacia los costados de las piernas.",
+      "Separa los pies al ancho de hombros, con las puntas ligeramente hacia afuera. Mantén la cabeza elevada y la espalda recta.",
+      "Baja lentamente flexionando las rodillas hasta que los muslos estén paralelos al suelo. La fuente indica mantener las rodillas alineadas con las puntas de los pies, sin adelantarlas.",
+      "Exhala y empuja principalmente con los talones para extender las piernas y volver al inicio.",
+      "Repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Front_Dumbbell_Raise",
+    "nombre": "Elevación frontal alterna con mancuernas",
+    "instrucciones": [
+      "De pie, mantén el torso recto y sujeta las mancuernas frente a los muslos, con brazos extendidos y palmas hacia ellos.",
+      "Sin balancear el torso, eleva la mancuerna izquierda al frente con el codo ligeramente flexionado y la palma abajo. Sube un poco más allá de la horizontal, exhala y pausa un segundo. Después inhala.",
+      "Baja lentamente la izquierda mientras elevas la derecha.",
+      "Alterna hasta completar las repeticiones por brazo."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "One-Arm_Dumbbell_Row",
+    "nombre": "Remo con mancuerna a un brazo",
+    "instrucciones": [
+      "Coloca una mancuerna a cada lado de un banco plano.",
+      "Apoya la rodilla derecha en un extremo del banco y la mano derecha en el otro. Inclina el torso desde la cintura hasta dejarlo paralelo al suelo.",
+      "Sujeta la mancuerna con la mano izquierda, palma hacia el cuerpo y espalda baja recta.",
+      "Exhala y sube la mancuerna junto al pecho, con el codo cerca del cuerpo y el torso quieto. Contrae la espalda; el antebrazo solo sujeta el peso.",
+      "Inhala y baja la mancuerna en línea recta.",
+      "Completa las repeticiones indicadas.",
+      "Cambia de lado y repite con el otro brazo."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Seated_Dumbbell_Press",
+    "nombre": "Press de hombros sentado con mancuernas",
+    "instrucciones": [
+      "Siéntate en un banco con respaldo, con una mancuerna apoyada verticalmente sobre cada muslo.",
+      "Ayúdate con los muslos para subir las mancuernas, una a la vez, hasta la altura de los hombros.",
+      "Gira las muñecas para que las palmas miren al frente.",
+      "Exhala y empuja las mancuernas arriba hasta que se toquen.",
+      "Pausa un segundo e inhala al bajar lentamente al inicio.",
+      "Repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Stiff-Legged_Dumbbell_Deadlift",
+    "nombre": "Peso muerto con mancuernas y piernas semirrígidas",
+    "instrucciones": [
+      "Sujeta una mancuerna en cada mano con los brazos extendidos a los lados.",
+      "Párate con el torso recto, pies al ancho de hombros o algo más juntos y rodillas ligeramente flexionadas.",
+      "Sin cambiar la flexión de rodillas, inclina la cintura con la espalda recta y baja las mancuernas hacia los pies hasta sentir estiramiento en la parte posterior de los muslos. Exhala al bajar, como indica la fuente.",
+      "Inhala y extiende cadera y cintura para volver a erguirte.",
+      "Repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Tricep_Dumbbell_Kickback",
+    "nombre": "Patada de tríceps con mancuernas",
+    "instrucciones": [
+      "Sujeta una mancuerna por mano, palmas hacia el cuerpo. Flexiona un poco las rodillas e inclina el torso casi paralelo al suelo, con espalda recta y cabeza elevada. Mantén los brazos superiores pegados al torso y horizontales, con codos a 90° y antebrazos hacia abajo.",
+      "Exhala y extiende los codos con los tríceps, sin mover los brazos superiores; solo se mueven los antebrazos.",
+      "Pausa arriba, inhala y baja lentamente al inicio.",
+      "Repite las repeticiones indicadas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Bicycling",
+    "nombre": "Ciclismo",
+    "instrucciones": [
+      "Siéntate en la bicicleta y ajusta el asiento a tu altura."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Bicycling_Stationary",
+    "nombre": "Bicicleta fija",
+    "instrucciones": [
+      "Siéntate en la bicicleta y ajusta el asiento a tu altura.",
+      "Selecciona modo manual o un programa; quizá debas pedalear para encenderla. Puedes ingresar edad y peso para la estimación de la máquina y ajustar la resistencia durante la sesión. Usa los sensores de pulso de los manubrios para vigilar la intensidad."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Elliptical_Trainer",
+    "nombre": "Elíptica",
+    "instrucciones": [
+      "Sube a la elíptica y elige modo manual o un programa. Si la máquina lo permite, ingresa edad y peso para su estimación y ajusta la elevación para modificar la intensidad.",
+      "Puedes usar los sensores de los manubrios para vigilar el pulso y la intensidad."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Jogging_Treadmill",
+    "nombre": "Trote en caminadora",
+    "instrucciones": [
+      "Sube a la caminadora y elige modo manual o un programa. Puedes ingresar edad y peso para la estimación de la máquina y ajustar la inclinación para modificar la intensidad.",
+      "Mantén una postura adecuada al trotar. Sujeta los pasamanos solo cuando lo necesites, por ejemplo al bajar o revisar el pulso."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Recumbent_Bike",
+    "nombre": "Bicicleta fija reclinada",
+    "instrucciones": [
+      "Siéntate en la bicicleta y ajusta el asiento a tu altura.",
+      "Selecciona modo manual o un programa; quizá debas pedalear para encenderla. Puedes ingresar edad y peso para la estimación de la máquina y cambiar la resistencia durante la sesión. Usa los sensores de pulso de los manubrios para vigilar la intensidad."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Rope_Jumping",
+    "nombre": "Salto de cuerda",
+    "instrucciones": [
+      "Sujeta un extremo de la cuerda con cada mano y colócala detrás de ti en el suelo. Gírala sobre la cabeza y al frente; cuando llegue al suelo, salta sobre ella. Busca un ritmo sostenible; puedes variar velocidad y técnica."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Rowing_Stationary",
+    "nombre": "Remo en máquina",
+    "instrucciones": [
+      "Siéntate en la máquina de remo con los talones cómodamente apoyados y las correas ajustadas. Elige un programa si corresponde. Siéntate erguido e inclínate desde la cadera.",
+      "Comienza con rodillas flexionadas cerca del pecho y torso ligeramente inclinado al frente, sin perder postura. Empuja los pedales, extiende las piernas y lleva las manos al abdomen superior, juntando los omóplatos. Usa principalmente piernas y cadera para no forzar la espalda.",
+      "Para volver, extiende los brazos, flexiona las rodillas y desplaza el cuerpo hacia adelante hasta la posición inicial."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Running_Treadmill",
+    "nombre": "Carrera en caminadora",
+    "instrucciones": [
+      "Sube a la caminadora y elige modo manual o un programa. Puedes ingresar edad y peso para la estimación de la máquina y ajustar la inclinación para modificar la intensidad.",
+      "Mantén una postura adecuada al correr. Sujeta los pasamanos solo cuando lo necesites, por ejemplo al bajar o revisar el pulso."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Trail_Running_Walking",
+    "nombre": "Caminata o carrera en sendero",
+    "instrucciones": [
+      "Usa calzado adecuado. Al bajar una pendiente, da pasos más cortos, mantén las rodillas flexionadas para reducir el impacto y disminuye la velocidad para evitar caídas."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  },
+  {
+    "id": "Walking_Treadmill",
+    "nombre": "Caminata en caminadora",
+    "instrucciones": [
+      "Sube a la caminadora y elige modo manual o un programa. Puedes ingresar edad y peso para la estimación de la máquina y ajustar la inclinación para modificar la intensidad.",
+      "Camina a paso moderado o rápido, manteniendo una postura adecuada. Usa los pasamanos solo cuando sea necesario, por ejemplo al bajar o revisar el pulso."
+    ],
+    "source_ref": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+  }
+]

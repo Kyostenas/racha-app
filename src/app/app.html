@@ -1,0 +1,692 @@
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<header class="masthead">
+  <a class="brand" href="./" aria-label="Racha, inicio">RACHA<span class="brand-square"></span></a
+  ><span class="edition">TU RITMO.<br />TUS REGLAS.</span>
+</header>
+<div class="medical-note" role="note">Prototipo educativo. No sustituye a tu médico.</div>
+<main id="contenido">
+  @if (error()) {
+    <div class="notice error" role="alert">{{ error() }}</div>
+  }
+  @if (message()) {
+    <div class="notice" role="status">{{ message() }}</div>
+  }
+  @if (!ready()) {
+    <section class="panel">
+      <h1>Un momento.</h1>
+      <p>Preparando tus cuadritos.</p>
+    </section>
+    <button class="quiet" (click)="reset()">Borrar datos locales e intentar de nuevo</button>
+  } @else {
+    @switch (page()) {
+      @case ('inicio') {
+        <div class="onboarding-layout">
+          <aside class="intro-art" aria-hidden="true">
+            <div class="art-label">PEQUEÑOS PASOS.<br />GRANDES RACHAS.</div>
+            <div class="pixel-art">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <span>01 — EMPIEZA POR HOY</span>
+          </aside>
+          <section class="onboarding">
+            <div class="eyebrow">BIENVENIDA / {{ step() }} DE 3</div>
+            <div class="steps" aria-hidden="true">
+              <i [class.active]="step() >= 1"></i><i [class.active]="step() >= 2"></i
+              ><i [class.active]="step() >= 3"></i>
+            </div>
+            @if (step() === 1) {
+              <h1>Haz espacio<br />para ti.</h1>
+              <p class="lede">Sin perfección. Sin regaños.<br />Un cuadrito a la vez.</p>
+              <fieldset>
+                <legend>¿Qué te gustaría?</legend>
+                <div class="choices">
+                  @for (goal of ['bajar', 'mantener', 'subir']; track goal) {
+                    <button
+                      [class.selected]="form.intencion === goal"
+                      (click)="form.intencion = goal"
+                    >
+                      {{ goal }} de peso
+                    </button>
+                  }
+                </div>
+              </fieldset>
+              <label class="check"
+                ><input type="checkbox" [(ngModel)]="form.dormirMejor" /> También quiero dormir
+                mejor</label
+              >
+              <div class="panel privacy">
+                <h2>Tu privacidad, en 3 líneas.</h2>
+                <ol>
+                  <li>Tu información vive en este dispositivo.</li>
+                  <li>No hay cuentas ni rastreadores.</li>
+                  <li>Tú decides borrarla o activar IA externa.</li>
+                </ol>
+              </div>
+              <label class="check"
+                ><input type="checkbox" [(ngModel)]="form.consentimiento" /> Acepto el uso local de
+                mis datos para este prototipo.</label
+              >
+            }
+            @if (step() === 2) {
+              <h1>Solo<br />lo mínimo.</h1>
+              <p class="lede">Este prototipo es para mayores de 18 años.</p>
+              <div class="field-grid">
+                <label
+                  >Edad (años)<input
+                    type="number"
+                    min="18"
+                    max="100"
+                    [(ngModel)]="form.edad" /></label
+                ><label
+                  >Estatura (cm)<input
+                    type="number"
+                    min="100"
+                    max="230"
+                    [(ngModel)]="form.estatura" /></label
+                ><label
+                  >Peso (kg)<input type="number" min="30" max="300" [(ngModel)]="form.peso"
+                /></label>
+              </div>
+              <details>
+                <summary>¿Por qué te lo pido?</summary>
+                <p>
+                  Solo para una estimación opcional de energía en reposo, no para prescribir una
+                  dieta. No compartimos estos datos.
+                </p>
+                <p>
+                  La ecuación de 1990 usa dos coeficientes fisiológicos. Puedes omitir el cálculo.
+                </p>
+              </details>
+              <label
+                >Coeficiente para estimación opcional<select [(ngModel)]="form.coeficiente">
+                  <option value="no-calcular">Prefiero no calcular</option>
+                  <option value="mujer">Mujer (ecuación original)</option>
+                  <option value="hombre">Hombre (ecuación original)</option>
+                </select></label
+              >
+            }
+            @if (step() === 3) {
+              <h1>Con lo que<br />ya tienes.</h1>
+              <label
+                >Alergias (separadas por coma)<input
+                  [(ngModel)]="form.alergias"
+                  maxlength="300"
+                  placeholder="Ej. huevo, leche, cacahuate"
+              /></label>
+              <p class="small">
+                Una alergia que no podamos reconocer bloquea las recetas. Revisa la etiqueta, este
+                dato es aproximado. No sustituye a tu médico. Los alérgenos son inferidos; no
+                garantizan ausencia de trazas.
+              </p>
+              <label class="check"
+                ><input
+                  type="checkbox"
+                  [ngModel]="form.consentimientoSalud"
+                  (ngModelChange)="healthConsentChanged($event)"
+                />
+                Acepto guardar padecimientos y medicamentos, opcionales, solo aquí.</label
+              >
+              @if (form.consentimientoSalud) {
+                <label
+                  >Padecimientos (opcional)<input
+                    [(ngModel)]="form.padecimientos"
+                    maxlength="300" /></label
+                ><label
+                  >Medicamentos (opcional)<input [(ngModel)]="form.medicamentos" maxlength="300"
+                /></label>
+                <p class="small">
+                  No calculamos interacciones ni tratamos enfermedades. Consulta a tu médico.
+                </p>
+              }
+              <fieldset>
+                <legend>Elige al menos 3 ingredientes</legend>
+                <label
+                  >Buscar alimento<input
+                    [(ngModel)]="pantrySearch"
+                    placeholder="Arroz, huevo, tomate…"
+                /></label>
+                <div class="chips pantry">
+                  @for (food of pantryChoices(); track food.id) {
+                    <button
+                      [class.selected]="pantry.includes(food.id)"
+                      [attr.aria-pressed]="pantry.includes(food.id)"
+                      (click)="chooseIngredient(food.id)"
+                    >
+                      {{ food.nombre }}
+                    </button>
+                  }
+                </div>
+                <p class="small">
+                  {{ pantry.length }} elegidos. Los estados importan: crudo y cocido son alimentos
+                  distintos.
+                </p>
+              </fieldset>
+            }
+            <div class="actions">
+              @if (step() > 1) {
+                <button class="quiet" (click)="step.set(step() - 1)">Atrás</button>
+              }
+              <button class="primary" (click)="next()">
+                {{ step() === 3 ? 'Crear mi primer día' : 'Continuar' }}
+                <span aria-hidden="true" class="material-symbols-sharp">arrow_forward</span>
+              </button>
+            </div>
+          </section>
+        </div>
+      }
+      @case ('primer-dia') {
+        <section class="first-day">
+          <div class="eyebrow">YA DISTE EL PRIMER PASO</div>
+          <h1>Tu primer día.</h1>
+          <p class="lede">Tres ideas pequeñas. Tú eliges por dónde empezar.</p>
+          <div class="big-number">0<span>DÍAS DE RACHA</span></div>
+          <div class="habit-list">
+            @for (h of habits(); track h.id) {
+              <div class="habit">
+                <span aria-hidden="true" class="material-symbols-sharp">{{ h.icono }}</span
+                ><strong>{{ h.nombre }}</strong
+                ><span class="square"></span>
+              </div>
+            }
+          </div>
+          <button class="primary" (click)="navigate('hoy')">
+            Empezar <span aria-hidden="true" class="material-symbols-sharp">arrow_forward</span>
+          </button>
+        </section>
+      }
+      @case ('hoy') {
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow">HOY / {{ today }}</div>
+            <h1>Un paso<br />sí cuenta.</h1>
+          </div>
+          <span class="stamp">SIN PRISA.<br />SIN CULPA.</span>
+        </div>
+        <div class="bento">
+          <section class="panel streak-panel">
+            <div class="eyebrow">TU CONSTANCIA</div>
+            <div class="big-number" data-testid="streak">
+              {{ streak() }}<span>{{ streak() === 1 ? 'DÍA DE RACHA' : 'DÍAS DE RACHA' }}</span>
+            </div>
+            <p>No necesitas hacerlo todo.<br />Un hábito al día mantiene tu racha.</p>
+            <div class="mini-squares" aria-hidden="true">
+              @for (d of days.slice(-7); track d) {
+                <i [class.filled]="countDay(d) > 0"></i>
+              }
+            </div>
+          </section>
+          <section class="panel habits-panel">
+            <div class="eyebrow">TUS CUADRITOS / {{ completed() }} DE {{ habits().length }}</div>
+            <h2>Lo pequeño se suma.</h2>
+            <div class="habit-list">
+              @for (h of habits(); track h.id) {
+                <button
+                  class="habit"
+                  [class.done]="done(h.id)"
+                  [attr.aria-pressed]="done(h.id)"
+                  (click)="toggleHabit(h.id)"
+                >
+                  <span aria-hidden="true" class="material-symbols-sharp">{{ h.icono }}</span
+                  ><strong>{{ h.nombre }}</strong
+                  ><span class="square">{{ done(h.id) ? '✓' : '' }}</span>
+                </button>
+              }
+            </div>
+            <p class="small">Puedes desmarcar sin perder tus otros registros.</p>
+          </section>
+          <section class="panel plan-preview">
+            <span aria-hidden="true" class="material-symbols-sharp big-icon">skillet</span>
+            <div>
+              <div class="eyebrow">TU DESPENSA TIENE POTENCIAL</div>
+              <h2>{{ recipe()?.nombre ?? 'Arma tu siguiente comida' }}</h2>
+              <p>Con lo que tienes. Con fuentes, no con promesas.</p>
+              <button class="primary" (click)="navigate('plan')">
+                Ver mi plan
+                <span aria-hidden="true" class="material-symbols-sharp">arrow_forward</span>
+              </button>
+            </div>
+          </section>
+          @if (total() > 0) {
+            <button class="panel achievement-link" (click)="navigate('logro')">
+              <span aria-hidden="true" class="material-symbols-sharp">workspace_premium</span
+              ><strong>Un logro tuyo.</strong><span>Ver mi tarjeta →</span>
+            </button>
+          }
+        </div>
+      }
+      @case ('plan') {
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow">PLAN / SIN IA POR DEFECTO</div>
+            <h1>Tu despensa.<br />Tu siguiente paso.</h1>
+          </div>
+          <span class="stamp">HECHO CON<br />LO QUE HAY.</span>
+        </div>
+        @if (profile()?.padecimientos || profile()?.medicamentos) {
+          <div class="notice">
+            No adaptamos recetas a enfermedades ni medicamentos. Revisa este plan con tu profesional
+            de salud.
+          </div>
+        }
+        <div class="plan-layout">
+          <section>
+            @if (recipe(); as r) {
+              <article class="panel recipe">
+                <div class="recipe-art" aria-hidden="true">
+                  <span aria-hidden="true" class="material-symbols-sharp">skillet</span
+                  ><span>DE TU DESPENSA<br />A TU MESA.</span>
+                </div>
+                <div class="eyebrow">RECETA CURADA / 1 PORCIÓN ORIENTATIVA</div>
+                <h2>{{ r.nombre }}</h2>
+                <ul class="ingredients">
+                  @for (i of r.ingredientes; track i.alimento) {
+                    <li>
+                      <strong>{{ i.gramos }} g</strong> {{ ingredientName(i.alimento) }}
+                    </li>
+                  }
+                </ul>
+                <ol class="method">
+                  @for (paso of r.pasos; track $index) {
+                    <li>{{ paso }}</li>
+                  }
+                </ol>
+                <p class="small">
+                  Energía aproximada de ingredientes: {{ energy(r) ?? 'sin dato' }}
+                  {{ energy(r) !== null ? 'kcal' : '' }}. No es una meta diaria.
+                </p>
+              </article>
+              <section class="panel sources">
+                <h2>Fuentes y método</h2>
+                <p>
+                  <strong
+                    >Revisa la etiqueta, este dato es aproximado. No sustituye a tu médico.</strong
+                  >
+                  Los alérgenos del catálogo son inferidos, no certificados. Un listado vacío no
+                  garantiza seguridad.
+                </p>
+                <p>
+                  Reglas v1: solo ingredientes presentes, sin alergias declaradas; porciones
+                  ilustrativas. No es una dieta clínica ni garantía contra trazas.
+                </p>
+                <ul>
+                  @for (url of r.source_ref; track url) {
+                    <li>
+                      <a [href]="url" target="_blank" rel="noopener noreferrer"
+                        >Fuente de preparación ↗</a
+                      >
+                    </li>
+                  }
+                  @for (i of r.ingredientes; track i.alimento) {
+                    <li>
+                      @for (f of foods(); track f.id) {
+                        @if (f.id === i.alimento) {
+                          <a [href]="f.source_ref" target="_blank" rel="noopener noreferrer"
+                            >USDA · {{ f.nombre }} ↗</a
+                          >
+                          <p class="small">
+                            Por 100 g · Proteína: {{ formatNutrient(f.proteina100g) }} ·
+                            Carbohidratos: {{ formatNutrient(f.carbohidratos100g) }} · Grasa:
+                            {{ formatNutrient(f.grasa100g) }} · Fibra:
+                            {{ formatNutrient(f.fibra100g) }} · Azúcares:
+                            {{ formatNutrient(f.azucares100g) }}
+                          </p>
+                        }
+                      }
+                    </li>
+                  }
+                </ul>
+                <p>
+                  La preparación es una propuesta original de Racha; los enlaces de preparación
+                  sustentan técnicas e inocuidad, no son recetas copiadas.
+                </p>
+                @if (basal(); as basal) {
+                  <p>
+                    <strong>{{ basal }} kcal/día en reposo.</strong> Estimación orientativa
+                    Mifflin–St Jeor; NO gasto total, objetivo de ingesta ni recomendación para bajar
+                    de peso.
+                  </p>
+                } @else {
+                  <p>
+                    Estimación de energía en reposo omitida: es opcional y no se ofrece con
+                    padecimientos o medicamentos declarados.
+                  </p>
+                }
+                <a [href]="mifflinSource" target="_blank" rel="noopener noreferrer"
+                  >Mifflin et al., 1990 ↗</a
+                >
+              </section>
+            } @else {
+              <section class="panel">
+                <span aria-hidden="true" class="material-symbols-sharp big-icon">grocery</span>
+                <h2>No hay receta que pase las reglas.</h2>
+                <p>
+                  Prueba agregar ingredientes. Si declaraste una alergia desconocida, no adivinamos:
+                  consulta a un profesional.
+                </p>
+                <p class="small">
+                  Ideas de despensa: arroz blanco cocido + huevo entero crudo + tomate rojo crudo; o
+                  avena cruda + plátano + manzana. Elige las variantes exactas disponibles.
+                </p>
+              </section>
+            }
+            @if (suggestions().length > 1) {
+              <label
+                >Otras opciones seguras<select
+                  [ngModel]="recipe()?.id"
+                  (ngModelChange)="selectedRecipe.set($event)"
+                >
+                  @for (r of suggestions(); track r.id) {
+                    <option [value]="r.id">{{ r.nombre }}</option>
+                  }
+                </select></label
+              >
+            }
+          </section>
+          <aside>
+            <section class="panel">
+              <h2>Lo que hay en casa.</h2>
+              <label
+                >Buscar en catálogo<input
+                  [(ngModel)]="pantrySearch"
+                  placeholder="Busca un ingrediente"
+              /></label>
+              <div class="chips pantry">
+                @for (f of pantryChoices(); track f.id) {
+                  <button
+                    [class.selected]="pantry.includes(f.id)"
+                    [attr.aria-pressed]="pantry.includes(f.id)"
+                    (click)="chooseIngredient(f.id)"
+                  >
+                    {{ f.nombre }}
+                  </button>
+                }
+              </div>
+              <details>
+                <summary>{{ pantry.length }} ingredientes seleccionados</summary>
+                <ul>
+                  @for (id of pantry; track id) {
+                    <li>{{ ingredientName(id) }}</li>
+                  }
+                </ul>
+              </details>
+              <button class="primary" (click)="savePantry()">Actualizar despensa</button>
+            </section>
+            @if (exercise(); as exercise) {
+              <section class="panel">
+                <div class="eyebrow">MOVIMIENTO A TU RITMO</div>
+                <label
+                  >Explorar ejercicios (no es una rutina)<select
+                    [ngModel]="selectedExercise()"
+                    (ngModelChange)="selectedExercise.set($event)"
+                  >
+                    @for (e of exercises(); track e.id) {
+                      <option [value]="e.id">{{ e.nombre }}</option>
+                    }
+                  </select></label
+                >
+                <h2>{{ exercise.nombre }}</h2>
+                <p>
+                  Solo si te resulta cómodo. Detente si hay dolor y consulta antes de empezar si
+                  tienes una condición médica.
+                </p>
+                <ol>
+                  @for (instruction of exercise.instrucciones; track $index) {
+                    <li>{{ instruction }}</li>
+                  }
+                </ol>
+                <a [href]="exercise.source_ref" target="_blank" rel="noopener noreferrer"
+                  >Fuente del ejercicio ↗</a
+                >
+              </section>
+            }
+            @if (settings().ia === 'propia') {
+              <section class="panel">
+                <h2>IA opcional</h2>
+                <p>
+                  Solo enviamos nombres e identificadores de recetas permitidas. No peso, edad,
+                  padecimientos ni medicamentos.
+                </p>
+                <button [disabled]="busy() || suggestions().length === 0" (click)="suggestAi()">
+                  {{ busy() ? 'Validando…' : 'Pedir sugerencia y validar' }}
+                </button>
+              </section>
+            }
+          </aside>
+        </div>
+      }
+      @case ('progreso') {
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow">PROGRESO / CADA CUADRITO CUENTA</div>
+            <h1>Ve todo<br />lo que sumaste.</h1>
+          </div>
+        </div>
+        <div class="bento">
+          <section class="panel heatmap-panel">
+            <h2>42 días, a tu ritmo.</h2>
+            <div class="heatmap" role="list" aria-label="Calendario de hábitos">
+              @for (d of days; track d) {
+                <div
+                  role="listitem"
+                  [class.filled]="countDay(d) > 0"
+                  [attr.aria-label]="d + ': ' + countDay(d) + ' hábitos'"
+                  [title]="d + ': ' + countDay(d) + ' hábitos'"
+                >
+                  {{ countDay(d) > 0 ? '✓' : '' }}
+                </div>
+              }
+            </div>
+            <p class="small">
+              □ Sin registro &nbsp; ■ Al menos un hábito hecho. Sin días de ejemplo ni progreso
+              inventado.
+            </p>
+          </section>
+          <section class="panel">
+            <div class="big-number">{{ streak() }}<span>DÍAS DE RACHA</span></div>
+            <h2>{{ total() }} pasos registrados.</h2>
+            <p>Descansar también es cuidarte. Tu historial se queda contigo.</p>
+            <button class="primary" [disabled]="total() === 0" (click)="navigate('logro')">
+              Ver mi logro
+            </button>
+          </section>
+        </div>
+      }
+      @case ('logro') {
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow">LOGRO / SOLO LO QUE QUIERES CONTAR</div>
+            <h1>Esto sí<br />se comparte.</h1>
+          </div>
+        </div>
+        <div class="share-layout">
+          <section class="achievement-card" data-testid="achievement">
+            <div class="eyebrow">RACHA / PASO A PASO</div>
+            <div class="achievement-number">{{ streak() }}</div>
+            <h2>DÍAS DE CONSTANCIA</h2>
+            <p>Cada cuadrito cuenta.<br />Hoy elegí cuidarme.</p>
+            <span aria-hidden="true" class="material-symbols-sharp">workspace_premium</span>
+          </section>
+          <section>
+            <h2>Tu esfuerzo. Nada más.</h2>
+            <p>
+              La tarjeta no lleva tu nombre, peso, padecimientos, medicamentos ni claves. Se genera
+              en tu dispositivo como PNG cuadrado.
+            </p>
+            <button class="primary" [disabled]="total() === 0" (click)="shareAchievement()">
+              <span aria-hidden="true" class="material-symbols-sharp">ios_share</span> Compartir o
+              descargar PNG
+            </button>
+            <p class="small">No se publica automáticamente. Tú eliges dónde.</p>
+          </section>
+        </div>
+      }
+      @case ('ajustes') {
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow">AJUSTES / HAZLO TUYO</div>
+            <h1>El mismo ritmo.<br />Tu propio color.</h1>
+          </div>
+        </div>
+        <div class="settings-layout">
+          <section class="panel">
+            <h2>Tema</h2>
+            <div class="theme-grid">
+              @for (t of themeNames; track t.id) {
+                <button
+                  [attr.data-theme-option]="t.id"
+                  [class.selected]="settings().tema === t.id"
+                  [attr.aria-pressed]="settings().tema === t.id"
+                  (click)="chooseTheme(t.id)"
+                >
+                  <span
+                    class="theme-swatch"
+                    [style.background]="tokens?.temas?.[t.id]?.primario"
+                  ></span
+                  >{{ t.nombre }}
+                </button>
+              }
+            </div>
+            <label class="check oled-toggle"
+              ><input
+                type="checkbox"
+                [ngModel]="settings().oled"
+                (ngModelChange)="toggleOled()"
+                [disabled]="settings().tema === 'altoContraste'"
+              />
+              <span
+                ><strong>Modo OLED</strong
+                ><small>Negro puro sobre tu tema. Alto contraste es independiente.</small></span
+              ></label
+            ><button (click)="themeEditor.set(true); previewCustom()">
+              Crear tema · 4 colores
+            </button>
+            @if (themeEditor()) {
+              <div class="theme-editor">
+                <h3>Tu paleta, en vivo.</h3>
+                @for (field of customFields; track field) {
+                  <label
+                    >{{ field
+                    }}<input
+                      type="color"
+                      [ngModel]="custom[field]"
+                      (ngModelChange)="custom[field] = $event; previewCustom()"
+                  /></label>
+                }
+                <p [class.warning]="customContrast() < 4.5">
+                  Contraste mínimo texto/fondo y botón: {{ customContrast().toFixed(2) }}:1.
+                  {{ customContrast() < 4.5 ? 'Aviso: por debajo de 4.5:1.' : 'Cumple 4.5:1.' }}
+                </p>
+                <p class="small">
+                  Los colores de texto se derivan en blanco o negro. En OLED volvemos a revisar el
+                  contraste.
+                </p>
+                <div class="actions">
+                  <button class="primary" (click)="saveCustom()">Guardar tema</button
+                  ><button (click)="cancelCustom()">Cancelar</button>
+                </div>
+              </div>
+            }
+            @if (settings().personalizado) {
+              <button (click)="chooseTheme('personalizado')">Usar mi tema guardado</button>
+            }
+          </section>
+          <section class="panel">
+            <button
+              class="disclosure"
+              [attr.aria-expanded]="advanced()"
+              (click)="advanced.set(!advanced())"
+            >
+              Avanzado › IA
+              <span aria-hidden="true" class="material-symbols-sharp">expand_more</span>
+            </button>
+            @if (advanced()) {
+              <h2>IA, solo si tú quieres.</h2>
+              <div class="choices">
+                <button [class.selected]="settings().ia === 'apagada'" (click)="setAi('apagada')">
+                  Apagada</button
+                ><button disabled>En tu cel · Próximamente</button
+                ><span class="chip" [class.selected]="settings().ia === 'propia'"
+                  >Clave propia</span
+                >
+              </div>
+              <p class="small">
+                Compatible con formato OpenAI. Algunos proveedores bloquean el navegador por CORS.
+                Nunca usamos un proxy oculto.
+              </p>
+              <label
+                >URL base (HTTPS)<input
+                  type="url"
+                  [(ngModel)]="aiForm.base_url"
+                  autocomplete="off"
+                  placeholder="https://api.openai.com/v1" /></label
+              ><label
+                >Modelo<input
+                  [(ngModel)]="aiForm.modelo"
+                  autocomplete="off"
+                  placeholder="Nombre de modelo del proveedor" /></label
+              ><label
+                >Clave propia<input
+                  type="password"
+                  [(ngModel)]="aiForm.clave"
+                  autocomplete="new-password"
+                  spellcheck="false"
+              /></label>
+              <p class="small">
+                Se guarda en IndexedDB, no cifrada. Cualquier persona con acceso a este perfil de
+                navegador podría leerla. No uses un dispositivo compartido.
+              </p>
+              <label class="check"
+                ><input type="checkbox" [(ngModel)]="aiForm.consentimientoIA" /> Acepto enviar solo
+                las opciones de recetas al proveedor elegido. Puede cobrarme según mi cuenta.</label
+              ><button class="primary" (click)="setAi('propia')">
+                Guardar y activar clave propia
+              </button>
+            }
+          </section>
+          <section class="panel danger">
+            <h2>Tus datos son tuyos.</h2>
+            <p>
+              Sin cuenta. Sin sincronización. Perfil, hábitos, rachas, registros y ajustes solo en
+              IndexedDB de este navegador.
+            </p>
+            <p>
+              La IA externa está apagada al empezar. El botón siguiente elimina también su clave
+              local.
+            </p>
+            @if (!resetConfirm()) {
+              <button (click)="resetConfirm.set(true)">Borrar todos mis datos</button>
+            } @else {
+              <p role="alert">
+                <strong>No se puede deshacer.</strong> ¿Borramos todos tus datos y la clave?
+              </p>
+              <div class="actions">
+                <button class="primary" (click)="reset()">Sí, borrar todo</button
+                ><button (click)="resetConfirm.set(false)">Cancelar</button>
+              </div>
+            }
+          </section>
+        </div>
+      }
+    }
+  }
+</main>
+<footer>
+  <strong>NO SUSTITUYE A TU MÉDICO.</strong
+  ><span>Prototipo educativo · Datos locales · Para mayores de 18 años</span>
+</footer>
+@if (profile() && page() !== 'inicio' && page() !== 'primer-dia') {
+  <nav class="bottom-nav" aria-label="Navegación principal">
+    <button [class.active]="page() === 'hoy'" (click)="navigate('hoy')">
+      <span aria-hidden="true" class="material-symbols-sharp">grid_view</span>Hoy</button
+    ><button [class.active]="page() === 'plan'" (click)="navigate('plan')">
+      <span aria-hidden="true" class="material-symbols-sharp">skillet</span>Plan</button
+    ><button
+      [class.active]="page() === 'progreso' || page() === 'logro'"
+      (click)="navigate('progreso')"
+    >
+      <span aria-hidden="true" class="material-symbols-sharp">bar_chart</span>Progreso</button
+    ><button [class.active]="page() === 'ajustes'" (click)="navigate('ajustes')">
+      <span aria-hidden="true" class="material-symbols-sharp">tune</span>Ajustes
+    </button>
+  </nav>
+}

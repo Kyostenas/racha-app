@@ -1,0 +1,322 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Catálogos de Racha",
+  "description": "Valida por separado alimentos.json o ejercicios.json; también admite las referencias a $defs.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/alimentos"
+    },
+    {
+      "$ref": "#/$defs/ejercicios"
+    }
+  ],
+  "$defs": {
+    "alimento": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^usda-[0-9]+$"
+        },
+        "nombre": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nombre_en": {
+          "type": "string",
+          "minLength": 1
+        },
+        "categoria": {
+          "enum": [
+            "verduras",
+            "frutas",
+            "cereales",
+            "leguminosas",
+            "lacteos",
+            "huevo",
+            "carnes",
+            "pescados",
+            "grasas",
+            "semillas",
+            "bebidas",
+            "otros"
+          ]
+        },
+        "por_100g": {
+          "type": "object",
+          "properties": {
+            "kcal": {
+              "type": "number",
+              "minimum": 0
+            },
+            "proteina_g": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "grasa_g": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "carbohidratos_g": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "fibra_g": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "azucares_g": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "sodio_mg": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            }
+          },
+          "required": [
+            "kcal",
+            "proteina_g",
+            "grasa_g",
+            "carbohidratos_g",
+            "fibra_g",
+            "azucares_g",
+            "sodio_mg"
+          ],
+          "additionalProperties": false
+        },
+        "alergenos": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "gluten",
+              "lacteos",
+              "huevo",
+              "cacahuate",
+              "frutos_secos",
+              "soya",
+              "pescado",
+              "mariscos",
+              "ajonjoli"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "source_ref": {
+          "type": "object",
+          "properties": {
+            "fuente": {
+              "const": "USDA FoodData Central"
+            },
+            "dataset": {
+              "const": "SR Legacy (abril de 2018)"
+            },
+            "fdc_id": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "url": {
+              "type": "string",
+              "pattern": "^https://fdc\\.nal\\.usda\\.gov/food-details/[0-9]+/nutrients$"
+            },
+            "licencia": {
+              "const": "CC0 1.0"
+            }
+          },
+          "required": [
+            "fuente",
+            "dataset",
+            "fdc_id",
+            "url",
+            "licencia"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "nombre",
+        "nombre_en",
+        "categoria",
+        "por_100g",
+        "alergenos",
+        "source_ref"
+      ],
+      "additionalProperties": false
+    },
+    "ejercicio": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nombre": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nombre_en": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nivel": {
+          "enum": [
+            "principiante",
+            "intermedio",
+            "experto"
+          ]
+        },
+        "equipo": {
+          "type": "string",
+          "minLength": 1
+        },
+        "categoria": {
+          "enum": [
+            "fuerza",
+            "estiramientos",
+            "cardio",
+            "pliometría"
+          ]
+        },
+        "musculos_primarios": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "abdomen",
+              "abductores",
+              "aductores",
+              "bíceps",
+              "pantorrillas",
+              "pecho",
+              "antebrazos",
+              "glúteos",
+              "parte posterior de los muslos",
+              "dorsales",
+              "espalda baja",
+              "espalda media",
+              "cuello",
+              "cuádriceps",
+              "hombros",
+              "trapecios",
+              "tríceps"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "musculos_secundarios": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "abdomen",
+              "abductores",
+              "aductores",
+              "bíceps",
+              "pantorrillas",
+              "pecho",
+              "antebrazos",
+              "glúteos",
+              "parte posterior de los muslos",
+              "dorsales",
+              "espalda baja",
+              "espalda media",
+              "cuello",
+              "cuádriceps",
+              "hombros",
+              "trapecios",
+              "tríceps"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "instrucciones": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "source_ref": {
+          "type": "object",
+          "properties": {
+            "fuente": {
+              "const": "free-exercise-db"
+            },
+            "id_original": {
+              "type": "string",
+              "minLength": 1
+            },
+            "url": {
+              "const": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142/dist/exercises.json"
+            },
+            "licencia": {
+              "const": "Unlicense"
+            }
+          },
+          "required": [
+            "fuente",
+            "id_original",
+            "url",
+            "licencia"
+          ],
+          "additionalProperties": false
+        },
+        "imagenes_ref": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_./() -]+\\.jpg$"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "nombre",
+        "nombre_en",
+        "nivel",
+        "equipo",
+        "categoria",
+        "musculos_primarios",
+        "musculos_secundarios",
+        "instrucciones",
+        "source_ref"
+      ],
+      "additionalProperties": false
+    },
+    "alimentos": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/alimento"
+      }
+    },
+    "ejercicios": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/ejercicio"
+      }
+    }
+  }
+}
