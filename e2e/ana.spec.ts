@@ -4,6 +4,7 @@ import { mkdir, readFile } from 'node:fs/promises';
 const shots = 'docs/capturas';
 async function shot(page: Page, name: string) {
   await page.evaluate(() => document.fonts.ready);
+  await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({ path: `${shots}/${name}.png`, fullPage: true });
 }
 async function onboard(page: Page, allergy = '') {
