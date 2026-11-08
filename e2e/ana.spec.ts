@@ -14,7 +14,7 @@ async function onboard(page: Page, allergy = '') {
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
   if (allergy) await page.getByLabel('Alergias (separadas por coma)').fill(allergy);
-  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Tomate rojo crudo'])
+  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Jitomate rojo crudo'])
     await page.getByRole('button', { name, exact: true }).click();
   await page.getByRole('button', { name: 'Crear mi primer día' }).click();
   await page.getByRole('button', { name: 'Empezar', exact: true }).click();
@@ -41,7 +41,7 @@ test('Ana: onboarding, fuente, hábito, racha, temas, privacidad, offline y borr
   await page.getByLabel('Edad (años)').fill('21');
   await page.getByRole('button', { name: 'Continuar' }).click();
   await expect(page.getByLabel('Padecimientos (opcional)')).toHaveCount(0);
-  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Tomate rojo crudo'])
+  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Jitomate rojo crudo'])
     await page.getByRole('button', { name, exact: true }).click();
   await shot(page, '03-despensa-seguridad');
   await page.getByRole('button', { name: 'Crear mi primer día' }).click();
@@ -52,13 +52,12 @@ test('Ana: onboarding, fuente, hábito, racha, temas, privacidad, offline y borr
   await shot(page, '05-hoy');
   await page.getByRole('button', { name: 'Plan', exact: true }).click();
   await expect(
-    page.getByRole('heading', { name: 'Arroz con huevo y tomate', exact: true }),
+    page.getByRole('heading', { name: 'Arroz con huevo y jitomate', exact: true }),
   ).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Fuentes y método' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'USDA · Arroz blanco cocido ↗' })).toHaveAttribute(
-    'href',
-    /168878/,
-  );
+  await expect(
+    page.getByRole('link', { name: 'USDA · Arroz blanco de grano largo enriquecido cocido ↗' }),
+  ).toHaveAttribute('href', /168878/);
   await shot(page, '06-plan-fuentes');
   await page.getByRole('button', { name: 'Hoy', exact: true }).click();
   await page.getByRole('button', { name: /Elegir agua en una comida/ }).click();
@@ -129,12 +128,23 @@ test('Ana: onboarding, fuente, hábito, racha, temas, privacidad, offline y borr
   });
   await page.reload();
   await expect(page.getByTestId('streak')).toContainText('1');
+  const cachedPaths = await page.evaluate(async () => {
+    const paths: string[] = [];
+    for (const name of await caches.keys()) {
+      const cache = await caches.open(name);
+      for (const key of await cache.keys()) paths.push(new URL(key.url).pathname);
+    }
+    return paths;
+  });
+  expect(cachedPaths.some((path) => path.includes('/catalogo/'))).toBe(false);
+  expect(cachedPaths.filter((path) => path.endsWith('/data/alimentos.json'))).toHaveLength(1);
+  expect(cachedPaths.filter((path) => path.endsWith('/data/ejercicios.json'))).toHaveLength(1);
   await context.setOffline(true);
   await page.reload();
   await expect(page.getByTestId('streak')).toContainText('1');
   await page.getByRole('button', { name: 'Plan', exact: true }).click();
   await expect(
-    page.getByRole('heading', { name: 'Arroz con huevo y tomate', exact: true }),
+    page.getByRole('heading', { name: 'Arroz con huevo y jitomate', exact: true }),
   ).toBeVisible();
   await context.setOffline(false);
   await page.getByRole('button', { name: 'Ajustes', exact: true }).click();
@@ -194,7 +204,7 @@ test.describe('IA con proveedor simulado sin interceptación del service worker'
     await page.getByRole('button', { name: 'Pedir sugerencia y validar' }).click();
     await expect(page.getByRole('alert')).toContainText('No se pudo validar');
     await expect(
-      page.getByRole('heading', { name: 'Arroz con huevo y tomate', exact: true }),
+      page.getByRole('heading', { name: 'Arroz con huevo y jitomate', exact: true }),
     ).toBeVisible();
     await page.getByRole('button', { name: 'Ajustes', exact: true }).click();
     await page.getByRole('button', { name: 'Apagada', exact: true }).click();
@@ -358,10 +368,32 @@ test('onboarding, despensa y primer día en OLED', async ({ page }) => {
   await expect(
     page.getByText('Si no reconocemos una alergia, bloqueamos las recetas.', { exact: false }),
   ).toBeVisible();
-  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Tomate rojo crudo'])
+  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Jitomate rojo crudo'])
     await page.getByRole('button', { name, exact: true }).click();
   await shot(page, '20-despensa-oled');
   await page.getByRole('button', { name: 'Crear mi primer día' }).click();
   await page.getByRole('heading', { name: 'Tu primer día.' }).waitFor();
   await shot(page, '21-primer-dia-oled');
+});
+
+test('despensa clara: nombre español coherente y fuente externa sin descripción inglesa', async ({
+  page,
+}) => {
+  await page.goto('/');
+  await page.getByRole('heading', { name: 'Haz espacio para ti.' }).waitFor();
+  await page.getByLabel('Acepto el uso local de mis datos').check();
+  await page.getByRole('button', { name: 'Continuar' }).click();
+  await page.getByRole('button', { name: 'Continuar' }).click();
+  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Jitomate rojo crudo'])
+    await page.getByRole('button', { name, exact: true }).click();
+  const detail = page.locator('.food-detail');
+  await expect(
+    detail.getByRole('heading', { name: 'Jitomate rojo crudo', exact: true }),
+  ).toBeVisible();
+  await expect(detail).not.toContainText(/Tomatoes|year round|nombreOriginal/);
+  await expect(detail.getByRole('link', { name: 'Ver fuente del alimento ↗' })).toHaveAttribute(
+    'href',
+    'https://fdc.nal.usda.gov/food-details/170457/nutrients',
+  );
+  await shot(page, '20-despensa');
 });

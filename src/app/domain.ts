@@ -24,8 +24,6 @@ export type Perfil = z.infer<typeof profileSchema>;
 export const foodSchema = z.object({
   id: z.string(),
   nombre: z.string(),
-  nombreOriginal: z.string().optional(),
-  nombreCompleto: z.string().optional(),
   kcal100g: z.number().nonnegative().nullable(),
   proteina100g: z.number().nonnegative().nullable(),
   carbohidratos100g: z.number().nonnegative().nullable(),

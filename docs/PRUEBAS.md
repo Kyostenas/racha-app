@@ -6,8 +6,8 @@
 
 - `npm run build`: PASS, cero errores. Permanece una advertencia del presupuesto inicial estándar de Angular (500 kB); no se aumentó el umbral para esconderla. El presupuesto de error de 1 MB no se excede.
 - `npm test -- --watch=false`: **53/53 PASS**, cinco archivos de pruebas.
-- `CHROMIUM_PATH=/home/benja/.local/bin/chromium npm run test:e2e`: **10/10 PASS**, Chromium headless, build de producción.
-- Catálogo: **300 alimentos + 80 ejercicios**, validación original en `public/catalogo/validacion.json`, adaptación reproducible con `tools/normalizar_catalogo.py`.
+- `CHROMIUM_PATH=/home/benja/.local/bin/chromium npm run test:e2e`: **11/11 PASS**, Chromium headless, build de producción.
+- Catálogo: **300 alimentos + 80 ejercicios**, validación original en `docs/catalogo/validacion_fuente.json`, adaptación reproducible con `tools/normalizar_catalogo.py`.
 - Identidad Git: autor y committer iguales, nombre de perfil GitHub de Yael, correo noreply de su cuenta; sin trailers. `npm run verify:identity` automatiza la comprobación.
 
 ## Comportamientos comprobados
@@ -49,6 +49,14 @@ CI reproduce unidades, build y E2E; después compila con base `/racha-app/` y pu
 - Botones, opciones y etiquetas en sentence case; «En tu cel · Próximamente» completo y sin transformación por CSS. Los títulos gráficos conservan la identidad de la app.
 - Aviso de alergias abreviado sin quitar el bloqueo ni la advertencia médica.
 - Nutrientes con máximo un decimal y `null`/ausencia como «sin dato». Los cálculos usan los valores originales, no los redondeados de presentación.
-- Chips abreviados, nombre español completo y descripción USDA original disponibles al tocar el ingrediente. Se priorizan arroz, huevo, tomate, frijoles, tortilla, cebolla, calabacita, aguacate, limón y otros alimentos comunes de México, sin alterar nutrientes ni fuentes.
+- Chips abreviados, nombre español completo y enlace a la fuente externa disponibles al tocar el ingrediente. Se priorizan arroz, huevo, tomate, frijoles, tortilla, cebolla, calabacita, aguacate, limón y otros alimentos comunes de México, sin alterar nutrientes ni fuentes.
 - Pruebas a **320 y 412 px**: sin desbordamiento horizontal, etiqueta de IA local sin recorte, texto técnico oculto, controles accesibles entre aviso y navegación. Se verifica por geometría e hit testing que los botones no queden debajo de las barras; al final de la página, el pie queda por encima de la navegación. La altura reservada incluye `env(safe-area-inset-bottom)`.
 - Capturas nuevas: `19-onboarding-oled.png`, `20-despensa-oled.png`, `21-primer-dia-oled.png`, `ux-ajustes-320.png` y `ux-ajustes-412.png`. Para las tres primeras, la prueba precarga únicamente la preferencia OLED en una sesión ficticia sin perfil; no se simulan hábitos ni progreso.
+
+## Nombres y catálogo único
+
+- Se auditan los 300 nombres canónicos, los chips derivados de ellos y las referencias USDA; no se distribuyen descripciones inglesas ni etiquetas alternativas divergentes. Se detectó y corrigió una colisión entre dos variantes de aceite de girasol.
+- Detalle de ingrediente: español coherente con el chip; la descripción original solo está disponible mediante el enlace externo de fuente.
+- Las fuentes crudas duplicadas se retiran de `public/`. Queda una sola copia de alimentos/ejercicios, usada por el motor y referenciada explícitamente por el service worker. Procedencia y esquema quedan fuera del bundle en docs/catalogo/.
+- El E2E inspecciona las claves reales del precache: un alimentos.json, un ejercicios.json, ninguna ruta /catalogo/. La recarga offline de Hoy y Plan sigue funcionando.
+- Despensa recapturada en claro (`20-despensa.png`) y OLED (`20-despensa-oled.png`), con tres ingredientes ficticios y el detalle de Jitomate rojo crudo abierto.

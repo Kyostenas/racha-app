@@ -1,0 +1,11 @@
+{
+  "estado": "PASS",
+  "alimentos": 300,
+  "ejercicios": 80,
+  "nombres_espanoles_unicos": 300,
+  "campos_descripcion_inglesa_publicados": 0,
+  "nutrientes_conservados": 300,
+  "archivo_motor_alimentos": "public/data/alimentos.json",
+  "archivo_motor_ejercicios": "public/data/ejercicios.json",
+  "fuente_nombres": "Traducciones curadas del generador, sin alias alternativos de almacenamiento"
+}

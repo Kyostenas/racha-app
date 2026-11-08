@@ -1,4390 +1,3790 @@
 [
   {
     "id": "usda-168878",
-    "nombre": "Arroz blanco cocido",
-    "nombreOriginal": "Rice, white, long-grain, regular, enriched, cooked",
-    "nombreCompleto": "Arroz blanco de grano largo enriquecido cocido",
+    "nombre": "Arroz blanco de grano largo enriquecido cocido",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168878/nutrients",
     "kcal100g": 130,
     "proteina100g": 2.69,
     "carbohidratos100g": 28.2,
     "grasa100g": 0.28,
     "fibra100g": 0.4,
-    "azucares100g": 0.05,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168878/nutrients"
+    "azucares100g": 0.05
   },
   {
     "id": "usda-171287",
     "nombre": "Huevo entero crudo",
-    "nombreOriginal": "Egg, whole, raw, fresh",
-    "nombreCompleto": "Huevo entero crudo",
+    "alergenos": [
+      "huevo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171287/nutrients",
     "kcal100g": 143,
     "proteina100g": 12.6,
     "carbohidratos100g": 0.72,
     "grasa100g": 9.51,
     "fibra100g": 0.0,
-    "azucares100g": 0.37,
-    "alergenos": [
-      "huevo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171287/nutrients"
+    "azucares100g": 0.37
   },
   {
     "id": "usda-170457",
-    "nombre": "Tomate rojo crudo",
-    "nombreOriginal": "Tomatoes, red, ripe, raw, year round average",
-    "nombreCompleto": "Jitomate rojo crudo",
+    "nombre": "Jitomate rojo crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170457/nutrients",
     "kcal100g": 18.0,
     "proteina100g": 0.88,
     "carbohidratos100g": 3.89,
     "grasa100g": 0.2,
     "fibra100g": 1.2,
-    "azucares100g": 2.63,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170457/nutrients"
+    "azucares100g": 2.63
   },
   {
     "id": "usda-169705",
-    "nombre": "Avena cruda",
-    "nombreOriginal": "Oats (Includes foods for USDA's Food Distribution Program)",
-    "nombreCompleto": "Avena en grano cruda",
+    "nombre": "Avena en grano cruda",
+    "alergenos": [
+      "trigo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169705/nutrients",
     "kcal100g": 389,
     "proteina100g": 16.9,
     "carbohidratos100g": 66.3,
     "grasa100g": 6.9,
     "fibra100g": 10.6,
-    "azucares100g": null,
-    "alergenos": [
-      "trigo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169705/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-173944",
     "nombre": "Plátano crudo",
-    "nombreOriginal": "Bananas, raw",
-    "nombreCompleto": "Plátano crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173944/nutrients",
     "kcal100g": 89.0,
     "proteina100g": 1.09,
     "carbohidratos100g": 22.8,
     "grasa100g": 0.33,
     "fibra100g": 2.6,
-    "azucares100g": 12.2,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173944/nutrients"
+    "azucares100g": 12.2
   },
   {
     "id": "usda-171688",
-    "nombre": "Manzana con cáscara",
-    "nombreOriginal": "Apples, raw, with skin (Includes foods for USDA's Food Distribution Program)",
-    "nombreCompleto": "Manzana con cáscara cruda",
+    "nombre": "Manzana con cáscara cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171688/nutrients",
     "kcal100g": 52.0,
     "proteina100g": 0.26,
     "carbohidratos100g": 13.8,
     "grasa100g": 0.17,
     "fibra100g": 2.4,
-    "azucares100g": 10.4,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171688/nutrients"
+    "azucares100g": 10.4
   },
   {
     "id": "usda-173735",
-    "nombre": "Frijoles negros cocidos",
-    "nombreOriginal": "Beans, black, mature seeds, cooked, boiled, without salt",
-    "nombreCompleto": "Frijol negro hervido sin sal",
+    "nombre": "Frijol negro hervido sin sal",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173735/nutrients",
     "kcal100g": 132,
     "proteina100g": 8.86,
     "carbohidratos100g": 23.7,
     "grasa100g": 0.54,
     "fibra100g": 8.7,
-    "azucares100g": 0.32,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173735/nutrients"
+    "azucares100g": 0.32
   },
   {
     "id": "usda-171477",
-    "nombre": "Pechuga de pollo asada",
-    "nombreOriginal": "Chicken, broilers or fryers, breast, meat only, cooked, roasted",
-    "nombreCompleto": "Pechuga de pollo sin piel rostizada",
+    "nombre": "Pechuga de pollo sin piel rostizada",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171477/nutrients",
     "kcal100g": 165,
     "proteina100g": 31.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 3.57,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171477/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-170000",
     "nombre": "Cebolla cruda",
-    "nombreOriginal": "Onions, raw",
-    "nombreCompleto": "Cebolla cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170000/nutrients",
     "kcal100g": 40.0,
     "proteina100g": 1.1,
     "carbohidratos100g": 9.34,
     "grasa100g": 0.1,
     "fibra100g": 1.7,
-    "azucares100g": 4.24,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170000/nutrients"
+    "azucares100g": 4.24
   },
   {
     "id": "usda-169291",
     "nombre": "Calabacita con cáscara cruda",
-    "nombreOriginal": "Squash, summer, zucchini, includes skin, raw",
-    "nombreCompleto": "Calabacita con cáscara cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169291/nutrients",
     "kcal100g": 17.0,
     "proteina100g": 1.21,
     "carbohidratos100g": 3.11,
     "grasa100g": 0.32,
     "fibra100g": 1.0,
-    "azucares100g": 2.5,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169291/nutrients"
+    "azucares100g": 2.5
   },
   {
     "id": "usda-175036",
     "nombre": "Tortilla de maíz lista para calentar",
-    "nombreOriginal": "Tortillas, ready-to-bake or -fry, corn",
-    "nombreCompleto": "Tortilla de maíz lista para calentar",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/175036/nutrients",
     "kcal100g": 218,
     "proteina100g": 5.7,
     "carbohidratos100g": 44.6,
     "grasa100g": 2.85,
     "fibra100g": 6.3,
-    "azucares100g": 0.88,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/175036/nutrients"
+    "azucares100g": 0.88
   },
   {
     "id": "usda-171706",
     "nombre": "Aguacate de California crudo",
-    "nombreOriginal": "Avocados, raw, California",
-    "nombreCompleto": "Aguacate de California crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171706/nutrients",
     "kcal100g": 167,
     "proteina100g": 1.96,
     "carbohidratos100g": 8.64,
     "grasa100g": 15.4,
     "fibra100g": 6.8,
-    "azucares100g": 0.3,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171706/nutrients"
+    "azucares100g": 0.3
   },
   {
     "id": "usda-168155",
     "nombre": "Limón verde crudo",
-    "nombreOriginal": "Limes, raw",
-    "nombreCompleto": "Limón verde crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168155/nutrients",
     "kcal100g": 30.0,
     "proteina100g": 0.7,
     "carbohidratos100g": 10.5,
     "grasa100g": 0.2,
     "fibra100g": 2.8,
-    "azucares100g": 1.69,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168155/nutrients"
+    "azucares100g": 1.69
   },
   {
     "id": "usda-170026",
     "nombre": "Papa con cáscara cruda",
-    "nombreOriginal": "Potatoes, flesh and skin, raw",
-    "nombreCompleto": "Papa con cáscara cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170026/nutrients",
     "kcal100g": 77.0,
     "proteina100g": 2.05,
     "carbohidratos100g": 17.5,
     "grasa100g": 0.09,
     "fibra100g": 2.1,
-    "azucares100g": 0.82,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170026/nutrients"
+    "azucares100g": 0.82
   },
   {
     "id": "usda-173709",
     "nombre": "Atún claro en agua enlatado y escurrido",
-    "nombreOriginal": "Fish, tuna, light, canned in water, drained solids (Includes foods for USDA's Food Distribution Program)",
-    "nombreCompleto": "Atún claro en agua enlatado y escurrido",
+    "alergenos": [
+      "pescado"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173709/nutrients",
     "kcal100g": 86.0,
     "proteina100g": 19.4,
     "carbohidratos100g": 0.0,
     "grasa100g": 0.96,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "pescado"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173709/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-172217",
     "nombre": "Leche entera sin vitaminas A ni D añadidas",
-    "nombreOriginal": "Milk, whole, 3.25% milkfat, without added vitamin A and vitamin D",
-    "nombreCompleto": "Leche entera sin vitaminas A ni D añadidas",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172217/nutrients",
     "kcal100g": 61.0,
     "proteina100g": 3.15,
     "carbohidratos100g": 4.78,
     "grasa100g": 3.27,
     "fibra100g": 0.0,
-    "azucares100g": 5.05,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172217/nutrients"
+    "azucares100g": 5.05
   },
   {
     "id": "usda-172421",
     "nombre": "Lenteja hervida sin sal",
-    "nombreOriginal": "Lentils, mature seeds, cooked, boiled, without salt",
-    "nombreCompleto": "Lenteja hervida sin sal",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172421/nutrients",
     "kcal100g": 116,
     "proteina100g": 9.02,
     "carbohidratos100g": 20.1,
     "grasa100g": 0.38,
     "fibra100g": 7.9,
-    "azucares100g": 1.8,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172421/nutrients"
+    "azucares100g": 1.8
   },
   {
     "id": "usda-173757",
     "nombre": "Garbanzo hervido sin sal",
-    "nombreOriginal": "Chickpeas (garbanzo beans, bengal gram), mature seeds, cooked, boiled, without salt",
-    "nombreCompleto": "Garbanzo hervido sin sal",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173757/nutrients",
     "kcal100g": 164,
     "proteina100g": 8.86,
     "carbohidratos100g": 27.4,
     "grasa100g": 2.59,
     "fibra100g": 7.6,
-    "azucares100g": 4.8,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173757/nutrients"
+    "azucares100g": 4.8
   },
   {
     "id": "usda-169247",
     "nombre": "Lechuga romana cruda",
-    "nombreOriginal": "Lettuce, cos or romaine, raw",
-    "nombreCompleto": "Lechuga romana cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169247/nutrients",
     "kcal100g": 17.0,
     "proteina100g": 1.23,
     "carbohidratos100g": 3.29,
     "grasa100g": 0.3,
     "fibra100g": 2.1,
-    "azucares100g": 1.19,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169247/nutrients"
+    "azucares100g": 1.19
   },
   {
     "id": "usda-170393",
     "nombre": "Zanahoria cruda",
-    "nombreOriginal": "Carrots, raw",
-    "nombreCompleto": "Zanahoria cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170393/nutrients",
     "kcal100g": 41.0,
     "proteina100g": 0.93,
     "carbohidratos100g": 9.58,
     "grasa100g": 0.24,
     "fibra100g": 2.8,
-    "azucares100g": 4.74,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170393/nutrients"
+    "azucares100g": 4.74
   },
   {
     "id": "usda-168409",
     "nombre": "Pepino con cáscara crudo",
-    "nombreOriginal": "Cucumber, with peel, raw",
-    "nombreCompleto": "Pepino con cáscara crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168409/nutrients",
     "kcal100g": 15.0,
     "proteina100g": 0.65,
     "carbohidratos100g": 3.63,
     "grasa100g": 0.11,
     "fibra100g": 0.5,
-    "azucares100g": 1.67,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168409/nutrients"
+    "azucares100g": 1.67
   },
   {
     "id": "usda-169205",
     "nombre": "Alcachofa cruda",
-    "nombreOriginal": "Artichokes, (globe or french), raw",
-    "nombreCompleto": "Alcachofa cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169205/nutrients",
     "kcal100g": 47.0,
     "proteina100g": 3.27,
     "carbohidratos100g": 10.5,
     "grasa100g": 0.15,
     "fibra100g": 5.4,
-    "azucares100g": 0.99,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169205/nutrients"
+    "azucares100g": 0.99
   },
   {
     "id": "usda-168389",
     "nombre": "Espárragos crudos",
-    "nombreOriginal": "Asparagus, raw",
-    "nombreCompleto": "Espárragos crudos",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168389/nutrients",
     "kcal100g": 20.0,
     "proteina100g": 2.2,
     "carbohidratos100g": 3.88,
     "grasa100g": 0.12,
     "fibra100g": 2.1,
-    "azucares100g": 1.88,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168389/nutrients"
+    "azucares100g": 1.88
   },
   {
     "id": "usda-168390",
     "nombre": "Espárragos hervidos y escurridos",
-    "nombreOriginal": "Asparagus, cooked, boiled, drained",
-    "nombreCompleto": "Espárragos hervidos y escurridos",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168390/nutrients",
     "kcal100g": 22.0,
     "proteina100g": 2.4,
     "carbohidratos100g": 4.11,
     "grasa100g": 0.22,
     "fibra100g": 2.0,
-    "azucares100g": 1.3,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168390/nutrients"
+    "azucares100g": 1.3
   },
   {
     "id": "usda-169961",
     "nombre": "Ejotes verdes crudos",
-    "nombreOriginal": "Beans, snap, green, raw",
-    "nombreCompleto": "Ejotes verdes crudos",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169961/nutrients",
     "kcal100g": 31.0,
     "proteina100g": 1.83,
     "carbohidratos100g": 6.97,
     "grasa100g": 0.22,
     "fibra100g": 2.7,
-    "azucares100g": 3.26,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169961/nutrients"
+    "azucares100g": 3.26
   },
   {
     "id": "usda-169320",
     "nombre": "Ejotes amarillos crudos",
-    "nombreOriginal": "Beans, snap, yellow, raw",
-    "nombreCompleto": "Ejotes amarillos crudos",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169320/nutrients",
     "kcal100g": 31.0,
     "proteina100g": 1.82,
     "carbohidratos100g": 7.13,
     "grasa100g": 0.12,
     "fibra100g": 3.4,
-    "azucares100g": 3.27,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169320/nutrients"
+    "azucares100g": 3.27
   },
   {
     "id": "usda-169145",
     "nombre": "Betabel crudo",
-    "nombreOriginal": "Beets, raw",
-    "nombreCompleto": "Betabel crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169145/nutrients",
     "kcal100g": 43.0,
     "proteina100g": 1.61,
     "carbohidratos100g": 9.56,
     "grasa100g": 0.17,
     "fibra100g": 2.8,
-    "azucares100g": 6.76,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169145/nutrients"
+    "azucares100g": 6.76
   },
   {
     "id": "usda-169146",
     "nombre": "Betabel hervido y escurrido",
-    "nombreOriginal": "Beets, cooked, boiled, drained",
-    "nombreCompleto": "Betabel hervido y escurrido",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169146/nutrients",
     "kcal100g": 44.0,
     "proteina100g": 1.68,
     "carbohidratos100g": 9.96,
     "grasa100g": 0.18,
     "fibra100g": 2.0,
-    "azucares100g": 7.96,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169146/nutrients"
+    "azucares100g": 7.96
   },
   {
     "id": "usda-170379",
     "nombre": "Brócoli crudo",
-    "nombreOriginal": "Broccoli, raw",
-    "nombreCompleto": "Brócoli crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170379/nutrients",
     "kcal100g": 34.0,
     "proteina100g": 2.82,
     "carbohidratos100g": 6.64,
     "grasa100g": 0.37,
     "fibra100g": 2.6,
-    "azucares100g": 1.7,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170379/nutrients"
+    "azucares100g": 1.7
   },
   {
     "id": "usda-170383",
     "nombre": "Coles de Bruselas crudas",
-    "nombreOriginal": "Brussels sprouts, raw",
-    "nombreCompleto": "Coles de Bruselas crudas",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170383/nutrients",
     "kcal100g": 43.0,
     "proteina100g": 3.38,
     "carbohidratos100g": 8.95,
     "grasa100g": 0.3,
     "fibra100g": 3.8,
-    "azucares100g": 2.2,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170383/nutrients"
+    "azucares100g": 2.2
   },
   {
     "id": "usda-169975",
     "nombre": "Col blanca cruda",
-    "nombreOriginal": "Cabbage, raw",
-    "nombreCompleto": "Col blanca cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169975/nutrients",
     "kcal100g": 25.0,
     "proteina100g": 1.28,
     "carbohidratos100g": 5.8,
     "grasa100g": 0.1,
     "fibra100g": 2.5,
-    "azucares100g": 3.2,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169975/nutrients"
+    "azucares100g": 3.2
   },
   {
     "id": "usda-169977",
     "nombre": "Col morada cruda",
-    "nombreOriginal": "Cabbage, red, raw",
-    "nombreCompleto": "Col morada cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169977/nutrients",
     "kcal100g": 31.0,
     "proteina100g": 1.43,
     "carbohidratos100g": 7.37,
     "grasa100g": 0.16,
     "fibra100g": 2.1,
-    "azucares100g": 3.83,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169977/nutrients"
+    "azucares100g": 3.83
   },
   {
     "id": "usda-170390",
     "nombre": "Col china pak choi cruda",
-    "nombreOriginal": "Cabbage, chinese (pak-choi), raw",
-    "nombreCompleto": "Col china pak choi cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170390/nutrients",
     "kcal100g": 13.0,
     "proteina100g": 1.5,
     "carbohidratos100g": 2.18,
     "grasa100g": 0.2,
     "fibra100g": 1.0,
-    "azucares100g": 1.18,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170390/nutrients"
+    "azucares100g": 1.18
   },
   {
     "id": "usda-169986",
     "nombre": "Coliflor cruda",
-    "nombreOriginal": "Cauliflower, raw",
-    "nombreCompleto": "Coliflor cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169986/nutrients",
     "kcal100g": 25.0,
     "proteina100g": 1.92,
     "carbohidratos100g": 4.97,
     "grasa100g": 0.28,
     "fibra100g": 2.0,
-    "azucares100g": 1.91,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169986/nutrients"
+    "azucares100g": 1.91
   },
   {
     "id": "usda-169988",
     "nombre": "Apio crudo",
-    "nombreOriginal": "Celery, raw",
-    "nombreCompleto": "Apio crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169988/nutrients",
     "kcal100g": 14.0,
     "proteina100g": 0.69,
     "carbohidratos100g": 2.97,
     "grasa100g": 0.17,
     "fibra100g": 1.6,
-    "azucares100g": 1.34,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169988/nutrients"
+    "azucares100g": 1.34
   },
   {
     "id": "usda-169991",
     "nombre": "Acelgas crudas",
-    "nombreOriginal": "Chard, swiss, raw",
-    "nombreCompleto": "Acelgas crudas",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169991/nutrients",
     "kcal100g": 19.0,
     "proteina100g": 1.8,
     "carbohidratos100g": 3.74,
     "grasa100g": 0.2,
     "fibra100g": 1.6,
-    "azucares100g": 1.1,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169991/nutrients"
+    "azucares100g": 1.1
   },
   {
     "id": "usda-170402",
     "nombre": "Chayote crudo",
-    "nombreOriginal": "Chayote, fruit, raw",
-    "nombreCompleto": "Chayote crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170402/nutrients",
     "kcal100g": 19.0,
     "proteina100g": 0.82,
     "carbohidratos100g": 4.51,
     "grasa100g": 0.13,
     "fibra100g": 1.7,
-    "azucares100g": 1.66,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170402/nutrients"
+    "azucares100g": 1.66
   },
   {
     "id": "usda-170406",
     "nombre": "Berza cruda",
-    "nombreOriginal": "Collards, raw",
-    "nombreCompleto": "Berza cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170406/nutrients",
     "kcal100g": 32.0,
     "proteina100g": 3.02,
     "carbohidratos100g": 5.42,
     "grasa100g": 0.61,
     "fibra100g": 4.0,
-    "azucares100g": 0.46,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170406/nutrients"
+    "azucares100g": 0.46
   },
   {
     "id": "usda-169998",
     "nombre": "Elote amarillo crudo",
-    "nombreOriginal": "Corn, sweet, yellow, raw",
-    "nombreCompleto": "Elote amarillo crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169998/nutrients",
     "kcal100g": 86.0,
     "proteina100g": 3.27,
     "carbohidratos100g": 18.7,
     "grasa100g": 1.35,
     "fibra100g": 2.0,
-    "azucares100g": 6.26,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169998/nutrients"
+    "azucares100g": 6.26
   },
   {
     "id": "usda-168538",
     "nombre": "Elote blanco crudo",
-    "nombreOriginal": "Corn, sweet, white, raw",
-    "nombreCompleto": "Elote blanco crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168538/nutrients",
     "kcal100g": 86.0,
     "proteina100g": 3.22,
     "carbohidratos100g": 19.0,
     "grasa100g": 1.18,
     "fibra100g": 2.7,
-    "azucares100g": 3.22,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168538/nutrients"
+    "azucares100g": 3.22
   },
   {
     "id": "usda-169225",
     "nombre": "Pepino sin cáscara crudo",
-    "nombreOriginal": "Cucumber, peeled, raw",
-    "nombreCompleto": "Pepino sin cáscara crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169225/nutrients",
     "kcal100g": 10.0,
     "proteina100g": 0.59,
     "carbohidratos100g": 2.16,
     "grasa100g": 0.16,
     "fibra100g": 0.7,
-    "azucares100g": 1.38,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169225/nutrients"
+    "azucares100g": 1.38
   },
   {
     "id": "usda-169228",
     "nombre": "Berenjena cruda",
-    "nombreOriginal": "Eggplant, raw",
-    "nombreCompleto": "Berenjena cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169228/nutrients",
     "kcal100g": 25.0,
     "proteina100g": 0.98,
     "carbohidratos100g": 5.88,
     "grasa100g": 0.18,
     "fibra100g": 3.0,
-    "azucares100g": 3.53,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169228/nutrients"
+    "azucares100g": 3.53
   },
   {
     "id": "usda-169230",
     "nombre": "Ajo crudo",
-    "nombreOriginal": "Garlic, raw",
-    "nombreCompleto": "Ajo crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169230/nutrients",
     "kcal100g": 149,
     "proteina100g": 6.36,
     "carbohidratos100g": 33.1,
     "grasa100g": 0.5,
     "fibra100g": 2.1,
-    "azucares100g": 1.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169230/nutrients"
+    "azucares100g": 1.0
   },
   {
     "id": "usda-168421",
     "nombre": "Col rizada cruda",
-    "nombreOriginal": "Kale, raw",
-    "nombreCompleto": "Col rizada cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168421/nutrients",
     "kcal100g": 35.0,
     "proteina100g": 2.92,
     "carbohidratos100g": 4.42,
     "grasa100g": 1.49,
     "fibra100g": 4.1,
-    "azucares100g": 0.99,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168421/nutrients"
+    "azucares100g": 0.99
   },
   {
     "id": "usda-169246",
     "nombre": "Poro crudo (bulbo y parte inferior de las hojas)",
-    "nombreOriginal": "Leeks, (bulb and lower leaf-portion), raw",
-    "nombreCompleto": "Poro crudo (bulbo y parte inferior de las hojas)",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169246/nutrients",
     "kcal100g": 61.0,
     "proteina100g": 1.5,
     "carbohidratos100g": 14.2,
     "grasa100g": 0.3,
     "fibra100g": 1.8,
-    "azucares100g": 3.9,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169246/nutrients"
+    "azucares100g": 3.9
   },
   {
     "id": "usda-169248",
     "nombre": "Lechuga iceberg cruda",
-    "nombreOriginal": "Lettuce, iceberg (includes crisphead types), raw",
-    "nombreCompleto": "Lechuga iceberg cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169248/nutrients",
     "kcal100g": 14.0,
     "proteina100g": 0.9,
     "carbohidratos100g": 2.97,
     "grasa100g": 0.14,
     "fibra100g": 1.2,
-    "azucares100g": 1.97,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169248/nutrients"
+    "azucares100g": 1.97
   },
   {
     "id": "usda-169249",
     "nombre": "Lechuga de hoja verde cruda",
-    "nombreOriginal": "Lettuce, green leaf, raw",
-    "nombreCompleto": "Lechuga de hoja verde cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169249/nutrients",
     "kcal100g": 15.0,
     "proteina100g": 1.36,
     "carbohidratos100g": 2.87,
     "grasa100g": 0.15,
     "fibra100g": 1.3,
-    "azucares100g": 0.78,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169249/nutrients"
+    "azucares100g": 0.78
   },
   {
     "id": "usda-168431",
     "nombre": "Lechuga de hoja roja cruda",
-    "nombreOriginal": "Lettuce, red leaf, raw",
-    "nombreCompleto": "Lechuga de hoja roja cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168431/nutrients",
     "kcal100g": 13.0,
     "proteina100g": 1.33,
     "carbohidratos100g": 2.26,
     "grasa100g": 0.22,
     "fibra100g": 0.9,
-    "azucares100g": 0.48,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168431/nutrients"
+    "azucares100g": 0.48
   },
   {
     "id": "usda-168434",
     "nombre": "Champiñones cremini crudos",
-    "nombreOriginal": "Mushrooms, brown, italian, or crimini, raw",
-    "nombreCompleto": "Champiñones cremini crudos",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168434/nutrients",
     "kcal100g": 22.0,
     "proteina100g": 2.5,
     "carbohidratos100g": 4.3,
     "grasa100g": 0.1,
     "fibra100g": 0.6,
-    "azucares100g": 1.72,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168434/nutrients"
+    "azucares100g": 1.72
   },
   {
     "id": "usda-168580",
     "nombre": "Setas crudas",
-    "nombreOriginal": "Mushrooms, oyster, raw",
-    "nombreCompleto": "Setas crudas",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168580/nutrients",
     "kcal100g": 33.0,
     "proteina100g": 3.31,
     "carbohidratos100g": 6.09,
     "grasa100g": 0.41,
     "fibra100g": 2.3,
-    "azucares100g": 1.11,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168580/nutrients"
+    "azucares100g": 1.11
   },
   {
     "id": "usda-169255",
     "nombre": "Hongos portobello crudos",
-    "nombreOriginal": "Mushrooms, portabella, raw",
-    "nombreCompleto": "Hongos portobello crudos",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169255/nutrients",
     "kcal100g": 22.0,
     "proteina100g": 2.11,
     "carbohidratos100g": 3.87,
     "grasa100g": 0.35,
     "fibra100g": 1.3,
-    "azucares100g": 2.5,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169255/nutrients"
+    "azucares100g": 2.5
   },
   {
     "id": "usda-169243",
     "nombre": "Hongos portobello a la parrilla",
-    "nombreOriginal": "Mushrooms, portabella, grilled",
-    "nombreCompleto": "Hongos portobello a la parrilla",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169243/nutrients",
     "kcal100g": 29.0,
     "proteina100g": 3.28,
     "carbohidratos100g": 4.44,
     "grasa100g": 0.58,
     "fibra100g": 2.2,
-    "azucares100g": 2.26,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169243/nutrients"
+    "azucares100g": 2.26
   },
   {
     "id": "usda-169242",
     "nombre": "Hongos shiitake crudos",
-    "nombreOriginal": "Mushrooms, shiitake, raw",
-    "nombreCompleto": "Hongos shiitake crudos",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169242/nutrients",
     "kcal100g": 34.0,
     "proteina100g": 2.24,
     "carbohidratos100g": 6.79,
     "grasa100g": 0.49,
     "fibra100g": 2.5,
-    "azucares100g": 2.38,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169242/nutrients"
+    "azucares100g": 2.38
   },
   {
     "id": "usda-169251",
     "nombre": "Champiñones blancos crudos",
-    "nombreOriginal": "Mushrooms, white, raw",
-    "nombreCompleto": "Champiñones blancos crudos",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169251/nutrients",
     "kcal100g": 22.0,
     "proteina100g": 3.09,
     "carbohidratos100g": 3.26,
     "grasa100g": 0.34,
     "fibra100g": 1.0,
-    "azucares100g": 1.98,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169251/nutrients"
+    "azucares100g": 1.98
   },
   {
     "id": "usda-168571",
     "nombre": "Nopales crudos",
-    "nombreOriginal": "Nopales, raw",
-    "nombreCompleto": "Nopales crudos",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168571/nutrients",
     "kcal100g": 16.0,
     "proteina100g": 1.32,
     "carbohidratos100g": 3.33,
     "grasa100g": 0.09,
     "fibra100g": 2.2,
-    "azucares100g": 1.15,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168571/nutrients"
+    "azucares100g": 1.15
   },
   {
     "id": "usda-169388",
     "nombre": "Nopales cocidos sin sal",
-    "nombreOriginal": "Nopales, cooked, without salt",
-    "nombreCompleto": "Nopales cocidos sin sal",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169388/nutrients",
     "kcal100g": 15.0,
     "proteina100g": 1.35,
     "carbohidratos100g": 3.28,
     "grasa100g": 0.05,
     "fibra100g": 2.0,
-    "azucares100g": 1.12,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169388/nutrients"
+    "azucares100g": 1.12
   },
   {
     "id": "usda-169260",
     "nombre": "Okra cruda",
-    "nombreOriginal": "Okra, raw",
-    "nombreCompleto": "Okra cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169260/nutrients",
     "kcal100g": 33.0,
     "proteina100g": 1.93,
     "carbohidratos100g": 7.45,
     "grasa100g": 0.19,
     "fibra100g": 3.2,
-    "azucares100g": 1.48,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169260/nutrients"
+    "azucares100g": 1.48
   },
   {
     "id": "usda-170005",
     "nombre": "Cebollita cambray cruda (bulbo y tallo)",
-    "nombreOriginal": "Onions, spring or scallions (includes tops and bulb), raw",
-    "nombreCompleto": "Cebollita cambray cruda (bulbo y tallo)",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170005/nutrients",
     "kcal100g": 32.0,
     "proteina100g": 1.83,
     "carbohidratos100g": 7.34,
     "grasa100g": 0.19,
     "fibra100g": 2.6,
-    "azucares100g": 2.33,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170005/nutrients"
+    "azucares100g": 2.33
   },
   {
     "id": "usda-170008",
     "nombre": "Cebolla dulce cruda",
-    "nombreOriginal": "Onions, sweet, raw",
-    "nombreCompleto": "Cebolla dulce cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170008/nutrients",
     "kcal100g": 32.0,
     "proteina100g": 0.8,
     "carbohidratos100g": 7.55,
     "grasa100g": 0.08,
     "fibra100g": 0.9,
-    "azucares100g": 5.02,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170008/nutrients"
+    "azucares100g": 5.02
   },
   {
     "id": "usda-170416",
     "nombre": "Perejil fresco",
-    "nombreOriginal": "Parsley, fresh",
-    "nombreCompleto": "Perejil fresco",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170416/nutrients",
     "kcal100g": 36.0,
     "proteina100g": 2.97,
     "carbohidratos100g": 6.33,
     "grasa100g": 0.79,
     "fibra100g": 3.3,
-    "azucares100g": 0.85,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170416/nutrients"
+    "azucares100g": 0.85
   },
   {
     "id": "usda-170419",
     "nombre": "Chícharos verdes crudos",
-    "nombreOriginal": "Peas, green, raw",
-    "nombreCompleto": "Chícharos verdes crudos",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170419/nutrients",
     "kcal100g": 81.0,
     "proteina100g": 5.42,
     "carbohidratos100g": 14.4,
     "grasa100g": 0.4,
     "fibra100g": 5.7,
-    "azucares100g": 5.67,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170419/nutrients"
+    "azucares100g": 5.67
   },
   {
     "id": "usda-170010",
     "nombre": "Chícharos con vaina comestible crudos",
-    "nombreOriginal": "Peas, edible-podded, raw",
-    "nombreCompleto": "Chícharos con vaina comestible crudos",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170010/nutrients",
     "kcal100g": 42.0,
     "proteina100g": 2.8,
     "carbohidratos100g": 7.55,
     "grasa100g": 0.2,
     "fibra100g": 2.6,
-    "azucares100g": 4.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170010/nutrients"
+    "azucares100g": 4.0
   },
   {
     "id": "usda-170497",
     "nombre": "Chile verde picante crudo",
-    "nombreOriginal": "Peppers, hot chili, green, raw",
-    "nombreCompleto": "Chile verde picante crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170497/nutrients",
     "kcal100g": 40.0,
     "proteina100g": 2.0,
     "carbohidratos100g": 9.46,
     "grasa100g": 0.2,
     "fibra100g": 1.5,
-    "azucares100g": 5.1,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170497/nutrients"
+    "azucares100g": 5.1
   },
   {
     "id": "usda-170106",
     "nombre": "Chile rojo picante crudo",
-    "nombreOriginal": "Peppers, hot chili, red, raw",
-    "nombreCompleto": "Chile rojo picante crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170106/nutrients",
     "kcal100g": 40.0,
     "proteina100g": 1.87,
     "carbohidratos100g": 8.81,
     "grasa100g": 0.44,
     "fibra100g": 1.5,
-    "azucares100g": 5.3,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170106/nutrients"
+    "azucares100g": 5.3
   },
   {
     "id": "usda-168576",
     "nombre": "Chile jalapeño crudo",
-    "nombreOriginal": "Peppers, jalapeno, raw",
-    "nombreCompleto": "Chile jalapeño crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168576/nutrients",
     "kcal100g": 29.0,
     "proteina100g": 0.91,
     "carbohidratos100g": 6.5,
     "grasa100g": 0.37,
     "fibra100g": 2.8,
-    "azucares100g": 4.12,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168576/nutrients"
+    "azucares100g": 4.12
   },
   {
     "id": "usda-169395",
     "nombre": "Chile serrano crudo",
-    "nombreOriginal": "Peppers, serrano, raw",
-    "nombreCompleto": "Chile serrano crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169395/nutrients",
     "kcal100g": 32.0,
     "proteina100g": 1.74,
     "carbohidratos100g": 6.7,
     "grasa100g": 0.44,
     "fibra100g": 3.7,
-    "azucares100g": 3.83,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169395/nutrients"
+    "azucares100g": 3.83
   },
   {
     "id": "usda-170427",
     "nombre": "Pimiento verde crudo",
-    "nombreOriginal": "Peppers, sweet, green, raw",
-    "nombreCompleto": "Pimiento verde crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170427/nutrients",
     "kcal100g": 20.0,
     "proteina100g": 0.86,
     "carbohidratos100g": 4.64,
     "grasa100g": 0.17,
     "fibra100g": 1.7,
-    "azucares100g": 2.4,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170427/nutrients"
+    "azucares100g": 2.4
   },
   {
     "id": "usda-170108",
     "nombre": "Pimiento rojo crudo",
-    "nombreOriginal": "Peppers, sweet, red, raw",
-    "nombreCompleto": "Pimiento rojo crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170108/nutrients",
     "kcal100g": 26.0,
     "proteina100g": 0.99,
     "carbohidratos100g": 6.03,
     "grasa100g": 0.3,
     "fibra100g": 2.1,
-    "azucares100g": 4.2,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170108/nutrients"
+    "azucares100g": 4.2
   },
   {
     "id": "usda-169383",
     "nombre": "Pimiento amarillo crudo",
-    "nombreOriginal": "Peppers, sweet, yellow, raw",
-    "nombreCompleto": "Pimiento amarillo crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169383/nutrients",
     "kcal100g": 27.0,
     "proteina100g": 1.0,
     "carbohidratos100g": 6.32,
     "grasa100g": 0.21,
     "fibra100g": 0.9,
-    "azucares100g": null,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169383/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-170030",
     "nombre": "Papa russet con cáscara horneada",
-    "nombreOriginal": "Potatoes, Russet, flesh and skin, baked",
-    "nombreCompleto": "Papa russet con cáscara horneada",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170030/nutrients",
     "kcal100g": 95.0,
     "proteina100g": 2.63,
     "carbohidratos100g": 21.4,
     "grasa100g": 0.13,
     "fibra100g": 2.3,
-    "azucares100g": 1.08,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170030/nutrients"
+    "azucares100g": 1.08
   },
   {
     "id": "usda-168448",
     "nombre": "Calabaza de Castilla cruda",
-    "nombreOriginal": "Pumpkin, raw",
-    "nombreCompleto": "Calabaza de Castilla cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168448/nutrients",
     "kcal100g": 26.0,
     "proteina100g": 1.0,
     "carbohidratos100g": 6.5,
     "grasa100g": 0.1,
     "fibra100g": 0.5,
-    "azucares100g": 2.76,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168448/nutrients"
+    "azucares100g": 2.76
   },
   {
     "id": "usda-169270",
     "nombre": "Flor de calabaza cruda",
-    "nombreOriginal": "Pumpkin flowers, raw",
-    "nombreCompleto": "Flor de calabaza cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169270/nutrients",
     "kcal100g": 15.0,
     "proteina100g": 1.03,
     "carbohidratos100g": 3.28,
     "grasa100g": 0.07,
     "fibra100g": null,
-    "azucares100g": null,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169270/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-169276",
     "nombre": "Rábano crudo",
-    "nombreOriginal": "Radishes, raw",
-    "nombreCompleto": "Rábano crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169276/nutrients",
     "kcal100g": 16.0,
     "proteina100g": 0.68,
     "carbohidratos100g": 3.4,
     "grasa100g": 0.1,
     "fibra100g": 1.6,
-    "azucares100g": 1.86,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169276/nutrients"
+    "azucares100g": 1.86
   },
   {
     "id": "usda-168462",
     "nombre": "Espinaca cruda",
-    "nombreOriginal": "Spinach, raw",
-    "nombreCompleto": "Espinaca cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168462/nutrients",
     "kcal100g": 23.0,
     "proteina100g": 2.86,
     "carbohidratos100g": 3.63,
     "grasa100g": 0.39,
     "fibra100g": 2.2,
-    "azucares100g": 0.42,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168462/nutrients"
+    "azucares100g": 0.42
   },
   {
     "id": "usda-169295",
     "nombre": "Calabaza butternut cruda",
-    "nombreOriginal": "Squash, winter, butternut, raw",
-    "nombreCompleto": "Calabaza butternut cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169295/nutrients",
     "kcal100g": 45.0,
     "proteina100g": 1.0,
     "carbohidratos100g": 11.7,
     "grasa100g": 0.1,
     "fibra100g": 2.0,
-    "azucares100g": 2.2,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169295/nutrients"
+    "azucares100g": 2.2
   },
   {
     "id": "usda-168482",
     "nombre": "Camote crudo",
-    "nombreOriginal": "Sweet potato, raw, unprepared (Includes foods for USDA's Food Distribution Program)",
-    "nombreCompleto": "Camote crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168482/nutrients",
     "kcal100g": 86.0,
     "proteina100g": 1.57,
     "carbohidratos100g": 20.1,
     "grasa100g": 0.05,
     "fibra100g": 3.0,
-    "azucares100g": 4.18,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168482/nutrients"
+    "azucares100g": 4.18
   },
   {
     "id": "usda-168484",
     "nombre": "Camote hervido sin cáscara",
-    "nombreOriginal": "Sweet potato, cooked, boiled, without skin",
-    "nombreCompleto": "Camote hervido sin cáscara",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168484/nutrients",
     "kcal100g": 76.0,
     "proteina100g": 1.37,
     "carbohidratos100g": 17.7,
     "grasa100g": 0.14,
     "fibra100g": 2.5,
-    "azucares100g": 5.74,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168484/nutrients"
+    "azucares100g": 5.74
   },
   {
     "id": "usda-168566",
     "nombre": "Tomate verde crudo (tomatillo)",
-    "nombreOriginal": "Tomatillos, raw",
-    "nombreCompleto": "Tomate verde crudo (tomatillo)",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168566/nutrients",
     "kcal100g": 32.0,
     "proteina100g": 0.96,
     "carbohidratos100g": 5.84,
     "grasa100g": 1.02,
     "fibra100g": 1.9,
-    "azucares100g": 3.93,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168566/nutrients"
+    "azucares100g": 3.93
   },
   {
     "id": "usda-170050",
     "nombre": "Jitomate rojo cocido",
-    "nombreOriginal": "Tomatoes, red, ripe, cooked",
-    "nombreCompleto": "Jitomate rojo cocido",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170050/nutrients",
     "kcal100g": 18.0,
     "proteina100g": 0.95,
     "carbohidratos100g": 4.01,
     "grasa100g": 0.11,
     "fibra100g": 0.7,
-    "azucares100g": 2.49,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170050/nutrients"
+    "azucares100g": 2.49
   },
   {
     "id": "usda-170068",
     "nombre": "Berros crudos",
-    "nombreOriginal": "Watercress, raw",
-    "nombreCompleto": "Berros crudos",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170068/nutrients",
     "kcal100g": 11.0,
     "proteina100g": 2.3,
     "carbohidratos100g": 1.29,
     "grasa100g": 0.1,
     "fibra100g": 0.5,
-    "azucares100g": 0.2,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170068/nutrients"
+    "azucares100g": 0.2
   },
   {
     "id": "usda-170073",
     "nombre": "Jícama cruda",
-    "nombreOriginal": "Yambean (jicama), raw",
-    "nombreCompleto": "Jícama cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170073/nutrients",
     "kcal100g": 38.0,
     "proteina100g": 0.72,
     "carbohidratos100g": 8.82,
     "grasa100g": 0.09,
     "fibra100g": 4.9,
-    "azucares100g": 1.8,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170073/nutrients"
+    "azucares100g": 1.8
   },
   {
     "id": "usda-171689",
     "nombre": "Manzana sin cáscara cruda",
-    "nombreOriginal": "Apples, raw, without skin",
-    "nombreCompleto": "Manzana sin cáscara cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171689/nutrients",
     "kcal100g": 48.0,
     "proteina100g": 0.27,
     "carbohidratos100g": 12.8,
     "grasa100g": 0.13,
     "fibra100g": 1.3,
-    "azucares100g": 10.1,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171689/nutrients"
+    "azucares100g": 10.1
   },
   {
     "id": "usda-167793",
     "nombre": "Manzana Fuji con cáscara cruda",
-    "nombreOriginal": "Apples, raw, fuji, with skin (Includes foods for USDA's Food Distribution Program)",
-    "nombreCompleto": "Manzana Fuji con cáscara cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/167793/nutrients",
     "kcal100g": 63.0,
     "proteina100g": 0.2,
     "carbohidratos100g": 15.2,
     "grasa100g": 0.18,
     "fibra100g": 2.1,
-    "azucares100g": 11.7,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/167793/nutrients"
+    "azucares100g": 11.7
   },
   {
     "id": "usda-168202",
     "nombre": "Manzana Golden Delicious con cáscara cruda",
-    "nombreOriginal": "Apples, raw, golden delicious, with skin",
-    "nombreCompleto": "Manzana Golden Delicious con cáscara cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168202/nutrients",
     "kcal100g": 57.0,
     "proteina100g": 0.28,
     "carbohidratos100g": 13.6,
     "grasa100g": 0.15,
     "fibra100g": 2.4,
-    "azucares100g": 10.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168202/nutrients"
+    "azucares100g": 10.0
   },
   {
     "id": "usda-168203",
     "nombre": "Manzana Granny Smith con cáscara cruda",
-    "nombreOriginal": "Apples, raw, granny smith, with skin (Includes foods for USDA's Food Distribution Program)",
-    "nombreCompleto": "Manzana Granny Smith con cáscara cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168203/nutrients",
     "kcal100g": 58.0,
     "proteina100g": 0.44,
     "carbohidratos100g": 13.6,
     "grasa100g": 0.19,
     "fibra100g": 2.8,
-    "azucares100g": 9.59,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168203/nutrients"
+    "azucares100g": 9.59
   },
   {
     "id": "usda-171697",
     "nombre": "Chabacano crudo",
-    "nombreOriginal": "Apricots, raw",
-    "nombreCompleto": "Chabacano crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171697/nutrients",
     "kcal100g": 48.0,
     "proteina100g": 1.4,
     "carbohidratos100g": 11.1,
     "grasa100g": 0.39,
     "fibra100g": 2.0,
-    "azucares100g": 9.24,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171697/nutrients"
+    "azucares100g": 9.24
   },
   {
     "id": "usda-173946",
     "nombre": "Zarzamora cruda",
-    "nombreOriginal": "Blackberries, raw",
-    "nombreCompleto": "Zarzamora cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173946/nutrients",
     "kcal100g": 43.0,
     "proteina100g": 1.39,
     "carbohidratos100g": 9.61,
     "grasa100g": 0.49,
     "fibra100g": 5.3,
-    "azucares100g": 4.88,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173946/nutrients"
+    "azucares100g": 4.88
   },
   {
     "id": "usda-171711",
     "nombre": "Mora azul cruda",
-    "nombreOriginal": "Blueberries, raw",
-    "nombreCompleto": "Mora azul cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171711/nutrients",
     "kcal100g": 57.0,
     "proteina100g": 0.74,
     "carbohidratos100g": 14.5,
     "grasa100g": 0.33,
     "fibra100g": 2.4,
-    "azucares100g": 9.96,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171711/nutrients"
+    "azucares100g": 9.96
   },
   {
     "id": "usda-171715",
     "nombre": "Carambola cruda",
-    "nombreOriginal": "Carambola, (starfruit), raw",
-    "nombreCompleto": "Carambola cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171715/nutrients",
     "kcal100g": 31.0,
     "proteina100g": 1.04,
     "carbohidratos100g": 6.73,
     "grasa100g": 0.33,
     "fibra100g": 2.8,
-    "azucares100g": 3.98,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171715/nutrients"
+    "azucares100g": 3.98
   },
   {
     "id": "usda-171719",
     "nombre": "Cereza dulce cruda",
-    "nombreOriginal": "Cherries, sweet, raw",
-    "nombreCompleto": "Cereza dulce cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171719/nutrients",
     "kcal100g": 63.0,
     "proteina100g": 1.06,
     "carbohidratos100g": 16.0,
     "grasa100g": 0.2,
     "fibra100g": 2.1,
-    "azucares100g": 12.8,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171719/nutrients"
+    "azucares100g": 12.8
   },
   {
     "id": "usda-168195",
     "nombre": "Clementina cruda",
-    "nombreOriginal": "Clementines, raw",
-    "nombreCompleto": "Clementina cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168195/nutrients",
     "kcal100g": 47.0,
     "proteina100g": 0.85,
     "carbohidratos100g": 12.0,
     "grasa100g": 0.15,
     "fibra100g": 1.7,
-    "azucares100g": 9.18,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168195/nutrients"
+    "azucares100g": 9.18
   },
   {
     "id": "usda-171722",
     "nombre": "Arándano rojo crudo",
-    "nombreOriginal": "Cranberries, raw",
-    "nombreCompleto": "Arándano rojo crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171722/nutrients",
     "kcal100g": 46.0,
     "proteina100g": 0.46,
     "carbohidratos100g": 12.0,
     "grasa100g": 0.13,
     "fibra100g": 3.6,
-    "azucares100g": 4.27,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171722/nutrients"
+    "azucares100g": 4.27
   },
   {
     "id": "usda-171726",
     "nombre": "Dátil Deglet Noor",
-    "nombreOriginal": "Dates, deglet noor",
-    "nombreCompleto": "Dátil Deglet Noor",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171726/nutrients",
     "kcal100g": 282,
     "proteina100g": 2.45,
     "carbohidratos100g": 75.0,
     "grasa100g": 0.39,
     "fibra100g": 8.0,
-    "azucares100g": 63.4,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171726/nutrients"
+    "azucares100g": 63.4
   },
   {
     "id": "usda-168191",
     "nombre": "Dátil Medjool",
-    "nombreOriginal": "Dates, medjool",
-    "nombreCompleto": "Dátil Medjool",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168191/nutrients",
     "kcal100g": 277,
     "proteina100g": 1.81,
     "carbohidratos100g": 75.0,
     "grasa100g": 0.15,
     "fibra100g": 6.7,
-    "azucares100g": 66.5,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168191/nutrients"
+    "azucares100g": 66.5
   },
   {
     "id": "usda-173021",
     "nombre": "Higo crudo",
-    "nombreOriginal": "Figs, raw",
-    "nombreCompleto": "Higo crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173021/nutrients",
     "kcal100g": 74.0,
     "proteina100g": 0.75,
     "carbohidratos100g": 19.2,
     "grasa100g": 0.3,
     "fibra100g": 2.9,
-    "azucares100g": 16.3,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173021/nutrients"
+    "azucares100g": 16.3
   },
   {
     "id": "usda-174673",
     "nombre": "Toronja rosa o roja cruda",
-    "nombreOriginal": "Grapefruit, raw, pink and red, all areas",
-    "nombreCompleto": "Toronja rosa o roja cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/174673/nutrients",
     "kcal100g": 42.0,
     "proteina100g": 0.77,
     "carbohidratos100g": 10.7,
     "grasa100g": 0.14,
     "fibra100g": 1.6,
-    "azucares100g": 6.89,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/174673/nutrients"
+    "azucares100g": 6.89
   },
   {
     "id": "usda-174676",
     "nombre": "Toronja blanca cruda",
-    "nombreOriginal": "Grapefruit, raw, white, all areas",
-    "nombreCompleto": "Toronja blanca cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/174676/nutrients",
     "kcal100g": 33.0,
     "proteina100g": 0.69,
     "carbohidratos100g": 8.41,
     "grasa100g": 0.1,
     "fibra100g": 1.1,
-    "azucares100g": 7.31,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/174676/nutrients"
+    "azucares100g": 7.31
   },
   {
     "id": "usda-174683",
     "nombre": "Uvas rojas o verdes crudas",
-    "nombreOriginal": "Grapes, red or green (European type, such as Thompson seedless), raw",
-    "nombreCompleto": "Uvas rojas o verdes crudas",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/174683/nutrients",
     "kcal100g": 69.0,
     "proteina100g": 0.72,
     "carbohidratos100g": 18.1,
     "grasa100g": 0.16,
     "fibra100g": 0.9,
-    "azucares100g": 15.5,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/174683/nutrients"
+    "azucares100g": 15.5
   },
   {
     "id": "usda-173044",
     "nombre": "Guayaba cruda",
-    "nombreOriginal": "Guavas, common, raw",
-    "nombreCompleto": "Guayaba cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173044/nutrients",
     "kcal100g": 68.0,
     "proteina100g": 2.55,
     "carbohidratos100g": 14.3,
     "grasa100g": 0.95,
     "fibra100g": 5.4,
-    "azucares100g": 8.92,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173044/nutrients"
+    "azucares100g": 8.92
   },
   {
     "id": "usda-168153",
     "nombre": "Kiwi verde crudo",
-    "nombreOriginal": "Kiwifruit, green, raw",
-    "nombreCompleto": "Kiwi verde crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168153/nutrients",
     "kcal100g": 61.0,
     "proteina100g": 1.14,
     "carbohidratos100g": 14.7,
     "grasa100g": 0.52,
     "fibra100g": 3.0,
-    "azucares100g": 8.99,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168153/nutrients"
+    "azucares100g": 8.99
   },
   {
     "id": "usda-167746",
     "nombre": "Limón amarillo sin cáscara crudo",
-    "nombreOriginal": "Lemons, raw, without peel",
-    "nombreCompleto": "Limón amarillo sin cáscara crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/167746/nutrients",
     "kcal100g": 29.0,
     "proteina100g": 1.1,
     "carbohidratos100g": 9.32,
     "grasa100g": 0.3,
     "fibra100g": 2.8,
-    "azucares100g": 2.5,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/167746/nutrients"
+    "azucares100g": 2.5
   },
   {
     "id": "usda-169086",
     "nombre": "Lichi crudo",
-    "nombreOriginal": "Litchis, raw",
-    "nombreCompleto": "Lichi crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169086/nutrients",
     "kcal100g": 66.0,
     "proteina100g": 0.83,
     "carbohidratos100g": 16.5,
     "grasa100g": 0.44,
     "fibra100g": 1.3,
-    "azucares100g": 15.2,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169086/nutrients"
+    "azucares100g": 15.2
   },
   {
     "id": "usda-169910",
     "nombre": "Mango crudo",
-    "nombreOriginal": "Mangos, raw",
-    "nombreCompleto": "Mango crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169910/nutrients",
     "kcal100g": 60.0,
     "proteina100g": 0.82,
     "carbohidratos100g": 15.0,
     "grasa100g": 0.38,
     "fibra100g": 1.6,
-    "azucares100g": 13.7,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169910/nutrients"
+    "azucares100g": 13.7
   },
   {
     "id": "usda-169092",
     "nombre": "Melón cantalupo crudo",
-    "nombreOriginal": "Melons, cantaloupe, raw",
-    "nombreCompleto": "Melón cantalupo crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169092/nutrients",
     "kcal100g": 34.0,
     "proteina100g": 0.84,
     "carbohidratos100g": 8.16,
     "grasa100g": 0.19,
     "fibra100g": 0.9,
-    "azucares100g": 7.86,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169092/nutrients"
+    "azucares100g": 7.86
   },
   {
     "id": "usda-169911",
     "nombre": "Melón verde crudo",
-    "nombreOriginal": "Melons, honeydew, raw",
-    "nombreCompleto": "Melón verde crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169911/nutrients",
     "kcal100g": 36.0,
     "proteina100g": 0.54,
     "carbohidratos100g": 9.09,
     "grasa100g": 0.14,
     "fibra100g": 0.8,
-    "azucares100g": 8.12,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169911/nutrients"
+    "azucares100g": 8.12
   },
   {
     "id": "usda-169914",
     "nombre": "Nectarina cruda",
-    "nombreOriginal": "Nectarines, raw",
-    "nombreCompleto": "Nectarina cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169914/nutrients",
     "kcal100g": 44.0,
     "proteina100g": 1.06,
     "carbohidratos100g": 10.6,
     "grasa100g": 0.32,
     "fibra100g": 1.7,
-    "azucares100g": 7.89,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169914/nutrients"
+    "azucares100g": 7.89
   },
   {
     "id": "usda-169917",
     "nombre": "Naranja navel cruda",
-    "nombreOriginal": "Oranges, raw, navels (Includes foods for USDA's Food Distribution Program)",
-    "nombreCompleto": "Naranja navel cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169917/nutrients",
     "kcal100g": 49.0,
     "proteina100g": 0.91,
     "carbohidratos100g": 12.5,
     "grasa100g": 0.15,
     "fibra100g": 2.2,
-    "azucares100g": 8.5,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169917/nutrients"
+    "azucares100g": 8.5
   },
   {
     "id": "usda-169916",
     "nombre": "Naranja Valencia cruda",
-    "nombreOriginal": "Oranges, raw, California, valencias",
-    "nombreCompleto": "Naranja Valencia cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169916/nutrients",
     "kcal100g": 49.0,
     "proteina100g": 1.04,
     "carbohidratos100g": 11.9,
     "grasa100g": 0.3,
     "fibra100g": 2.5,
-    "azucares100g": null,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169916/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-169926",
     "nombre": "Papaya cruda",
-    "nombreOriginal": "Papayas, raw",
-    "nombreCompleto": "Papaya cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169926/nutrients",
     "kcal100g": 43.0,
     "proteina100g": 0.47,
     "carbohidratos100g": 10.8,
     "grasa100g": 0.26,
     "fibra100g": 1.7,
-    "azucares100g": 7.82,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169926/nutrients"
+    "azucares100g": 7.82
   },
   {
     "id": "usda-169108",
     "nombre": "Maracuyá morado crudo",
-    "nombreOriginal": "Passion-fruit, (granadilla), purple, raw",
-    "nombreCompleto": "Maracuyá morado crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169108/nutrients",
     "kcal100g": 97.0,
     "proteina100g": 2.2,
     "carbohidratos100g": 23.4,
     "grasa100g": 0.7,
     "fibra100g": 10.4,
-    "azucares100g": 11.2,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169108/nutrients"
+    "azucares100g": 11.2
   },
   {
     "id": "usda-169928",
     "nombre": "Durazno amarillo crudo",
-    "nombreOriginal": "Peaches, yellow, raw",
-    "nombreCompleto": "Durazno amarillo crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169928/nutrients",
     "kcal100g": 39.0,
     "proteina100g": 0.91,
     "carbohidratos100g": 9.54,
     "grasa100g": 0.25,
     "fibra100g": 1.5,
-    "azucares100g": 8.39,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169928/nutrients"
+    "azucares100g": 8.39
   },
   {
     "id": "usda-169118",
     "nombre": "Pera cruda",
-    "nombreOriginal": "Pears, raw",
-    "nombreCompleto": "Pera cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169118/nutrients",
     "kcal100g": 57.0,
     "proteina100g": 0.36,
     "carbohidratos100g": 15.2,
     "grasa100g": 0.14,
     "fibra100g": 3.1,
-    "azucares100g": 9.75,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169118/nutrients"
+    "azucares100g": 9.75
   },
   {
     "id": "usda-168177",
     "nombre": "Pera asiática cruda",
-    "nombreOriginal": "Pears, asian, raw",
-    "nombreCompleto": "Pera asiática cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168177/nutrients",
     "kcal100g": 42.0,
     "proteina100g": 0.5,
     "carbohidratos100g": 10.6,
     "grasa100g": 0.23,
     "fibra100g": 3.6,
-    "azucares100g": 7.05,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168177/nutrients"
+    "azucares100g": 7.05
   },
   {
     "id": "usda-169941",
     "nombre": "Caqui japonés crudo",
-    "nombreOriginal": "Persimmons, japanese, raw",
-    "nombreCompleto": "Caqui japonés crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169941/nutrients",
     "kcal100g": 70.0,
     "proteina100g": 0.58,
     "carbohidratos100g": 18.6,
     "grasa100g": 0.19,
     "fibra100g": 3.6,
-    "azucares100g": 12.5,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169941/nutrients"
+    "azucares100g": 12.5
   },
   {
     "id": "usda-169124",
     "nombre": "Piña cruda",
-    "nombreOriginal": "Pineapple, raw, all varieties",
-    "nombreCompleto": "Piña cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169124/nutrients",
     "kcal100g": 50.0,
     "proteina100g": 0.54,
     "carbohidratos100g": 13.1,
     "grasa100g": 0.12,
     "fibra100g": 1.4,
-    "azucares100g": 9.85,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169124/nutrients"
+    "azucares100g": 9.85
   },
   {
     "id": "usda-169949",
     "nombre": "Ciruela cruda",
-    "nombreOriginal": "Plums, raw",
-    "nombreCompleto": "Ciruela cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169949/nutrients",
     "kcal100g": 46.0,
     "proteina100g": 0.7,
     "carbohidratos100g": 11.4,
     "grasa100g": 0.28,
     "fibra100g": 1.4,
-    "azucares100g": 9.92,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169949/nutrients"
+    "azucares100g": 9.92
   },
   {
     "id": "usda-169134",
     "nombre": "Granada cruda",
-    "nombreOriginal": "Pomegranates, raw",
-    "nombreCompleto": "Granada cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169134/nutrients",
     "kcal100g": 83.0,
     "proteina100g": 1.67,
     "carbohidratos100g": 18.7,
     "grasa100g": 1.17,
     "fibra100g": 4.0,
-    "azucares100g": 13.7,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169134/nutrients"
+    "azucares100g": 13.7
   },
   {
     "id": "usda-167750",
     "nombre": "Tuna cruda",
-    "nombreOriginal": "Prickly pears, raw",
-    "nombreCompleto": "Tuna cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/167750/nutrients",
     "kcal100g": 41.0,
     "proteina100g": 0.73,
     "carbohidratos100g": 9.57,
     "grasa100g": 0.51,
     "fibra100g": 3.6,
-    "azucares100g": null,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/167750/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-168165",
     "nombre": "Pasas oscuras sin semilla",
-    "nombreOriginal": "Raisins, dark, seedless (Includes foods for USDA's Food Distribution Program)",
-    "nombreCompleto": "Pasas oscuras sin semilla",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168165/nutrients",
     "kcal100g": 299,
     "proteina100g": 3.3,
     "carbohidratos100g": 79.3,
     "grasa100g": 0.25,
     "fibra100g": 4.5,
-    "azucares100g": 65.2,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168165/nutrients"
+    "azucares100g": 65.2
   },
   {
     "id": "usda-168164",
     "nombre": "Pasas doradas sin semilla",
-    "nombreOriginal": "Raisins, golden, seedless",
-    "nombreCompleto": "Pasas doradas sin semilla",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168164/nutrients",
     "kcal100g": 301,
     "proteina100g": 3.28,
     "carbohidratos100g": 80.0,
     "grasa100g": 0.2,
     "fibra100g": 3.3,
-    "azucares100g": 65.7,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168164/nutrients"
+    "azucares100g": 65.7
   },
   {
     "id": "usda-167755",
     "nombre": "Frambuesa cruda",
-    "nombreOriginal": "Raspberries, raw",
-    "nombreCompleto": "Frambuesa cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/167755/nutrients",
     "kcal100g": 52.0,
     "proteina100g": 1.2,
     "carbohidratos100g": 11.9,
     "grasa100g": 0.65,
     "fibra100g": 6.5,
-    "azucares100g": 4.42,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/167755/nutrients"
+    "azucares100g": 4.42
   },
   {
     "id": "usda-167762",
     "nombre": "Fresa cruda",
-    "nombreOriginal": "Strawberries, raw",
-    "nombreCompleto": "Fresa cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/167762/nutrients",
     "kcal100g": 32.0,
     "proteina100g": 0.67,
     "carbohidratos100g": 7.68,
     "grasa100g": 0.3,
     "fibra100g": 2.0,
-    "azucares100g": 4.89,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/167762/nutrients"
+    "azucares100g": 4.89
   },
   {
     "id": "usda-169105",
     "nombre": "Mandarina cruda",
-    "nombreOriginal": "Tangerines, (mandarin oranges), raw",
-    "nombreCompleto": "Mandarina cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169105/nutrients",
     "kcal100g": 53.0,
     "proteina100g": 0.81,
     "carbohidratos100g": 13.3,
     "grasa100g": 0.31,
     "fibra100g": 1.8,
-    "azucares100g": 10.6,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169105/nutrients"
+    "azucares100g": 10.6
   },
   {
     "id": "usda-167765",
     "nombre": "Sandía cruda",
-    "nombreOriginal": "Watermelon, raw",
-    "nombreCompleto": "Sandía cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/167765/nutrients",
     "kcal100g": 30.0,
     "proteina100g": 0.61,
     "carbohidratos100g": 7.55,
     "grasa100g": 0.15,
     "fibra100g": 0.4,
-    "azucares100g": 6.2,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/167765/nutrients"
+    "azucares100g": 6.2
   },
   {
     "id": "usda-170683",
     "nombre": "Amaranto cocido",
-    "nombreOriginal": "Amaranth grain, cooked",
-    "nombreCompleto": "Amaranto cocido",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170683/nutrients",
     "kcal100g": 102,
     "proteina100g": 3.8,
     "carbohidratos100g": 18.7,
     "grasa100g": 1.58,
     "fibra100g": 2.1,
-    "azucares100g": null,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170683/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-170682",
     "nombre": "Amaranto en grano crudo",
-    "nombreOriginal": "Amaranth grain, uncooked",
-    "nombreCompleto": "Amaranto en grano crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170682/nutrients",
     "kcal100g": 371,
     "proteina100g": 13.6,
     "carbohidratos100g": 65.2,
     "grasa100g": 7.02,
     "fibra100g": 6.7,
-    "azucares100g": 1.69,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170682/nutrients"
+    "azucares100g": 1.69
   },
   {
     "id": "usda-170285",
     "nombre": "Cebada perlada cocida",
-    "nombreOriginal": "Barley, pearled, cooked",
-    "nombreCompleto": "Cebada perlada cocida",
+    "alergenos": [
+      "trigo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170285/nutrients",
     "kcal100g": 123,
     "proteina100g": 2.26,
     "carbohidratos100g": 28.2,
     "grasa100g": 0.44,
     "fibra100g": 3.8,
-    "azucares100g": 0.28,
-    "alergenos": [
-      "trigo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170285/nutrients"
+    "azucares100g": 0.28
   },
   {
     "id": "usda-170284",
     "nombre": "Cebada perlada cruda",
-    "nombreOriginal": "Barley, pearled, raw",
-    "nombreCompleto": "Cebada perlada cruda",
+    "alergenos": [
+      "trigo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170284/nutrients",
     "kcal100g": 352,
     "proteina100g": 9.91,
     "carbohidratos100g": 77.7,
     "grasa100g": 1.16,
     "fibra100g": 15.6,
-    "azucares100g": 0.8,
-    "alergenos": [
-      "trigo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170284/nutrients"
+    "azucares100g": 0.8
   },
   {
     "id": "usda-170286",
     "nombre": "Trigo sarraceno crudo",
-    "nombreOriginal": "Buckwheat",
-    "nombreCompleto": "Trigo sarraceno crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170286/nutrients",
     "kcal100g": 343,
     "proteina100g": 13.2,
     "carbohidratos100g": 71.5,
     "grasa100g": 3.4,
     "fibra100g": 10.0,
-    "azucares100g": null,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170286/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-170687",
     "nombre": "Harina integral de trigo sarraceno",
-    "nombreOriginal": "Buckwheat flour, whole-groat",
-    "nombreCompleto": "Harina integral de trigo sarraceno",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170687/nutrients",
     "kcal100g": 335,
     "proteina100g": 12.6,
     "carbohidratos100g": 70.6,
     "grasa100g": 3.1,
     "fibra100g": 10.0,
-    "azucares100g": 2.6,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170687/nutrients"
+    "azucares100g": 2.6
   },
   {
     "id": "usda-170287",
     "nombre": "Bulgur cocido",
-    "nombreOriginal": "Bulgur, cooked",
-    "nombreCompleto": "Bulgur cocido",
+    "alergenos": [
+      "trigo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170287/nutrients",
     "kcal100g": 83.0,
     "proteina100g": 3.08,
     "carbohidratos100g": 18.6,
     "grasa100g": 0.24,
     "fibra100g": 4.5,
-    "azucares100g": 0.1,
-    "alergenos": [
-      "trigo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170287/nutrients"
+    "azucares100g": 0.1
   },
   {
     "id": "usda-170688",
     "nombre": "Bulgur seco",
-    "nombreOriginal": "Bulgur, dry",
-    "nombreCompleto": "Bulgur seco",
+    "alergenos": [
+      "trigo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170688/nutrients",
     "kcal100g": 342,
     "proteina100g": 12.3,
     "carbohidratos100g": 75.9,
     "grasa100g": 1.33,
     "fibra100g": 12.5,
-    "azucares100g": 0.41,
-    "alergenos": [
-      "trigo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170688/nutrients"
+    "azucares100g": 0.41
   },
   {
     "id": "usda-170290",
     "nombre": "Harina integral de maíz amarillo",
-    "nombreOriginal": "Corn flour, whole-grain, yellow",
-    "nombreCompleto": "Harina integral de maíz amarillo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170290/nutrients",
     "kcal100g": 361,
     "proteina100g": 6.93,
     "carbohidratos100g": 76.8,
     "grasa100g": 3.86,
     "fibra100g": 7.3,
-    "azucares100g": 0.64,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170290/nutrients"
+    "azucares100g": 0.64
   },
   {
     "id": "usda-169748",
     "nombre": "Harina integral de maíz blanco",
-    "nombreOriginal": "Corn flour, whole-grain, white",
-    "nombreCompleto": "Harina integral de maíz blanco",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169748/nutrients",
     "kcal100g": 361,
     "proteina100g": 6.93,
     "carbohidratos100g": 76.8,
     "grasa100g": 3.86,
     "fibra100g": 7.3,
-    "azucares100g": 0.64,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169748/nutrients"
+    "azucares100g": 0.64
   },
   {
     "id": "usda-170288",
     "nombre": "Maíz amarillo en grano seco",
-    "nombreOriginal": "Corn grain, yellow",
-    "nombreCompleto": "Maíz amarillo en grano seco",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170288/nutrients",
     "kcal100g": 365,
     "proteina100g": 9.42,
     "carbohidratos100g": 74.3,
     "grasa100g": 4.74,
     "fibra100g": 7.3,
-    "azucares100g": 0.64,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170288/nutrients"
+    "azucares100g": 0.64
   },
   {
     "id": "usda-168920",
     "nombre": "Maíz blanco en grano seco",
-    "nombreOriginal": "Corn grain, white",
-    "nombreCompleto": "Maíz blanco en grano seco",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168920/nutrients",
     "kcal100g": 365,
     "proteina100g": 9.42,
     "carbohidratos100g": 74.3,
     "grasa100g": 4.74,
     "fibra100g": null,
-    "azucares100g": null,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168920/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-169697",
     "nombre": "Sémola integral de maíz amarillo",
-    "nombreOriginal": "Cornmeal, whole-grain, yellow",
-    "nombreCompleto": "Sémola integral de maíz amarillo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169697/nutrients",
     "kcal100g": 362,
     "proteina100g": 8.12,
     "carbohidratos100g": 76.9,
     "grasa100g": 3.59,
     "fibra100g": 7.3,
-    "azucares100g": 0.64,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169697/nutrients"
+    "azucares100g": 0.64
   },
   {
     "id": "usda-169698",
     "nombre": "Fécula de maíz",
-    "nombreOriginal": "Cornstarch",
-    "nombreCompleto": "Fécula de maíz",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169698/nutrients",
     "kcal100g": 381,
     "proteina100g": 0.26,
     "carbohidratos100g": 91.3,
     "grasa100g": 0.05,
     "fibra100g": 0.9,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169698/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-169700",
     "nombre": "Cuscús cocido",
-    "nombreOriginal": "Couscous, cooked",
-    "nombreCompleto": "Cuscús cocido",
+    "alergenos": [
+      "trigo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169700/nutrients",
     "kcal100g": 112,
     "proteina100g": 3.79,
     "carbohidratos100g": 23.2,
     "grasa100g": 0.16,
     "fibra100g": 1.4,
-    "azucares100g": 0.1,
-    "alergenos": [
-      "trigo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169700/nutrients"
+    "azucares100g": 0.1
   },
   {
     "id": "usda-169699",
     "nombre": "Cuscús seco",
-    "nombreOriginal": "Couscous, dry",
-    "nombreCompleto": "Cuscús seco",
+    "alergenos": [
+      "trigo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169699/nutrients",
     "kcal100g": 376,
     "proteina100g": 12.8,
     "carbohidratos100g": 77.4,
     "grasa100g": 0.64,
     "fibra100g": 5.0,
-    "azucares100g": null,
-    "alergenos": [
-      "trigo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169699/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-168873",
     "nombre": "Salvado de avena cocido",
-    "nombreOriginal": "Oat bran, cooked",
-    "nombreCompleto": "Salvado de avena cocido",
+    "alergenos": [
+      "trigo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168873/nutrients",
     "kcal100g": 40.0,
     "proteina100g": 3.21,
     "carbohidratos100g": 11.4,
     "grasa100g": 0.86,
     "fibra100g": 2.6,
-    "azucares100g": null,
-    "alergenos": [
-      "trigo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168873/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-168872",
     "nombre": "Salvado de avena crudo",
-    "nombreOriginal": "Oat bran, raw",
-    "nombreCompleto": "Salvado de avena crudo",
+    "alergenos": [
+      "trigo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168872/nutrients",
     "kcal100g": 246,
     "proteina100g": 17.3,
     "carbohidratos100g": 66.2,
     "grasa100g": 7.03,
     "fibra100g": 15.4,
-    "azucares100g": 1.45,
-    "alergenos": [
-      "trigo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168872/nutrients"
+    "azucares100g": 1.45
   },
   {
     "id": "usda-168917",
     "nombre": "Quinoa cocida",
-    "nombreOriginal": "Quinoa, cooked",
-    "nombreCompleto": "Quinoa cocida",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168917/nutrients",
     "kcal100g": 120,
     "proteina100g": 4.4,
     "carbohidratos100g": 21.3,
     "grasa100g": 1.92,
     "fibra100g": 2.8,
-    "azucares100g": 0.87,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168917/nutrients"
+    "azucares100g": 0.87
   },
   {
     "id": "usda-168874",
     "nombre": "Quinoa cruda",
-    "nombreOriginal": "Quinoa, uncooked",
-    "nombreCompleto": "Quinoa cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168874/nutrients",
     "kcal100g": 368,
     "proteina100g": 14.1,
     "carbohidratos100g": 64.2,
     "grasa100g": 6.07,
     "fibra100g": 7.0,
-    "azucares100g": null,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168874/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-169704",
     "nombre": "Arroz integral de grano largo cocido",
-    "nombreOriginal": "Rice, brown, long-grain, cooked (Includes foods for USDA's Food Distribution Program)",
-    "nombreCompleto": "Arroz integral de grano largo cocido",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169704/nutrients",
     "kcal100g": 123,
     "proteina100g": 2.74,
     "carbohidratos100g": 25.6,
     "grasa100g": 0.97,
     "fibra100g": 1.6,
-    "azucares100g": 0.24,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169704/nutrients"
+    "azucares100g": 0.24
   },
   {
     "id": "usda-169703",
     "nombre": "Arroz integral de grano largo crudo",
-    "nombreOriginal": "Rice, brown, long-grain, raw (Includes foods for USDA's Food Distribution Program)",
-    "nombreCompleto": "Arroz integral de grano largo crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169703/nutrients",
     "kcal100g": 367,
     "proteina100g": 7.54,
     "carbohidratos100g": 76.2,
     "grasa100g": 3.2,
     "fibra100g": 3.6,
-    "azucares100g": 0.66,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169703/nutrients"
+    "azucares100g": 0.66
   },
   {
     "id": "usda-168914",
     "nombre": "Fideos de arroz cocidos",
-    "nombreOriginal": "Rice noodles, cooked",
-    "nombreCompleto": "Fideos de arroz cocidos",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168914/nutrients",
     "kcal100g": 108,
     "proteina100g": 1.79,
     "carbohidratos100g": 24.0,
     "grasa100g": 0.2,
     "fibra100g": 1.0,
-    "azucares100g": 0.03,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168914/nutrients"
+    "azucares100g": 0.03
   },
   {
     "id": "usda-169742",
     "nombre": "Fideos de arroz secos",
-    "nombreOriginal": "Rice noodles, dry",
-    "nombreCompleto": "Fideos de arroz secos",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169742/nutrients",
     "kcal100g": 364,
     "proteina100g": 5.95,
     "carbohidratos100g": 80.2,
     "grasa100g": 0.56,
     "fibra100g": 1.6,
-    "azucares100g": 0.12,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169742/nutrients"
+    "azucares100g": 0.12
   },
   {
     "id": "usda-168910",
     "nombre": "Pasta integral cocida",
-    "nombreOriginal": "Pasta, whole-wheat, cooked (Includes foods for USDA's Food Distribution Program)",
-    "nombreCompleto": "Pasta integral cocida",
+    "alergenos": [
+      "trigo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168910/nutrients",
     "kcal100g": 149,
     "proteina100g": 5.99,
     "carbohidratos100g": 30.1,
     "grasa100g": 1.71,
     "fibra100g": 3.9,
-    "azucares100g": 0.75,
-    "alergenos": [
-      "trigo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168910/nutrients"
+    "azucares100g": 0.75
   },
   {
     "id": "usda-169738",
     "nombre": "Pasta integral seca",
-    "nombreOriginal": "Pasta, whole-wheat, dry (Includes foods for USDA's Food Distribution Program)",
-    "nombreCompleto": "Pasta integral seca",
+    "alergenos": [
+      "trigo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169738/nutrients",
     "kcal100g": 352,
     "proteina100g": 13.9,
     "carbohidratos100g": 73.4,
     "grasa100g": 2.93,
     "fibra100g": 9.2,
-    "azucares100g": 2.74,
-    "alergenos": [
-      "trigo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169738/nutrients"
+    "azucares100g": 2.74
   },
   {
     "id": "usda-168901",
     "nombre": "Pasta casera con huevo cocida",
-    "nombreOriginal": "Pasta, homemade, made with egg, cooked",
-    "nombreCompleto": "Pasta casera con huevo cocida",
+    "alergenos": [
+      "trigo",
+      "huevo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168901/nutrients",
     "kcal100g": 130,
     "proteina100g": 5.28,
     "carbohidratos100g": 23.5,
     "grasa100g": 1.74,
     "fibra100g": null,
-    "azucares100g": null,
-    "alergenos": [
-      "trigo",
-      "huevo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168901/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-168902",
     "nombre": "Pasta casera sin huevo cocida",
-    "nombreOriginal": "Pasta, homemade, made without egg, cooked",
-    "nombreCompleto": "Pasta casera sin huevo cocida",
+    "alergenos": [
+      "trigo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168902/nutrients",
     "kcal100g": 124,
     "proteina100g": 4.37,
     "carbohidratos100g": 25.1,
     "grasa100g": 0.98,
     "fibra100g": null,
-    "azucares100g": null,
-    "alergenos": [
-      "trigo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168902/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-175037",
     "nombre": "Tortilla de harina de trigo refrigerada lista para calentar",
-    "nombreOriginal": "Tortillas, ready-to-bake or -fry, flour, refrigerated",
-    "nombreCompleto": "Tortilla de harina de trigo refrigerada lista para calentar",
+    "alergenos": [
+      "trigo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/175037/nutrients",
     "kcal100g": 306,
     "proteina100g": 8.2,
     "carbohidratos100g": 49.4,
     "grasa100g": 7.99,
     "fibra100g": 3.5,
-    "azucares100g": 3.71,
-    "alergenos": [
-      "trigo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/175037/nutrients"
+    "azucares100g": 3.71
   },
   {
     "id": "usda-174081",
     "nombre": "Tortilla de trigo integral lista para calentar",
-    "nombreOriginal": "Tortillas, ready-to-bake or -fry, whole wheat",
-    "nombreCompleto": "Tortilla de trigo integral lista para calentar",
+    "alergenos": [
+      "trigo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/174081/nutrients",
     "kcal100g": 310,
     "proteina100g": 9.76,
     "carbohidratos100g": 45.9,
     "grasa100g": 9.76,
     "fibra100g": 9.8,
-    "azucares100g": 2.44,
-    "alergenos": [
-      "trigo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/174081/nutrients"
+    "azucares100g": 2.44
   },
   {
     "id": "usda-174078",
     "nombre": "Bolillo",
-    "nombreOriginal": "Bread, roll, Mexican, bollilo",
-    "nombreCompleto": "Bolillo",
+    "alergenos": [
+      "trigo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/174078/nutrients",
     "kcal100g": 318,
     "proteina100g": 10.6,
     "carbohidratos100g": 55.8,
     "grasa100g": 5.8,
     "fibra100g": 2.2,
-    "azucares100g": 3.55,
-    "alergenos": [
-      "trigo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/174078/nutrients"
+    "azucares100g": 3.55
   },
   {
     "id": "usda-168013",
     "nombre": "Pan multigrano",
-    "nombreOriginal": "Bread, multi-grain (includes whole-grain)",
-    "nombreCompleto": "Pan multigrano",
+    "alergenos": [
+      "trigo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168013/nutrients",
     "kcal100g": 265,
     "proteina100g": 13.4,
     "carbohidratos100g": 43.3,
     "grasa100g": 4.23,
     "fibra100g": 7.4,
-    "azucares100g": 6.39,
-    "alergenos": [
-      "trigo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168013/nutrients"
+    "azucares100g": 6.39
   },
   {
     "id": "usda-168893",
     "nombre": "Harina integral de trigo",
-    "nombreOriginal": "Wheat flour, whole-grain (Includes foods for USDA's Food Distribution Program)",
-    "nombreCompleto": "Harina integral de trigo",
+    "alergenos": [
+      "trigo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168893/nutrients",
     "kcal100g": 340,
     "proteina100g": 13.2,
     "carbohidratos100g": 72.0,
     "grasa100g": 2.5,
     "fibra100g": 10.7,
-    "azucares100g": 0.41,
-    "alergenos": [
-      "trigo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168893/nutrients"
+    "azucares100g": 0.41
   },
   {
     "id": "usda-169722",
     "nombre": "Salvado de trigo crudo",
-    "nombreOriginal": "Wheat bran, crude",
-    "nombreCompleto": "Salvado de trigo crudo",
+    "alergenos": [
+      "trigo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169722/nutrients",
     "kcal100g": 216,
     "proteina100g": 15.6,
     "carbohidratos100g": 64.5,
     "grasa100g": 4.25,
     "fibra100g": 42.8,
-    "azucares100g": 0.41,
-    "alergenos": [
-      "trigo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169722/nutrients"
+    "azucares100g": 0.41
   },
   {
     "id": "usda-173734",
     "nombre": "Frijol negro seco crudo",
-    "nombreOriginal": "Beans, black, mature seeds, raw",
-    "nombreCompleto": "Frijol negro seco crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173734/nutrients",
     "kcal100g": 341,
     "proteina100g": 21.6,
     "carbohidratos100g": 62.4,
     "grasa100g": 1.42,
     "fibra100g": 15.5,
-    "azucares100g": 2.12,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173734/nutrients"
+    "azucares100g": 2.12
   },
   {
     "id": "usda-175199",
     "nombre": "Frijol pinto seco crudo",
-    "nombreOriginal": "Beans, pinto, mature seeds, raw (Includes foods for USDA's Food Distribution Program)",
-    "nombreCompleto": "Frijol pinto seco crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/175199/nutrients",
     "kcal100g": 347,
     "proteina100g": 21.4,
     "carbohidratos100g": 62.6,
     "grasa100g": 1.23,
     "fibra100g": 15.5,
-    "azucares100g": 2.11,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/175199/nutrients"
+    "azucares100g": 2.11
   },
   {
     "id": "usda-175200",
     "nombre": "Frijol pinto hervido sin sal",
-    "nombreOriginal": "Beans, pinto, mature seeds, cooked, boiled, without salt",
-    "nombreCompleto": "Frijol pinto hervido sin sal",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/175200/nutrients",
     "kcal100g": 143,
     "proteina100g": 9.01,
     "carbohidratos100g": 26.2,
     "grasa100g": 0.65,
     "fibra100g": 9.0,
-    "azucares100g": 0.34,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/175200/nutrients"
+    "azucares100g": 0.34
   },
   {
     "id": "usda-173744",
     "nombre": "Frijol rojo seco crudo",
-    "nombreOriginal": "Beans, kidney, red, mature seeds, raw",
-    "nombreCompleto": "Frijol rojo seco crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173744/nutrients",
     "kcal100g": 337,
     "proteina100g": 22.5,
     "carbohidratos100g": 61.3,
     "grasa100g": 1.06,
     "fibra100g": 15.2,
-    "azucares100g": 2.1,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173744/nutrients"
+    "azucares100g": 2.1
   },
   {
     "id": "usda-175194",
     "nombre": "Frijol rojo hervido sin sal",
-    "nombreOriginal": "Beans, kidney, red, mature seeds, cooked, boiled, without salt",
-    "nombreCompleto": "Frijol rojo hervido sin sal",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/175194/nutrients",
     "kcal100g": 127,
     "proteina100g": 8.67,
     "carbohidratos100g": 22.8,
     "grasa100g": 0.5,
     "fibra100g": 7.4,
-    "azucares100g": 0.32,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/175194/nutrients"
+    "azucares100g": 0.32
   },
   {
     "id": "usda-175202",
     "nombre": "Frijol blanco seco crudo",
-    "nombreOriginal": "Beans, white, mature seeds, raw",
-    "nombreCompleto": "Frijol blanco seco crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/175202/nutrients",
     "kcal100g": 333,
     "proteina100g": 23.4,
     "carbohidratos100g": 60.3,
     "grasa100g": 0.85,
     "fibra100g": 15.2,
-    "azucares100g": 2.11,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/175202/nutrients"
+    "azucares100g": 2.11
   },
   {
     "id": "usda-175203",
     "nombre": "Frijol blanco hervido sin sal",
-    "nombreOriginal": "Beans, white, mature seeds, cooked, boiled, without salt",
-    "nombreCompleto": "Frijol blanco hervido sin sal",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/175203/nutrients",
     "kcal100g": 139,
     "proteina100g": 9.73,
     "carbohidratos100g": 25.1,
     "grasa100g": 0.35,
     "fibra100g": 6.3,
-    "azucares100g": 0.34,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/175203/nutrients"
+    "azucares100g": 0.34
   },
   {
     "id": "usda-172420",
     "nombre": "Lenteja seca cruda",
-    "nombreOriginal": "Lentils, raw",
-    "nombreCompleto": "Lenteja seca cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172420/nutrients",
     "kcal100g": 352,
     "proteina100g": 24.6,
     "carbohidratos100g": 63.4,
     "grasa100g": 1.06,
     "fibra100g": 10.7,
-    "azucares100g": 2.03,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172420/nutrients"
+    "azucares100g": 2.03
   },
   {
     "id": "usda-174284",
     "nombre": "Lenteja roja seca cruda",
-    "nombreOriginal": "Lentils, pink or red, raw",
-    "nombreCompleto": "Lenteja roja seca cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/174284/nutrients",
     "kcal100g": 358,
     "proteina100g": 23.9,
     "carbohidratos100g": 63.1,
     "grasa100g": 2.17,
     "fibra100g": 10.8,
-    "azucares100g": null,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/174284/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-173756",
     "nombre": "Garbanzo seco crudo",
-    "nombreOriginal": "Chickpeas (garbanzo beans, bengal gram), mature seeds, raw",
-    "nombreCompleto": "Garbanzo seco crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173756/nutrients",
     "kcal100g": 378,
     "proteina100g": 20.5,
     "carbohidratos100g": 63.0,
     "grasa100g": 6.04,
     "fibra100g": 12.2,
-    "azucares100g": 10.7,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173756/nutrients"
+    "azucares100g": 10.7
   },
   {
     "id": "usda-174270",
     "nombre": "Soya seca cruda",
-    "nombreOriginal": "Soybeans, mature seeds, raw",
-    "nombreCompleto": "Soya seca cruda",
+    "alergenos": [
+      "soya"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/174270/nutrients",
     "kcal100g": 446,
     "proteina100g": 36.5,
     "carbohidratos100g": 30.2,
     "grasa100g": 19.9,
     "fibra100g": 9.3,
-    "azucares100g": 7.33,
-    "alergenos": [
-      "soya"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/174270/nutrients"
+    "azucares100g": 7.33
   },
   {
     "id": "usda-169282",
     "nombre": "Soya verde cruda",
-    "nombreOriginal": "Soybeans, green, raw",
-    "nombreCompleto": "Soya verde cruda",
+    "alergenos": [
+      "soya"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169282/nutrients",
     "kcal100g": 147,
     "proteina100g": 13.0,
     "carbohidratos100g": 11.0,
     "grasa100g": 6.8,
     "fibra100g": 4.2,
-    "azucares100g": null,
-    "alergenos": [
-      "soya"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169282/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-172441",
     "nombre": "Soya tostada en seco",
-    "nombreOriginal": "Soybeans, mature seeds, dry roasted",
-    "nombreCompleto": "Soya tostada en seco",
+    "alergenos": [
+      "soya"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172441/nutrients",
     "kcal100g": 449,
     "proteina100g": 43.3,
     "carbohidratos100g": 29.0,
     "grasa100g": 21.6,
     "fibra100g": 8.1,
-    "azucares100g": null,
-    "alergenos": [
-      "soya"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172441/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-172475",
     "nombre": "Tofu firme con sulfato de calcio",
-    "nombreOriginal": "Tofu, raw, firm, prepared with calcium sulfate",
-    "nombreCompleto": "Tofu firme con sulfato de calcio",
+    "alergenos": [
+      "soya"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172475/nutrients",
     "kcal100g": 144,
     "proteina100g": 17.3,
     "carbohidratos100g": 2.78,
     "grasa100g": 8.72,
     "fibra100g": 2.3,
-    "azucares100g": null,
-    "alergenos": [
-      "soya"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172475/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-172476",
     "nombre": "Tofu regular con sulfato de calcio",
-    "nombreOriginal": "Tofu, raw, regular, prepared with calcium sulfate",
-    "nombreCompleto": "Tofu regular con sulfato de calcio",
+    "alergenos": [
+      "soya"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172476/nutrients",
     "kcal100g": 76.0,
     "proteina100g": 8.08,
     "carbohidratos100g": 1.87,
     "grasa100g": 4.78,
     "fibra100g": 0.3,
-    "azucares100g": 0.62,
-    "alergenos": [
-      "soya"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172476/nutrients"
+    "azucares100g": 0.62
   },
   {
     "id": "usda-172449",
     "nombre": "Tofu suave con calcio y nigari",
-    "nombreOriginal": "Tofu, soft, prepared with calcium sulfate and magnesium chloride (nigari)",
-    "nombreCompleto": "Tofu suave con calcio y nigari",
+    "alergenos": [
+      "soya"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172449/nutrients",
     "kcal100g": 61.0,
     "proteina100g": 7.17,
     "carbohidratos100g": 1.18,
     "grasa100g": 3.69,
     "fibra100g": 0.2,
-    "azucares100g": 0.7,
-    "alergenos": [
-      "soya"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172449/nutrients"
+    "azucares100g": 0.7
   },
   {
     "id": "usda-172454",
     "nombre": "Hummus casero",
-    "nombreOriginal": "Hummus, home prepared",
-    "nombreCompleto": "Hummus casero",
+    "alergenos": [
+      "sesamo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172454/nutrients",
     "kcal100g": 177,
     "proteina100g": 4.86,
     "carbohidratos100g": 20.1,
     "grasa100g": 8.59,
     "fibra100g": 4.0,
-    "azucares100g": 0.27,
-    "alergenos": [
-      "sesamo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172454/nutrients"
+    "azucares100g": 0.27
   },
   {
     "id": "usda-171265",
     "nombre": "Leche entera con vitamina D añadida",
-    "nombreOriginal": "Milk, whole, 3.25% milkfat, with added vitamin D",
-    "nombreCompleto": "Leche entera con vitamina D añadida",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171265/nutrients",
     "kcal100g": 61.0,
     "proteina100g": 3.15,
     "carbohidratos100g": 4.8,
     "grasa100g": 3.25,
     "fibra100g": 0.0,
-    "azucares100g": 5.05,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171265/nutrients"
+    "azucares100g": 5.05
   },
   {
     "id": "usda-173441",
     "nombre": "Leche con 1 % de grasa sin vitaminas A ni D añadidas",
-    "nombreOriginal": "Milk, fluid, 1% fat, without added vitamin A and vitamin D",
-    "nombreCompleto": "Leche con 1 % de grasa sin vitaminas A ni D añadidas",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173441/nutrients",
     "kcal100g": 42.0,
     "proteina100g": 3.37,
     "carbohidratos100g": 4.99,
     "grasa100g": 0.97,
     "fibra100g": 0.0,
-    "azucares100g": 5.2,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173441/nutrients"
+    "azucares100g": 5.2
   },
   {
     "id": "usda-171302",
     "nombre": "Leche evaporada con 2 % de grasa y vitaminas A y D",
-    "nombreOriginal": "Milk, evaporated, 2% fat, with added vitamin A and vitamin D",
-    "nombreCompleto": "Leche evaporada con 2 % de grasa y vitaminas A y D",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171302/nutrients",
     "kcal100g": 107,
     "proteina100g": 6.67,
     "carbohidratos100g": 15.7,
     "grasa100g": 2.0,
     "fibra100g": 0.0,
-    "azucares100g": 6.67,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171302/nutrients"
+    "azucares100g": 6.67
   },
   {
     "id": "usda-171284",
     "nombre": "Yogur natural entero",
-    "nombreOriginal": "Yogurt, plain, whole milk",
-    "nombreCompleto": "Yogur natural entero",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171284/nutrients",
     "kcal100g": 61.0,
     "proteina100g": 3.47,
     "carbohidratos100g": 4.66,
     "grasa100g": 3.25,
     "fibra100g": 0.0,
-    "azucares100g": 4.66,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171284/nutrients"
+    "azucares100g": 4.66
   },
   {
     "id": "usda-170886",
     "nombre": "Yogur natural bajo en grasa",
-    "nombreOriginal": "Yogurt, plain, low fat",
-    "nombreCompleto": "Yogur natural bajo en grasa",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170886/nutrients",
     "kcal100g": 63.0,
     "proteina100g": 5.25,
     "carbohidratos100g": 7.04,
     "grasa100g": 1.55,
     "fibra100g": 0.0,
-    "azucares100g": 7.04,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170886/nutrients"
+    "azucares100g": 7.04
   },
   {
     "id": "usda-170887",
     "nombre": "Yogur natural descremado",
-    "nombreOriginal": "Yogurt, plain, skim milk",
-    "nombreCompleto": "Yogur natural descremado",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170887/nutrients",
     "kcal100g": 56.0,
     "proteina100g": 5.73,
     "carbohidratos100g": 7.68,
     "grasa100g": 0.18,
     "fibra100g": 0.0,
-    "azucares100g": 7.68,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170887/nutrients"
+    "azucares100g": 7.68
   },
   {
     "id": "usda-171304",
     "nombre": "Yogur griego natural entero",
-    "nombreOriginal": "Yogurt, Greek, plain, whole milk",
-    "nombreCompleto": "Yogur griego natural entero",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171304/nutrients",
     "kcal100g": 97.0,
     "proteina100g": 9.0,
     "carbohidratos100g": 3.98,
     "grasa100g": 5.0,
     "fibra100g": 0.0,
-    "azucares100g": 4.0,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171304/nutrients"
+    "azucares100g": 4.0
   },
   {
     "id": "usda-170894",
     "nombre": "Yogur griego natural sin grasa",
-    "nombreOriginal": "Yogurt, Greek, plain, nonfat (Includes foods for USDA's Food Distribution Program)",
-    "nombreCompleto": "Yogur griego natural sin grasa",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170894/nutrients",
     "kcal100g": 59.0,
     "proteina100g": 10.2,
     "carbohidratos100g": 3.6,
     "grasa100g": 0.39,
     "fibra100g": 0.0,
-    "azucares100g": 3.24,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170894/nutrients"
+    "azucares100g": 3.24
   },
   {
     "id": "usda-170903",
     "nombre": "Yogur griego natural bajo en grasa",
-    "nombreOriginal": "Yogurt, Greek, plain, lowfat",
-    "nombreCompleto": "Yogur griego natural bajo en grasa",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170903/nutrients",
     "kcal100g": 73.0,
     "proteina100g": 9.95,
     "carbohidratos100g": 3.94,
     "grasa100g": 1.92,
     "fibra100g": 0.0,
-    "azucares100g": 3.56,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170903/nutrients"
+    "azucares100g": 3.56
   },
   {
     "id": "usda-172223",
     "nombre": "Queso fresco",
-    "nombreOriginal": "Cheese, fresh, queso fresco",
-    "nombreCompleto": "Queso fresco",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172223/nutrients",
     "kcal100g": 299,
     "proteina100g": 18.1,
     "carbohidratos100g": 2.98,
     "grasa100g": 23.8,
     "fibra100g": 0.0,
-    "azucares100g": 2.32,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172223/nutrients"
+    "azucares100g": 2.32
   },
   {
     "id": "usda-173437",
     "nombre": "Queso asadero",
-    "nombreOriginal": "Cheese, mexican, queso asadero",
-    "nombreCompleto": "Queso asadero",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173437/nutrients",
     "kcal100g": 356,
     "proteina100g": 22.6,
     "carbohidratos100g": 4.13,
     "grasa100g": 25.0,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173437/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-173438",
     "nombre": "Queso Chihuahua",
-    "nombreOriginal": "Cheese, mexican, queso chihuahua",
-    "nombreCompleto": "Queso Chihuahua",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173438/nutrients",
     "kcal100g": 374,
     "proteina100g": 21.6,
     "carbohidratos100g": 5.56,
     "grasa100g": 29.7,
     "fibra100g": 0.0,
-    "azucares100g": 5.56,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173438/nutrients"
+    "azucares100g": 5.56
   },
   {
     "id": "usda-170898",
     "nombre": "Queso Cotija",
-    "nombreOriginal": "Cheese, mexican, queso cotija",
-    "nombreCompleto": "Queso Cotija",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170898/nutrients",
     "kcal100g": 366,
     "proteina100g": 20.0,
     "carbohidratos100g": 3.97,
     "grasa100g": 30.0,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170898/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-172201",
     "nombre": "Queso añejo",
-    "nombreOriginal": "Cheese, mexican, queso anejo",
-    "nombreCompleto": "Queso añejo",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172201/nutrients",
     "kcal100g": 373,
     "proteina100g": 21.4,
     "carbohidratos100g": 4.63,
     "grasa100g": 30.0,
     "fibra100g": 0.0,
-    "azucares100g": 4.63,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172201/nutrients"
+    "azucares100g": 4.63
   },
   {
     "id": "usda-173414",
     "nombre": "Queso cheddar",
-    "nombreOriginal": "Cheese, cheddar (Includes foods for USDA's Food Distribution Program)",
-    "nombreCompleto": "Queso cheddar",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173414/nutrients",
     "kcal100g": 403,
     "proteina100g": 22.9,
     "carbohidratos100g": 3.37,
     "grasa100g": 33.3,
     "fibra100g": 0.0,
-    "azucares100g": 0.48,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173414/nutrients"
+    "azucares100g": 0.48
   },
   {
     "id": "usda-172179",
     "nombre": "Queso cottage con crema",
-    "nombreOriginal": "Cheese, cottage, creamed, large or small curd",
-    "nombreCompleto": "Queso cottage con crema",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172179/nutrients",
     "kcal100g": 98.0,
     "proteina100g": 11.1,
     "carbohidratos100g": 3.38,
     "grasa100g": 4.3,
     "fibra100g": 0.0,
-    "azucares100g": 2.67,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172179/nutrients"
+    "azucares100g": 2.67
   },
   {
     "id": "usda-173418",
     "nombre": "Queso crema",
-    "nombreOriginal": "Cheese, cream",
-    "nombreCompleto": "Queso crema",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173418/nutrients",
     "kcal100g": 350,
     "proteina100g": 6.15,
     "carbohidratos100g": 5.52,
     "grasa100g": 34.4,
     "fibra100g": 0.0,
-    "azucares100g": 3.76,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173418/nutrients"
+    "azucares100g": 3.76
   },
   {
     "id": "usda-171241",
     "nombre": "Queso gouda",
-    "nombreOriginal": "Cheese, gouda",
-    "nombreCompleto": "Queso gouda",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171241/nutrients",
     "kcal100g": 356,
     "proteina100g": 24.9,
     "carbohidratos100g": 2.22,
     "grasa100g": 27.4,
     "fibra100g": 0.0,
-    "azucares100g": 2.22,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171241/nutrients"
+    "azucares100g": 2.22
   },
   {
     "id": "usda-170845",
     "nombre": "Queso mozzarella de leche entera",
-    "nombreOriginal": "Cheese, mozzarella, whole milk",
-    "nombreCompleto": "Queso mozzarella de leche entera",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170845/nutrients",
     "kcal100g": 299,
     "proteina100g": 22.2,
     "carbohidratos100g": 2.4,
     "grasa100g": 22.1,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170845/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171247",
     "nombre": "Queso parmesano rallado",
-    "nombreOriginal": "Cheese, parmesan, grated",
-    "nombreCompleto": "Queso parmesano rallado",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171247/nutrients",
     "kcal100g": 420,
     "proteina100g": 28.4,
     "carbohidratos100g": 13.9,
     "grasa100g": 27.8,
     "fibra100g": 0.0,
-    "azucares100g": 0.07,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171247/nutrients"
+    "azucares100g": 0.07
   },
   {
     "id": "usda-171248",
     "nombre": "Queso ricotta parcialmente descremado",
-    "nombreOriginal": "Cheese, ricotta, part skim milk",
-    "nombreCompleto": "Queso ricotta parcialmente descremado",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171248/nutrients",
     "kcal100g": 138,
     "proteina100g": 11.4,
     "carbohidratos100g": 5.14,
     "grasa100g": 7.91,
     "fibra100g": 0.0,
-    "azucares100g": 0.31,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171248/nutrients"
+    "azucares100g": 0.31
   },
   {
     "id": "usda-171257",
     "nombre": "Crema ácida fermentada",
-    "nombreOriginal": "Cream, sour, cultured",
-    "nombreCompleto": "Crema ácida fermentada",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171257/nutrients",
     "kcal100g": 198,
     "proteina100g": 2.44,
     "carbohidratos100g": 4.63,
     "grasa100g": 19.4,
     "fibra100g": 0.0,
-    "azucares100g": 3.41,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171257/nutrients"
+    "azucares100g": 3.41
   },
   {
     "id": "usda-170857",
     "nombre": "Crema ligera para mesa",
-    "nombreOriginal": "Cream, fluid, light (coffee cream or table cream)",
-    "nombreCompleto": "Crema ligera para mesa",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170857/nutrients",
     "kcal100g": 195,
     "proteina100g": 2.96,
     "carbohidratos100g": 3.66,
     "grasa100g": 19.1,
     "fibra100g": 0.0,
-    "azucares100g": 3.67,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170857/nutrients"
+    "azucares100g": 3.67
   },
   {
     "id": "usda-170859",
     "nombre": "Crema para batir espesa",
-    "nombreOriginal": "Cream, fluid, heavy whipping",
-    "nombreCompleto": "Crema para batir espesa",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170859/nutrients",
     "kcal100g": 340,
     "proteina100g": 2.84,
     "carbohidratos100g": 2.84,
     "grasa100g": 36.1,
     "fibra100g": 0.0,
-    "azucares100g": 2.92,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170859/nutrients"
+    "azucares100g": 2.92
   },
   {
     "id": "usda-173424",
     "nombre": "Huevo entero cocido duro",
-    "nombreOriginal": "Egg, whole, cooked, hard-boiled",
-    "nombreCompleto": "Huevo entero cocido duro",
+    "alergenos": [
+      "huevo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173424/nutrients",
     "kcal100g": 155,
     "proteina100g": 12.6,
     "carbohidratos100g": 1.12,
     "grasa100g": 10.6,
     "fibra100g": 0.0,
-    "azucares100g": 1.12,
-    "alergenos": [
-      "huevo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173424/nutrients"
+    "azucares100g": 1.12
   },
   {
     "id": "usda-172187",
     "nombre": "Huevo revuelto cocido",
-    "nombreOriginal": "Egg, whole, cooked, scrambled",
-    "nombreCompleto": "Huevo revuelto cocido",
+    "alergenos": [
+      "huevo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172187/nutrients",
     "kcal100g": 149,
     "proteina100g": 9.99,
     "carbohidratos100g": 1.61,
     "grasa100g": 11.0,
     "fibra100g": 0.0,
-    "azucares100g": 1.39,
-    "alergenos": [
-      "huevo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172187/nutrients"
+    "azucares100g": 1.39
   },
   {
     "id": "usda-172183",
     "nombre": "Clara de huevo cruda",
-    "nombreOriginal": "Egg, white, raw, fresh",
-    "nombreCompleto": "Clara de huevo cruda",
+    "alergenos": [
+      "huevo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172183/nutrients",
     "kcal100g": 52.0,
     "proteina100g": 10.9,
     "carbohidratos100g": 0.73,
     "grasa100g": 0.17,
     "fibra100g": 0.0,
-    "azucares100g": 0.71,
-    "alergenos": [
-      "huevo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172183/nutrients"
+    "azucares100g": 0.71
   },
   {
     "id": "usda-172184",
     "nombre": "Yema de huevo cruda",
-    "nombreOriginal": "Egg, yolk, raw, fresh",
-    "nombreCompleto": "Yema de huevo cruda",
+    "alergenos": [
+      "huevo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172184/nutrients",
     "kcal100g": 322,
     "proteina100g": 15.9,
     "carbohidratos100g": 3.59,
     "grasa100g": 26.5,
     "fibra100g": 0.0,
-    "azucares100g": 0.56,
-    "alergenos": [
-      "huevo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172184/nutrients"
+    "azucares100g": 0.56
   },
   {
     "id": "usda-171052",
     "nombre": "Pollo sin piel crudo",
-    "nombreOriginal": "Chicken, broilers or fryers, meat only, raw",
-    "nombreCompleto": "Pollo sin piel crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171052/nutrients",
     "kcal100g": 119,
     "proteina100g": 21.4,
     "carbohidratos100g": 0.0,
     "grasa100g": 3.08,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171052/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171054",
     "nombre": "Pollo sin piel rostizado",
-    "nombreOriginal": "Chicken, broilers or fryers, meat only, cooked, roasted",
-    "nombreCompleto": "Pollo sin piel rostizado",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171054/nutrients",
     "kcal100g": 190,
     "proteina100g": 28.9,
     "carbohidratos100g": 0.0,
     "grasa100g": 7.41,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171054/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171451",
     "nombre": "Pollo sin piel guisado",
-    "nombreOriginal": "Chicken, broilers or fryers, meat only, cooked, stewed",
-    "nombreCompleto": "Pollo sin piel guisado",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171451/nutrients",
     "kcal100g": 177,
     "proteina100g": 27.3,
     "carbohidratos100g": 0.0,
     "grasa100g": 6.71,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171451/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171474",
     "nombre": "Pechuga de pollo con piel cruda",
-    "nombreOriginal": "Chicken, broilers or fryers, breast, meat and skin, raw",
-    "nombreCompleto": "Pechuga de pollo con piel cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171474/nutrients",
     "kcal100g": 172,
     "proteina100g": 20.8,
     "carbohidratos100g": 0.0,
     "grasa100g": 9.25,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171474/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171075",
     "nombre": "Pechuga de pollo con piel rostizada",
-    "nombreOriginal": "Chicken, broilers or fryers, breast, meat and skin, cooked, roasted",
-    "nombreCompleto": "Pechuga de pollo con piel rostizada",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171075/nutrients",
     "kcal100g": 197,
     "proteina100g": 29.8,
     "carbohidratos100g": 0.0,
     "grasa100g": 7.78,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171075/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171478",
     "nombre": "Pechuga de pollo sin piel guisada",
-    "nombreOriginal": "Chicken, broilers or fryers, breast, meat only, cooked, stewed",
-    "nombreCompleto": "Pechuga de pollo sin piel guisada",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171478/nutrients",
     "kcal100g": 151,
     "proteina100g": 29.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 3.03,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171478/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-172373",
     "nombre": "Pierna de pollo con piel cruda",
-    "nombreOriginal": "Chicken, broilers or fryers, drumstick, meat and skin, raw",
-    "nombreCompleto": "Pierna de pollo con piel cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172373/nutrients",
     "kcal100g": 161,
     "proteina100g": 18.1,
     "carbohidratos100g": 0.11,
     "grasa100g": 9.2,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172373/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-173612",
     "nombre": "Pierna de pollo con piel rostizada",
-    "nombreOriginal": "Chicken, broilers or fryers, drumstick, meat and skin, cooked, roasted",
-    "nombreCompleto": "Pierna de pollo con piel rostizada",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173612/nutrients",
     "kcal100g": 191,
     "proteina100g": 23.4,
     "carbohidratos100g": 0.0,
     "grasa100g": 10.2,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173612/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-172377",
     "nombre": "Pierna de pollo sin piel guisada",
-    "nombreOriginal": "Chicken, broilers or fryers, drumstick, meat only, cooked, stewed",
-    "nombreCompleto": "Pierna de pollo sin piel guisada",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172377/nutrients",
     "kcal100g": 169,
     "proteina100g": 27.5,
     "carbohidratos100g": 0.0,
     "grasa100g": 5.71,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172377/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-172385",
     "nombre": "Muslo de pollo con piel crudo",
-    "nombreOriginal": "Chicken, broilers or fryers, thigh, meat and skin, raw",
-    "nombreCompleto": "Muslo de pollo con piel crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172385/nutrients",
     "kcal100g": 221,
     "proteina100g": 16.5,
     "carbohidratos100g": 0.25,
     "grasa100g": 16.6,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172385/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-173625",
     "nombre": "Muslo de pollo con piel rostizado",
-    "nombreOriginal": "Chicken, broilers or fryers, thigh, meat and skin, cooked, roasted",
-    "nombreCompleto": "Muslo de pollo con piel rostizado",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173625/nutrients",
     "kcal100g": 232,
     "proteina100g": 23.3,
     "carbohidratos100g": 0.0,
     "grasa100g": 14.7,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173625/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-172388",
     "nombre": "Muslo de pollo sin piel rostizado",
-    "nombreOriginal": "Chicken, broilers or fryers, thigh, meat only, cooked, roasted",
-    "nombreCompleto": "Muslo de pollo sin piel rostizado",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172388/nutrients",
     "kcal100g": 179,
     "proteina100g": 24.8,
     "carbohidratos100g": 0.0,
     "grasa100g": 8.15,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172388/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-172389",
     "nombre": "Muslo de pollo sin piel guisado",
-    "nombreOriginal": "Chicken, broilers or fryers, thigh, meat only, cooked, stewed",
-    "nombreCompleto": "Muslo de pollo sin piel guisado",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172389/nutrients",
     "kcal100g": 195,
     "proteina100g": 25.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 9.79,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172389/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-172390",
     "nombre": "Ala de pollo con piel cruda",
-    "nombreOriginal": "Chicken, broilers or fryers, wing, meat and skin, raw",
-    "nombreCompleto": "Ala de pollo con piel cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172390/nutrients",
     "kcal100g": 191,
     "proteina100g": 17.5,
     "carbohidratos100g": 0.0,
     "grasa100g": 12.8,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172390/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-173630",
     "nombre": "Ala de pollo con piel rostizada",
-    "nombreOriginal": "Chicken, broilers or fryers, wing, meat and skin, cooked, roasted",
-    "nombreCompleto": "Ala de pollo con piel rostizada",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173630/nutrients",
     "kcal100g": 254,
     "proteina100g": 23.8,
     "carbohidratos100g": 0.0,
     "grasa100g": 16.9,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173630/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-172392",
     "nombre": "Ala de pollo sin piel rostizada",
-    "nombreOriginal": "Chicken, broilers or fryers, wing, meat only, cooked, roasted",
-    "nombreCompleto": "Ala de pollo sin piel rostizada",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172392/nutrients",
     "kcal100g": 203,
     "proteina100g": 30.5,
     "carbohidratos100g": 0.0,
     "grasa100g": 8.13,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172392/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171480",
     "nombre": "Carne de pavo sin piel cruda",
-    "nombreOriginal": "Turkey, whole, meat only, raw",
-    "nombreCompleto": "Carne de pavo sin piel cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171480/nutrients",
     "kcal100g": 115,
     "proteina100g": 22.6,
     "carbohidratos100g": 0.14,
     "grasa100g": 1.93,
     "fibra100g": 0.0,
-    "azucares100g": 0.07,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171480/nutrients"
+    "azucares100g": 0.07
   },
   {
     "id": "usda-171481",
     "nombre": "Carne de pavo sin piel rostizada",
-    "nombreOriginal": "Turkey, whole, meat only, cooked, roasted",
-    "nombreCompleto": "Carne de pavo sin piel rostizada",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171481/nutrients",
     "kcal100g": 159,
     "proteina100g": 29.1,
     "carbohidratos100g": 0.0,
     "grasa100g": 3.84,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171481/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-167902",
     "nombre": "Carne molida de cerdo cruda",
-    "nombreOriginal": "Pork, fresh, ground, raw",
-    "nombreCompleto": "Carne molida de cerdo cruda",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/167902/nutrients",
     "kcal100g": 263,
     "proteina100g": 16.9,
     "carbohidratos100g": 0.0,
     "grasa100g": 21.2,
     "fibra100g": 0.0,
-    "azucares100g": null,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/167902/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-167903",
     "nombre": "Carne molida de cerdo cocida",
-    "nombreOriginal": "Pork, fresh, ground, cooked",
-    "nombreCompleto": "Carne molida de cerdo cocida",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/167903/nutrients",
     "kcal100g": 297,
     "proteina100g": 25.7,
     "carbohidratos100g": 0.0,
     "grasa100g": 20.8,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/167903/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-168312",
     "nombre": "Filete de cerdo con grasa separable crudo",
-    "nombreOriginal": "Pork, fresh, loin, tenderloin, separable lean and fat, raw",
-    "nombreCompleto": "Filete de cerdo con grasa separable crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168312/nutrients",
     "kcal100g": 120,
     "proteina100g": 20.6,
     "carbohidratos100g": 0.0,
     "grasa100g": 3.53,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168312/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-167905",
     "nombre": "Filete de cerdo con grasa separable horneado",
-    "nombreOriginal": "Pork, fresh, loin, tenderloin, separable lean and fat, cooked, roasted",
-    "nombreCompleto": "Filete de cerdo con grasa separable horneado",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/167905/nutrients",
     "kcal100g": 147,
     "proteina100g": 26.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 3.96,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/167905/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-168249",
     "nombre": "Filete magro de cerdo crudo",
-    "nombreOriginal": "Pork, fresh, loin, tenderloin, separable lean only, raw",
-    "nombreCompleto": "Filete magro de cerdo crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168249/nutrients",
     "kcal100g": 109,
     "proteina100g": 21.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 2.17,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168249/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-168250",
     "nombre": "Filete magro de cerdo horneado",
-    "nombreOriginal": "Pork, fresh, loin, tenderloin, separable lean only, cooked, roasted",
-    "nombreCompleto": "Filete magro de cerdo horneado",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168250/nutrients",
     "kcal100g": 143,
     "proteina100g": 26.2,
     "carbohidratos100g": 0.0,
     "grasa100g": 3.51,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168250/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-174030",
     "nombre": "Carne molida de res cruda (90 % magra)",
-    "nombreOriginal": "Beef, ground, 90% lean meat / 10% fat, raw",
-    "nombreCompleto": "Carne molida de res cruda (90 % magra)",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/174030/nutrients",
     "kcal100g": 176,
     "proteina100g": 20.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 10.0,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/174030/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171794",
     "nombre": "Carne molida de res dorada en sartén (90 % magra)",
-    "nombreOriginal": "Beef, ground, 90% lean meat / 10% fat, crumbles, cooked, pan-browned",
-    "nombreCompleto": "Carne molida de res dorada en sartén (90 % magra)",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171794/nutrients",
     "kcal100g": 230,
     "proteina100g": 28.4,
     "carbohidratos100g": 0.0,
     "grasa100g": 12.0,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171794/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171795",
     "nombre": "Pastel de carne de res horneado (90 % magra)",
-    "nombreOriginal": "Beef, ground, 90% lean meat / 10% fat, loaf, cooked, baked",
-    "nombreCompleto": "Pastel de carne de res horneado (90 % magra)",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171795/nutrients",
     "kcal100g": 214,
     "proteina100g": 26.6,
     "carbohidratos100g": 0.0,
     "grasa100g": 11.1,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171795/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-174031",
     "nombre": "Hamburguesa de res asada (90 % magra)",
-    "nombreOriginal": "Beef, ground, 90% lean meat / 10% fat, patty, cooked, broiled",
-    "nombreCompleto": "Hamburguesa de res asada (90 % magra)",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/174031/nutrients",
     "kcal100g": 217,
     "proteina100g": 26.1,
     "carbohidratos100g": 0.0,
     "grasa100g": 11.8,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/174031/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171793",
     "nombre": "Hamburguesa de res cocida en sartén (90 % magra)",
-    "nombreOriginal": "Beef, ground, 90% lean meat / 10% fat, patty, cooked, pan-broiled",
-    "nombreCompleto": "Hamburguesa de res cocida en sartén (90 % magra)",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171793/nutrients",
     "kcal100g": 204,
     "proteina100g": 25.2,
     "carbohidratos100g": 0.0,
     "grasa100g": 10.7,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171793/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-175167",
     "nombre": "Salmón del Atlántico de cultivo crudo",
-    "nombreOriginal": "Fish, salmon, Atlantic, farmed, raw",
-    "nombreCompleto": "Salmón del Atlántico de cultivo crudo",
+    "alergenos": [
+      "pescado"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/175167/nutrients",
     "kcal100g": 208,
     "proteina100g": 20.4,
     "carbohidratos100g": 0.0,
     "grasa100g": 13.4,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "pescado"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/175167/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-175168",
     "nombre": "Salmón del Atlántico de cultivo cocido con calor seco",
-    "nombreOriginal": "Fish, salmon, Atlantic, farmed, cooked, dry heat",
-    "nombreCompleto": "Salmón del Atlántico de cultivo cocido con calor seco",
+    "alergenos": [
+      "pescado"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/175168/nutrients",
     "kcal100g": 206,
     "proteina100g": 22.1,
     "carbohidratos100g": 0.0,
     "grasa100g": 12.4,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "pescado"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/175168/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-173686",
     "nombre": "Salmón del Atlántico silvestre crudo",
-    "nombreOriginal": "Fish, salmon, Atlantic, wild, raw",
-    "nombreCompleto": "Salmón del Atlántico silvestre crudo",
+    "alergenos": [
+      "pescado"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173686/nutrients",
     "kcal100g": 142,
     "proteina100g": 19.8,
     "carbohidratos100g": 0.0,
     "grasa100g": 6.34,
     "fibra100g": 0.0,
-    "azucares100g": null,
-    "alergenos": [
-      "pescado"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173686/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-171998",
     "nombre": "Salmón del Atlántico silvestre cocido con calor seco",
-    "nombreOriginal": "Fish, salmon, Atlantic, wild, cooked, dry heat",
-    "nombreCompleto": "Salmón del Atlántico silvestre cocido con calor seco",
+    "alergenos": [
+      "pescado"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171998/nutrients",
     "kcal100g": 182,
     "proteina100g": 25.4,
     "carbohidratos100g": 0.0,
     "grasa100g": 8.13,
     "fibra100g": 0.0,
-    "azucares100g": null,
-    "alergenos": [
-      "pescado"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171998/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-175176",
     "nombre": "Tilapia cruda",
-    "nombreOriginal": "Fish, tilapia, raw",
-    "nombreCompleto": "Tilapia cruda",
+    "alergenos": [
+      "pescado"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/175176/nutrients",
     "kcal100g": 96.0,
     "proteina100g": 20.1,
     "carbohidratos100g": 0.0,
     "grasa100g": 1.7,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "pescado"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/175176/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-175177",
     "nombre": "Tilapia cocida con calor seco",
-    "nombreOriginal": "Fish, tilapia, cooked, dry heat",
-    "nombreCompleto": "Tilapia cocida con calor seco",
+    "alergenos": [
+      "pescado"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/175177/nutrients",
     "kcal100g": 128,
     "proteina100g": 26.2,
     "carbohidratos100g": 0.0,
     "grasa100g": 2.65,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "pescado"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/175177/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171955",
     "nombre": "Bacalao del Atlántico crudo",
-    "nombreOriginal": "Fish, cod, Atlantic, raw",
-    "nombreCompleto": "Bacalao del Atlántico crudo",
+    "alergenos": [
+      "pescado"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171955/nutrients",
     "kcal100g": 82.0,
     "proteina100g": 17.8,
     "carbohidratos100g": 0.0,
     "grasa100g": 0.67,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "pescado"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171955/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171956",
     "nombre": "Bacalao del Atlántico cocido con calor seco",
-    "nombreOriginal": "Fish, cod, Atlantic, cooked, dry heat",
-    "nombreCompleto": "Bacalao del Atlántico cocido con calor seco",
+    "alergenos": [
+      "pescado"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171956/nutrients",
     "kcal100g": 105,
     "proteina100g": 22.8,
     "carbohidratos100g": 0.0,
     "grasa100g": 0.86,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "pescado"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171956/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-173717",
     "nombre": "Trucha arcoíris de cultivo cruda",
-    "nombreOriginal": "Fish, trout, rainbow, farmed, raw",
-    "nombreCompleto": "Trucha arcoíris de cultivo cruda",
+    "alergenos": [
+      "pescado"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173717/nutrients",
     "kcal100g": 141,
     "proteina100g": 19.9,
     "carbohidratos100g": 0.0,
     "grasa100g": 6.18,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "pescado"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173717/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-173718",
     "nombre": "Trucha arcoíris de cultivo cocida con calor seco",
-    "nombreOriginal": "Fish, trout, rainbow, farmed, cooked, dry heat",
-    "nombreCompleto": "Trucha arcoíris de cultivo cocida con calor seco",
+    "alergenos": [
+      "pescado"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173718/nutrients",
     "kcal100g": 168,
     "proteina100g": 23.8,
     "carbohidratos100g": 0.0,
     "grasa100g": 7.38,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "pescado"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173718/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-173708",
     "nombre": "Atún claro en aceite enlatado y escurrido",
-    "nombreOriginal": "Fish, tuna, light, canned in oil, drained solids",
-    "nombreCompleto": "Atún claro en aceite enlatado y escurrido",
+    "alergenos": [
+      "pescado"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173708/nutrients",
     "kcal100g": 198,
     "proteina100g": 29.1,
     "carbohidratos100g": 0.0,
     "grasa100g": 8.21,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "pescado"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173708/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-172006",
     "nombre": "Atún aleta amarilla cocido con calor seco",
-    "nombreOriginal": "Fish, tuna, yellowfin, fresh, cooked, dry heat",
-    "nombreCompleto": "Atún aleta amarilla cocido con calor seco",
+    "alergenos": [
+      "pescado"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172006/nutrients",
     "kcal100g": 130,
     "proteina100g": 29.2,
     "carbohidratos100g": 0.0,
     "grasa100g": 0.59,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "pescado"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172006/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-175139",
     "nombre": "Sardina del Atlántico en aceite escurrida con espinas",
-    "nombreOriginal": "Fish, sardine, Atlantic, canned in oil, drained solids with bone",
-    "nombreCompleto": "Sardina del Atlántico en aceite escurrida con espinas",
+    "alergenos": [
+      "pescado"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/175139/nutrients",
     "kcal100g": 208,
     "proteina100g": 24.6,
     "carbohidratos100g": 0.0,
     "grasa100g": 11.4,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "pescado"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/175139/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-175140",
     "nombre": "Sardina del Pacífico en salsa de jitomate escurrida con espinas",
-    "nombreOriginal": "Fish, sardine, Pacific, canned in tomato sauce, drained solids with bone",
-    "nombreCompleto": "Sardina del Pacífico en salsa de jitomate escurrida con espinas",
+    "alergenos": [
+      "pescado"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/175140/nutrients",
     "kcal100g": 185,
     "proteina100g": 20.9,
     "carbohidratos100g": 0.54,
     "grasa100g": 10.4,
     "fibra100g": 0.1,
-    "azucares100g": 0.43,
-    "alergenos": [
-      "pescado"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/175140/nutrients"
+    "azucares100g": 0.43
   },
   {
     "id": "usda-175179",
     "nombre": "Camarón crudo",
-    "nombreOriginal": "Crustaceans, shrimp, raw",
-    "nombreCompleto": "Camarón crudo",
+    "alergenos": [
+      "mariscos"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/175179/nutrients",
     "kcal100g": 85.0,
     "proteina100g": 20.1,
     "carbohidratos100g": 0.0,
     "grasa100g": 0.51,
     "fibra100g": null,
-    "azucares100g": null,
-    "alergenos": [
-      "mariscos"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/175179/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-175180",
     "nombre": "Camarón cocido",
-    "nombreOriginal": "Crustaceans, shrimp, cooked",
-    "nombreCompleto": "Camarón cocido",
+    "alergenos": [
+      "mariscos"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/175180/nutrients",
     "kcal100g": 99.0,
     "proteina100g": 24.0,
     "carbohidratos100g": 0.2,
     "grasa100g": 0.28,
     "fibra100g": null,
-    "azucares100g": null,
-    "alergenos": [
-      "mariscos"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/175180/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-174204",
     "nombre": "Jaiba azul cruda",
-    "nombreOriginal": "Crustaceans, crab, blue, raw",
-    "nombreCompleto": "Jaiba azul cruda",
+    "alergenos": [
+      "mariscos"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/174204/nutrients",
     "kcal100g": 87.0,
     "proteina100g": 18.1,
     "carbohidratos100g": 0.04,
     "grasa100g": 1.08,
     "fibra100g": 0.0,
-    "azucares100g": null,
-    "alergenos": [
-      "mariscos"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/174204/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-174205",
     "nombre": "Jaiba azul cocida con calor húmedo",
-    "nombreOriginal": "Crustaceans, crab, blue, cooked, moist heat",
-    "nombreCompleto": "Jaiba azul cocida con calor húmedo",
+    "alergenos": [
+      "mariscos"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/174205/nutrients",
     "kcal100g": 83.0,
     "proteina100g": 17.9,
     "carbohidratos100g": 0.0,
     "grasa100g": 0.74,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "mariscos"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/174205/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171972",
     "nombre": "Camarón enlatado",
-    "nombreOriginal": "Crustaceans, shrimp, mixed species, canned",
-    "nombreCompleto": "Camarón enlatado",
+    "alergenos": [
+      "mariscos"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171972/nutrients",
     "kcal100g": 100,
     "proteina100g": 20.4,
     "carbohidratos100g": 0.0,
     "grasa100g": 1.36,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "mariscos"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171972/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171707",
     "nombre": "Aguacate de Florida crudo",
-    "nombreOriginal": "Avocados, raw, Florida",
-    "nombreCompleto": "Aguacate de Florida crudo",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171707/nutrients",
     "kcal100g": 120,
     "proteina100g": 2.23,
     "carbohidratos100g": 7.82,
     "grasa100g": 10.1,
     "fibra100g": 5.6,
-    "azucares100g": 2.42,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171707/nutrients"
+    "azucares100g": 2.42
   },
   {
     "id": "usda-173573",
     "nombre": "Aceite de aguacate",
-    "nombreOriginal": "Oil, avocado",
-    "nombreCompleto": "Aceite de aguacate",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173573/nutrients",
     "kcal100g": 884,
     "proteina100g": 0.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 100,
     "fibra100g": 0.0,
-    "azucares100g": null,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173573/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-172336",
     "nombre": "Aceite de canola",
-    "nombreOriginal": "Oil, canola",
-    "nombreCompleto": "Aceite de canola",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172336/nutrients",
     "kcal100g": 884,
     "proteina100g": 0.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 100,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172336/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171412",
     "nombre": "Aceite de coco",
-    "nombreOriginal": "Oil, coconut",
-    "nombreCompleto": "Aceite de coco",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171412/nutrients",
     "kcal100g": 892,
     "proteina100g": 0.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 99.1,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171412/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171029",
     "nombre": "Aceite de maíz para cocinar",
-    "nombreOriginal": "Oil, corn, industrial and retail, all purpose salad or cooking",
-    "nombreCompleto": "Aceite de maíz para cocinar",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171029/nutrients",
     "kcal100g": 900,
     "proteina100g": 0.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 100,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171029/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171413",
     "nombre": "Aceite de oliva",
-    "nombreOriginal": "Oil, olive, salad or cooking",
-    "nombreCompleto": "Aceite de oliva",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171413/nutrients",
     "kcal100g": 884,
     "proteina100g": 0.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 100,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171413/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171016",
     "nombre": "Aceite de ajonjolí",
-    "nombreOriginal": "Oil, sesame, salad or cooking",
-    "nombreCompleto": "Aceite de ajonjolí",
+    "alergenos": [
+      "sesamo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171016/nutrients",
     "kcal100g": 884,
     "proteina100g": 0.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 100,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "sesamo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171016/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171411",
     "nombre": "Aceite de soya",
-    "nombreOriginal": "Oil, soybean, salad or cooking",
-    "nombreCompleto": "Aceite de soya",
+    "alergenos": [
+      "soya"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171411/nutrients",
     "kcal100g": 884,
     "proteina100g": 0.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 100,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "soya"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171411/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-172338",
     "nombre": "Aceite de girasol alto en ácido oleico",
-    "nombreOriginal": "Oil, sunflower, high oleic (70% and over)",
-    "nombreCompleto": "Aceite de girasol alto en ácido oleico",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172338/nutrients",
     "kcal100g": 884,
     "proteina100g": 0.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 100,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172338/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171017",
     "nombre": "Aceite de girasol con menos de 60 % de ácido linoleico",
-    "nombreOriginal": "Oil, sunflower, linoleic (less than 60%)",
-    "nombreCompleto": "Aceite de girasol con menos de 60 % de ácido linoleico",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171017/nutrients",
     "kcal100g": 884,
     "proteina100g": 0.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 100,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171017/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171025",
     "nombre": "Aceite de girasol con aproximadamente 65 % de ácido linoleico",
-    "nombreOriginal": "Oil, sunflower, linoleic, (approx. 65%)",
-    "nombreCompleto": "Aceite de girasol con aproximadamente 65 % de ácido linoleico",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171025/nutrients",
     "kcal100g": 884,
     "proteina100g": 0.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 100,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171025/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171314",
     "nombre": "Mantequilla clarificada (ghee)",
-    "nombreOriginal": "Butter, Clarified butter (ghee)",
-    "nombreCompleto": "Mantequilla clarificada (ghee)",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171314/nutrients",
     "kcal100g": 900,
     "proteina100g": 0.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 100,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171314/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-173412",
     "nombre": "Grasa anhidra de mantequilla",
-    "nombreOriginal": "Butter oil, anhydrous",
-    "nombreCompleto": "Grasa anhidra de mantequilla",
+    "alergenos": [
+      "leche"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173412/nutrients",
     "kcal100g": 876,
     "proteina100g": 0.28,
     "carbohidratos100g": 0.0,
     "grasa100g": 99.5,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [
-      "leche"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173412/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-172345",
     "nombre": "Grasa de tocino",
-    "nombreOriginal": "Animal fat, bacon grease",
-    "nombreCompleto": "Grasa de tocino",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172345/nutrients",
     "kcal100g": 897,
     "proteina100g": 0.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 99.5,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172345/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-170567",
     "nombre": "Almendras",
-    "nombreOriginal": "Nuts, almonds",
-    "nombreCompleto": "Almendras",
+    "alergenos": [
+      "frutos secos"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170567/nutrients",
     "kcal100g": 579,
     "proteina100g": 21.2,
     "carbohidratos100g": 21.6,
     "grasa100g": 49.9,
     "fibra100g": 12.5,
-    "azucares100g": 4.35,
-    "alergenos": [
-      "frutos secos"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170567/nutrients"
+    "azucares100g": 4.35
   },
   {
     "id": "usda-170162",
     "nombre": "Nuez de la India cruda",
-    "nombreOriginal": "Nuts, cashew nuts, raw",
-    "nombreCompleto": "Nuez de la India cruda",
+    "alergenos": [
+      "frutos secos"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170162/nutrients",
     "kcal100g": 553,
     "proteina100g": 18.2,
     "carbohidratos100g": 30.2,
     "grasa100g": 43.8,
     "fibra100g": 3.3,
-    "azucares100g": 5.91,
-    "alergenos": [
-      "frutos secos"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170162/nutrients"
+    "azucares100g": 5.91
   },
   {
     "id": "usda-170581",
     "nombre": "Avellanas",
-    "nombreOriginal": "Nuts, hazelnuts or filberts",
-    "nombreCompleto": "Avellanas",
+    "alergenos": [
+      "frutos secos"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170581/nutrients",
     "kcal100g": 628,
     "proteina100g": 15.0,
     "carbohidratos100g": 16.7,
     "grasa100g": 60.8,
     "fibra100g": 9.7,
-    "azucares100g": 4.34,
-    "alergenos": [
-      "frutos secos"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170581/nutrients"
+    "azucares100g": 4.34
   },
   {
     "id": "usda-170182",
     "nombre": "Nuez pecana",
-    "nombreOriginal": "Nuts, pecans",
-    "nombreCompleto": "Nuez pecana",
+    "alergenos": [
+      "frutos secos"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170182/nutrients",
     "kcal100g": 691,
     "proteina100g": 9.17,
     "carbohidratos100g": 13.9,
     "grasa100g": 72.0,
     "fibra100g": 9.6,
-    "azucares100g": 3.97,
-    "alergenos": [
-      "frutos secos"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170182/nutrients"
+    "azucares100g": 3.97
   },
   {
     "id": "usda-170184",
     "nombre": "Pistaches crudos",
-    "nombreOriginal": "Nuts, pistachio nuts, raw",
-    "nombreCompleto": "Pistaches crudos",
+    "alergenos": [
+      "frutos secos"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170184/nutrients",
     "kcal100g": 560,
     "proteina100g": 20.2,
     "carbohidratos100g": 27.2,
     "grasa100g": 45.3,
     "fibra100g": 10.6,
-    "azucares100g": 7.66,
-    "alergenos": [
-      "frutos secos"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170184/nutrients"
+    "azucares100g": 7.66
   },
   {
     "id": "usda-170187",
     "nombre": "Nuez de Castilla",
-    "nombreOriginal": "Nuts, walnuts, english",
-    "nombreCompleto": "Nuez de Castilla",
+    "alergenos": [
+      "frutos secos"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170187/nutrients",
     "kcal100g": 654,
     "proteina100g": 15.2,
     "carbohidratos100g": 13.7,
     "grasa100g": 65.2,
     "fibra100g": 6.7,
-    "azucares100g": 2.61,
-    "alergenos": [
-      "frutos secos"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170187/nutrients"
+    "azucares100g": 2.61
   },
   {
     "id": "usda-170569",
     "nombre": "Nuez de Brasil seca sin blanquear",
-    "nombreOriginal": "Nuts, brazilnuts, dried, unblanched",
-    "nombreCompleto": "Nuez de Brasil seca sin blanquear",
+    "alergenos": [
+      "frutos secos"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170569/nutrients",
     "kcal100g": 659,
     "proteina100g": 14.3,
     "carbohidratos100g": 11.7,
     "grasa100g": 67.1,
     "fibra100g": 7.5,
-    "azucares100g": 2.33,
-    "alergenos": [
-      "frutos secos"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170569/nutrients"
+    "azucares100g": 2.33
   },
   {
     "id": "usda-172430",
     "nombre": "Cacahuates crudos",
-    "nombreOriginal": "Peanuts, all types, raw",
-    "nombreCompleto": "Cacahuates crudos",
+    "alergenos": [
+      "cacahuate"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172430/nutrients",
     "kcal100g": 567,
     "proteina100g": 25.8,
     "carbohidratos100g": 16.1,
     "grasa100g": 49.2,
     "fibra100g": 8.5,
-    "azucares100g": 4.72,
-    "alergenos": [
-      "cacahuate"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172430/nutrients"
+    "azucares100g": 4.72
   },
   {
     "id": "usda-170554",
     "nombre": "Chía seca",
-    "nombreOriginal": "Seeds, chia seeds, dried",
-    "nombreCompleto": "Chía seca",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170554/nutrients",
     "kcal100g": 486,
     "proteina100g": 16.5,
     "carbohidratos100g": 42.1,
     "grasa100g": 30.7,
     "fibra100g": 34.4,
-    "azucares100g": null,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170554/nutrients"
+    "azucares100g": null
   },
   {
     "id": "usda-169414",
     "nombre": "Linaza",
-    "nombreOriginal": "Seeds, flaxseed",
-    "nombreCompleto": "Linaza",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169414/nutrients",
     "kcal100g": 534,
     "proteina100g": 18.3,
     "carbohidratos100g": 28.9,
     "grasa100g": 42.2,
     "fibra100g": 27.3,
-    "azucares100g": 1.55,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169414/nutrients"
+    "azucares100g": 1.55
   },
   {
     "id": "usda-170556",
     "nombre": "Pepitas de calabaza secas sin cáscara",
-    "nombreOriginal": "Seeds, pumpkin and squash seed kernels, dried",
-    "nombreCompleto": "Pepitas de calabaza secas sin cáscara",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170556/nutrients",
     "kcal100g": 559,
     "proteina100g": 30.2,
     "carbohidratos100g": 10.7,
     "grasa100g": 49.0,
     "fibra100g": 6.0,
-    "azucares100g": 1.4,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170556/nutrients"
+    "azucares100g": 1.4
   },
   {
     "id": "usda-170557",
     "nombre": "Pepitas de calabaza tostadas sin sal",
-    "nombreOriginal": "Seeds, pumpkin and squash seed kernels, roasted, without salt",
-    "nombreCompleto": "Pepitas de calabaza tostadas sin sal",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170557/nutrients",
     "kcal100g": 574,
     "proteina100g": 29.8,
     "carbohidratos100g": 14.7,
     "grasa100g": 49.0,
     "fibra100g": 6.5,
-    "azucares100g": 1.29,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170557/nutrients"
+    "azucares100g": 1.29
   },
   {
     "id": "usda-170150",
     "nombre": "Ajonjolí entero seco",
-    "nombreOriginal": "Seeds, sesame seeds, whole, dried",
-    "nombreCompleto": "Ajonjolí entero seco",
+    "alergenos": [
+      "sesamo"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170150/nutrients",
     "kcal100g": 573,
     "proteina100g": 17.7,
     "carbohidratos100g": 23.4,
     "grasa100g": 49.7,
     "fibra100g": 11.8,
-    "azucares100g": 0.3,
-    "alergenos": [
-      "sesamo"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170150/nutrients"
+    "azucares100g": 0.3
   },
   {
     "id": "usda-170562",
     "nombre": "Semillas de girasol secas sin cáscara",
-    "nombreOriginal": "Seeds, sunflower seed kernels, dried",
-    "nombreCompleto": "Semillas de girasol secas sin cáscara",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170562/nutrients",
     "kcal100g": 584,
     "proteina100g": 20.8,
     "carbohidratos100g": 20.0,
     "grasa100g": 51.5,
     "fibra100g": 8.6,
-    "azucares100g": 2.62,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170562/nutrients"
+    "azucares100g": 2.62
   },
   {
     "id": "usda-170169",
     "nombre": "Pulpa de coco cruda",
-    "nombreOriginal": "Nuts, coconut meat, raw",
-    "nombreCompleto": "Pulpa de coco cruda",
+    "alergenos": [
+      "frutos secos"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170169/nutrients",
     "kcal100g": 354,
     "proteina100g": 3.33,
     "carbohidratos100g": 15.2,
     "grasa100g": 33.5,
     "fibra100g": 9.0,
-    "azucares100g": 6.23,
-    "alergenos": [
-      "frutos secos"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170169/nutrients"
+    "azucares100g": 6.23
   },
   {
     "id": "usda-173647",
     "nombre": "Agua potable de la llave",
-    "nombreOriginal": "Beverages, water, tap, drinking",
-    "nombreCompleto": "Agua potable de la llave",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173647/nutrients",
     "kcal100g": 0.0,
     "proteina100g": 0.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 0.0,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173647/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171890",
     "nombre": "Café preparado con agua de la llave",
-    "nombreOriginal": "Beverages, coffee, brewed, prepared with tap water",
-    "nombreCompleto": "Café preparado con agua de la llave",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171890/nutrients",
     "kcal100g": 1.0,
     "proteina100g": 0.12,
     "carbohidratos100g": 0.0,
     "grasa100g": 0.02,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171890/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171889",
     "nombre": "Café descafeinado preparado con agua de la llave",
-    "nombreOriginal": "Beverages, coffee, brewed, prepared with tap water, decaffeinated",
-    "nombreCompleto": "Café descafeinado preparado con agua de la llave",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171889/nutrients",
     "kcal100g": 0.0,
     "proteina100g": 0.1,
     "carbohidratos100g": 0.0,
     "grasa100g": 0.0,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171889/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-173227",
     "nombre": "Té negro preparado con agua de la llave",
-    "nombreOriginal": "Beverages, tea, black, brewed, prepared with tap water",
-    "nombreCompleto": "Té negro preparado con agua de la llave",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173227/nutrients",
     "kcal100g": 1.0,
     "proteina100g": 0.0,
     "carbohidratos100g": 0.3,
     "grasa100g": 0.0,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173227/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171917",
     "nombre": "Té verde preparado",
-    "nombreOriginal": "Beverages, tea, green, brewed, regular",
-    "nombreCompleto": "Té verde preparado",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171917/nutrients",
     "kcal100g": 1.0,
     "proteina100g": 0.22,
     "carbohidratos100g": 0.0,
     "grasa100g": 0.0,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171917/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171910",
     "nombre": "Té verde descafeinado preparado",
-    "nombreOriginal": "Beverages, tea, green, brewed, decaffeinated",
-    "nombreCompleto": "Té verde descafeinado preparado",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171910/nutrients",
     "kcal100g": 0.0,
     "proteina100g": 0.0,
     "carbohidratos100g": 0.0,
     "grasa100g": 0.0,
     "fibra100g": 0.0,
-    "azucares100g": 0.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171910/nutrients"
+    "azucares100g": 0.0
   },
   {
     "id": "usda-171941",
     "nombre": "Agua de horchata de restaurante",
-    "nombreOriginal": "Beverages, Horchata, as served in restaurant",
-    "nombreCompleto": "Agua de horchata de restaurante",
+    "alergenos": [
+      "leche",
+      "frutos secos"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171941/nutrients",
     "kcal100g": 54.0,
     "proteina100g": 0.48,
     "carbohidratos100g": 11.5,
     "grasa100g": 0.71,
     "fibra100g": 0.0,
-    "azucares100g": 9.36,
-    "alergenos": [
-      "leche",
-      "frutos secos"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171941/nutrients"
+    "azucares100g": 9.36
   },
   {
     "id": "usda-171942",
     "nombre": "Bebida de arroz sin azúcar",
-    "nombreOriginal": "Beverages, rice milk, unsweetened",
-    "nombreCompleto": "Bebida de arroz sin azúcar",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171942/nutrients",
     "kcal100g": 47.0,
     "proteina100g": 0.28,
     "carbohidratos100g": 9.17,
     "grasa100g": 0.97,
     "fibra100g": 0.3,
-    "azucares100g": 5.28,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171942/nutrients"
+    "azucares100g": 5.28
   },
   {
     "id": "usda-174832",
     "nombre": "Bebida de almendra sin azúcar de larga duración",
-    "nombreOriginal": "Beverages, almond milk, unsweetened, shelf stable",
-    "nombreCompleto": "Bebida de almendra sin azúcar de larga duración",
+    "alergenos": [
+      "frutos secos"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/174832/nutrients",
     "kcal100g": 15.0,
     "proteina100g": 0.4,
     "carbohidratos100g": 1.31,
     "grasa100g": 0.96,
     "fibra100g": 0.2,
-    "azucares100g": 0.81,
-    "alergenos": [
-      "frutos secos"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/174832/nutrients"
+    "azucares100g": 0.81
   },
   {
     "id": "usda-170174",
     "nombre": "Agua de coco natural",
-    "nombreOriginal": "Nuts, coconut water (liquid from coconuts)",
-    "nombreCompleto": "Agua de coco natural",
+    "alergenos": [
+      "frutos secos"
+    ],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170174/nutrients",
     "kcal100g": 19.0,
     "proteina100g": 0.72,
     "carbohidratos100g": 3.71,
     "grasa100g": 0.2,
     "fibra100g": 1.1,
-    "azucares100g": 2.61,
-    "alergenos": [
-      "frutos secos"
-    ],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170174/nutrients"
+    "azucares100g": 2.61
   },
   {
     "id": "usda-169640",
     "nombre": "Miel de abeja",
-    "nombreOriginal": "Honey",
-    "nombreCompleto": "Miel de abeja",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169640/nutrients",
     "kcal100g": 304,
     "proteina100g": 0.3,
     "carbohidratos100g": 82.4,
     "grasa100g": 0.0,
     "fibra100g": 0.2,
-    "azucares100g": 82.1,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169640/nutrients"
+    "azucares100g": 82.1
   },
   {
     "id": "usda-169655",
     "nombre": "Azúcar blanca granulada",
-    "nombreOriginal": "Sugars, granulated",
-    "nombreCompleto": "Azúcar blanca granulada",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169655/nutrients",
     "kcal100g": 387,
     "proteina100g": 0.0,
     "carbohidratos100g": 100,
     "grasa100g": 0.0,
     "fibra100g": 0.0,
-    "azucares100g": 99.8,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169655/nutrients"
+    "azucares100g": 99.8
   },
   {
     "id": "usda-168833",
     "nombre": "Azúcar morena",
-    "nombreOriginal": "Sugars, brown",
-    "nombreCompleto": "Azúcar morena",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/168833/nutrients",
     "kcal100g": 380,
     "proteina100g": 0.12,
     "carbohidratos100g": 98.1,
     "grasa100g": 0.0,
     "fibra100g": 0.0,
-    "azucares100g": 97.0,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/168833/nutrients"
+    "azucares100g": 97.0
   },
   {
     "id": "usda-169593",
     "nombre": "Cocoa en polvo sin azúcar",
-    "nombreOriginal": "Cocoa, dry powder, unsweetened",
-    "nombreCompleto": "Cocoa en polvo sin azúcar",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/169593/nutrients",
     "kcal100g": 228,
     "proteina100g": 19.6,
     "carbohidratos100g": 57.9,
     "grasa100g": 13.7,
     "fibra100g": 37.0,
-    "azucares100g": 1.75,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/169593/nutrients"
+    "azucares100g": 1.75
   },
   {
     "id": "usda-171320",
     "nombre": "Canela molida",
-    "nombreOriginal": "Spices, cinnamon, ground",
-    "nombreCompleto": "Canela molida",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171320/nutrients",
     "kcal100g": 247,
     "proteina100g": 3.99,
     "carbohidratos100g": 80.6,
     "grasa100g": 1.24,
     "fibra100g": 53.1,
-    "azucares100g": 2.17,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171320/nutrients"
+    "azucares100g": 2.17
   },
   {
     "id": "usda-171328",
     "nombre": "Orégano seco",
-    "nombreOriginal": "Spices, oregano, dried",
-    "nombreCompleto": "Orégano seco",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/171328/nutrients",
     "kcal100g": 265,
     "proteina100g": 9.0,
     "carbohidratos100g": 68.9,
     "grasa100g": 4.28,
     "fibra100g": 42.5,
-    "azucares100g": 4.09,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/171328/nutrients"
+    "azucares100g": 4.09
   },
   {
     "id": "usda-170923",
     "nombre": "Semilla de comino",
-    "nombreOriginal": "Spices, cumin seed",
-    "nombreCompleto": "Semilla de comino",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170923/nutrients",
     "kcal100g": 375,
     "proteina100g": 17.8,
     "carbohidratos100g": 44.2,
     "grasa100g": 22.3,
     "fibra100g": 10.5,
-    "azucares100g": 2.25,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170923/nutrients"
+    "azucares100g": 2.25
   },
   {
     "id": "usda-170931",
     "nombre": "Pimienta negra",
-    "nombreOriginal": "Spices, pepper, black",
-    "nombreCompleto": "Pimienta negra",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/170931/nutrients",
     "kcal100g": 251,
     "proteina100g": 10.4,
     "carbohidratos100g": 64.0,
     "grasa100g": 3.26,
     "fibra100g": 25.3,
-    "azucares100g": 0.64,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/170931/nutrients"
+    "azucares100g": 0.64
   },
   {
     "id": "usda-173469",
     "nombre": "Vinagre de manzana",
-    "nombreOriginal": "Vinegar, cider",
-    "nombreCompleto": "Vinagre de manzana",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/173469/nutrients",
     "kcal100g": 21.0,
     "proteina100g": 0.0,
     "carbohidratos100g": 0.93,
     "grasa100g": 0.0,
     "fibra100g": 0.0,
-    "azucares100g": 0.4,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/173469/nutrients"
+    "azucares100g": 0.4
   },
   {
     "id": "usda-172237",
     "nombre": "Vinagre blanco destilado",
-    "nombreOriginal": "Vinegar, distilled",
-    "nombreCompleto": "Vinagre blanco destilado",
+    "alergenos": [],
+    "source_ref": "https://fdc.nal.usda.gov/food-details/172237/nutrients",
     "kcal100g": 18.0,
     "proteina100g": 0.0,
     "carbohidratos100g": 0.04,
     "grasa100g": 0.0,
     "fibra100g": 0.0,
-    "azucares100g": 0.04,
-    "alergenos": [],
-    "source_ref": "https://fdc.nal.usda.gov/food-details/172237/nutrients"
+    "azucares100g": 0.04
   }
 ]

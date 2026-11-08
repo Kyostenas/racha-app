@@ -16,14 +16,14 @@ try {
   await page.getByLabel('Acepto el uso local de mis datos').check();
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
-  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Tomate rojo crudo'])
+  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Jitomate rojo crudo'])
     await page.getByRole('button', { name, exact: true }).click();
   await page.getByRole('button', { name: 'Crear mi primer día' }).click();
   await page.getByRole('button', { name: 'Empezar', exact: true }).click();
   await page.getByRole('button', { name: /Elegir agua en una comida/ }).click();
   await page.getByTestId('streak').filter({ hasText: '1' }).waitFor();
   await page.getByRole('button', { name: 'Plan', exact: true }).click();
-  await page.getByRole('heading', { name: 'Arroz con huevo y tomate', exact: true }).waitFor();
+  await page.getByRole('heading', { name: 'Arroz con huevo y jitomate', exact: true }).waitFor();
   await page.getByRole('button', { name: 'Ajustes', exact: true }).click();
   await page.getByLabel('Modo OLED').check();
   await page.locator('html[data-oled]').waitFor();

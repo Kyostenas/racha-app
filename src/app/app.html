@@ -146,12 +146,12 @@
                   <label
                     >Buscar alimento<input
                       [(ngModel)]="pantrySearch"
-                      placeholder="Arroz, huevo, tomate…"
+                      placeholder="Arroz, huevo, jitomate…"
                   /></label>
                   <div class="chips pantry">
                     @for (food of pantryChoices(); track food.id) {
                       <button
-                        [title]="food.nombreCompleto ?? food.nombre"
+                        [title]="food.nombre"
                         [class.selected]="pantry.includes(food.id)"
                         [attr.aria-pressed]="pantry.includes(food.id)"
                         (click)="chooseIngredient(food.id)"
@@ -164,8 +164,7 @@
                   @if (inspectedFood(); as food) {
                     <details open class="food-detail">
                       <summary>Detalle del ingrediente</summary>
-                      <h3>{{ food.nombreCompleto ?? food.nombre }}</h3>
-                      <p class="small">{{ food.nombreOriginal }}</p>
+                      <h3>{{ food.nombre }}</h3>
                       <a [href]="food.source_ref" target="_blank" rel="noopener noreferrer"
                         >Ver fuente del alimento ↗</a
                       >
@@ -340,7 +339,7 @@
                               >USDA · {{ f.nombre }} ↗</a
                             >
                             <p class="small">
-                              {{ f.nombreCompleto ?? f.nombre }}. Por 100 g · Proteína:
+                              {{ f.nombre }}. Por 100 g · Proteína:
                               {{ formatNutrient(f.proteina100g) }} · Carbohidratos:
                               {{ formatNutrient(f.carbohidratos100g) }} · Grasa:
                               {{ formatNutrient(f.grasa100g) }} · Fibra:
@@ -381,8 +380,9 @@
                     adivinamos: consulta a un profesional.
                   </p>
                   <p class="small">
-                    Ideas de despensa: arroz blanco cocido + huevo entero crudo + tomate rojo crudo;
-                    o avena cruda + plátano + manzana. Elige las variantes exactas disponibles.
+                    Ideas de despensa: arroz blanco cocido + huevo entero crudo + jitomate rojo
+                    crudo; o avena cruda + plátano + manzana. Elige las variantes exactas
+                    disponibles.
                   </p>
                 </section>
               }
@@ -410,7 +410,7 @@
                 <div class="chips pantry">
                   @for (f of pantryChoices(); track f.id) {
                     <button
-                      [title]="f.nombreCompleto ?? f.nombre"
+                      [title]="f.nombre"
                       [class.selected]="pantry.includes(f.id)"
                       [attr.aria-pressed]="pantry.includes(f.id)"
                       (click)="chooseIngredient(f.id)"
@@ -423,8 +423,7 @@
                 @if (inspectedFood(); as food) {
                   <details open class="food-detail">
                     <summary>Detalle del ingrediente</summary>
-                    <h3>{{ food.nombreCompleto ?? food.nombre }}</h3>
-                    <p class="small">{{ food.nombreOriginal }}</p>
+                    <h3>{{ food.nombre }}</h3>
                     <a [href]="food.source_ref" target="_blank" rel="noopener noreferrer"
                       >Ver fuente del alimento ↗</a
                     >

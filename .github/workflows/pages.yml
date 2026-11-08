@@ -25,6 +25,7 @@ jobs:
       - run: npm run verify:identity
       - run: npm test -- --watch=false
       - run: npm run build
+      - run: npm run validate:catalog
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
       - uses: actions/upload-artifact@v4

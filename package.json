@@ -9,7 +9,8 @@
     "test": "ng test",
     "preview": "node tools/serve.mjs",
     "test:e2e": "playwright test",
-    "verify:identity": "node tools/check-identity.mjs"
+    "verify:identity": "node tools/check-identity.mjs",
+    "validate:catalog": "node tools/validar-catalogo.mjs"
   },
   "private": true,
   "packageManager": "npm@12.2.0",

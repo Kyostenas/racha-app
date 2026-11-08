@@ -217,13 +217,7 @@ export class App implements OnInit {
         .toLowerCase();
     const query = plain(this.pantrySearch.trim());
     return this.foods()
-      .filter(
-        (f) =>
-          !query ||
-          plain([f.nombre, f.nombreCompleto ?? '', f.nombreOriginal ?? ''].join(' ')).includes(
-            query,
-          ),
-      )
+      .filter((f) => !query || plain(f.nombre).includes(query))
       .slice(0, 36);
   }
   ingredientName(id: string) {

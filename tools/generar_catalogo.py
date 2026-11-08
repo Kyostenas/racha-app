@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Catálogo Racha: fuentes públicas fijadas y traducciones curadas; solo escribe junto al script."""
+"""Catálogo Racha: fuentes públicas fijadas y traducciones curadas; escribe solo en el directorio de salida solicitado."""
 import hashlib, io, json, re, sys, urllib.request, zipfile
 from pathlib import Path
 from collections import Counter
@@ -978,7 +978,7 @@ Requiere Python 3.10+ y `jsonschema==4.25.1`. Para mantener todas las escrituras
 ```bash
 mkdir -p _tmp
 TMPDIR="$PWD/_tmp" PYTHONDONTWRITEBYTECODE=1 python3 -m pip install --no-cache-dir --no-compile --target "$PWD/_dependencias" jsonschema==4.25.1
-PYTHONDONTWRITEBYTECODE=1 python3 generar_catalogo.py
+PYTHONDONTWRITEBYTECODE=1 python3 tools/generar_catalogo.py --output-dir /tmp/racha-fuentes
 ```
 
 Con `jsonschema` ya disponible, basta el último comando. La descarga se procesa **en memoria**: no usa API autenticada ni cachés. Primero compara hashes SHA-256 esperados; si cambian los bytes de una fuente, se detiene, no actualiza los valores a ciegas. La selección y traducción están dentro del script y no dependen de servicios de traducción. Construye ambos JSON y el esquema; después **reabre los archivos**, valida con `Draft202012Validator`, comprueba conteos, IDs/nombres únicos, referencias y energía numérica. `validacion.json` registra el resultado. Repetir con las mismas fuentes produce los mismos archivos.
@@ -1019,4 +1019,10 @@ def main():
     print(f"Alimentos con nutrientes ausentes: {len(report['alimentos_con_faltantes'])}")
 
 if __name__ == "__main__":
+    import argparse
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output-dir',type=Path,required=True,help='Directorio temporal para fuentes y validación, nunca public/')
+    args=parser.parse_args()
+    BASE=args.output_dir.resolve()
+    BASE.mkdir(parents=True,exist_ok=True)
     main()

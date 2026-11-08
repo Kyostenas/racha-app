@@ -20,9 +20,20 @@
       "installMode": "prefetch",
       "resources": {
         "files": [
-          "/data/**",
           "/icons/**",
           "/media/**"
+        ]
+      }
+    },
+    {
+      "name": "catalogo-motor",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/data/alimentos.json",
+          "/data/ejercicios.json",
+          "/data/recetas.json",
+          "/data/tokens.json"
         ]
       }
     }

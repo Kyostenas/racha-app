@@ -39,7 +39,7 @@ Alergias desconocidas bloquean las recetas (fail closed). La lista de alérgenos
 
 IA externa depende de conectividad, modelo, saldo y CORS del proveedor. No hay proxy, servidor ni clave incluida. El programa no puede garantizar la retención de datos del proveedor que elijas. La clave puede leerse desde el perfil del navegador; no hay cifrado del dispositivo implementado por esta app.
 
-Los estados crudo/cocido del catálogo son distintos. Las cantidades de recetas son ilustrativas para una porción; no se afirma nutrición personalizada. Se incluyen **300 alimentos USDA y 80 ejercicios** de free-exercise-db. Azúcares/fibra ausentes se muestran como «sin dato», nunca como cero. No se estiman calorías de ejercicio. `python3 tools/normalizar_catalogo.py` reproduce la adaptación local desde `public/catalogo/`. El catálogo completo puede contener alimentos sin recetas: no se generan combinaciones arbitrarias.
+Los estados crudo/cocido del catálogo son distintos. Las cantidades de recetas son ilustrativas para una porción; no se afirma nutrición personalizada. Se incluyen **300 alimentos USDA y 80 ejercicios** de free-exercise-db. Azúcares/fibra ausentes se muestran como «sin dato», nunca como cero. No se estiman calorías de ejercicio. Solo se distribuye el catálogo usado por el motor en `public/data/`, sin una copia de fuentes intermedias. La reproducción y auditoría completa se describen en [docs/CATALOGO.md](docs/CATALOGO.md). El catálogo completo puede contener alimentos sin recetas: no se generan combinaciones arbitrarias.
 
 ## Almacenamiento (IndexedDB `racha`, versión 1)
 
@@ -53,7 +53,7 @@ El Anexo A del documento nombra «perfil, hábitos, rachas y registros» pero no
 | `registros` | fecha:habito | fecha local, habito, hecho |
 | `ajustes` | `id=local` | tema, oled, personalizado, ia, base_url, modelo, clave, consentimientoIA |
 
-Los esquemas Zod de `src/app/domain.ts` validan los datos al leer. Las fuentes empaquetadas en `public/data/` se validan antes de usarse. Los chips abrevian nombres largos; al tocar un ingrediente se puede consultar su nombre completo y fuente. Los nutrientes se muestran con máximo un decimal, sin alterar los valores usados por el motor. No hay cookies de seguimiento, analítica ni cuentas. Fuentes tipográficas e iconos son locales.
+Los esquemas Zod de `src/app/domain.ts` validan los datos al leer. Las fuentes empaquetadas en `public/data/` se validan antes de usarse. Los chips abrevian nombres largos; al tocar un ingrediente se puede consultar el mismo nombre español completo y su fuente externa; la descripción USDA inglesa no se muestra en la app. Los nutrientes se muestran con máximo un decimal, sin alterar los valores usados por el motor. No hay cookies de seguimiento, analítica ni cuentas. Fuentes tipográficas e iconos son locales.
 
 ## Pruebas y capturas
 
