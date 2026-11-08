@@ -5,8 +5,8 @@
 ## Resultados locales
 
 - `npm run build`: PASS, cero errores. Permanece una advertencia del presupuesto inicial estándar de Angular (500 kB); no se aumentó el umbral para esconderla. El presupuesto de error de 1 MB no se excede.
-- `npm test -- --watch=false`: **48/48 PASS**, cinco archivos de pruebas.
-- `CHROMIUM_PATH=/home/benja/.local/bin/chromium npm run test:e2e`: **7/7 PASS**, Chromium headless, build de producción.
+- `npm test -- --watch=false`: **53/53 PASS**, cinco archivos de pruebas.
+- `CHROMIUM_PATH=/home/benja/.local/bin/chromium npm run test:e2e`: **10/10 PASS**, Chromium headless, build de producción.
 - Catálogo: **300 alimentos + 80 ejercicios**, validación original en `public/catalogo/validacion.json`, adaptación reproducible con `tools/normalizar_catalogo.py`.
 - Identidad Git: autor y committer iguales, nombre de perfil GitHub de Yael, correo noreply de su cuenta; sin trailers. `npm run verify:identity` automatiza la comprobación.
 
@@ -42,3 +42,13 @@
 Demo pública: https://kyostenas.github.io/racha-app/ . La prueba `CHROMIUM_PATH=/home/benja/.local/bin/chromium node tools/smoke-pages.mjs` se ejecutó contra esa URL con resultado PASS: onboarding, receta, racha, OLED y recarga sin conexión, sin errores de página. Es una sesión aislada con datos ficticios; no se usó ninguna cuenta del navegador.
 
 CI reproduce unidades, build y E2E; después compila con base `/racha-app/` y publica vía Actions sin crear commits de despliegue.
+
+## Ronda UX
+
+- Texto principal de IA sin jerga: el riesgo de guardar la clave sin protección se explica en lenguaje cotidiano. Compatibilidad, CORS, proxy, almacenamiento y dirección técnica quedan en «Detalles», cerrado por defecto. Los mensajes de error tampoco requieren saber esos términos.
+- Botones, opciones y etiquetas en sentence case; «En tu cel · Próximamente» completo y sin transformación por CSS. Los títulos gráficos conservan la identidad de la app.
+- Aviso de alergias abreviado sin quitar el bloqueo ni la advertencia médica.
+- Nutrientes con máximo un decimal y `null`/ausencia como «sin dato». Los cálculos usan los valores originales, no los redondeados de presentación.
+- Chips abreviados, nombre español completo y descripción USDA original disponibles al tocar el ingrediente. Se priorizan arroz, huevo, tomate, frijoles, tortilla, cebolla, calabacita, aguacate, limón y otros alimentos comunes de México, sin alterar nutrientes ni fuentes.
+- Pruebas a **320 y 412 px**: sin desbordamiento horizontal, etiqueta de IA local sin recorte, texto técnico oculto, controles accesibles entre aviso y navegación. Se verifica por geometría e hit testing que los botones no queden debajo de las barras; al final de la página, el pie queda por encima de la navegación. La altura reservada incluye `env(safe-area-inset-bottom)`.
+- Capturas nuevas: `19-onboarding-oled.png`, `20-despensa-oled.png`, `21-primer-dia-oled.png`, `ux-ajustes-320.png` y `ux-ajustes-412.png`. Para las tres primeras, la prueba precarga únicamente la preferencia OLED en una sesión ficticia sin perfil; no se simulan hábitos ni progreso.

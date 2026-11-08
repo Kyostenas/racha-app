@@ -53,7 +53,7 @@ El Anexo A del documento nombra «perfil, hábitos, rachas y registros» pero no
 | `registros` | fecha:habito | fecha local, habito, hecho |
 | `ajustes` | `id=local` | tema, oled, personalizado, ia, base_url, modelo, clave, consentimientoIA |
 
-Los esquemas Zod de `src/app/domain.ts` validan los datos al leer. Las fuentes empaquetadas en `public/data/` se validan antes de usarse. No hay cookies de seguimiento, analítica ni cuentas. Fuentes tipográficas e iconos son locales.
+Los esquemas Zod de `src/app/domain.ts` validan los datos al leer. Las fuentes empaquetadas en `public/data/` se validan antes de usarse. Los chips abrevian nombres largos; al tocar un ingrediente se puede consultar su nombre completo y fuente. Los nutrientes se muestran con máximo un decimal, sin alterar los valores usados por el motor. No hay cookies de seguimiento, analítica ni cuentas. Fuentes tipográficas e iconos son locales.
 
 ## Pruebas y capturas
 

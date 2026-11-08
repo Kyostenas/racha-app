@@ -1,3 +1,4 @@
+import { formatNutrient, shortFoodName } from './presentation';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { z } from 'zod';
@@ -74,6 +75,22 @@ export class App implements OnInit {
     () =>
       this.exercises().find((e) => e.id === this.selectedExercise()) ?? this.exercises()[0] ?? null,
   );
+  readonly goals = [
+    { id: 'bajar', nombre: 'Bajar de peso' },
+    { id: 'mantener', nombre: 'Mantener mi peso' },
+    { id: 'subir', nombre: 'Subir de peso' },
+  ];
+  readonly colorLabels = {
+    fondo: 'Fondo',
+    primario: 'Primario',
+    acento: 'Acento',
+    urgente: 'Urgente',
+  };
+  readonly inspectedFoodId = signal('');
+  readonly inspectedFood = computed(
+    () => this.foods().find((f) => f.id === this.inspectedFoodId()) ?? null,
+  );
+  readonly shortFoodName = shortFoodName;
   readonly themeNames = [
     { id: 'racha', nombre: 'Racha' },
     { id: 'menta', nombre: 'Menta' },
@@ -187,24 +204,25 @@ export class App implements OnInit {
     }
   }
   chooseIngredient(id: string) {
+    this.inspectedFoodId.set(id);
     this.pantry = this.pantry.includes(id)
       ? this.pantry.filter((i) => i !== id)
       : [...this.pantry, id];
   }
   pantryChoices() {
-    const q = this.pantrySearch
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .toLowerCase();
+    const plain = (text: string) =>
+      text
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+    const query = plain(this.pantrySearch.trim());
     return this.foods()
       .filter(
         (f) =>
-          !q ||
-          f.nombre
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .toLowerCase()
-            .includes(q),
+          !query ||
+          plain([f.nombre, f.nombreCompleto ?? '', f.nombreOriginal ?? ''].join(' ')).includes(
+            query,
+          ),
       )
       .slice(0, 36);
   }
@@ -293,9 +311,7 @@ export class App implements OnInit {
   countDay(date: string) {
     return this.records().filter((r) => r.fecha === date && r.hecho).length;
   }
-  formatNutrient(value: number | null | undefined) {
-    return value === null || value === undefined ? 'sin dato' : value + ' g';
-  }
+  readonly formatNutrient = formatNutrient;
   energy(recipe: Receta) {
     return nutrition(recipe, this.foods());
   }
@@ -405,7 +421,9 @@ export class App implements OnInit {
         return;
       this.message.set('Configuración guardada solo en este dispositivo.');
     } catch {
-      this.error.set('Necesitas URL HTTPS sin credenciales, modelo, clave y consentimiento.');
+      this.error.set(
+        'Revisa la dirección del servicio, el modelo, la clave y el permiso para continuar.',
+      );
     }
   }
   async suggestAi() {
@@ -446,7 +464,7 @@ export class App implements OnInit {
       this.message.set('Sugerencia validada otra vez: solo una receta curada de tu despensa.');
     } catch {
       this.error.set(
-        'No se pudo validar la respuesta o el proveedor bloqueó CORS. Tu plan sin IA sigue disponible.',
+        'No se pudo validar la respuesta. Tu plan sin IA sigue disponible. Revisa tu servicio en Detalles.',
       );
     } finally {
       this.busy.set(false);
@@ -512,6 +530,7 @@ export class App implements OnInit {
       };
       this.pantry = [];
       this.pantrySearch = '';
+      this.inspectedFoodId.set('');
       this.advanced.set(false);
       this.themeEditor.set(false);
       this.form = {

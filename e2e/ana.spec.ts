@@ -1,3 +1,4 @@
+import { defaultSettings } from '../src/app/domain';
 import { test, expect, Page } from '@playwright/test';
 import { mkdir, readFile } from 'node:fs/promises';
 const shots = 'docs/capturas';
@@ -8,7 +9,7 @@ async function shot(page: Page, name: string) {
 async function onboard(page: Page, allergy = '') {
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Haz espacio para ti.' })).toBeVisible();
-  await page.getByRole('button', { name: 'bajar de peso', exact: true }).click();
+  await page.getByRole('button', { name: 'Bajar de peso', exact: true }).click();
   await page.getByLabel('Acepto el uso local de mis datos').check();
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
@@ -30,7 +31,7 @@ test('Ana: onboarding, fuente, hábito, racha, temas, privacidad, offline y borr
   await shot(page, '01-intencion');
   await page.getByRole('button', { name: 'Continuar' }).click();
   await expect(page.getByRole('alert')).toContainText('Acepta');
-  await page.getByRole('button', { name: 'bajar de peso', exact: true }).click();
+  await page.getByRole('button', { name: 'Bajar de peso', exact: true }).click();
   await page.getByLabel('Acepto el uso local de mis datos').check();
   await page.getByRole('button', { name: 'Continuar' }).click();
   await shot(page, '02-lo-minimo');
@@ -165,7 +166,8 @@ test.describe('IA con proveedor simulado sin interceptación del service worker'
     await onboard(page);
     await page.getByRole('button', { name: 'Ajustes', exact: true }).click();
     await page.getByRole('button', { name: 'Avanzado › IA' }).click();
-    await page.getByLabel('URL base (HTTPS)').fill('https://proveedor.example/v1');
+    await page.getByText('Detalles', { exact: true }).click();
+    await page.getByLabel('Dirección del servicio').fill('https://proveedor.example/v1');
     await page.getByLabel('Modelo', { exact: true }).fill('modelo-de-prueba');
     await page.getByLabel('Clave propia', { exact: true }).fill('clave-ficticia-para-test');
     await page.getByLabel('Acepto enviar solo las opciones').check();
@@ -256,4 +258,110 @@ test('datos locales corruptos: recuperación explícita sin bloquear el inicio',
   await expect(page.getByRole('alert')).toContainText('formato esperado');
   await page.getByRole('button', { name: 'Borrar datos locales e intentar de nuevo' }).click();
   await expect(page.getByRole('heading', { name: 'Haz espacio para ti.' })).toBeVisible();
+});
+
+for (const width of [320, 412]) {
+  test(`UX móvil ${width}: lenguaje claro, nombres completos y barras sin obstruir`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 820 });
+    await onboard(page);
+    await page.getByRole('button', { name: 'Plan', exact: true }).click();
+    const full = 'Tortilla de harina de trigo refrigerada lista para calentar';
+    await page.getByLabel('Buscar en catálogo').fill('Tortilla de harina');
+    const chip = page.getByTitle(full, { exact: true });
+    await expect(chip).toBeVisible();
+    expect((await chip.innerText()).length).toBeLessThanOrEqual(44);
+    await chip.click();
+    await expect(
+      page.locator('.food-detail').getByRole('heading', { name: full, exact: true }),
+    ).toBeVisible();
+    await page.getByRole('button', { name: 'Ajustes', exact: true }).click();
+    await page.getByRole('button', { name: 'Avanzado › IA' }).click();
+    await expect(
+      page.getByText('Tu clave se guarda solo en este teléfono, sin candado.', { exact: false }),
+    ).toBeVisible();
+    const local = page.getByRole('button', { name: 'En tu cel · Próximamente', exact: true });
+    await expect(local).toBeDisabled();
+    expect(await local.evaluate((e) => getComputedStyle(e).textTransform)).toBe('none');
+    expect(
+      await local.evaluate(
+        (e) => e.scrollWidth <= e.clientWidth + 1 && e.scrollHeight <= e.clientHeight + 1,
+      ),
+    ).toBe(true);
+    await expect(
+      page.getByText('Compatible con el formato OpenAI.', { exact: false }),
+    ).not.toBeVisible();
+    await expect(page.getByLabel('Dirección del servicio')).not.toBeVisible();
+    await expect(page.locator('.danger')).toContainText('en este teléfono o computadora');
+    await expect(page.locator('.danger')).not.toContainText('IndexedDB');
+    for (const locator of [
+      page.getByRole('button', { name: 'Guardar y activar clave propia' }),
+      page.getByRole('button', { name: 'Borrar todos mis datos', exact: true }),
+    ]) {
+      await locator.focus();
+      await locator.evaluate((e) => e.scrollIntoView({ block: 'center' }));
+      const visible = await locator.evaluate((e) => {
+        const r = e.getBoundingClientRect();
+        const nav = document.querySelector('.bottom-nav')?.getBoundingClientRect();
+        const note = document.querySelector('.medical-note')?.getBoundingClientRect();
+        const hit = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+        return (
+          !!nav && !!note && r.bottom <= nav.top && r.top >= note.bottom && !!hit && e.contains(hit)
+        );
+      });
+      expect(visible).toBe(true);
+    }
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    expect(
+      await page.locator('footer').evaluate((e) => {
+        const bar = document.querySelector('.bottom-nav')?.getBoundingClientRect();
+        return !!bar && e.getBoundingClientRect().bottom <= bar.top - 16;
+      }),
+    ).toBe(true);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
+    await page
+      .getByRole('button', { name: 'Guardar y activar clave propia' })
+      .evaluate((e) => e.scrollIntoView({ block: 'center' }));
+    await page.screenshot({ path: `${shots}/ux-ajustes-${width}.png`, fullPage: false });
+  });
+}
+test('onboarding, despensa y primer día en OLED', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('heading', { name: 'Haz espacio para ti.' }).waitFor();
+  await page.evaluate(
+    (settings) =>
+      new Promise<void>((resolve, reject) => {
+        const request = indexedDB.open('racha', 1);
+        request.onsuccess = () => {
+          const db = request.result;
+          const tx = db.transaction('ajustes', 'readwrite');
+          tx.objectStore('ajustes').put(settings);
+          tx.oncomplete = () => {
+            db.close();
+            resolve();
+          };
+          tx.onerror = () => reject(tx.error);
+        };
+      }),
+    { ...defaultSettings, oled: true },
+  );
+  await page.reload();
+  await page.getByRole('heading', { name: 'Haz espacio para ti.' }).waitFor();
+  await expect(page.locator('html')).toHaveAttribute('data-oled', '');
+  await shot(page, '19-onboarding-oled');
+  await page.getByLabel('Acepto el uso local de mis datos').check();
+  await page.getByRole('button', { name: 'Continuar' }).click();
+  await page.getByRole('button', { name: 'Continuar' }).click();
+  await expect(
+    page.getByText('Si no reconocemos una alergia, bloqueamos las recetas.', { exact: false }),
+  ).toBeVisible();
+  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Tomate rojo crudo'])
+    await page.getByRole('button', { name, exact: true }).click();
+  await shot(page, '20-despensa-oled');
+  await page.getByRole('button', { name: 'Crear mi primer día' }).click();
+  await page.getByRole('heading', { name: 'Tu primer día.' }).waitFor();
+  await shot(page, '21-primer-dia-oled');
 });

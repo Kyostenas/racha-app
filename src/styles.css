@@ -4,6 +4,8 @@
 @import '@fontsource/inter/latin-700.css';
 @import 'material-symbols/sharp.css';
 :root {
+  --alto-barra: 76px;
+  --espacio-barra: calc(var(--alto-barra) + env(safe-area-inset-bottom, 0px));
   --fondo: #fff8ec;
   --superficie: #fff;
   --superficieAlta: #fff;
@@ -127,8 +129,8 @@ legend {
   font-family: 'Space Grotesk', sans-serif;
 }
 h1 {
-  font-size: clamp(40px, 6vw, 76px);
   text-transform: uppercase;
+  font-size: clamp(40px, 6vw, 76px);
   line-height: 0.98;
   letter-spacing: -3px;
   margin: 16px 0 28px;
@@ -155,7 +157,7 @@ li {
   font-size: 11px;
   letter-spacing: 1.8px;
   font-weight: 700;
-  text-transform: uppercase;
+  text-transform: none;
 }
 .lede {
   font-size: 20px;
@@ -198,7 +200,7 @@ button.primary,
   gap: 16px;
   align-items: center;
   justify-content: center;
-  text-transform: uppercase;
+  text-transform: none;
 }
 .quiet {
   box-shadow: none;
@@ -299,7 +301,7 @@ input[type='checkbox']:checked::after {
   gap: 12px;
 }
 .choices button {
-  text-transform: capitalize;
+  text-transform: none;
 }
 .chips button {
   font-size: 11px;
@@ -421,6 +423,7 @@ summary {
   margin: auto;
 }
 .first-day h1 {
+  text-transform: uppercase;
   font-size: 60px;
 }
 .bento {
@@ -663,7 +666,7 @@ summary {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  text-transform: capitalize;
+  text-transform: none;
 }
 .theme-editor input {
   border: 2px solid var(--tinta);
@@ -683,6 +686,8 @@ summary {
   align-items: center;
 }
 .bottom-nav {
+  height: var(--espacio-barra);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
   display: flex;
   position: fixed;
   bottom: 0;
@@ -704,7 +709,7 @@ summary {
   border: 0;
   border-right: 2px solid var(--tinta);
   padding: 20px 12px;
-  text-transform: uppercase;
+  text-transform: none;
   font-size: 12px;
 }
 .bottom-nav button:last-child {
@@ -716,7 +721,7 @@ summary {
 }
 footer {
   max-width: 1280px;
-  margin: 24px auto 110px;
+  margin: 24px auto 0;
   padding: 24px 32px;
   border-top: 2px solid var(--tinta);
   font-size: 10px;
@@ -828,11 +833,11 @@ footer span {
     gap: 6px;
     padding: 12px 8px;
     font-size: 10px;
-    min-height: 70px;
+    min-height: 0;
   }
   footer {
     padding: 20px;
-    margin-bottom: 86px;
+    margin-bottom: 0;
     display: block;
     line-height: 1.8;
   }
@@ -898,4 +903,43 @@ footer span {
   .medical-note {
     padding: 8px 20px;
   }
+}
+
+.app-shell.with-nav {
+  padding-bottom: calc(var(--espacio-barra) + 24px);
+}
+html {
+  scroll-padding-top: 64px;
+  scroll-padding-bottom: calc(var(--espacio-barra) + 16px);
+}
+button,
+input,
+select,
+summary {
+  scroll-margin-top: 64px;
+  scroll-margin-bottom: calc(var(--espacio-barra) + 16px);
+}
+button,
+.chip,
+label,
+legend,
+summary {
+  text-transform: none;
+  overflow-wrap: anywhere;
+}
+.food-detail h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.food-detail p {
+  overflow-wrap: anywhere;
+}
+.ai-details {
+  margin-top: 16px;
+}
+.theme-grid button,
+.choices button {
+  min-width: 0;
+  white-space: normal;
 }
