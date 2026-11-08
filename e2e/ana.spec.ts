@@ -233,3 +233,27 @@ test('capturas OLED para las slides con todas las pantallas principales', async 
   await page.getByRole('button', { name: 'Ver mi logro', exact: true }).click();
   await page.screenshot({ path: `${shots}/17-logro-oled-pantalla.png`, fullPage: false });
 });
+
+test('datos locales corruptos: recuperación explícita sin bloquear el inicio', async ({ page }) => {
+  await onboard(page);
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve, reject) => {
+        const request = indexedDB.open('racha', 1);
+        request.onsuccess = () => {
+          const db = request.result;
+          const tx = db.transaction('ajustes', 'readwrite');
+          tx.objectStore('ajustes').put({ id: 'local', tema: 42 });
+          tx.oncomplete = () => {
+            db.close();
+            resolve();
+          };
+          tx.onerror = () => reject(tx.error);
+        };
+      }),
+  );
+  await page.reload();
+  await expect(page.getByRole('alert')).toContainText('formato esperado');
+  await page.getByRole('button', { name: 'Borrar datos locales e intentar de nuevo' }).click();
+  await expect(page.getByRole('heading', { name: 'Haz espacio para ti.' })).toBeVisible();
+});

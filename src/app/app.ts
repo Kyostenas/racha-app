@@ -497,6 +497,10 @@ export class App implements OnInit {
   async reset() {
     try {
       await this.db.clear();
+      if (!this.ready()) {
+        window.location.reload();
+        return;
+      }
       this.profile.set(null);
       this.records.set([]);
       this.settings.set({ ...defaultSettings });

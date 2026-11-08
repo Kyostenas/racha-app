@@ -6,7 +6,7 @@
 
 - `npm run build`: PASS, cero errores. Permanece una advertencia del presupuesto inicial estándar de Angular (500 kB); no se aumentó el umbral para esconderla. El presupuesto de error de 1 MB no se excede.
 - `npm test -- --watch=false`: **48/48 PASS**, cinco archivos de pruebas.
-- `CHROMIUM_PATH=/home/benja/.local/bin/chromium npm run test:e2e`: **6/6 PASS**, Chromium headless, build de producción.
+- `CHROMIUM_PATH=/home/benja/.local/bin/chromium npm run test:e2e`: **7/7 PASS**, Chromium headless, build de producción.
 - Catálogo: **300 alimentos + 80 ejercicios**, validación original en `public/catalogo/validacion.json`, adaptación reproducible con `tools/normalizar_catalogo.py`.
 - Identidad Git: autor y committer iguales, nombre de perfil GitHub de Yael, correo noreply de su cuenta; sin trailers. `npm run verify:identity` automatiza la comprobación.
 
@@ -21,7 +21,8 @@
 7. Modo sin conexión: tras activar el service worker y recargar, Hoy y Plan funcionan con catálogo y datos locales.
 8. Borrar todo devuelve al onboarding, incluso tras recargar. La prueba de IndexedDB verifica que la clave también desaparece.
 9. IA compatible se prueba con proveedor **simulado**, respuesta válida y malformada/inventada. La prueba inspecciona que no se envíen medidas, medicamentos ni padecimientos. No se usó una clave real ni se generaron cargos.
-10. Diseño responsive móvil/escritorio, radio 0 y ausencia de desbordamiento horizontal en la historia de Ana.
+10. Recuperación ante ajustes locales corruptos: aviso, borrado explícito y onboarding de nuevo.
+11. Diseño responsive móvil/escritorio, radio 0 y ausencia de desbordamiento horizontal en la historia de Ana.
 
 ## Capturas
 
@@ -35,3 +36,9 @@
 - CORS/costos/retención de un proveedor IA real dependen de su cuenta y servicio; no se han verificado todos. La clave local no está cifrada por la app.
 - Instalación nativa de la PWA en un teléfono físico y revisión con una persona no técnica quedan pendientes. El manifest, iconos y service worker sí están integrados y el modo offline se prueba en Chromium.
 - Hay una advertencia de tamaño inicial de bundle; queda como optimización, no como error de compilación.
+
+## GitHub Pages
+
+Demo pública: https://kyostenas.github.io/racha-app/ . La prueba `CHROMIUM_PATH=/home/benja/.local/bin/chromium node tools/smoke-pages.mjs` se ejecutó contra esa URL con resultado PASS: onboarding, receta, racha, OLED y recarga sin conexión, sin errores de página. Es una sesión aislada con datos ficticios; no se usó ninguna cuenta del navegador.
+
+CI reproduce unidades, build y E2E; después compila con base `/racha-app/` y publica vía Actions sin crear commits de despliegue.

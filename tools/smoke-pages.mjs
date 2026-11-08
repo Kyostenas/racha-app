@@ -26,6 +26,7 @@ try {
   await page.getByRole('heading', { name: 'Arroz con huevo y tomate', exact: true }).waitFor();
   await page.getByRole('button', { name: 'Ajustes', exact: true }).click();
   await page.getByLabel('Modo OLED').check();
+  await page.locator('html[data-oled]').waitFor();
   assert.equal(
     await page.locator('html').evaluate((e) => getComputedStyle(e).backgroundColor),
     'rgb(0, 0, 0)',

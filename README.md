@@ -1,5 +1,7 @@
 # Racha ■
 
+**Demo pública:** https://kyostenas.github.io/racha-app/
+
 Pequeños pasos. Grandes rachas. Prototipo educativo de Tecnologías de Información, LAMAR.
 
 **No sustituye a tu médico.** Solo para adultos; no es dispositivo médico ni dieta clínica. No evalúa interacciones farmacológicas ni valida padecimientos.
