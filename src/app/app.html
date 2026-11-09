@@ -675,6 +675,49 @@
                 </div>
               }
             </section>
+
+            <section class="panel">
+              <h2>Accesibilidad</h2>
+              <fieldset>
+                <legend>Fuente de lectura</legend>
+                <p class="small">
+                  Elige Inter, la fuente del sistema o Atkinson Hyperlegible (incluida en la app,
+                  sin internet). No sustituye otras ayudas de lectura.
+                </p>
+                <div class="choices">
+                  <button
+                    type="button"
+                    [class.selected]="(settings().fuenteLectura ?? 'inter') === 'inter'"
+                    [attr.aria-pressed]="(settings().fuenteLectura ?? 'inter') === 'inter'"
+                    (click)="setFuenteLectura('inter')"
+                  >
+                    Inter
+                  </button>
+                  <button
+                    type="button"
+                    [class.selected]="settings().fuenteLectura === 'sistema'"
+                    [attr.aria-pressed]="settings().fuenteLectura === 'sistema'"
+                    (click)="setFuenteLectura('sistema')"
+                  >
+                    Sistema
+                  </button>
+                  <button
+                    type="button"
+                    [class.selected]="settings().fuenteLectura === 'atkinson'"
+                    [attr.aria-pressed]="settings().fuenteLectura === 'atkinson'"
+                    (click)="setFuenteLectura('atkinson')"
+                  >
+                    Atkinson Hyperlegible
+                  </button>
+                </div>
+                <div class="font-preview" aria-live="polite">
+                  Vista previa: Ñandú 0123456789 — hábitos y rachas.
+                </div>
+                <button type="button" class="quiet" (click)="setFuenteLectura('inter')">
+                  Restablecer fuente
+                </button>
+              </fieldset>
+            </section>
             <section class="panel">
               <button
                 class="disclosure"

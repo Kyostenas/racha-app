@@ -2,6 +2,8 @@
 @import '@fontsource/space-grotesk/latin-700.css';
 @import '@fontsource/inter/latin-400.css';
 @import '@fontsource/inter/latin-700.css';
+@import '@fontsource/atkinson-hyperlegible/latin-400.css';
+@import '@fontsource/atkinson-hyperlegible/latin-700.css';
 @import 'material-symbols/sharp.css';
 :root {
   --alto-barra: 76px;
@@ -962,4 +964,36 @@ summary {
   padding: 1rem;
   margin-top: 0.75rem;
   box-shadow: 4px 4px 0 var(--tinta);
+}
+
+html[data-fuente='atkinson'] body,
+html[data-fuente='atkinson'] button,
+html[data-fuente='atkinson'] input,
+html[data-fuente='atkinson'] select,
+html[data-fuente='atkinson'] textarea,
+html[data-fuente='atkinson'] .small,
+html[data-fuente='atkinson'] p,
+html[data-fuente='atkinson'] label,
+html[data-fuente='atkinson'] li {
+  font-family: 'Atkinson Hyperlegible', Inter, sans-serif;
+  font-style: normal;
+  line-height: 1.5;
+}
+html[data-fuente='sistema'] body,
+html[data-fuente='sistema'] button,
+html[data-fuente='sistema'] input,
+html[data-fuente='sistema'] select,
+html[data-fuente='sistema'] textarea,
+html[data-fuente='sistema'] .small,
+html[data-fuente='sistema'] p,
+html[data-fuente='sistema'] label,
+html[data-fuente='sistema'] li {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.5;
+}
+.font-preview {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border: 2px solid var(--tinta);
+  background: var(--superficie);
 }

@@ -326,6 +326,12 @@ export class App implements OnInit {
   }
   updateTheme() {
     if (this.tokens) this.palette.set(applyTheme(this.tokens, this.settings()));
+    const fuente = this.settings().fuenteLectura ?? 'inter';
+    document.documentElement.dataset['fuente'] = fuente;
+  }
+  async setFuenteLectura(fuente: 'inter' | 'sistema' | 'atkinson') {
+    await this.saveSettings({ ...this.settings(), fuenteLectura: fuente });
+    this.announceStatus('Fuente de lectura actualizada.');
   }
   async saveSettings(settings: Ajustes) {
     try {
