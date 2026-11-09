@@ -27,7 +27,7 @@ Para verificar PWA/offline, usa la compilación de producción, no `ng serve` en
 - Hábitos persistentes y reversibles; racha por **días consecutivos con al menos un hábito**, no por clics. Calendario de 42 días sin datos ficticios.
 - Despensa, recetas curadas con fuentes, cantidades y energía de ingredientes según USDA. Solo aparecen si están todos los ingredientes y pasan exclusiones.
 - Mifflin–St Jeor: estimación opcional de **energía en reposo**, no gasto total ni meta de ingesta; omitida con padecimientos/medicamentos declarados. No se modifica la alimentación por la intención de peso del onboarding.
-- Cinco temas, Alto contraste aparte, OLED como `data-oled` independiente de `data-tema`; editor de cuatro colores con contraste WCAG 4.5:1.
+- Once temas predeterminados (Progresium, Menta, Eléctrico, Talavera, Aguacate, Cempasúchil, Jamaica, Añil, Copal, Cacao y Alto contraste), OLED como `data-oled` independiente de `data-tema`; Mis temas con editor de cuatro colores, contraste WCAG AA, exportar/importar JSON. **Tecla T** (fuera de campos de texto) recorre todos los predeterminados y luego los temas propios.
 - Tarjeta de logro PNG 1080×1080 sin datos de salud, descarga o compartir mediante acción explícita del usuario.
 - Ajustes avanzados: IA apagada por defecto; local deshabilitada (Próximamente); clave propia compatible con API OpenAI. Clave guardada solo en IndexedDB, **no cifrada**: no usar en perfiles compartidos.
 - Respuesta IA limitada a identificador de receta curada; se revalidan despensa y alergias. Ningún texto o ingrediente inventado se ejecuta o muestra. Solo se transmiten recetas permitidas, nunca perfil clínico ni medidas.
@@ -41,7 +41,7 @@ IA externa depende de conectividad, modelo, saldo y CORS del proveedor. No hay p
 
 Los estados crudo/cocido del catálogo son distintos. Las cantidades de recetas son ilustrativas para una porción; no se afirma nutrición personalizada. Se incluyen **300 alimentos USDA y 80 ejercicios** de free-exercise-db. Azúcares/fibra ausentes se muestran como «sin dato», nunca como cero. No se estiman calorías de ejercicio. Solo se distribuye el catálogo usado por el motor en `public/data/`, sin una copia de fuentes intermedias. La reproducción y auditoría completa se describen en [docs/CATALOGO.md](docs/CATALOGO.md). El catálogo completo puede contener alimentos sin recetas: no se generan combinaciones arbitrarias.
 
-## Almacenamiento (IndexedDB `racha`, versión 1)
+## Almacenamiento (IndexedDB `racha`, versión 2)
 
 El Anexo A del documento nombra «perfil, hábitos, rachas y registros» pero no define campos. Se conservan esos nombres exactos y se añade `ajustes` para tema/IA:
 

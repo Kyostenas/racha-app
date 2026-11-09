@@ -221,13 +221,14 @@ test('desktop, crear tema y persistir', async ({ page }) => {
   await onboard(page);
   await shot(page, '13-hoy-escritorio');
   await page.getByRole('button', { name: 'Ajustes', exact: true }).click();
-  await page.getByRole('button', { name: 'Crear tema · 4 colores' }).click();
-  await page.getByRole('button', { name: 'Guardar tema', exact: true }).click();
-  await expect(page.locator('html')).toHaveAttribute('data-tema', 'personalizado');
-  await expect(page.getByRole('status')).toContainText('Tu tema está guardado');
+  await page.getByRole('button', { name: 'Crear tema', exact: true }).click();
+  await page.getByLabel('Nombre del tema').fill('Tema de prueba');
+  await page.getByRole('button', { name: 'Guardar y usar', exact: true }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-tema', /custom:/);
+  await expect(page.getByRole('status')).toContainText('Tema guardado');
   await page.reload();
   await expect(page.getByTestId('streak')).toBeVisible();
-  await expect(page.locator('html')).toHaveAttribute('data-tema', 'personalizado');
+  await expect(page.locator('html')).toHaveAttribute('data-tema', /custom:/);
 });
 
 test('capturas OLED para las slides con todas las pantallas principales', async ({ page }) => {
@@ -252,7 +253,7 @@ test('datos locales corruptos: recuperación explícita sin bloquear el inicio',
   await page.evaluate(
     () =>
       new Promise<void>((resolve, reject) => {
-        const request = indexedDB.open('racha', 1);
+        const request = indexedDB.open('racha', 2);
         request.onsuccess = () => {
           const db = request.result;
           const tx = db.transaction('ajustes', 'readwrite');
@@ -345,7 +346,7 @@ test('onboarding, despensa y primer día en OLED', async ({ page }) => {
   await page.evaluate(
     (settings) =>
       new Promise<void>((resolve, reject) => {
-        const request = indexedDB.open('racha', 1);
+        const request = indexedDB.open('racha', 2);
         request.onsuccess = () => {
           const db = request.result;
           const tx = db.transaction('ajustes', 'readwrite');

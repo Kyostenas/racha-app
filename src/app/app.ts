@@ -1,5 +1,5 @@
 import { formatNutrient, shortFoodName } from './presentation';
-import { Component, OnInit, computed, inject, signal, ElementRef, viewChild } from '@angular/core';
+import { Component, OnInit, HostListener, computed, inject, signal, ElementRef, viewChild } from '@angular/core';
 import { LiveAnnouncer, CdkTrapFocus } from '@angular/cdk/a11y';
 import { FormsModule } from '@angular/forms';
 import { z } from 'zod';
@@ -353,6 +353,26 @@ export class App implements OnInit {
       return false;
     }
   }
+
+  /** Atajo T: recorre predeterminados (11) y luego temas propios. */
+  @HostListener('window:keydown', ['$event'])
+  cycleThemeHotkey(event: KeyboardEvent) {
+    if (event.key !== 't' && event.key !== 'T') return;
+    const target = event.target as HTMLElement | null;
+    if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT' || target.isContentEditable))
+      return;
+    event.preventDefault();
+    const presetIds = this.themeNames.map((t) => t.id);
+    const customIds = this.customThemes().map((t) => t.id);
+    const order = [...presetIds, ...customIds];
+    if (!order.length) return;
+    const current = this.settings().tema;
+    const idx = order.indexOf(current);
+    const next = order[(idx + 1) % order.length] ?? order[0]!;
+    if (customIds.includes(next)) void this.chooseCustomTheme(next);
+    else this.chooseTheme(next);
+  }
+
   chooseTheme(tema: string) {
     void this.saveSettings({ ...this.settings(), tema });
   }
@@ -538,7 +558,7 @@ export class App implements OnInit {
     void this.live.announce(text, 'polite');
   }
   private announceError(text: string) {
-    this.announceError(text);
+    this.error.set(text);
     void this.live.announce(text, 'assertive');
   }
   private rememberFocus() {
