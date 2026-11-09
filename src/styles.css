@@ -955,3 +955,11 @@ summary {
 .habit.done .habit-state {
   color: var(--exito);
 }
+
+.confirm-dialog {
+  border: 3px solid var(--tinta);
+  background: var(--superficieAlta);
+  padding: 1rem;
+  margin-top: 0.75rem;
+  box-shadow: 4px 4px 0 var(--tinta);
+}

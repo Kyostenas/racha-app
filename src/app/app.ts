@@ -1,5 +1,6 @@
 import { formatNutrient, shortFoodName } from './presentation';
-import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal, ElementRef, viewChild } from '@angular/core';
+import { LiveAnnouncer, CdkTrapFocus } from '@angular/cdk/a11y';
 import { FormsModule } from '@angular/forms';
 import { z } from 'zod';
 import {
@@ -39,12 +40,17 @@ import {
 type Page = 'inicio' | 'primer-dia' | 'hoy' | 'plan' | 'progreso' | 'logro' | 'ajustes';
 @Component({
   selector: 'app-root',
-  imports: [FormsModule],
+  imports: [FormsModule, CdkTrapFocus],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App implements OnInit {
   private db = inject(LocalStore);
+  private live = inject(LiveAnnouncer);
+  private lastFocus: HTMLElement | null = null;
+  readonly createThemeBtn = viewChild<ElementRef<HTMLButtonElement>>('createThemeBtn');
+  readonly deleteConfirm = signal<{ id: string; nombre: string } | null>(null);
+
   readonly page = signal<Page>('inicio');
   readonly step = signal(1);
   readonly ready = signal(false);
@@ -198,7 +204,7 @@ export class App implements OnInit {
       await this.loadCustomThemes();
       this.ready.set(true);
     } catch (e) {
-      this.error.set(e instanceof Error ? e.message : 'No pudimos abrir Progresium.');
+      this.announceError(e instanceof Error ? e.message : 'No pudimos abrir Progresium.');
     }
   }
   navigate(page: Page) {
@@ -238,7 +244,7 @@ export class App implements OnInit {
     this.error.set('');
     if (this.step() === 1) {
       if (!this.form.consentimiento) {
-        this.error.set('Acepta el uso local de tus datos para continuar.');
+        this.announceError('Acepta el uso local de tus datos para continuar.');
         return;
       }
       this.step.set(2);
@@ -254,7 +260,7 @@ export class App implements OnInit {
         this.form.peso < 30 ||
         this.form.peso > 300
       ) {
-        this.error.set(
+        this.announceError(
           'Este prototipo es para adultos. Revisa edad (18–100), estatura (100–230 cm) y peso (30–300 kg).',
         );
         return;
@@ -273,7 +279,7 @@ export class App implements OnInit {
       creado: new Date().toISOString(),
     });
     if (!result.success) {
-      this.error.set('Elige al menos 3 ingredientes y revisa el consentimiento de salud.');
+      this.announceError('Elige al menos 3 ingredientes y revisa el consentimiento de salud.');
       return;
     }
     try {
@@ -283,7 +289,7 @@ export class App implements OnInit {
       this.profile.set(result.data);
       this.navigate('primer-dia');
     } catch {
-      this.error.set('No pudimos guardar tus datos. No se completó el inicio.');
+      this.announceError('No pudimos guardar tus datos. No se completó el inicio.');
     }
   }
   done(id: string, date = this.today) {
@@ -306,11 +312,9 @@ export class App implements OnInit {
         dias: streak(records, this.today),
         actualizado: this.today,
       });
-      this.message.set(
-        r.hecho ? 'Hábito marcado.' : 'Hábito desmarcado.',
-      );
+      this.announceStatus(r.hecho ? 'Hábito marcado.' : 'Hábito desmarcado.');
     } catch {
-      this.error.set('No pudimos guardar el hábito. Intenta otra vez.');
+      this.announceError('No pudimos guardar el hábito. Intenta otra vez.');
     }
   }
   countDay(date: string) {
@@ -330,7 +334,7 @@ export class App implements OnInit {
       this.updateTheme();
       return true;
     } catch {
-      this.error.set('No pudimos guardar los ajustes.');
+      this.announceError('No pudimos guardar los ajustes.');
       this.updateTheme();
       return false;
     }
@@ -399,12 +403,12 @@ export class App implements OnInit {
       tema: id,
       personalizado: rec.colores,
     });
-    this.message.set('Tema activado.');
+    this.announceStatus('Tema activado.');
   }
   async renameCustomTheme(id: string) {
     const name = this.customName.trim().slice(0, 40);
     if (!name) {
-      this.error.set('Nombre del tema: 1 a 40 caracteres.');
+      this.announceError('Nombre del tema: 1 a 40 caracteres.');
       return;
     }
     const rec = this.customThemes().find((t) => t.id === id);
@@ -417,7 +421,7 @@ export class App implements OnInit {
         .sort((a, b) => a.nombre.localeCompare(b.nombre, 'es') || a.id.localeCompare(b.id)),
     );
     this.customName = '';
-    this.message.set('Tema renombrado.');
+    this.announceStatus('Tema renombrado.');
   }
   async duplicateCustomTheme(id: string) {
     const rec = this.customThemes().find((t) => t.id === id);
@@ -437,19 +441,51 @@ export class App implements OnInit {
         (a, b) => a.nombre.localeCompare(b.nombre, 'es') || a.id.localeCompare(b.id),
       ),
     );
-    this.message.set('Tema duplicado.');
+    this.announceStatus('Tema duplicado.');
   }
-  async deleteCustomTheme(id: string) {
+  askDeleteCustomTheme(id: string) {
     const rec = this.customThemes().find((t) => t.id === id);
     if (!rec) return;
-    if (!confirm('¿Eliminar el tema «' + rec.nombre + '»?')) return;
-    await this.db.delete('temasPersonalizados', id);
-    const rest = this.customThemes().filter((t) => t.id !== id);
+    this.rememberFocus();
+    this.deleteConfirm.set({ id: rec.id, nombre: rec.nombre });
+  }
+  cancelDeleteCustomTheme() {
+    this.deleteConfirm.set(null);
+    this.restoreFocus();
+  }
+  async confirmDeleteCustomTheme() {
+    const pending = this.deleteConfirm();
+    if (!pending) return;
+    await this.db.delete('temasPersonalizados', pending.id);
+    const rest = this.customThemes().filter((t) => t.id !== pending.id);
     this.customThemes.set(rest);
-    if (this.settings().tema === id) {
+    if (this.settings().tema === pending.id) {
       await this.saveSettings({ ...this.settings(), tema: 'racha' });
     }
-    this.message.set('Tema eliminado.');
+    this.deleteConfirm.set(null);
+    this.announceStatus('Tema eliminado.');
+    this.restoreFocus(this.createThemeBtn()?.nativeElement ?? null);
+  }
+
+
+  private announceStatus(text: string) {
+    this.message.set(text);
+    void this.live.announce(text, 'polite');
+  }
+  private announceError(text: string) {
+    this.announceError(text);
+    void this.live.announce(text, 'assertive');
+  }
+  private rememberFocus() {
+    const el = document.activeElement;
+    this.lastFocus = el instanceof HTMLElement ? el : null;
+  }
+  private restoreFocus(fallback?: HTMLElement | null) {
+    queueMicrotask(() => {
+      const target = fallback ?? this.lastFocus ?? this.createThemeBtn()?.nativeElement ?? null;
+      target?.focus();
+      this.lastFocus = null;
+    });
   }
 
   customContrast() {
@@ -461,12 +497,12 @@ export class App implements OnInit {
   async saveCustom() {
     const result = customThemeSchema.safeParse(this.custom);
     if (!result.success) {
-      this.error.set('Usa cuatro colores hexadecimales de seis cifras.');
+      this.announceError('Usa cuatro colores hexadecimales de seis cifras.');
       return;
     }
     const report = evaluateCustomContrast(result.data, this.settings().oled);
     if (!report.ok) {
-      this.error.set(report.failures[0] ?? 'Contraste insuficiente.');
+      this.announceError(report.failures[0] ?? 'Contraste insuficiente.');
       return;
     }
     const name = (this.customName.trim() || 'Mi tema').slice(0, 40);
@@ -498,28 +534,38 @@ export class App implements OnInit {
     this.themeEditor.set(false);
     this.editingThemeId = null;
     this.customName = '';
-    this.message.set('Tema guardado.');
+    this.announceStatus('Tema guardado.');
+  }
+  openThemeEditor(id: string | null = null, nombre = '', colores?: typeof this.custom) {
+    this.rememberFocus();
+    this.editingThemeId = id;
+    this.customName = nombre;
+    if (colores) this.custom = { ...colores };
+    this.themeEditor.set(true);
+    if (!colores) this.previewCustom();
+    else this.previewCustom();
   }
   cancelCustom() {
     this.themeEditor.set(false);
     this.editingThemeId = null;
     this.customName = '';
     this.updateTheme();
+    this.restoreFocus(this.createThemeBtn()?.nativeElement ?? null);
   }
   async savePantry() {
     const p = this.profile();
     if (!p) return;
     if (this.pantry.length < 3) {
-      this.error.set('Conserva al menos 3 ingredientes.');
+      this.announceError('Conserva al menos 3 ingredientes.');
       return;
     }
     try {
       const next = { ...p, despensa: [...this.pantry] };
       await this.db.put('perfil', next);
       this.profile.set(next);
-      this.message.set('Despensa actualizada.');
+      this.announceStatus('Despensa actualizada.');
     } catch {
-      this.error.set('No pudimos guardar la despensa.');
+      this.announceError('No pudimos guardar la despensa.');
     }
   }
   async setAi(mode: 'apagada' | 'propia') {
@@ -535,7 +581,7 @@ export class App implements OnInit {
         return;
       this.aiForm.clave = '';
       this.aiForm.consentimientoIA = false;
-      this.message.set('IA apagada. Clave eliminada del dispositivo.');
+      this.announceStatus('IA apagada. Clave eliminada del dispositivo.');
       return;
     }
     try {
@@ -553,9 +599,9 @@ export class App implements OnInit {
         }))
       )
         return;
-      this.message.set('Configuración guardada solo en este dispositivo.');
+      this.announceStatus('Configuración guardada solo en este dispositivo.');
     } catch {
-      this.error.set(
+      this.announceError(
         'Revisa la dirección del servicio, el modelo, la clave y el permiso para continuar.',
       );
     }
@@ -595,9 +641,9 @@ export class App implements OnInit {
       const raw: unknown = await response.json();
       const recipe = validateAiSuggestion(raw, this.recipes(), this.foods(), p);
       this.selectedRecipe.set(recipe.id);
-      this.message.set('Sugerencia validada otra vez: solo una receta curada de tu despensa.');
+      this.announceStatus('Sugerencia validada otra vez: solo una receta curada de tu despensa.');
     } catch {
-      this.error.set(
+      this.announceError(
         'No se pudo validar la respuesta. Tu plan sin IA sigue disponible. Revisa tu servicio en Detalles.',
       );
     } finally {
@@ -639,11 +685,11 @@ export class App implements OnInit {
         a.download = 'progresium-logro.png';
         a.click();
         setTimeout(() => URL.revokeObjectURL(url), 1000);
-        this.message.set('Tarjeta descargada.');
+        this.announceStatus('Tarjeta descargada.');
       }
     } catch (e) {
       if (!(e instanceof DOMException && e.name === 'AbortError'))
-        this.error.set('No pudimos crear la tarjeta. Inténtalo otra vez.');
+        this.announceError('No pudimos crear la tarjeta. Inténtalo otra vez.');
     }
   }
   async reset() {
@@ -684,9 +730,9 @@ export class App implements OnInit {
       this.resetConfirm.set(false);
       this.updateTheme();
       this.navigate('inicio');
-      this.message.set('Datos y clave eliminados de este dispositivo.');
+      this.announceStatus('Datos y clave eliminados de este dispositivo.');
     } catch {
-      this.error.set('No pudimos borrar los datos. Intenta otra vez.');
+      this.announceError('No pudimos borrar los datos. Intenta otra vez.');
     }
   }
 }

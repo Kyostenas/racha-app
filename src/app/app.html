@@ -588,13 +588,7 @@
                     <div class="actions">
                       <button
                         type="button"
-                        (click)="
-                          editingThemeId = ct.id;
-                          customName = ct.nombre;
-                          custom = { ...ct.colores };
-                          themeEditor.set(true);
-                          previewCustom()
-                        "
+                        (click)="openThemeEditor(ct.id, ct.nombre, ct.colores)"
                       >
                         Editar
                       </button>
@@ -602,24 +596,24 @@
                         Renombrar
                       </button>
                       <button type="button" (click)="duplicateCustomTheme(ct.id)">Duplicar</button>
-                      <button type="button" (click)="deleteCustomTheme(ct.id)">Eliminar</button>
+                      <button type="button" (click)="askDeleteCustomTheme(ct.id)">Eliminar</button>
                     </div>
                   </div>
                 }
               </div>
-              <button
-                (click)="
-                  editingThemeId = null;
-                  customName = '';
-                  themeEditor.set(true);
-                  previewCustom()
-                "
-              >
+              <button #createThemeBtn type="button" (click)="openThemeEditor()">
                 Crear tema
               </button>
               @if (themeEditor()) {
-                <div class="theme-editor">
-                  <h3>Editar tema</h3>
+                <div
+                  class="theme-editor"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="theme-editor-title"
+                  cdkTrapFocus
+                  [cdkTrapFocusAutoCapture]="true"
+                >
+                  <h3 id="theme-editor-title">Editar tema</h3>
                   <label
                     >Nombre del tema<input
                       [(ngModel)]="customName"
@@ -656,6 +650,27 @@
                       Guardar y usar
                     </button>
                     <button (click)="cancelCustom()">Cancelar</button>
+                  </div>
+                </div>
+              }
+
+              @if (deleteConfirm(); as del) {
+                <div
+                  class="confirm-dialog"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="delete-theme-title"
+                  cdkTrapFocus
+                  [cdkTrapFocusAutoCapture]="true"
+                >
+                  <p id="delete-theme-title">
+                    ¿Eliminar el tema «{{ del.nombre }}»? Esta acción no se puede deshacer.
+                  </p>
+                  <div class="actions">
+                    <button class="primary" type="button" (click)="confirmDeleteCustomTheme()">
+                      Eliminar
+                    </button>
+                    <button type="button" (click)="cancelDeleteCustomTheme()">Cancelar</button>
                   </div>
                 </div>
               }
@@ -744,12 +759,21 @@
               @if (!resetConfirm()) {
                 <button (click)="resetConfirm.set(true)">Borrar todos mis datos</button>
               } @else {
-                <p role="alert">
-                  <strong>No se puede deshacer.</strong> ¿Borramos todos tus datos y la clave?
-                </p>
-                <div class="actions">
-                  <button class="primary" (click)="reset()">Sí, borrar todo</button
-                  ><button (click)="resetConfirm.set(false)">Cancelar</button>
+                <div
+                  class="confirm-dialog"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="reset-title"
+                  cdkTrapFocus
+                  [cdkTrapFocusAutoCapture]="true"
+                >
+                  <p id="reset-title" role="alert">
+                    <strong>No se puede deshacer.</strong> ¿Borramos todos tus datos y la clave?
+                  </p>
+                  <div class="actions">
+                    <button class="primary" (click)="reset()">Sí, borrar todo</button>
+                    <button type="button" (click)="resetConfirm.set(false)">Cancelar</button>
+                  </div>
                 </div>
               }
             </section>
