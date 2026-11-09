@@ -66,6 +66,7 @@ export const settingsSchema = z.object({
   clave: z.string(),
   consentimientoIA: z.boolean(),
   fuenteLectura: z.enum(['inter', 'sistema', 'atkinson']).default('inter'),
+  vistaSencilla: z.boolean().default(false),
 });
 
 export const customThemeRecordSchema = z.object({
@@ -91,6 +92,7 @@ export const defaultSettings: Ajustes = {
   clave: '',
   consentimientoIA: false,
   fuenteLectura: 'inter',
+  vistaSencilla: false,
 };
 export const habitSchema = z.object({ id: z.string(), nombre: z.string(), icono: z.string() });
 export const habitsSchema = z.array(habitSchema);

@@ -329,6 +329,13 @@ export class App implements OnInit {
     if (this.tokens) this.palette.set(applyTheme(this.tokens, this.settings()));
     const fuente = this.settings().fuenteLectura ?? 'inter';
     document.documentElement.dataset['fuente'] = fuente;
+    if (this.settings().vistaSencilla) document.documentElement.setAttribute('data-vista-sencilla', '');
+    else document.documentElement.removeAttribute('data-vista-sencilla');
+  }
+  async setVistaSencilla(on: boolean) {
+    if (on) this.advanced.set(false);
+    await this.saveSettings({ ...this.settings(), vistaSencilla: on });
+    this.announceStatus(on ? 'Vista sencilla activada.' : 'Vista sencilla desactivada.');
   }
   async setFuenteLectura(fuente: 'inter' | 'sistema' | 'atkinson') {
     await this.saveSettings({ ...this.settings(), fuenteLectura: fuente });

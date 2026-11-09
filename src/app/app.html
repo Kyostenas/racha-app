@@ -3,6 +3,16 @@
   [class.with-nav]="profile() && page() !== 'inicio' && page() !== 'primer-dia'"
 >
   <a class="skip" href="#contenido">Saltar al contenido</a>
+  <div class="vista-sencilla-bar">
+    <label class="check"
+      ><input
+        type="checkbox"
+        [ngModel]="settings().vistaSencilla"
+        (ngModelChange)="setVistaSencilla($event)"
+      />
+      Vista sencilla</label
+    >
+  </div>
   <header class="masthead">
     <a class="brand" href="./" aria-label="Progresium, inicio">PROGRESIUM<span class="brand-square"></span></a>
   </header>
@@ -693,6 +703,20 @@
 
             <section class="panel">
               <h2>Accesibilidad</h2>
+              <label class="check"
+                ><input
+                  type="checkbox"
+                  [ngModel]="settings().vistaSencilla"
+                  (ngModelChange)="setVistaSencilla($event)"
+                />
+                <span
+                  ><strong>Vista sencilla</strong
+                  ><small
+                    >Una columna, sin adornos. Conserva avisos clínicos, consentimientos, fuentes y
+                    deshacer.</small
+                  ></span
+                ></label
+              >
               <fieldset>
                 <legend>Fuente de lectura</legend>
                 <p class="small">
