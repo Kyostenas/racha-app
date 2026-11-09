@@ -94,6 +94,7 @@ export function contrastReportForPalette(p: Palette): ContrastReport {
     pair('Sobre acento / acento', p.sobreAcento, p.acento, 4.5),
     pair('Éxito / superficie', p.exito, p.superficie, 3),
     pair('Urgente / superficie', p.urgente, p.superficie, 3),
+    pair('Tinta / fondo', p.tinta, p.fondo, 3),
     pair('Tinta / superficie', p.tinta, p.superficie, 3),
   ];
   const failures = pairs
@@ -137,7 +138,8 @@ export function resolveCustomPalette(
       superficieAlta: '#141414',
       texto: '#F2F2F2',
       textoSuave: '#A3A3A3',
-      tinta: p.primario,
+      // Bordes/sombras: tinta clara, no el primario (puede fallar 3:1 sobre negro).
+      tinta: '#F2F2F2',
       // conserva primario/acento/exito/urgente del tema
     };
   }
@@ -173,7 +175,8 @@ export function themePalette(tokens: Tokens, s: Ajustes): Palette {
     p = resolveCustomPalette(custom, false);
   }
   if (s.oled && s.tema !== 'altoContraste') {
-    // OLED: sustituye superficies/texto; conserva primario, acento, exito y urgente
+    // OLED: sustituye superficies/texto; conserva primario, acento, exito y urgente.
+    // tinta = texto OLED (#F2F2F2) para bordes/sombras con ≥3:1 sobre negro.
     p = {
       ...p,
       fondo: tokens.oled.fondo,
@@ -181,7 +184,7 @@ export function themePalette(tokens: Tokens, s: Ajustes): Palette {
       superficieAlta: tokens.oled.superficieAlta,
       texto: tokens.oled.texto,
       textoSuave: tokens.oled.textoSuave,
-      tinta: p.primario,
+      tinta: tokens.oled.texto,
     };
   }
   return { ...p, sobreAcento: onColor(p.acento) };

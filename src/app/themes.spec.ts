@@ -54,14 +54,15 @@ describe('temas y OLED son dimensiones independientes', () => {
   it('mismo color=1', () => expect(contrast('#FF5A1F', '#FF5A1F')).toBe(1));
   it('tema predeterminado claro', () =>
     expect(themePalette(tokens, defaultSettings).fondo).toBe('#FFF8EC'));
-  it('OLED preserva primario, acento, exito y urgente', () => {
+  it('OLED preserva primario, acento, exito y urgente; tinta usa texto claro', () => {
     const v = themePalette(tokens, { ...defaultSettings, oled: true });
     expect(v.fondo).toBe('#000000');
     expect(v.primario).toBe(p.primario);
     expect(v.acento).toBe(p.acento);
     expect(v.exito).toBe(p.exito);
     expect(v.urgente).toBe('#FF4D4D');
-    expect(v.tinta).toBe(p.primario);
+    expect(v.tinta).toBe('#F2F2F2');
+    expect(v.texto).toBe('#F2F2F2');
   });
   it('alto contraste ignora OLED', () =>
     expect(themePalette(tokens, { ...defaultSettings, tema: 'altoContraste', oled: true })).toEqual(
@@ -144,4 +145,27 @@ describe('contraste AA en temas predeterminados y propuestos', () => {
     );
     expect(report.ok).toBe(true);
   });
+});
+
+
+describe('OLED contraste bordes y texto', () => {
+  const ids = Object.keys(realTokens.temas).filter((id) => id !== 'altoContraste');
+
+  for (const id of ids) {
+    it(`${id} OLED: bordes ≥3:1 y texto ≥4.5:1; primario no es texto sobre negro`, () => {
+      const palette = themePalette(realTokens, { ...defaultSettings, tema: id, oled: true });
+      expect(palette.tinta).toBe('#F2F2F2');
+      expect(contrast(palette.tinta, palette.fondo)).toBeGreaterThanOrEqual(3);
+      expect(contrast(palette.tinta, palette.superficie)).toBeGreaterThanOrEqual(3);
+      expect(contrast(palette.texto, palette.fondo)).toBeGreaterThanOrEqual(4.5);
+      expect(contrast(palette.texto, palette.superficie)).toBeGreaterThanOrEqual(4.5);
+      expect(contrast(palette.textoSuave, palette.fondo)).toBeGreaterThanOrEqual(4.5);
+      // El primario no se usa como color de texto sobre negro en OLED.
+      expect(palette.texto).not.toBe(palette.primario);
+      expect(palette.textoSuave).not.toBe(palette.primario);
+      if (contrast(palette.primario, '#000000') < 4.5) {
+        expect(palette.texto).not.toBe(palette.primario);
+      }
+    });
+  }
 });
