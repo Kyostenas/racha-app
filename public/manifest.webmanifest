@@ -1,6 +1,6 @@
 {
-  "name": "Racha · Tu ritmo, tus reglas",
-  "short_name": "Racha",
+  "name": "Progresium",
+  "short_name": "Progresium",
   "description": "Hábitos, despensa y pequeños pasos. Sin cuentas.",
   "theme_color": "#000000",
   "background_color": "#000000",
@@ -14,13 +14,25 @@
       "src": "icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icons/maskable-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

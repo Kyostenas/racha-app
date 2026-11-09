@@ -40,6 +40,6 @@
     "typescript": "~6.0.2",
     "vitest": "^5.0.0"
   },
-  "description": "Racha: h\u00e1bitos privados y recetas con fuentes para proyecto final TI LAMAR",
+  "description": "Progresium: hábitos privados y recetas con fuentes para proyecto final TI LAMAR",
   "license": "MIT"
 }
