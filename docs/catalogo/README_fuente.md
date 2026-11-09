@@ -1,4 +1,4 @@
-# Catálogo estático de Racha
+# Catálogo estático de Progresium
 
 Material para una PWA escolar en español de México. **300 alimentos y 80 ejercicios**. No se modificó ningún repositorio. Sin claves de API, backend, imágenes descargadas ni datos de wger.
 
@@ -48,9 +48,9 @@ Distribución: cardio: 10, estiramientos: 22, fuerza: 43, pliometría: 5. Nivele
 
 ### Texto listo para NOTICE.md
 
-> Datos de alimentos: U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019, fdc.nal.usda.gov. Selección de SR Legacy (abril de 2018), datos de dominio público publicados bajo CC0 1.0 Universal. Nombres traducidos al español para Racha. USDA no avala esta aplicación.
+> Datos de alimentos: U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019, fdc.nal.usda.gov. Selección de SR Legacy (abril de 2018), datos de dominio público publicados bajo CC0 1.0 Universal. Nombres traducidos al español para Progresium. USDA no avala esta aplicación.
 >
-> Datos de ejercicios: yuhonas/free-exercise-db y sus colaboradores, https://github.com/yuhonas/free-exercise-db, revisión 79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142. Datos publicados bajo Unlicense (dominio público), sin garantía. Selección y traducción resumida al español para Racha. No se incluyen imágenes. Los autores originales no avalan esta aplicación.
+> Datos de ejercicios: yuhonas/free-exercise-db y sus colaboradores, https://github.com/yuhonas/free-exercise-db, revisión 79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142. Datos publicados bajo Unlicense (dominio público), sin garantía. Selección y traducción resumida al español para Progresium. No se incluyen imágenes. Los autores originales no avalan esta aplicación.
 
 La atribución se conserva por trazabilidad, aunque CC0 y Unlicense no la exijan como condición general. La licencia del código de la app se decide por separado; no cambia la procedencia de los datos.
 

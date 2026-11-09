@@ -9,7 +9,7 @@ async function shot(page: Page, name: string) {
 }
 async function onboard(page: Page, allergy = '') {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Haz espacio para ti.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Elige tu objetivo' })).toBeVisible();
   await page.getByRole('button', { name: 'Bajar de peso', exact: true }).click();
   await page.getByLabel('Acepto el uso local de mis datos').check();
   await page.getByRole('button', { name: 'Continuar' }).click();
@@ -28,7 +28,7 @@ test('Ana: onboarding, fuente, hábito, racha, temas, privacidad, offline y borr
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Haz espacio para ti.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Elige tu objetivo' })).toBeVisible();
   await shot(page, '01-intencion');
   await page.getByRole('button', { name: 'Continuar' }).click();
   await expect(page.getByRole('alert')).toContainText('Acepta');
@@ -106,7 +106,7 @@ test('Ana: onboarding, fuente, hábito, racha, temas, privacidad, offline y borr
   await page.getByRole('button', { name: 'Alto contraste', exact: true }).click();
   await expect(page.getByLabel('Modo OLED')).toBeDisabled();
   await expect(page.locator('html')).not.toHaveAttribute('data-oled');
-  await page.getByRole('button', { name: 'Racha', exact: true }).click();
+  await page.getByRole('button', { name: 'Progresium', exact: true }).click();
   await page.getByRole('button', { name: 'Avanzado › IA' }).click();
   await expect(page.getByRole('button', { name: 'En tu cel · Próximamente' })).toBeDisabled();
   await shot(page, '12-ajustes-ia');
@@ -151,9 +151,9 @@ test('Ana: onboarding, fuente, hábito, racha, temas, privacidad, offline y borr
   await page.getByRole('button', { name: 'Ajustes', exact: true }).click();
   await page.getByRole('button', { name: 'Borrar todos mis datos', exact: true }).click();
   await page.getByRole('button', { name: 'Sí, borrar todo', exact: true }).click();
-  await expect(page.getByRole('heading', { name: 'Haz espacio para ti.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Elige tu objetivo' })).toBeVisible();
   await page.reload();
-  await expect(page.getByRole('heading', { name: 'Haz espacio para ti.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Elige tu objetivo' })).toBeVisible();
   expect(errors).toEqual([]);
 });
 test('alergia declarada bloquea receta de huevo', async ({ page }) => {
@@ -268,7 +268,7 @@ test('datos locales corruptos: recuperación explícita sin bloquear el inicio',
   await page.reload();
   await expect(page.getByRole('alert')).toContainText('formato esperado');
   await page.getByRole('button', { name: 'Borrar datos locales e intentar de nuevo' }).click();
-  await expect(page.getByRole('heading', { name: 'Haz espacio para ti.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Elige tu objetivo' })).toBeVisible();
 });
 
 for (const width of [320, 412]) {
@@ -341,7 +341,7 @@ for (const width of [320, 412]) {
 }
 test('onboarding, despensa y primer día en OLED', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('heading', { name: 'Haz espacio para ti.' }).waitFor();
+  await page.getByRole('heading', { name: 'Elige tu objetivo' }).waitFor();
   await page.evaluate(
     (settings) =>
       new Promise<void>((resolve, reject) => {
@@ -360,7 +360,7 @@ test('onboarding, despensa y primer día en OLED', async ({ page }) => {
     { ...defaultSettings, oled: true },
   );
   await page.reload();
-  await page.getByRole('heading', { name: 'Haz espacio para ti.' }).waitFor();
+  await page.getByRole('heading', { name: 'Elige tu objetivo' }).waitFor();
   await expect(page.locator('html')).toHaveAttribute('data-oled', '');
   await shot(page, '19-onboarding-oled');
   await page.getByLabel('Acepto el uso local de mis datos').check();
@@ -381,7 +381,7 @@ test('despensa clara: nombre español coherente y fuente externa sin descripció
   page,
 }) => {
   await page.goto('/');
-  await page.getByRole('heading', { name: 'Haz espacio para ti.' }).waitFor();
+  await page.getByRole('heading', { name: 'Elige tu objetivo' }).waitFor();
   await page.getByLabel('Acepto el uso local de mis datos').check();
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();

@@ -66,6 +66,18 @@ export const settingsSchema = z.object({
   clave: z.string(),
   consentimientoIA: z.boolean(),
 });
+
+export const customThemeRecordSchema = z.object({
+  id: z.string(),
+  nombre: z.string().min(1).max(40),
+  version: z.literal(1),
+  colores: customThemeSchema,
+  creado: z.string(),
+  actualizado: z.string(),
+});
+export type TemaPersonalizado = z.infer<typeof customThemeRecordSchema>;
+export const customThemesSchema = z.array(customThemeRecordSchema);
+
 export type Ajustes = z.infer<typeof settingsSchema>;
 export const defaultSettings: Ajustes = {
   id: 'local',

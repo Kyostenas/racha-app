@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Catálogo Racha: fuentes públicas fijadas y traducciones curadas; escribe solo en el directorio de salida solicitado."""
+"""Catálogo Progresium: fuentes públicas fijadas y traducciones curadas; escribe solo en el directorio de salida solicitado."""
 import hashlib, io, json, re, sys, urllib.request, zipfile
 from pathlib import Path
 from collections import Counter
@@ -862,7 +862,7 @@ def build_schema():
         "instrucciones":{"type":"array","minItems":1,"items":text_schema()}, "source_ref":ex_source,
         "imagenes_ref":{"type":"array","items":{"type":"string","pattern":r"^[A-Za-z0-9_./() -]+\.jpg$"}}},
         ["id","nombre","nombre_en","nivel","equipo","categoria","musculos_primarios","musculos_secundarios","instrucciones","source_ref"])
-    return {"$schema":"https://json-schema.org/draft/2020-12/schema", "title":"Catálogos de Racha",
+    return {"$schema":"https://json-schema.org/draft/2020-12/schema", "title":"Catálogos de Progresium",
         "description":"Valida por separado alimentos.json o ejercicios.json; también admite las referencias a $defs.",
         "oneOf":[{"$ref":"#/$defs/alimentos"},{"$ref":"#/$defs/ejercicios"}],
         "$defs":{"alimento":food,"ejercicio":exercise,
@@ -926,7 +926,7 @@ def build_readme(report):
     food_counts="\n".join(f"- {k}: {v}" for k,v in report["categorias_alimentos"].items())
     exercise_counts=", ".join(f"{k}: {v}" for k,v in report["categorias_ejercicios"].items())
     missing="\n".join(f'- `{x["id"]}` — {x["nombre"]}: {", ".join(x["campos"])}.' for x in report["alimentos_con_faltantes"])
-    return f"""# Catálogo estático de Racha
+    return f"""# Catálogo estático de Progresium
 
 Material para una PWA escolar en español de México. **300 alimentos y 80 ejercicios**. No se modificó ningún repositorio. Sin claves de API, backend, imágenes descargadas ni datos de wger.
 
@@ -965,9 +965,9 @@ Distribución: {exercise_counts}. Niveles: {report['niveles_ejercicios']}. La ma
 
 ### Texto listo para NOTICE.md
 
-> Datos de alimentos: U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019, fdc.nal.usda.gov. Selección de SR Legacy (abril de 2018), datos de dominio público publicados bajo CC0 1.0 Universal. Nombres traducidos al español para Racha. USDA no avala esta aplicación.
+> Datos de alimentos: U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019, fdc.nal.usda.gov. Selección de SR Legacy (abril de 2018), datos de dominio público publicados bajo CC0 1.0 Universal. Nombres traducidos al español para Progresium. USDA no avala esta aplicación.
 >
-> Datos de ejercicios: yuhonas/free-exercise-db y sus colaboradores, https://github.com/yuhonas/free-exercise-db, revisión 79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142. Datos publicados bajo Unlicense (dominio público), sin garantía. Selección y traducción resumida al español para Racha. No se incluyen imágenes. Los autores originales no avalan esta aplicación.
+> Datos de ejercicios: yuhonas/free-exercise-db y sus colaboradores, https://github.com/yuhonas/free-exercise-db, revisión 79ca7b47d77cd5a6dd7a50440e9f0bf24da6a142. Datos publicados bajo Unlicense (dominio público), sin garantía. Selección y traducción resumida al español para Progresium. No se incluyen imágenes. Los autores originales no avalan esta aplicación.
 
 La atribución se conserva por trazabilidad, aunque CC0 y Unlicense no la exijan como condición general. La licencia del código de la app se decide por separado; no cambia la procedencia de los datos.
 

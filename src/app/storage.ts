@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { z } from 'zod';
-export const STORES = ['perfil', 'hábitos', 'rachas', 'registros', 'ajustes'];
+export const STORES = ['perfil', 'hábitos', 'rachas', 'registros', 'ajustes', 'temasPersonalizados'];
+export const DB_VERSION = 2;
 @Injectable({ providedIn: 'root' })
 export class LocalStore {
   private connection: Promise<IDBDatabase> | null = null;
   private db(): Promise<IDBDatabase> {
     this.connection ??= new Promise((resolve, reject) => {
-      const request = indexedDB.open('racha', 1);
+      const request = indexedDB.open('racha', DB_VERSION);
       request.onupgradeneeded = () => {
         for (const name of STORES)
           if (!request.result.objectStoreNames.contains(name))
@@ -62,6 +63,16 @@ export class LocalStore {
     return new Promise((resolve, reject) => {
       const tx = db.transaction(store, 'readwrite');
       tx.objectStore(store).put(value);
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+      tx.onabort = () => reject(tx.error);
+    });
+  }
+  async delete(store: string, id: string): Promise<void> {
+    const db = await this.db();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(store, 'readwrite');
+      tx.objectStore(store).delete(id);
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
       tx.onabort = () => reject(tx.error);

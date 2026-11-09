@@ -4,8 +4,7 @@
 >
   <a class="skip" href="#contenido">Saltar al contenido</a>
   <header class="masthead">
-    <a class="brand" href="./" aria-label="Racha, inicio">RACHA<span class="brand-square"></span></a
-    ><span class="edition">TU RITMO.<br />TUS REGLAS.</span>
+    <a class="brand" href="./" aria-label="Progresium, inicio">PROGRESIUM<span class="brand-square"></span></a>
   </header>
   <div class="medical-note" role="note">Prototipo educativo. No sustituye a tu médico.</div>
   <main id="contenido">
@@ -18,7 +17,7 @@
     @if (!ready()) {
       <section class="panel">
         <h1>Un momento.</h1>
-        <p>Preparando tus cuadritos.</p>
+        <p>Cargando datos…</p>
       </section>
       <button class="quiet" (click)="reset()">Borrar datos locales e intentar de nuevo</button>
     } @else {
@@ -26,11 +25,9 @@
         @case ('inicio') {
           <div class="onboarding-layout">
             <aside class="intro-art" aria-hidden="true">
-              <div class="art-label">PEQUEÑOS PASOS.<br />GRANDES RACHAS.</div>
               <div class="pixel-art">
                 <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
               </div>
-              <span>01 — EMPIEZA POR HOY</span>
             </aside>
             <section class="onboarding">
               <div class="eyebrow">Bienvenida / {{ step() }} DE 3</div>
@@ -39,8 +36,7 @@
                 ><i [class.active]="step() >= 3"></i>
               </div>
               @if (step() === 1) {
-                <h1>Haz espacio<br />para ti.</h1>
-                <p class="lede">Sin perfección. Sin regaños.<br />Un cuadrito a la vez.</p>
+                <h1>Elige tu objetivo</h1>
                 <fieldset>
                   <legend>¿Qué te gustaría?</legend>
                   <div class="choices">
@@ -59,7 +55,7 @@
                   mejor</label
                 >
                 <div class="panel privacy">
-                  <h2>Tu privacidad, en 3 líneas.</h2>
+                  <h2>Privacidad</h2>
                   <ol>
                     <li>Tu información vive en este dispositivo.</li>
                     <li>No hay cuentas ni rastreadores.</li>
@@ -72,7 +68,7 @@
                 >
               }
               @if (step() === 2) {
-                <h1>Solo<br />lo mínimo.</h1>
+                <h1>Datos básicos</h1>
                 <p class="lede">Este prototipo es para mayores de 18 años.</p>
                 <div class="field-grid">
                   <label
@@ -110,7 +106,7 @@
                 >
               }
               @if (step() === 3) {
-                <h1>Con lo que<br />ya tienes.</h1>
+                <h1>Salud y despensa</h1>
                 <label
                   >Alergias (separadas por coma)<input
                     [(ngModel)]="form.alergias"
@@ -190,9 +186,8 @@
         }
         @case ('primer-dia') {
           <section class="first-day">
-            <div class="eyebrow">Ya diste el primer paso</div>
             <h1>Tu primer día.</h1>
-            <p class="lede">Tres ideas pequeñas. Tú eliges por dónde empezar.</p>
+            <p class="lede">Elige un hábito.</p>
             <div class="big-number">0<span>DÍAS DE RACHA</span></div>
             <div class="habit-list">
               @for (h of habits(); track h.id) {
@@ -212,17 +207,16 @@
           <div class="page-heading">
             <div>
               <div class="eyebrow">Hoy / {{ today }}</div>
-              <h1>Un paso<br />sí cuenta.</h1>
+              <h1>Hoy</h1>
             </div>
-            <span class="stamp">SIN PRISA.<br />SIN CULPA.</span>
           </div>
           <div class="bento">
             <section class="panel streak-panel">
-              <div class="eyebrow">Tu constancia</div>
+              <div class="eyebrow">Racha actual</div>
               <div class="big-number" data-testid="streak">
                 {{ streak() }}<span>{{ streak() === 1 ? 'DÍA DE RACHA' : 'DÍAS DE RACHA' }}</span>
               </div>
-              <p>No necesitas hacerlo todo.<br />Un hábito al día mantiene tu racha.</p>
+              <p>Un hábito al día mantiene la racha.</p>
               <div class="mini-squares" aria-hidden="true">
                 @for (d of days.slice(-7); track d) {
                   <i [class.filled]="countDay(d) > 0"></i>
@@ -230,8 +224,8 @@
               </div>
             </section>
             <section class="panel habits-panel">
-              <div class="eyebrow">Tus cuadritos / {{ completed() }} DE {{ habits().length }}</div>
-              <h2>Lo pequeño se suma.</h2>
+              <div class="eyebrow">{{ completed() }} de {{ habits().length }} hábitos completos</div>
+              <h2>Hábitos de hoy</h2>
               <div class="habit-list">
                 @for (h of habits(); track h.id) {
                   <button
@@ -242,7 +236,8 @@
                   >
                     <span aria-hidden="true" class="material-symbols-sharp">{{ h.icono }}</span
                     ><strong>{{ h.nombre }}</strong
-                    ><span class="square">{{ done(h.id) ? '✓' : '' }}</span>
+                    ><span class="habit-state">{{ done(h.id) ? 'Completo' : 'Pendiente' }}</span
+                    ><span class="square" aria-hidden="true">{{ done(h.id) ? '✓' : '○' }}</span>
                   </button>
                 }
               </div>
@@ -251,9 +246,8 @@
             <section class="panel plan-preview">
               <span aria-hidden="true" class="material-symbols-sharp big-icon">skillet</span>
               <div>
-                <div class="eyebrow">Tu despensa tiene potencial</div>
-                <h2>{{ recipe()?.nombre ?? 'Arma tu siguiente comida' }}</h2>
-                <p>Con lo que tienes. Con fuentes, no con promesas.</p>
+                <div class="eyebrow">Despensa</div>
+                <h2>{{ recipe()?.nombre ?? 'Sin receta disponible' }}</h2>
                 <button class="primary" (click)="navigate('plan')">
                   Ver mi plan
                   <span aria-hidden="true" class="material-symbols-sharp">arrow_forward</span>
@@ -263,7 +257,7 @@
             @if (total() > 0) {
               <button class="panel achievement-link" (click)="navigate('logro')">
                 <span aria-hidden="true" class="material-symbols-sharp">workspace_premium</span
-                ><strong>Un logro tuyo.</strong><span>Ver mi tarjeta →</span>
+                ><strong>Logro</strong><span>Ver mi tarjeta →</span>
               </button>
             }
           </div>
@@ -272,9 +266,8 @@
           <div class="page-heading">
             <div>
               <div class="eyebrow">Plan / Sin IA por defecto</div>
-              <h1>Tu despensa.<br />Tu siguiente paso.</h1>
+              <h1>Plan</h1>
             </div>
-            <span class="stamp">HECHO CON<br />LO QUE HAY.</span>
           </div>
           @if (profile()?.padecimientos || profile()?.medicamentos) {
             <div class="notice">
@@ -287,8 +280,7 @@
               @if (recipe(); as r) {
                 <article class="panel recipe">
                   <div class="recipe-art" aria-hidden="true">
-                    <span aria-hidden="true" class="material-symbols-sharp">skillet</span
-                    ><span>DE TU DESPENSA<br />A TU MESA.</span>
+                    <span aria-hidden="true" class="material-symbols-sharp">skillet</span>
                   </div>
                   <div class="eyebrow">Receta curada / 1 porción orientativa</div>
                   <h2>{{ r.nombre }}</h2>
@@ -352,7 +344,7 @@
                     }
                   </ul>
                   <p>
-                    La preparación es una propuesta original de Racha; los enlaces de preparación
+                    La preparación es una propuesta original de Progresium; los enlaces de preparación
                     sustentan técnicas e inocuidad, no son recetas copiadas.
                   </p>
                   @if (basal(); as basal) {
@@ -388,7 +380,7 @@
               }
               @if (suggestions().length > 1) {
                 <label
-                  >Otras opciones seguras<select
+                  >Otras recetas disponibles<select
                     [ngModel]="recipe()?.id"
                     (ngModelChange)="selectedRecipe.set($event)"
                   >
@@ -441,7 +433,7 @@
               </section>
               @if (exercise(); as exercise) {
                 <section class="panel">
-                  <div class="eyebrow">Movimiento a tu ritmo</div>
+                  <div class="eyebrow">Ejercicios</div>
                   <label
                     >Explorar ejercicios (no es una rutina)<select
                       [ngModel]="selectedExercise()"
@@ -485,13 +477,12 @@
         @case ('progreso') {
           <div class="page-heading">
             <div>
-              <div class="eyebrow">Progreso / Cada cuadrito cuenta</div>
-              <h1>Ve todo<br />lo que sumaste.</h1>
+              <h1>Progreso</h1>
             </div>
           </div>
           <div class="bento">
             <section class="panel heatmap-panel">
-              <h2>42 días, a tu ritmo.</h2>
+              <h2>Últimos 42 días</h2>
               <div class="heatmap" role="list" aria-label="Calendario de hábitos">
                 @for (d of days; track d) {
                   <div
@@ -504,15 +495,11 @@
                   </div>
                 }
               </div>
-              <p class="small">
-                □ Sin registro &nbsp; ■ Al menos un hábito hecho. Sin días de ejemplo ni progreso
-                inventado.
-              </p>
+              <p class="small">□ Sin registro · ✓ Hábito registrado</p>
             </section>
             <section class="panel">
               <div class="big-number">{{ streak() }}<span>DÍAS DE RACHA</span></div>
-              <h2>{{ total() }} pasos registrados.</h2>
-              <p>Descansar también es cuidarte. Tu historial se queda contigo.</p>
+              <h2>{{ total() }} hábitos registrados</h2>
               <button class="primary" [disabled]="total() === 0" (click)="navigate('logro')">
                 Ver mi logro
               </button>
@@ -522,20 +509,18 @@
         @case ('logro') {
           <div class="page-heading">
             <div>
-              <div class="eyebrow">Logro / Solo lo que quieres contar</div>
-              <h1>Esto sí<br />se comparte.</h1>
+              <h1>Compartir logro</h1>
             </div>
           </div>
           <div class="share-layout">
             <section class="achievement-card" data-testid="achievement">
-              <div class="eyebrow">RACHA / PASO A PASO</div>
+              <div class="eyebrow">PROGRESIUM</div>
               <div class="achievement-number">{{ streak() }}</div>
-              <h2>DÍAS DE CONSTANCIA</h2>
-              <p>Cada cuadrito cuenta.<br />Hoy elegí cuidarme.</p>
+              <h2>DÍAS DE RACHA</h2>
               <span aria-hidden="true" class="material-symbols-sharp">workspace_premium</span>
             </section>
             <section>
-              <h2>Tu esfuerzo. Nada más.</h2>
+              <h2>Vista previa</h2>
               <p>
                 La tarjeta no lleva tu nombre, peso, padecimientos, medicamentos ni claves. Se
                 genera en tu dispositivo como PNG cuadrado.
@@ -544,20 +529,19 @@
                 <span aria-hidden="true" class="material-symbols-sharp">ios_share</span> Compartir o
                 descargar PNG
               </button>
-              <p class="small">No se publica automáticamente. Tú eliges dónde.</p>
+              <p class="small">No se publica automáticamente.</p>
             </section>
           </div>
         }
         @case ('ajustes') {
           <div class="page-heading">
             <div>
-              <div class="eyebrow">Ajustes / Hazlo tuyo</div>
-              <h1>El mismo ritmo.<br />Tu propio color.</h1>
+              <h1>Ajustes</h1>
             </div>
           </div>
           <div class="settings-layout">
             <section class="panel">
-              <h2>Tema</h2>
+              <h2>Predeterminados</h2>
               <div class="theme-grid">
                 @for (t of themeNames; track t.id) {
                   <button
@@ -585,12 +569,63 @@
                   ><strong>Modo OLED</strong
                   ><small>Negro puro sobre tu tema. Alto contraste es independiente.</small></span
                 ></label
-              ><button (click)="themeEditor.set(true); previewCustom()">
-                Crear tema · 4 colores
+              >
+              <h2>Mis temas</h2>
+              <div class="theme-grid">
+                @for (ct of customThemes(); track ct.id) {
+                  <div class="custom-theme-card">
+                    <button
+                      [class.selected]="settings().tema === ct.id"
+                      [attr.aria-pressed]="settings().tema === ct.id"
+                      (click)="chooseCustomTheme(ct.id)"
+                    >
+                      <span class="theme-swatch" [style.background]="ct.colores.primario"></span>
+                      {{ ct.nombre }}
+                      @if (settings().tema === ct.id) {
+                        <span class="habit-state">Activo ✓</span>
+                      }
+                    </button>
+                    <div class="actions">
+                      <button
+                        type="button"
+                        (click)="
+                          editingThemeId = ct.id;
+                          customName = ct.nombre;
+                          custom = { ...ct.colores };
+                          themeEditor.set(true);
+                          previewCustom()
+                        "
+                      >
+                        Editar
+                      </button>
+                      <button type="button" (click)="customName = ct.nombre; renameCustomTheme(ct.id)">
+                        Renombrar
+                      </button>
+                      <button type="button" (click)="duplicateCustomTheme(ct.id)">Duplicar</button>
+                      <button type="button" (click)="deleteCustomTheme(ct.id)">Eliminar</button>
+                    </div>
+                  </div>
+                }
+              </div>
+              <button
+                (click)="
+                  editingThemeId = null;
+                  customName = '';
+                  themeEditor.set(true);
+                  previewCustom()
+                "
+              >
+                Crear tema
               </button>
               @if (themeEditor()) {
                 <div class="theme-editor">
-                  <h3>Tu paleta, en vivo.</h3>
+                  <h3>Editar tema</h3>
+                  <label
+                    >Nombre del tema<input
+                      [(ngModel)]="customName"
+                      maxlength="40"
+                      placeholder="Mi tema"
+                  /></label>
                   @for (field of customFields; track field) {
                     <label
                       >{{ field
@@ -600,22 +635,29 @@
                         (ngModelChange)="custom[field] = $event; previewCustom()"
                     /></label>
                   }
-                  <p [class.warning]="customContrast() < 4.5">
-                    Contraste mínimo texto/fondo y botón: {{ customContrast().toFixed(2) }}:1.
-                    {{ customContrast() < 4.5 ? 'Aviso: por debajo de 4.5:1.' : 'Cumple 4.5:1.' }}
+                  <p [class.warning]="!contrastReport().ok">
+                    Contraste mínimo: {{ customContrast().toFixed(2) }}:1.
+                    {{
+                      contrastReport().ok
+                        ? 'Pasa el umbral AA requerido.'
+                        : contrastReport().failures[0]
+                    }}
                   </p>
                   <p class="small">
                     Los colores de texto se derivan en blanco o negro. En OLED volvemos a revisar el
                     contraste.
                   </p>
                   <div class="actions">
-                    <button class="primary" (click)="saveCustom()">Guardar tema</button
-                    ><button (click)="cancelCustom()">Cancelar</button>
+                    <button
+                      class="primary"
+                      [disabled]="!contrastReport().ok"
+                      (click)="saveCustom()"
+                    >
+                      Guardar y usar
+                    </button>
+                    <button (click)="cancelCustom()">Cancelar</button>
                   </div>
                 </div>
-              }
-              @if (settings().personalizado) {
-                <button (click)="chooseTheme('personalizado')">Usar mi tema guardado</button>
               }
             </section>
             <section class="panel">
@@ -628,7 +670,7 @@
                 <span aria-hidden="true" class="material-symbols-sharp">expand_more</span>
               </button>
               @if (advanced()) {
-                <h2>IA, solo si tú quieres.</h2>
+                <h2>IA externa</h2>
                 <div class="choices">
                   <button [class.selected]="settings().ia === 'apagada'" (click)="setAi('apagada')">
                     Apagada</button
@@ -690,7 +732,7 @@
               }
             </section>
             <section class="panel danger">
-              <h2>Tus datos son tuyos.</h2>
+              <h2>Datos locales</h2>
               <p>
                 Tu perfil, hábitos, rachas, registros y ajustes se guardan solo en este teléfono o
                 computadora. Sin cuenta ni sincronización.
@@ -722,16 +764,17 @@
   </footer>
   @if (profile() && page() !== 'inicio' && page() !== 'primer-dia') {
     <nav class="bottom-nav" aria-label="Navegación principal">
-      <button [class.active]="page() === 'hoy'" (click)="navigate('hoy')">
+      <button [class.active]="page() === 'hoy'" [attr.aria-current]="page() === 'hoy' ? 'page' : null" (click)="navigate('hoy')">
         <span aria-hidden="true" class="material-symbols-sharp">grid_view</span>Hoy</button
-      ><button [class.active]="page() === 'plan'" (click)="navigate('plan')">
+      ><button [class.active]="page() === 'plan'" [attr.aria-current]="page() === 'plan' ? 'page' : null" (click)="navigate('plan')">
         <span aria-hidden="true" class="material-symbols-sharp">skillet</span>Plan</button
       ><button
         [class.active]="page() === 'progreso' || page() === 'logro'"
+        [attr.aria-current]="page() === 'progreso' || page() === 'logro' ? 'page' : null"
         (click)="navigate('progreso')"
       >
         <span aria-hidden="true" class="material-symbols-sharp">bar_chart</span>Progreso</button
-      ><button [class.active]="page() === 'ajustes'" (click)="navigate('ajustes')">
+      ><button [class.active]="page() === 'ajustes'" [attr.aria-current]="page() === 'ajustes' ? 'page' : null" (click)="navigate('ajustes')">
         <span aria-hidden="true" class="material-symbols-sharp">tune</span>Ajustes
       </button>
     </nav>

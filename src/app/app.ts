@@ -20,9 +20,11 @@ import {
   recordsSchema,
   initialHabits,
   customThemeSchema,
+  customThemesSchema,
+  TemaPersonalizado,
 } from './domain';
 import { LocalStore } from './storage';
-import { Tokens, Palette, applyTheme, contrast, tokensSchema } from './themes';
+import { Tokens, Palette, applyTheme, contrast, evaluateCustomContrast, tokensSchema } from './themes';
 import {
   MIFFLIN_SOURCE,
   localDate,
@@ -60,6 +62,9 @@ export class App implements OnInit {
   readonly resetConfirm = signal(false);
   readonly advanced = signal(false);
   readonly themeEditor = signal(false);
+  customThemes = signal<TemaPersonalizado[]>([]);
+  customName = '';
+  editingThemeId: string | null = null;
   readonly palette = signal<Palette | null>(null);
   tokens: Tokens | null = null;
   readonly mifflinSource = MIFFLIN_SOURCE;
@@ -92,11 +97,16 @@ export class App implements OnInit {
   );
   readonly shortFoodName = shortFoodName;
   readonly themeNames = [
-    { id: 'racha', nombre: 'Racha' },
+    { id: 'racha', nombre: 'Progresium' },
     { id: 'menta', nombre: 'Menta' },
     { id: 'electrico', nombre: 'Eléctrico' },
     { id: 'talavera', nombre: 'Talavera' },
     { id: 'aguacate', nombre: 'Aguacate' },
+    { id: 'cempasuchil', nombre: 'Cempasúchil' },
+    { id: 'jamaica', nombre: 'Jamaica' },
+    { id: 'anil', nombre: 'Añil' },
+    { id: 'copal', nombre: 'Copal' },
+    { id: 'cacao', nombre: 'Cacao' },
     { id: 'altoContraste', nombre: 'Alto contraste' },
   ];
   form = {
@@ -185,9 +195,10 @@ export class App implements OnInit {
         };
         if (s.personalizado) this.custom = { ...s.personalizado };
       }
+      await this.loadCustomThemes();
       this.ready.set(true);
     } catch (e) {
-      this.error.set(e instanceof Error ? e.message : 'No pudimos abrir Racha.');
+      this.error.set(e instanceof Error ? e.message : 'No pudimos abrir Progresium.');
     }
   }
   navigate(page: Page) {
@@ -296,7 +307,7 @@ export class App implements OnInit {
         actualizado: this.today,
       });
       this.message.set(
-        r.hecho ? 'Un paso cuenta. Bien por ti.' : 'Registro actualizado. Sin regaños.',
+        r.hecho ? 'Hábito marcado.' : 'Hábito desmarcado.',
       );
     } catch {
       this.error.set('No pudimos guardar el hábito. Intenta otra vez.');
@@ -341,9 +352,111 @@ export class App implements OnInit {
         }),
       );
   }
+
+  async loadCustomThemes() {
+    try {
+      const list = await this.db.all('temasPersonalizados', customThemesSchema);
+      const sorted = [...list].sort((a, b) =>
+        a.nombre.localeCompare(b.nombre, 'es') || a.id.localeCompare(b.id),
+      );
+      this.customThemes.set(sorted);
+      await this.migrateLegacyCustomTheme();
+    } catch {
+      /* store nuevo o vacío */
+      this.customThemes.set([]);
+      await this.migrateLegacyCustomTheme();
+    }
+  }
+  async migrateLegacyCustomTheme() {
+    const s = this.settings();
+    if (!s.personalizado) return;
+    const existing = this.customThemes();
+    if (existing.some((t) => t.id === 'custom:migrated-legacy')) return;
+    if (existing.length > 0 && s.tema !== 'personalizado') return;
+    const now = new Date().toISOString();
+    const record: TemaPersonalizado = {
+      id: 'custom:migrated-legacy',
+      nombre: 'Mi tema',
+      version: 1,
+      colores: s.personalizado,
+      creado: now,
+      actualizado: now,
+    };
+    await this.db.put('temasPersonalizados', record);
+    const next = [...existing.filter((t) => t.id !== record.id), record].sort(
+      (a, b) => a.nombre.localeCompare(b.nombre, 'es') || a.id.localeCompare(b.id),
+    );
+    this.customThemes.set(next);
+    if (s.tema === 'personalizado') {
+      await this.saveSettings({ ...s, tema: record.id });
+    }
+  }
+  async chooseCustomTheme(id: string) {
+    const rec = this.customThemes().find((t) => t.id === id);
+    if (!rec) return;
+    await this.saveSettings({
+      ...this.settings(),
+      tema: id,
+      personalizado: rec.colores,
+    });
+    this.message.set('Tema activado.');
+  }
+  async renameCustomTheme(id: string) {
+    const name = this.customName.trim().slice(0, 40);
+    if (!name) {
+      this.error.set('Nombre del tema: 1 a 40 caracteres.');
+      return;
+    }
+    const rec = this.customThemes().find((t) => t.id === id);
+    if (!rec) return;
+    const next = { ...rec, nombre: name, actualizado: new Date().toISOString() };
+    await this.db.put('temasPersonalizados', next);
+    this.customThemes.set(
+      this.customThemes()
+        .map((t) => (t.id === id ? next : t))
+        .sort((a, b) => a.nombre.localeCompare(b.nombre, 'es') || a.id.localeCompare(b.id)),
+    );
+    this.customName = '';
+    this.message.set('Tema renombrado.');
+  }
+  async duplicateCustomTheme(id: string) {
+    const rec = this.customThemes().find((t) => t.id === id);
+    if (!rec) return;
+    const now = new Date().toISOString();
+    const copy: TemaPersonalizado = {
+      id: 'custom:' + crypto.randomUUID(),
+      nombre: ('Copia de ' + rec.nombre).slice(0, 40),
+      version: 1,
+      colores: { ...rec.colores },
+      creado: now,
+      actualizado: now,
+    };
+    await this.db.put('temasPersonalizados', copy);
+    this.customThemes.set(
+      [...this.customThemes(), copy].sort(
+        (a, b) => a.nombre.localeCompare(b.nombre, 'es') || a.id.localeCompare(b.id),
+      ),
+    );
+    this.message.set('Tema duplicado.');
+  }
+  async deleteCustomTheme(id: string) {
+    const rec = this.customThemes().find((t) => t.id === id);
+    if (!rec) return;
+    if (!confirm('¿Eliminar el tema «' + rec.nombre + '»?')) return;
+    await this.db.delete('temasPersonalizados', id);
+    const rest = this.customThemes().filter((t) => t.id !== id);
+    this.customThemes.set(rest);
+    if (this.settings().tema === id) {
+      await this.saveSettings({ ...this.settings(), tema: 'racha' });
+    }
+    this.message.set('Tema eliminado.');
+  }
+
   customContrast() {
-    const p = this.palette();
-    return p ? Math.min(contrast(p.texto, p.fondo), contrast(p.sobrePrimario, p.primario)) : 0;
+    return this.contrastReport().minRatio;
+  }
+  contrastReport() {
+    return evaluateCustomContrast(this.custom, this.settings().oled);
   }
   async saveCustom() {
     const result = customThemeSchema.safeParse(this.custom);
@@ -351,19 +464,46 @@ export class App implements OnInit {
       this.error.set('Usa cuatro colores hexadecimales de seis cifras.');
       return;
     }
+    const report = evaluateCustomContrast(result.data, this.settings().oled);
+    if (!report.ok) {
+      this.error.set(report.failures[0] ?? 'Contraste insuficiente.');
+      return;
+    }
+    const name = (this.customName.trim() || 'Mi tema').slice(0, 40);
+    const now = new Date().toISOString();
+    const id = this.editingThemeId ?? 'custom:' + crypto.randomUUID();
+    const prev = this.customThemes().find((x) => x.id === id);
+    const record: TemaPersonalizado = {
+      id,
+      nombre: name,
+      version: 1,
+      colores: result.data,
+      creado: prev?.creado ?? now,
+      actualizado: now,
+    };
+    await this.db.put('temasPersonalizados', record);
+    this.customThemes.set(
+      [...this.customThemes().filter((x) => x.id !== id), record].sort(
+        (a, b) => a.nombre.localeCompare(b.nombre, 'es') || a.id.localeCompare(b.id),
+      ),
+    );
     if (
       !(await this.saveSettings({
         ...this.settings(),
-        tema: 'personalizado',
+        tema: id,
         personalizado: result.data,
       }))
     )
       return;
     this.themeEditor.set(false);
-    this.message.set('Tu tema está guardado.');
+    this.editingThemeId = null;
+    this.customName = '';
+    this.message.set('Tema guardado.');
   }
   cancelCustom() {
     this.themeEditor.set(false);
+    this.editingThemeId = null;
+    this.customName = '';
     this.updateTheme();
   }
   async savePantry() {
@@ -476,13 +616,13 @@ export class App implements OnInit {
       ctx.fillRect(0, 0, 1080, 1080);
       ctx.fillStyle = this.palette()?.sobrePrimario ?? '#000000';
       ctx.font = '700 64px "Space Grotesk"';
-      ctx.fillText('RACHA / PASO A PASO', 64, 120);
+      ctx.fillText('PROGRESIUM', 64, 120);
       ctx.font = '700 420px "Space Grotesk"';
       ctx.fillText(String(this.streak()), 54, 620);
       ctx.font = '700 64px "Space Grotesk"';
-      ctx.fillText('DÍAS DE CONSTANCIA', 64, 750);
+      ctx.fillText('DÍAS DE RACHA', 64, 750);
       ctx.font = '400 36px Inter';
-      ctx.fillText('Cada cuadrito cuenta. Hoy elegí cuidarme.', 64, 880);
+      // lema eliminado por accesibilidad/copy
       ctx.lineWidth = 12;
       ctx.strokeStyle = this.palette()?.sobrePrimario ?? '#000000';
       ctx.strokeRect(30, 30, 1020, 1020);
@@ -491,7 +631,7 @@ export class App implements OnInit {
       );
       const file = new File([blob], 'racha-logro.png', { type: 'image/png' });
       if (navigator.canShare?.({ files: [file] })) {
-        await navigator.share({ files: [file], title: 'Mi logro Racha' });
+        await navigator.share({ files: [file], title: 'Mi logro Progresium' });
       } else {
         const a = document.createElement('a');
         const url = URL.createObjectURL(blob);
@@ -499,7 +639,7 @@ export class App implements OnInit {
         a.download = 'racha-logro.png';
         a.click();
         setTimeout(() => URL.revokeObjectURL(url), 1000);
-        this.message.set('Tarjeta descargada. Tú decides dónde compartirla.');
+        this.message.set('Tarjeta descargada.');
       }
     } catch (e) {
       if (!(e instanceof DOMException && e.name === 'AbortError'))

@@ -1,4 +1,4 @@
-# Racha ■
+# Progresium ■
 
 **Demo pública:** https://kyostenas.github.io/racha-app/
 

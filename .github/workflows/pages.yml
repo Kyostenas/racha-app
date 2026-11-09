@@ -1,4 +1,4 @@
-name: Verificar y publicar Racha
+name: Verificar y publicar Progresium
 on:
   push:
     branches: [main]

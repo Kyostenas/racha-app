@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Catálogos de Racha",
+  "title": "Catálogos de Progresium",
   "description": "Valida por separado alimentos.json o ejercicios.json; también admite las referencias a $defs.",
   "oneOf": [
     {
