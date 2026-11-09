@@ -26,6 +26,7 @@ import {
 } from './domain';
 import { LocalStore } from './storage';
 import { Tokens, Palette, applyTheme, contrast, evaluateCustomContrast, tokensSchema } from './themes';
+import { buildThemeExport, parseThemeImport, MAX_THEME_IMPORT_BYTES } from './theme-io';
 import {
   MIFFLIN_SOURCE,
   localDate,
@@ -473,6 +474,57 @@ export class App implements OnInit {
     this.restoreFocus(this.createThemeBtn()?.nativeElement ?? null);
   }
 
+
+
+  exportCustomThemes() {
+    const payload = buildThemeExport(this.customThemes());
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    a.href = url;
+    a.download = 'progresium-temas.json';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    this.announceStatus('Temas exportados en JSON local.');
+  }
+  async importCustomThemes(fileList: FileList | null) {
+    const file = fileList?.[0];
+    if (!file) return;
+    if (file.size > MAX_THEME_IMPORT_BYTES) {
+      this.announceError('El archivo supera 256 KiB.');
+      return;
+    }
+    try {
+      const text = await file.text();
+      const raw = JSON.parse(text) as unknown;
+      const result = parseThemeImport(raw, this.settings().oled);
+      if (result.accepted.length === 0) {
+        this.announceError(result.rejected[0] ?? 'Ningún tema válido para importar.');
+        return;
+      }
+      const now = new Date().toISOString();
+      const created = result.accepted.map((item) => ({
+        id: 'custom:' + crypto.randomUUID(),
+        nombre: item.nombre.slice(0, 40),
+        version: 1 as const,
+        colores: item.colores,
+        creado: now,
+        actualizado: now,
+      }));
+      for (const rec of created) await this.db.put('temasPersonalizados', rec);
+      this.customThemes.set(
+        [...this.customThemes(), ...created].sort(
+          (a, b) => a.nombre.localeCompare(b.nombre, 'es') || a.id.localeCompare(b.id),
+        ),
+      );
+      const extra = result.rejected.length
+        ? ` Se descartaron ${result.rejected.length}.`
+        : '';
+      this.announceStatus(`Importados ${created.length} temas.${extra}`);
+    } catch {
+      this.announceError('No se pudo leer el JSON de temas.');
+    }
+  }
 
   private announceStatus(text: string) {
     this.message.set(text);

@@ -604,6 +604,21 @@
               <button #createThemeBtn type="button" (click)="openThemeEditor()">
                 Crear tema
               </button>
+              <div class="actions">
+                <button type="button" (click)="exportCustomThemes()" [disabled]="customThemes().length === 0">
+                  Exportar JSON
+                </button>
+                <label class="file-import"
+                  >Importar JSON<input
+                    type="file"
+                    accept="application/json,.json"
+                    (change)="importCustomThemes($any($event.target).files); $any($event.target).value = ''"
+                /></label>
+              </div>
+              <p class="small">
+                Exporta solo nombres y cuatro colores. La importación crea IDs nuevos y bloquea
+                combinaciones sin contraste AA.
+              </p>
               @if (themeEditor()) {
                 <div
                   class="theme-editor"

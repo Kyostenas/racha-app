@@ -997,3 +997,16 @@ html[data-fuente='sistema'] li {
   border: 2px solid var(--tinta);
   background: var(--superficie);
 }
+
+.file-import {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid var(--tinta);
+  padding: 0.5rem 0.75rem;
+  min-height: 44px;
+  cursor: pointer;
+}
+.file-import input {
+  max-width: 12rem;
+}
