@@ -629,14 +629,14 @@ export class App implements OnInit {
       const blob = await new Promise<Blob>((resolve, reject) =>
         canvas.toBlob((b) => (b ? resolve(b) : reject(new Error())), 'image/png'),
       );
-      const file = new File([blob], 'racha-logro.png', { type: 'image/png' });
+      const file = new File([blob], 'progresium-logro.png', { type: 'image/png' });
       if (navigator.canShare?.({ files: [file] })) {
         await navigator.share({ files: [file], title: 'Mi logro Progresium' });
       } else {
         const a = document.createElement('a');
         const url = URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'racha-logro.png';
+        a.download = 'progresium-logro.png';
         a.click();
         setTimeout(() => URL.revokeObjectURL(url), 1000);
         this.message.set('Tarjeta descargada.');

@@ -86,7 +86,7 @@ test('Ana: onboarding, fuente, hábito, racha, temas, privacidad, offline y borr
   const downloadPromise = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Compartir o descargar PNG' }).click();
   const download = await downloadPromise;
-  expect(download.suggestedFilename()).toBe('racha-logro.png');
+  expect(download.suggestedFilename()).toBe('progresium-logro.png');
   await download.saveAs(`${shots}/logro-exportado.png`);
   const png = await readFile(`${shots}/logro-exportado.png`);
   expect(png.readUInt32BE(16)).toBe(1080);
