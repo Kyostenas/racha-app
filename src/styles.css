@@ -724,6 +724,7 @@ summary {
   color: var(--sobrePrimario);
 }
 footer {
+  flex-wrap: wrap;
   max-width: 1280px;
   margin: 24px auto 0;
   padding: 24px 32px;
@@ -735,7 +736,7 @@ footer {
   letter-spacing: 0.5px;
 }
 footer strong {
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 footer span {
   color: var(--textoSuave);

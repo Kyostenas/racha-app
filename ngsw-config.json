@@ -3,7 +3,7 @@
   "index": "/index.html",
   "assetGroups": [
     {
-      "name": "app-progresium-v2",
+      "name": "app-progresium-v3",
       "installMode": "prefetch",
       "resources": {
         "files": [
@@ -16,7 +16,7 @@
       }
     },
     {
-      "name": "assets-progresium-v2",
+      "name": "assets-progresium-v3",
       "installMode": "prefetch",
       "resources": {
         "files": [
@@ -26,7 +26,7 @@
       }
     },
     {
-      "name": "catalogo-progresium-v2",
+      "name": "catalogo-progresium-v3",
       "installMode": "prefetch",
       "resources": {
         "files": [
