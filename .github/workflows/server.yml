@@ -1,0 +1,89 @@
+name: Servidor de la comunidad
+on:
+  push:
+    branches: [main]
+    paths: ["server/**", ".github/workflows/server.yml"]
+    tags: ["server-v*"]
+  pull_request:
+    paths: ["server/**", ".github/workflows/server.yml"]
+  release:
+    types: [published]
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  IMAGEN: ghcr.io/kyostenas/progresium-server
+jobs:
+  probar:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Shellcheck
+        run: shellcheck install.sh scripts/*.sh docker-entrypoint.sh
+      - name: Pruebas unitarias de reglas
+        run: node --test tests/reglas.test.mjs
+      - name: Instalar con install.sh (construye la imagen amd64)
+        run: |
+          mkdir -p /tmp/inst && cp -r Dockerfile docker-compose.yml .env.example .dockerignore install.sh docker-entrypoint.sh pb_hooks pb_migrations scripts /tmp/inst/
+          /tmp/inst/install.sh --build --sin-cron --origins https://kyostenas.github.io,http://localhost:4200
+          # Idempotente: una segunda corrida no debe fallar ni cambiar secretos.
+          sum1=$(sha256sum /tmp/inst/secretos/admin.txt /tmp/inst/.env | sha256sum)
+          /tmp/inst/install.sh --build --sin-cron
+          sum2=$(sha256sum /tmp/inst/secretos/admin.txt /tmp/inst/.env | sha256sum)
+          test "$sum1" = "$sum2"
+      - name: Pruebas de API contra el contenedor
+        env:
+          PB_URL: http://127.0.0.1:8090
+          PB_ORIGEN: http://localhost:4200
+          PB_SU_EMAIL: admin@progresium.local
+        run: PB_SU_PASSWORD="$(cat /tmp/inst/secretos/admin.txt)" node --test tests/api.test.mjs
+      - name: Respaldo y restauración
+        run: |
+          cd /tmp/inst && ./scripts/respaldo.sh && ./scripts/restaurar.sh "$(ls -1t respaldos/*.gz | head -1)"
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:8090/api/health && break; sleep 1; done
+      - name: Memoria del contenedor
+        run: docker stats --no-stream --format '{{.Name}} {{.MemUsage}}'
+      - name: Bitácora si falla
+        if: failure()
+        run: cd /tmp/inst && docker compose logs --tail 100
+
+  publicar:
+    needs: probar
+    if: startsWith(github.ref, 'refs/tags/server-v') || github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGEN }}
+          tags: |
+            type=match,pattern=server-v(.*),group=1
+            type=sha,prefix=sha-
+            type=raw,value=latest,enable=${{ startsWith(github.ref, 'refs/tags/server-v') }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: server
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: PROGRESIUM_VERSION=${{ github.ref_name }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

@@ -1,0 +1,33 @@
+# Progresium · servidor de la comunidad. Proyecto de compose propio (no comparte red ni
+# volúmenes con otros servicios del equipo). Configura todo en .env (ver .env.example).
+name: progresium
+services:
+  progresium:
+    image: ${PROGRESIUM_IMAGE:-ghcr.io/kyostenas/progresium-server}:${PROGRESIUM_TAG:-latest}
+    build:
+      context: .
+      args:
+        PROGRESIUM_VERSION: ${PROGRESIUM_TAG:-local}
+    restart: unless-stopped
+    environment:
+      PROGRESIUM_ORIGINS: ${PROGRESIUM_ORIGINS:-https://kyostenas.github.io}
+      PB_ENCRYPTION_KEY: ${PB_ENCRYPTION_KEY:-}
+      TZ: ${TZ:-America/Mexico_City}
+    ports:
+      - "${PROGRESIUM_BIND:-127.0.0.1}:${PROGRESIUM_PORT:-8090}:8090"
+    volumes:
+      - datos:/pb/pb_data
+    mem_limit: ${PROGRESIUM_MEM:-256m}
+    cpus: ${PROGRESIUM_CPUS:-1.0}
+    pids_limit: 200
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    logging:
+      driver: json-file
+      options: { max-size: "5m", max-file: "3" }
+volumes:
+  datos:

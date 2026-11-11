@@ -47,3 +47,9 @@ Thumbs.db
 /test-results/
 *.log
 .env*
+
+# Servidor de la comunidad
+/server/.env
+/server/secretos/
+/server/respaldos/
+/server/pb_data/
