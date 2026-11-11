@@ -15,7 +15,14 @@ routerAdd("POST", "/api/progressium/alta", (e) => {
   const col = $app.findCollectionByNameOrId("usuarios");
   const u = new Record(col);
   u.set("username", $security.randomStringWithAlphabet(24, "abcdefghijklmnopqrstuvwxyz0123456789"));
-  u.set("alias", R.aliasAleatorio(Math.random));
+  // Alias único: se prueba al azar y, si se agotan, se le agrega un número.
+  let alias = "";
+  for (let i = 0; i < 30 && !alias; i++) {
+    const a = R.aliasAleatorio(Math.random);
+    try { $app.findFirstRecordByFilter("usuarios", "alias = {:a}", { a: a }); } catch (_) { alias = a; }
+  }
+  if (!alias) alias = R.aliasAleatorio(Math.random) + " " + $security.randomStringWithAlphabet(3, "0123456789");
+  u.set("alias", alias);
   u.set("oculto", false);
   u.set("ultimo_uso", new DateTime());
   u.setPassword(body.clave);

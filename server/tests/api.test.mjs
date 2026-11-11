@@ -271,3 +271,9 @@ test("límite de tasa en el alta", async () => {
     await ajustarLimiteAlta(1000);
   }
 });
+
+test("los alias no se repiten", async () => {
+  const alias = new Set();
+  for (let i = 0; i < 25; i++) alias.add((await nuevaCuenta()).alias);
+  assert.equal(alias.size, 25);
+});
