@@ -14,12 +14,15 @@ services:
       PROGRESSIUM_ORIGINS: ${PROGRESSIUM_ORIGINS:-}
       PB_ENCRYPTION_KEY: ${PB_ENCRYPTION_KEY:-}
       TZ: ${TZ:-America/Mexico_City}
+      # Límite suave del runtime de Go: funciona aunque el kernel no tenga cgroups de memoria (p. ej. Android).
+      GOMEMLIMIT: ${PROGRESSIUM_GOMEMLIMIT:-200MiB}
+      GOMAXPROCS: ${PROGRESSIUM_GOMAXPROCS:-2}
     ports:
       - "${PROGRESSIUM_BIND:-127.0.0.1}:${PROGRESSIUM_PORT:-8090}:8090"
     volumes:
       - datos:/pb/pb_data
+    # Límite duro (cgroups). Algunos kernels lo ignoran con una advertencia; ahí manda GOMEMLIMIT.
     mem_limit: ${PROGRESSIUM_MEM:-256m}
-    cpus: ${PROGRESSIUM_CPUS:-1.0}
     pids_limit: 200
     read_only: true
     tmpfs:
