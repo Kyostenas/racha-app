@@ -2,7 +2,7 @@
 // permitidas, match y percentiles. Se usan en pb_hooks y en las pruebas de Node.
 "use strict";
 
-const VERSION_AVISO = "2026-11-11.2";
+const VERSION_AVISO = "2026-11-11.3";
 const K_MIN = 5; // k-anonimato: tamaño mínimo del grupo (incluye a quien consulta)
 const MAX_LISTA = 10;
 

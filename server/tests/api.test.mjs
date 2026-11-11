@@ -7,7 +7,7 @@ import { randomBytes } from "node:crypto";
 
 const URL_BASE = process.env.PB_URL || "http://127.0.0.1:8090";
 const ORIGEN_DEV = process.env.PB_ORIGEN_DEV || "";
-const AVISO = "2026-11-11.2";
+const AVISO = "2026-11-11.3";
 let su = null;
 
 // Lee siempre el cuerpo completo para que no queden sockets abiertos (si no, node --test no termina).
@@ -108,7 +108,12 @@ test("la misma instancia sirve la PWA instalable", async () => {
   assert.ok(m.icons?.length && m.start_url !== undefined && m.display);
   assert.equal((await fetch(URL_BASE + "/ngsw-worker.js")).status, 200);
   assert.equal((await fetch(URL_BASE + "/ngsw.json")).status, 200);
-  assert.equal((await fetch(URL_BASE + "/aviso-privacidad.html")).status, 200);
+  const aviso = await fetch(URL_BASE + "/aviso-privacidad.html");
+  assert.equal(aviso.status, 200);
+  const avisoHtml = await aviso.text();
+  assert.match(avisoHtml, /Versión 2026-11-11\.3/);
+  assert.match(avisoHtml, /Yael Benjamín Ramírez Estrada/);
+  assert.match(avisoHtml, /kyostenas@gmail\.com/);
   // Ruta de la SPA: vuelve a index.html; /api no.
   assert.match(await (await fetch(URL_BASE + "/comunidad")).text(), /rel="manifest"/);
   assert.equal((await fetch(URL_BASE + "/api/no-existe")).status, 404);

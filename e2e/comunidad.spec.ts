@@ -6,7 +6,7 @@ import { mkdir } from 'node:fs/promises';
 // Necesita una instancia real (imagen Docker): E2E_COMUNIDAD_URL=http://127.0.0.1:8090
 test.skip(!process.env['E2E_COMUNIDAD_URL'], 'Solo contra una instancia con la API de la comunidad');
 
-const AVISO = '2026-11-11.2';
+const AVISO = '2026-11-11.3';
 const PROHIBIDOS = ['peso', 'estatura', 'edad', 'padecimientos', 'medicamentos', 'alergias', 'nombre', 'email'];
 
 async function semilla(request: APIRequestContext, semana: string) {
