@@ -91,6 +91,8 @@ for i in $(seq 1 60); do
   sleep 1
 done
 
+# El nodo ya unido guarda su estado en el volumen: si su contenedor existe, se mantiene sin pedir key.
+if [ -n "$("${DC[@]}" --profile funnel ps -aq tailscale 2>/dev/null)" ]; then FUNNEL=1; fi
 if [ -n "${TS_AUTHKEY:-}" ] || [ "$FUNNEL" = 1 ]; then
   log "Levantando el nodo de Tailscale «${TS_HOSTNAME:-progressium}» con Funnel…"
   "${DC[@]}" --profile funnel up -d tailscale
