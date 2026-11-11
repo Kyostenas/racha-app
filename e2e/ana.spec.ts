@@ -1,6 +1,6 @@
 import { defaultSettings } from '../src/app/domain';
 import { test, expect, Page } from '@playwright/test';
-import { crearCuentaSiAparece } from './cuenta-helper';
+import { crearCuentaSiAparece, esperarPortada } from './cuenta-helper';
 import { DB_VERSION } from '../src/app/storage';
 import { mkdir, readFile } from 'node:fs/promises';
 const shots = 'docs/capturas';
@@ -11,6 +11,7 @@ async function shot(page: Page, name: string) {
 }
 
 async function maybeCuenta(page: Page) {
+  await esperarPortada(page);
   const crear = page.getByRole('heading', { name: 'Crea tu cuenta' });
   if (await crear.count()) {
     await crear.scrollIntoViewIfNeeded();

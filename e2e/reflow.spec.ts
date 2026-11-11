@@ -1,5 +1,5 @@
 import { test, expect, Page } from '@playwright/test';
-import { crearCuentaSiAparece } from './cuenta-helper';
+import { crearCuentaSiAparece, esperarPortada } from './cuenta-helper';
 
 // WCAG 1.4.4 y 1.4.10: a 320 px de ancho y con la letra al 200 % no debe haber scroll horizontal
 // en la página (la barra inferior puede desplazarse dentro de sí misma).
@@ -36,6 +36,7 @@ async function sinScrollHorizontal(page: Page, donde: string) {
 test('reflow a 320 px con letra al 200 %: ninguna pantalla se sale de lado', async ({ page }) => {
   await letraAl200(page);
   await page.goto('/');
+  await esperarPortada(page);
   if (await page.getByRole('heading', { name: 'Crea tu cuenta' }).count()) {
     await sinScrollHorizontal(page, 'cuenta');
     const alias = await crearCuentaSiAparece(page);

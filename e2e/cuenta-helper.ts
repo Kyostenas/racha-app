@@ -1,6 +1,14 @@
 import { expect, Page } from '@playwright/test';
 
+/** Espera a que Angular termine de decidir entre cuenta u onboarding. */
+export async function esperarPortada(page: Page): Promise<void> {
+  await expect(page.getByRole('heading', { name: /Crea tu cuenta|Elige tu objetivo/ })).toBeVisible({
+    timeout: 15000,
+  });
+}
+
 export async function crearCuentaSiAparece(page: Page): Promise<string | null> {
+  await esperarPortada(page);
   const crear = page.getByRole('heading', { name: 'Crea tu cuenta' });
   if ((await crear.count()) === 0) return null;
   await crear.scrollIntoViewIfNeeded();
