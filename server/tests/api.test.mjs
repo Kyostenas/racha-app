@@ -4,10 +4,12 @@
 import { test, before } from "node:test";
 import assert from "node:assert/strict";
 import { randomBytes } from "node:crypto";
+import { readFileSync } from "node:fs";
 
 const URL_BASE = process.env.PB_URL || "http://127.0.0.1:8090";
 const ORIGEN_DEV = process.env.PB_ORIGEN_DEV || "";
 const AVISO = "2026-11-11.6";
+const VERSION = JSON.parse(readFileSync(new URL("../../package.json", import.meta.url), "utf8")).version;
 let su = null;
 
 // Lee siempre el cuerpo completo para que no queden sockets abiertos (si no, node --test no termina).
@@ -101,6 +103,7 @@ test("CORS cerrado: la PWA usa el mismo origen", async () => {
 test("la misma instancia sirve la PWA instalable", async () => {
   const html = await (await fetch(URL_BASE + "/")).text();
   assert.match(html, /<link[^>]+rel="manifest"/);
+  assert.match(html, new RegExp(`<meta name="app-version" content="${VERSION}"`));
   const manifest = await fetch(URL_BASE + "/manifest.webmanifest");
   assert.equal(manifest.status, 200);
   assert.match(manifest.headers.get("content-type") || "", /^application\/manifest\+json/);

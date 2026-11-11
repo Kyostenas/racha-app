@@ -48,7 +48,7 @@ test('alta, sesión, sync entre 2 contextos, offline y borrado; axe en la pantal
   const verificarRed2 = vigilarClaroEnRed(page2, clave);
   await page2.goto('/');
   await esperarPortada(page2);
-  await page2.getByRole('tab', { name: 'Iniciar sesión' }).click();
+  await page2.getByRole('button', { name: 'Iniciar sesión' }).click();
   await page2.getByLabel('Alias').fill(alias);
   await page2.getByLabel('Contraseña', { exact: true }).fill(clave);
   await page2.getByRole('button', { name: 'Entrar' }).click();
