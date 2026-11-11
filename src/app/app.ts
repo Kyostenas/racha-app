@@ -25,6 +25,9 @@ import {
   TemaPersonalizado,
 } from './domain';
 import { LocalStore } from './storage';
+import { Comunidad } from './comunidad/comunidad';
+import { ComunidadApi } from './comunidad/api';
+import { comunidadSchema } from './comunidad/dominio';
 import { Tokens, Palette, applyTheme, contrast, evaluateCustomContrast, tokensSchema } from './themes';
 import { buildThemeExport, parseThemeImport, MAX_THEME_IMPORT_BYTES } from './theme-io';
 import {
@@ -38,15 +41,16 @@ import {
   validateAiSuggestion,
 } from './engine';
 
-type Page = 'inicio' | 'primer-dia' | 'hoy' | 'plan' | 'progreso' | 'logro' | 'ajustes';
+type Page = 'inicio' | 'primer-dia' | 'hoy' | 'plan' | 'progreso' | 'logro' | 'comunidad' | 'ajustes';
 @Component({
   selector: 'app-root',
-  imports: [FormsModule, CdkTrapFocus],
+  imports: [FormsModule, CdkTrapFocus, Comunidad],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App implements OnInit {
   private db = inject(LocalStore);
+  private comunidadApi = inject(ComunidadApi);
   private live = inject(LiveAnnouncer);
   private lastFocus: HTMLElement | null = null;
   readonly createThemeBtn = viewChild<ElementRef<HTMLButtonElement>>('createThemeBtn');
@@ -104,7 +108,7 @@ export class App implements OnInit {
   );
   readonly shortFoodName = shortFoodName;
   readonly themeNames = [
-    { id: 'racha', nombre: 'Progresium' },
+    { id: 'racha', nombre: 'Progressium' },
     { id: 'menta', nombre: 'Menta' },
     { id: 'electrico', nombre: 'Eléctrico' },
     { id: 'talavera', nombre: 'Talavera' },
@@ -205,7 +209,7 @@ export class App implements OnInit {
       await this.loadCustomThemes();
       this.ready.set(true);
     } catch (e) {
-      this.announceError(e instanceof Error ? e.message : 'No pudimos abrir Progresium.');
+      this.announceError(e instanceof Error ? e.message : 'No pudimos abrir Progressium.');
     }
   }
   navigate(page: Page) {
@@ -509,7 +513,7 @@ export class App implements OnInit {
     const a = document.createElement('a');
     const url = URL.createObjectURL(blob);
     a.href = url;
-    a.download = 'progresium-temas.json';
+    a.download = 'progressium-temas.json';
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     this.announceStatus('Temas exportados en JSON local.');
@@ -747,7 +751,7 @@ export class App implements OnInit {
       ctx.fillRect(0, 0, 1080, 1080);
       ctx.fillStyle = this.palette()?.sobrePrimario ?? '#000000';
       ctx.font = '700 64px "Space Grotesk"';
-      ctx.fillText('PROGRESIUM', 64, 120);
+      ctx.fillText('PROGRESSIUM', 64, 120);
       ctx.font = '700 420px "Space Grotesk"';
       ctx.fillText(String(this.streak()), 54, 620);
       ctx.font = '700 64px "Space Grotesk"';
@@ -760,14 +764,14 @@ export class App implements OnInit {
       const blob = await new Promise<Blob>((resolve, reject) =>
         canvas.toBlob((b) => (b ? resolve(b) : reject(new Error())), 'image/png'),
       );
-      const file = new File([blob], 'progresium-logro.png', { type: 'image/png' });
+      const file = new File([blob], 'progressium-logro.png', { type: 'image/png' });
       if (navigator.canShare?.({ files: [file] })) {
-        await navigator.share({ files: [file], title: 'Mi logro Progresium' });
+        await navigator.share({ files: [file], title: 'Mi logro Progressium' });
       } else {
         const a = document.createElement('a');
         const url = URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'progresium-logro.png';
+        a.download = 'progressium-logro.png';
         a.click();
         setTimeout(() => URL.revokeObjectURL(url), 1000);
         this.announceStatus('Tarjeta descargada.');
@@ -779,6 +783,17 @@ export class App implements OnInit {
   }
   async reset() {
     try {
+      // «Borrar todo» también borra la cuenta de la comunidad en el servidor, si existe.
+      const comunidad = await this.db.get('comunidad', 'local', comunidadSchema).catch(() => null);
+      if (comunidad) {
+        try {
+          await this.comunidadApi.entrar(comunidad.usuario, comunidad.clave);
+          await this.comunidadApi.borrarCuenta();
+        } catch {
+          // Sin conexión: la cuenta se borra sola tras 180 días sin uso.
+        }
+        this.comunidadApi.salir();
+      }
       await this.db.clear();
       if (!this.ready()) {
         window.location.reload();

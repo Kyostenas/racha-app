@@ -1,13 +1,13 @@
 /// <reference path="../pb_data/types.d.ts" />
-// Rutas de la comunidad de Progresium. Cada handler corre aislado en PocketBase (goja),
+// Rutas de la comunidad de Progressium. Cada handler corre aislado en PocketBase (goja),
 // por eso cada uno hace require() de sus módulos.
 
-routerAdd("GET", "/api/progresium/estado", (e) => {
+routerAdd("GET", "/api/progressium/estado", (e) => {
   const R = require(`${__hooks}/lib/reglas.js`);
-  return e.json(200, { servicio: "progresium", version: $os.getenv("PROGRESIUM_VERSION") || "dev", version_aviso: R.VERSION_AVISO, k_min: R.K_MIN });
+  return e.json(200, { servicio: "progressium", version: $os.getenv("PROGRESSIUM_VERSION") || "dev", version_aviso: R.VERSION_AVISO, k_min: R.K_MIN });
 });
 
-routerAdd("POST", "/api/progresium/alta", (e) => {
+routerAdd("POST", "/api/progressium/alta", (e) => {
   const R = require(`${__hooks}/lib/reglas.js`);
   const body = e.requestInfo().body;
   const v = R.validarAlta(body);
@@ -33,13 +33,13 @@ routerAdd("POST", "/api/progresium/alta", (e) => {
   return e.json(200, { usuario: nuevo.getString("username"), alias: nuevo.getString("alias"), id: nuevo.id });
 });
 
-routerAdd("GET", "/api/progresium/yo", (e) => {
+routerAdd("GET", "/api/progressium/yo", (e) => {
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
   return e.json(200, S.resumenPropio(yo));
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("PUT", "/api/progresium/perfil", (e) => {
+routerAdd("PUT", "/api/progressium/perfil", (e) => {
   const R = require(`${__hooks}/lib/reglas.js`);
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
@@ -68,7 +68,7 @@ routerAdd("PUT", "/api/progresium/perfil", (e) => {
   return e.json(200, S.resumenPropio(yo));
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("PUT", "/api/progresium/semana", (e) => {
+routerAdd("PUT", "/api/progressium/semana", (e) => {
   const R = require(`${__hooks}/lib/reglas.js`);
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
@@ -79,7 +79,7 @@ routerAdd("PUT", "/api/progresium/semana", (e) => {
   return e.json(200, { ok: true });
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("GET", "/api/progresium/match", (e) => {
+routerAdd("GET", "/api/progressium/match", (e) => {
   const R = require(`${__hooks}/lib/reglas.js`);
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
@@ -91,7 +91,7 @@ routerAdd("GET", "/api/progresium/match", (e) => {
   return e.json(200, r);
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("GET", "/api/progresium/comparar", (e) => {
+routerAdd("GET", "/api/progressium/comparar", (e) => {
   const R = require(`${__hooks}/lib/reglas.js`);
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
@@ -104,13 +104,13 @@ routerAdd("GET", "/api/progresium/comparar", (e) => {
   return e.json(200, R.comparar(g.yo, mia, otras, R.K_MIN));
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("GET", "/api/progresium/conexiones", (e) => {
+routerAdd("GET", "/api/progressium/conexiones", (e) => {
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
   return e.json(200, { conexiones: S.listarConexiones(yo.id) });
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("POST", "/api/progresium/conexiones", (e) => {
+routerAdd("POST", "/api/progressium/conexiones", (e) => {
   const R = require(`${__hooks}/lib/reglas.js`);
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
@@ -120,7 +120,7 @@ routerAdd("POST", "/api/progresium/conexiones", (e) => {
   return e.json(200, S.solicitar(yo, String(b.para || "")));
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("PATCH", "/api/progresium/conexiones/{id}", (e) => {
+routerAdd("PATCH", "/api/progressium/conexiones/{id}", (e) => {
   const R = require(`${__hooks}/lib/reglas.js`);
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
@@ -130,20 +130,20 @@ routerAdd("PATCH", "/api/progresium/conexiones/{id}", (e) => {
   return e.json(200, S.responder(yo, e.request.pathValue("id"), String(b.estado || "")));
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("DELETE", "/api/progresium/conexiones/{id}", (e) => {
+routerAdd("DELETE", "/api/progressium/conexiones/{id}", (e) => {
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
   S.quitar(yo, e.request.pathValue("id"));
   return e.json(200, { ok: true });
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("GET", "/api/progresium/conexiones/{id}/progreso", (e) => {
+routerAdd("GET", "/api/progressium/conexiones/{id}/progreso", (e) => {
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
   return e.json(200, S.progresoDe(yo, e.request.pathValue("id")));
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("POST", "/api/progresium/bloquear", (e) => {
+routerAdd("POST", "/api/progressium/bloquear", (e) => {
   const R = require(`${__hooks}/lib/reglas.js`);
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
@@ -154,7 +154,7 @@ routerAdd("POST", "/api/progresium/bloquear", (e) => {
   return e.json(200, { ok: true });
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("POST", "/api/progresium/reportar", (e) => {
+routerAdd("POST", "/api/progressium/reportar", (e) => {
   const R = require(`${__hooks}/lib/reglas.js`);
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
@@ -166,20 +166,20 @@ routerAdd("POST", "/api/progresium/reportar", (e) => {
   return e.json(200, { ok: true });
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("GET", "/api/progresium/retos", (e) => {
+routerAdd("GET", "/api/progressium/retos", (e) => {
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
   return e.json(200, { retos: S.retos(yo) });
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("POST", "/api/progresium/retos/{clave}/unirse", (e) => {
+routerAdd("POST", "/api/progressium/retos/{clave}/unirse", (e) => {
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
   S.unirse(yo, e.request.pathValue("clave"));
   return e.json(200, { retos: S.retos(yo) });
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("PUT", "/api/progresium/retos/{clave}/avance", (e) => {
+routerAdd("PUT", "/api/progressium/retos/{clave}/avance", (e) => {
   const R = require(`${__hooks}/lib/reglas.js`);
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
@@ -191,20 +191,20 @@ routerAdd("PUT", "/api/progresium/retos/{clave}/avance", (e) => {
   return e.json(200, { retos: S.retos(yo) });
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("DELETE", "/api/progresium/retos/{clave}", (e) => {
+routerAdd("DELETE", "/api/progressium/retos/{clave}", (e) => {
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
   S.salir(yo, e.request.pathValue("clave"));
   return e.json(200, { retos: S.retos(yo) });
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("GET", "/api/progresium/feed", (e) => {
+routerAdd("GET", "/api/progressium/feed", (e) => {
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
   return e.json(200, { eventos: S.feed(yo) });
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("POST", "/api/progresium/reacciones", (e) => {
+routerAdd("POST", "/api/progressium/reacciones", (e) => {
   const R = require(`${__hooks}/lib/reglas.js`);
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
@@ -216,20 +216,20 @@ routerAdd("POST", "/api/progresium/reacciones", (e) => {
   return e.json(200, { ok: true });
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("GET", "/api/progresium/exportar", (e) => {
+routerAdd("GET", "/api/progressium/exportar", (e) => {
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
   return e.json(200, S.exportar(yo));
 }, $apis.requireAuth("usuarios"));
 
-routerAdd("DELETE", "/api/progresium/cuenta", (e) => {
+routerAdd("DELETE", "/api/progressium/cuenta", (e) => {
   const u = $app.findRecordById("usuarios", e.auth.id);
   $app.delete(u); // las relaciones tienen borrado en cascada
   return e.json(200, { borrada: true });
 }, $apis.requireAuth("usuarios"));
 
 // Cuentas sin uso por 180 días se borran solas.
-cronAdd("progresium_inactivos", "17 3 * * *", () => {
+cronAdd("progressium_inactivos", "17 3 * * *", () => {
   const R = require(`${__hooks}/lib/reglas.js`);
   const limite = new Date(Date.now() - R.DIAS_INACTIVIDAD * 86400000).toISOString().replace("T", " ");
   $app.findRecordsByFilter("usuarios", "ultimo_uso < {:l}", "", 500, 0, { l: limite }).forEach((u) => $app.delete(u));
@@ -241,3 +241,18 @@ onRecordUpdateRequest((e) => {
   if (!e.hasSuperuserAuth()) throw new ForbiddenError("Solo lectura.");
   e.next();
 }, "usuarios");
+
+// Encabezados de seguridad para la PWA y la API (mismo origen).
+routerUse((e) => {
+  const h = e.response.header();
+  h.set("X-Content-Type-Options", "nosniff");
+  h.set("Referrer-Policy", "no-referrer");
+  h.set("Permissions-Policy", "camera=(), microphone=(), geolocation=(), interest-cohort=()");
+  h.set("X-Frame-Options", "DENY");
+  return e.next();
+});
+
+// /api/* desconocido responde 404 en JSON (sin esto el fallback de la SPA devolvería index.html).
+routerAdd("GET", "/api/{resto...}", (e) => {
+  throw new NotFoundError("No encontrado.");
+});

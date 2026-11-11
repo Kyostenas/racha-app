@@ -1,4 +1,4 @@
-# Catálogo único de Progresium
+# Catálogo único de Progressium
 
 La PWA distribuye solo `public/data/alimentos.json` (300 alimentos) y `public/data/ejercicios.json` (80 ejercicios), además de recetas y tokens que usan la interfaz y el motor. No hay una segunda copia en `public/catalogo/` ni en el precache.
 

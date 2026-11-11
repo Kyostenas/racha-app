@@ -1,27 +1,30 @@
 #!/usr/bin/env bash
-# Instala o actualiza el servidor de la comunidad de Progresium en cualquier Linux con Docker
+# Instala o actualiza el servidor de la comunidad de Progressium en cualquier Linux con Docker
 # (celular con chroot, VPS o laptop). Es idempotente: se puede correr las veces que haga falta.
 #
-#   ./install.sh [--origins URL1,URL2] [--tag vX.Y.Z] [--build] [--sin-cron] [--puerto 8090]
+#   ./install.sh [--tag vX.Y.Z] [--build] [--sin-cron] [--puerto 8090] [--funnel] [--origins-dev URL1,URL2]
+#
+# Sirve la PWA y la API en el mismo origen (http://127.0.0.1:8090/). --build necesita el repo completo.
 #
 # Nunca imprime secretos: la contraseña del panel queda en secretos/admin.txt (permisos 600).
 set -euo pipefail
 cd "$(dirname "$0")"
 
-ORIGINS="" TAG="" BUILD=0 CRON=1 PUERTO=""
+ORIGINS="" TAG="" BUILD=0 CRON=1 PUERTO="" FUNNEL=0
 while [ $# -gt 0 ]; do
   case "$1" in
-    --origins) ORIGINS="$2"; shift 2 ;;
+    --origins-dev) ORIGINS="$2"; shift 2 ;;
     --tag) TAG="$2"; shift 2 ;;
     --puerto) PUERTO="$2"; shift 2 ;;
     --build) BUILD=1; shift ;;
     --sin-cron) CRON=0; shift ;;
-    -h|--help) sed -n '2,8p' "$0"; exit 0 ;;
+    --funnel) FUNNEL=1; shift ;;
+    -h|--help) sed -n '2,10p' "$0"; exit 0 ;;
     *) echo "Opción desconocida: $1" >&2; exit 2 ;;
   esac
 done
 
-log() { printf '\033[1m[progresium]\033[0m %s\n' "$*"; }
+log() { printf '\033[1m[progressium]\033[0m %s\n' "$*"; }
 command -v docker >/dev/null || { echo "Necesitas Docker instalado." >&2; exit 1; }
 if docker compose version >/dev/null 2>&1; then DC=(docker compose)
 elif command -v docker-compose >/dev/null; then DC=(docker-compose)
@@ -42,9 +45,9 @@ umask 077
 [ -f .env ] || { cp .env.example .env; log "Creado .env a partir de .env.example"; }
 chmod 600 .env
 poner PB_ENCRYPTION_KEY "$(aleatorio 32)" si-vacio
-[ -n "$ORIGINS" ] && poner PROGRESIUM_ORIGINS "$ORIGINS"
-[ -n "$TAG" ] && poner PROGRESIUM_TAG "$TAG"
-[ -n "$PUERTO" ] && poner PROGRESIUM_PORT "$PUERTO"
+[ -n "$ORIGINS" ] && poner PROGRESSIUM_ORIGINS "$ORIGINS"
+[ -n "$TAG" ] && poner PROGRESSIUM_TAG "$TAG"
+[ -n "$PUERTO" ] && poner PROGRESSIUM_PORT "$PUERTO"
 set -a
 # shellcheck disable=SC1091
 . ./.env
@@ -58,30 +61,45 @@ chmod 600 secretos/admin.txt
 if [ "$BUILD" = 1 ]; then
   log "Construyendo la imagen localmente…"; "${DC[@]}" build
 else
-  log "Descargando ${PROGRESIUM_IMAGE}:${PROGRESIUM_TAG}…"
+  log "Descargando ${PROGRESSIUM_IMAGE}:${PROGRESSIUM_TAG}…"
   "${DC[@]}" pull || { log "No se pudo descargar; construyendo localmente."; "${DC[@]}" build; }
 fi
 
 log "Aplicando migraciones y superusuario…"
-"${DC[@]}" run --rm -T -e PB_ADMIN_EMAIL="${PB_ADMIN_EMAIL}" progresium admin-upsert <secretos/admin.txt
+"${DC[@]}" run --rm -T -e PB_ADMIN_EMAIL="${PB_ADMIN_EMAIL}" progressium admin-upsert <secretos/admin.txt
 "${DC[@]}" up -d --remove-orphans
 
-URL="http://127.0.0.1:${PROGRESIUM_PORT:-8090}/api/health"
+URL="http://127.0.0.1:${PROGRESSIUM_PORT:-8090}/api/health"
 for i in $(seq 1 60); do
   if (command -v curl >/dev/null && curl -fsS "$URL" >/dev/null 2>&1) || (command -v wget >/dev/null && wget -qO- "$URL" >/dev/null 2>&1); then
     log "Servidor sano en $URL"; break
   fi
-  [ "$i" = 60 ] && { echo "El servidor no respondió en $URL" >&2; "${DC[@]}" logs --tail 30 progresium >&2; exit 1; }
+  [ "$i" = 60 ] && { echo "El servidor no respondió en $URL" >&2; "${DC[@]}" logs --tail 30 progressium >&2; exit 1; }
   sleep 1
 done
 
+if [ -n "${TS_AUTHKEY:-}" ] || [ "$FUNNEL" = 1 ]; then
+  log "Levantando el nodo de Tailscale «${TS_HOSTNAME:-progressium}» con Funnel…"
+  "${DC[@]}" --profile funnel up -d tailscale
+  for i in $(seq 1 60); do
+    if "${DC[@]}" --profile funnel exec -T tailscale tailscale status --json 2>/dev/null | grep -q '"BackendState": *"Running"'; then
+      DOMINIO="$("${DC[@]}" --profile funnel exec -T tailscale tailscale status --json --peers=false | sed -n 's/.*"DNSName": *"\([^"]*\)\.".*/\1/p' | head -1)"
+      log "Nodo unido. URL pública: https://${DOMINIO}/ (si el tailnet permite Funnel)"; break
+    fi
+    [ "$i" = 60 ] && log "El nodo no quedó listo; revisa: docker compose --profile funnel logs tailscale"
+    sleep 2
+  done
+else
+  log "Funnel apagado (sin TS_AUTHKEY). La app queda en http://127.0.0.1:${PROGRESSIUM_PORT:-8090}/"
+fi
+
 chmod +x scripts/*.sh
 if [ "$CRON" = 1 ] && command -v crontab >/dev/null; then
-  LINEA="40 3 * * * cd $(pwd) && ./scripts/respaldo.sh >>respaldos/respaldo.log 2>&1 # progresium-respaldo"
-  ( crontab -l 2>/dev/null | grep -v '# progresium-respaldo' || true; echo "$LINEA" ) | crontab -
+  LINEA="40 3 * * * cd $(pwd) && ./scripts/respaldo.sh >>respaldos/respaldo.log 2>&1 # progressium-respaldo"
+  ( crontab -l 2>/dev/null | grep -v '# progressium-respaldo' || true; echo "$LINEA" ) | crontab -
   log "Respaldo diario programado (03:40) con crontab."
 else
   log "Respaldo del host sin programar (usa cron o systemd para ./scripts/respaldo.sh). PocketBase además guarda respaldos internos diarios."
 fi
 ./scripts/respaldo.sh >/dev/null && log "Primer respaldo listo en ${RESPALDO_DIR:-./respaldos}"
-log "Listo. Panel: http://127.0.0.1:${PROGRESIUM_PORT:-8090}/_/ (usuario ${PB_ADMIN_EMAIL}, contraseña en secretos/admin.txt)"
+log "Listo. App: http://127.0.0.1:${PROGRESSIUM_PORT:-8090}/ · Panel: http://127.0.0.1:${PROGRESSIUM_PORT:-8090}/_/ (usuario ${PB_ADMIN_EMAIL}, contraseña en secretos/admin.txt)"

@@ -6,8 +6,8 @@ beforeAll(() => {
   Object.defineProperty(globalThis, 'indexedDB', { value: indexedDB, configurable: true });
 });
 describe('IndexedDB local', () => {
-  it('usa nombres del Anexo A y ajustes sin servidor', () =>
-    expect(STORES).toEqual(['perfil', 'hábitos', 'rachas', 'registros', 'ajustes', 'temasPersonalizados']));
+  it('usa nombres del Anexo A, ajustes y la identidad anónima de la comunidad', () =>
+    expect(STORES).toEqual(['perfil', 'hábitos', 'rachas', 'registros', 'ajustes', 'temasPersonalizados', 'comunidad']));
   it('persiste y borra también la clave', async () => {
     const db = new LocalStore();
     await db.put('ajustes', { ...defaultSettings, clave: 'clave-ficticia-solo-test' });

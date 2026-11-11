@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { z } from 'zod';
-export const STORES = ['perfil', 'hábitos', 'rachas', 'registros', 'ajustes', 'temasPersonalizados'];
-export const DB_VERSION = 2;
+export const STORES = ['perfil', 'hábitos', 'rachas', 'registros', 'ajustes', 'temasPersonalizados', 'comunidad'];
+export const DB_VERSION = 3;
 @Injectable({ providedIn: 'root' })
 export class LocalStore {
   private connection: Promise<IDBDatabase> | null = null;

@@ -1,7 +1,7 @@
 /// <reference path="../pb_data/types.d.ts" />
-// Esquema inicial de la comunidad de Progresium.
+// Esquema inicial de la comunidad de Progressium.
 // Todas las colecciones quedan cerradas a la API genérica (reglas null = solo superusuario).
-// La PWA solo habla con las rutas de pb_hooks (/api/progresium/*), que validan con listas permitidas.
+// La PWA solo habla con las rutas de pb_hooks (/api/progressium/*), que validan con listas permitidas.
 migrate((app) => {
   const usuarios = new Collection({
     type: "auth",
@@ -152,12 +152,12 @@ migrate((app) => {
 
   // Límites de tasa (se aplican por IP; detrás de Funnel/Cloudflare se usa X-Forwarded-For).
   const s = app.settings();
-  s.meta.appName = "Progresium";
+  s.meta.appName = "Progressium";
   s.rateLimits.enabled = true;
   s.rateLimits.rules = [
-    { label: "/api/progresium/alta", maxRequests: 5, duration: 3600, audience: "" },
-    { label: "/api/progresium/conexiones", maxRequests: 30, duration: 60, audience: "" },
-    { label: "/api/progresium/reportar", maxRequests: 10, duration: 3600, audience: "" },
+    { label: "/api/progressium/alta", maxRequests: 5, duration: 3600, audience: "" },
+    { label: "/api/progressium/conexiones", maxRequests: 30, duration: 60, audience: "" },
+    { label: "/api/progressium/reportar", maxRequests: 10, duration: 3600, audience: "" },
     { label: "/api/collections/usuarios/auth-with-password", maxRequests: 10, duration: 60, audience: "" },
     { label: "/api/", maxRequests: 120, duration: 60, audience: "" },
   ];

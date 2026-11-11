@@ -35,5 +35,5 @@ http
     }
   })
   .listen(Number(process.env.PORT ?? 4173), '127.0.0.1', () =>
-    console.log('Progresium en http://127.0.0.1:4173'),
+    console.log('Progressium en http://127.0.0.1:4173'),
   );

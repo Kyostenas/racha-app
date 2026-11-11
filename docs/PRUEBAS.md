@@ -16,7 +16,7 @@
 2. «Tu primer día» empieza en cero; Plan muestra una receta real de la despensa y fuentes USDA/Mifflin/inocuidad.
 3. Un hábito crea racha de un día. Dos hábitos el mismo día no crean dos días. Registros y racha sobreviven una recarga.
 4. Progreso tiene 42 fechas reales. La tarjeta de logro no contiene peso ni datos clínicos y exporta PNG de 1080×1080.
-5. Progresium → Eléctrico conserva OLED encendido. El fondo computado es negro puro. Alto contraste ignora y deshabilita el interruptor OLED. Un tema personalizado persiste.
+5. Progressium → Eléctrico conserva OLED encendido. El fondo computado es negro puro. Alto contraste ignora y deshabilita el interruptor OLED. Un tema personalizado persiste.
 6. Los alérgenos declarados y desconocidos bloquean recetas; las respuestas IA inventadas no se aceptan.
 7. Modo sin conexión: tras activar el service worker y recargar, Hoy y Plan funcionan con catálogo y datos locales.
 8. Borrar todo devuelve al onboarding, incluso tras recargar. La prueba de IndexedDB verifica que la clave también desaparece.
@@ -26,7 +26,7 @@
 
 ## Capturas
 
-`docs/capturas/01-*` a `13-*`: onboarding, Hoy, Plan/fuentes, Progreso, Logro, Ajustes/IA y escritorio. `14-*` a `17-*`: pantallas principales en Progresium OLED, encuadre móvil. `logro-exportado.png`: archivo generado por el usuario ficticio de pruebas.
+`docs/capturas/01-*` a `13-*`: onboarding, Hoy, Plan/fuentes, Progreso, Logro, Ajustes/IA y escritorio. `14-*` a `17-*`: pantallas principales en Progressium OLED, encuadre móvil. `logro-exportado.png`: archivo generado por el usuario ficticio de pruebas.
 
 ## Límites que no se presentan como terminados
 

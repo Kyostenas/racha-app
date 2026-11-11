@@ -14,7 +14,7 @@
     >
   </div>
   <header class="masthead">
-    <a class="brand" href="./" aria-label="Progresium, inicio">PROGRESIUM<span class="brand-square"></span></a>
+    <a class="brand" href="./" aria-label="Progressium, inicio">PROGRESSIUM<span class="brand-square"></span></a>
   </header>
   <div class="medical-note" role="note">Prototipo educativo. No sustituye a tu médico.</div>
   <main id="contenido">
@@ -354,7 +354,7 @@
                     }
                   </ul>
                   <p>
-                    La preparación es una propuesta original de Progresium; los enlaces de preparación
+                    La preparación es una propuesta original de Progressium; los enlaces de preparación
                     sustentan técnicas e inocuidad, no son recetas copiadas.
                   </p>
                   @if (basal(); as basal) {
@@ -516,6 +516,18 @@
             </section>
           </div>
         }
+        @case ('comunidad') {
+          @if (profile(); as p) {
+            <app-comunidad
+              [perfil]="p"
+              [registros]="records()"
+              [racha]="streak()"
+              [habitos]="habits().length"
+              [ejercicios]="exercises()"
+              [hoy]="today"
+            />
+          }
+        }
         @case ('logro') {
           <div class="page-heading">
             <div>
@@ -524,7 +536,7 @@
           </div>
           <div class="share-layout">
             <section class="achievement-card" data-testid="achievement">
-              <div class="eyebrow">PROGRESIUM</div>
+              <div class="eyebrow">PROGRESSIUM</div>
               <div class="achievement-number">{{ streak() }}</div>
               <h2>DÍAS DE RACHA</h2>
               <span aria-hidden="true" class="material-symbols-sharp">workspace_premium</span>
@@ -880,6 +892,8 @@
         (click)="navigate('progreso')"
       >
         <span aria-hidden="true" class="material-symbols-sharp">bar_chart</span>Progreso</button
+      ><button [class.active]="page() === 'comunidad'" [attr.aria-current]="page() === 'comunidad' ? 'page' : null" (click)="navigate('comunidad')">
+        <span aria-hidden="true" class="material-symbols-sharp">group</span>Comunidad</button
       ><button [class.active]="page() === 'ajustes'" [attr.aria-current]="page() === 'ajustes' ? 'page' : null" (click)="navigate('ajustes')">
         <span aria-hidden="true" class="material-symbols-sharp">tune</span>Ajustes
       </button>

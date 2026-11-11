@@ -1,0 +1,292 @@
+<div class="page-heading">
+  <div>
+    <h1>Comunidad</h1>
+    <p class="small">Opcional · solo mayores de 18 · tú decides qué compartir</p>
+  </div>
+</div>
+@if (error()) {
+  <div class="notice error" role="alert">{{ error() }}</div>
+}
+@if (aviso()) {
+  <div class="notice" role="status">{{ aviso() }}</div>
+}
+@if (cargando()) {
+  <p role="status">Cargando…</p>
+} @else if (!local()) {
+  <div class="bento">
+    <section class="panel">
+      <h2>Qué se comparte</h2>
+      <p>
+        Nada, hasta que tú lo actives. Cada dato tiene su interruptor y todos empiezan apagados.
+        Solo se envían rangos (edad de 5 en 5 años, estatura de 10 en 10 cm, categoría de IMC),
+        nunca tu peso, estatura o edad exactos.
+      </p>
+      <p>
+        <strong>Nunca salen de tu teléfono:</strong> tu nombre, padecimientos, medicamentos,
+        alergias y registros diarios.
+      </p>
+    </section>
+    <section class="panel">
+      <h2>Quién lo ve</h2>
+      <p>
+        Personas con un objetivo parecido al tuyo, solo si el grupo tiene 5 personas o más. Te
+        ven con un alias al azar. Tu progreso semanal solo lo ve quien aceptes como conexión.
+      </p>
+    </section>
+    <section class="panel">
+      <h2>Cómo borrarlo</h2>
+      <p>
+        Apagar un dato lo borra del servidor al momento. Puedes descargar todo lo que hay de ti y
+        borrar tu cuenta en un toque. Sin correo, sin contraseña y siempre gratis.
+      </p>
+    </section>
+  </div>
+  <section class="panel">
+    <h2>Activar la comunidad</h2>
+    <label class="check"
+      ><input type="checkbox" [(ngModel)]="mayorDeEdad" /> Confirmo que tengo 18 años o más.</label
+    >
+    <label class="check"
+      ><input type="checkbox" [(ngModel)]="acepto" /> Doy mi consentimiento expreso para compartir
+      los datos de salud que yo active, según el
+      <a href="aviso-privacidad.html" target="_blank" rel="noopener">aviso de privacidad</a>
+      (versión {{ versionAviso }}).</label
+    >
+    <button class="primary" [disabled]="ocupado()" (click)="activar()">Activar comunidad</button>
+  </section>
+} @else {
+  <section class="panel">
+    <h2>Tu alias: {{ local()!.alias }}</h2>
+    @if (oculto()) {
+      <p class="notice error">
+        Tu perfil está oculto mientras el equipo revisa reportes. Puedes exportar o borrar tu
+        cuenta.
+      </p>
+    }
+    <p class="small">
+      Con tus datos actuales: edad {{ resumen().edad }}, estatura {{ resumen().estatura }} cm,
+      IMC {{ resumen().imc }}. Solo se envía lo que actives abajo.
+    </p>
+  </section>
+
+  <section class="panel">
+    <h2>Qué compartes</h2>
+    <fieldset>
+      <legend>Interruptores (todos apagados de inicio)</legend>
+      @for (i of interruptores; track i.id) {
+        <label class="check"
+          ><input
+            type="checkbox"
+            [ngModel]="visibles()[i.id]"
+            (ngModelChange)="cambiarInterruptor(i.id, $event)"
+          />
+          {{ i.nombre }}</label
+        >
+      }
+    </fieldset>
+    @if (visibles().dieta) {
+      <label
+        >Tipo de alimentación
+        <select [(ngModel)]="dieta">
+          <option value="">Elige una opción</option>
+          @for (d of dietas; track d.id) {
+            <option [value]="d.id">{{ d.nombre }}</option>
+          }
+        </select>
+      </label>
+    }
+    @if (visibles().ejercicios) {
+      <fieldset>
+        <legend>Ejercicios que haces ({{ ejerciciosElegidos.length }} de 5)</legend>
+        <label>Buscar ejercicio<input [(ngModel)]="buscarEjercicio" /></label>
+        <div class="chips">
+          @for (e of opcionesEjercicio(); track e.id) {
+            <button
+              [class.selected]="ejerciciosElegidos.includes(e.id)"
+              [attr.aria-pressed]="ejerciciosElegidos.includes(e.id)"
+              (click)="elegirEjercicio(e.id)"
+            >
+              {{ e.nombre }}
+            </button>
+          }
+        </div>
+      </fieldset>
+    }
+    <button class="primary" [disabled]="ocupado()" (click)="guardarPerfil()">Guardar lo que comparto</button>
+  </section>
+
+  @if (visibles().cambio_peso) {
+    <section class="panel">
+      <h2>Peso de esta semana</h2>
+      <p class="small">Se guarda solo en tu teléfono. Al servidor va el cambio en %, redondeado.</p>
+      <label
+        >Peso (kg)<input type="number" min="30" max="300" step="0.1" [(ngModel)]="pesoSemana"
+      /></label>
+      <button (click)="guardarPeso()">Guardar peso</button>
+    </section>
+  }
+
+  <section class="panel" aria-labelledby="titulo-grupo">
+    <h2 id="titulo-grupo">Tu grupo parecido</h2>
+    @if (comparacion(); as c) {
+      @if (c.suficiente) {
+        <p>Grupo de {{ c.n }} personas con tu objetivo y rangos parecidos.</p>
+        <ul>
+          <li>Hábitos: estás por encima del {{ c.habitos }} % del grupo.</li>
+          <li>Racha: estás por encima del {{ c.racha }} % del grupo.</li>
+          @if (c.cambio_peso !== null && c.cambio_peso !== undefined) {
+            <li>Cambio de peso hacia tu objetivo: por encima del {{ c.cambio_peso }} %.</li>
+          }
+        </ul>
+        <p class="small">Lo importante es la constancia, no el número.</p>
+      } @else {
+        <p>
+          Todavía no hay suficientes personas parecidas (se necesitan {{ c.n_minimo }}) o no has
+          activado tu progreso.
+        </p>
+      }
+    }
+  </section>
+
+  <section class="panel" aria-labelledby="titulo-match">
+    <h2 id="titulo-match">Personas parecidas</h2>
+    @if (match(); as m) {
+      @if (m.suficiente && m.candidatos?.length) {
+        <ul class="lista-comunidad">
+          @for (c of m.candidatos; track c.usuario) {
+            <li>
+              <strong>{{ c.alias }}</strong>
+              <span class="small">
+                {{ c.intencion }}{{ c.imc_cat ? ' · IMC ' + c.imc_cat : '' }}{{ c.edad_rango ? ' · ' + c.edad_rango + ' años' : '' }}{{ c.dieta ? ' · ' + nombreDieta(c.dieta) : '' }}
+                @if (c.ejercicios_en_comun.length) {
+                  · En común: {{ c.ejercicios_en_comun.map(nombreEjercicio.bind(this)).join(', ') }}
+                }
+              </span>
+              @if (!c.conexion) {
+                <button (click)="conectarCon(c.usuario, c.alias)" [disabled]="ocupado()">Conectar con {{ c.alias }}</button>
+              } @else {
+                <span class="small">Conexión: {{ c.conexion.estado }}</span>
+              }
+              <button (click)="bloquear(c.usuario, c.alias)" [disabled]="ocupado()">Bloquear a {{ c.alias }}</button>
+              <button (click)="reportando.set(c.usuario)">Reportar a {{ c.alias }}</button>
+              @if (reportando() === c.usuario) {
+                <label
+                  >Motivo
+                  <select [(ngModel)]="motivo">
+                    @for (mo of motivos; track mo.id) {
+                      <option [value]="mo.id">{{ mo.nombre }}</option>
+                    }
+                  </select>
+                </label>
+                <button class="danger" (click)="reportar(c.usuario, c.alias)">Enviar reporte</button>
+              }
+            </li>
+          }
+        </ul>
+      } @else {
+        <p>{{ m.motivo ?? 'Todavía no hay suficientes personas parecidas. Activa tu objetivo y vuelve pronto.' }}</p>
+      }
+    }
+  </section>
+
+  <section class="panel" aria-labelledby="titulo-conexiones">
+    <h2 id="titulo-conexiones">Conexiones</h2>
+    @if (!conexiones().length) {
+      <p>Aún no tienes conexiones.</p>
+    }
+    <ul class="lista-comunidad">
+      @for (c of conexiones(); track c.id) {
+        <li>
+          <strong>{{ c.alias }}</strong> <span class="small">{{ c.estado }}</span>
+          @if (c.estado === 'solicitada' && !c.enviada_por_mi) {
+            <button class="primary" (click)="responder(c, 'aceptada')">Aceptar a {{ c.alias }}</button>
+            <button (click)="responder(c, 'rechazada')">Rechazar a {{ c.alias }}</button>
+          }
+          @if (c.estado === 'aceptada') {
+            <button (click)="verProgreso(c)">Ver progreso de {{ c.alias }}</button>
+          }
+          @if (c.estado !== 'bloqueada') {
+            <button (click)="quitar(c)">Quitar a {{ c.alias }}</button>
+          }
+        </li>
+      }
+    </ul>
+    @if (progreso(); as p) {
+      <div class="panel">
+        <h3>Progreso de {{ p.alias }}</h3>
+        @if (!p.compartido) {
+          <p>No comparte su progreso.</p>
+        } @else {
+          <ul>
+            @for (s of p.semanas; track s.semana) {
+              <li>
+                {{ s.semana }}: {{ s.pct_habitos }} % de hábitos, racha de {{ s.racha }} días{{ s.cambio_peso_pct !== null ? ', cambio de peso ' + s.cambio_peso_pct + ' %' : '' }}
+              </li>
+            }
+          </ul>
+        }
+        <button (click)="progreso.set(null)">Cerrar</button>
+      </div>
+    }
+  </section>
+
+  <section class="panel" aria-labelledby="titulo-retos">
+    <h2 id="titulo-retos">Retos de la semana</h2>
+    <ul class="lista-comunidad">
+      @for (r of retos(); track r.clave) {
+        <li>
+          <strong>{{ r.titulo }}</strong>
+          <span class="small">{{ r.descripcion }}{{ r.participantes ? ' · ' + r.participantes + ' personas' : '' }}</span>
+          @if (r.unido) {
+            <span>{{ r.completado ? '¡Completado!' : 'Avance' }} {{ r.avance }} de {{ r.meta }}</span>
+            <button (click)="avanzar(r, -1)" [disabled]="ocupado() || r.avance === 0" [attr.aria-label]="'Restar un día a ' + r.titulo">−1</button>
+            <button (click)="avanzar(r, 1)" [disabled]="ocupado() || r.avance >= 7" [attr.aria-label]="'Sumar un día a ' + r.titulo">+1</button>
+            <button (click)="dejar(r)" [disabled]="ocupado()">Salir de {{ r.titulo }}</button>
+          } @else {
+            <button (click)="unirse(r)" [disabled]="ocupado()">Unirme a {{ r.titulo }}</button>
+          }
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="panel" aria-labelledby="titulo-feed">
+    <h2 id="titulo-feed">Novedades</h2>
+    <p class="small">Solo mensajes de la app y reacciones; sin textos ni fotos.</p>
+    @if (!feed().length) {
+      <p>Sin novedades todavía. Únete a un reto o conecta con alguien.</p>
+    }
+    <ul class="lista-comunidad">
+      @for (ev of feed(); track ev.id) {
+        <li>
+          <strong>{{ ev.propio ? 'Tú' : ev.alias }}</strong> {{ textoEvento(ev) }}
+          <span>
+            @for (re of reacciones; track re.id) {
+              <button
+                [class.selected]="ev.mi_reaccion === re.id"
+                [attr.aria-pressed]="ev.mi_reaccion === re.id"
+                [attr.aria-label]="re.nombre + ' (' + ev.reacciones[re.id] + ')'"
+                (click)="reaccionar(ev, re.id)"
+                [disabled]="ocupado() || ev.propio"
+              >
+                <span aria-hidden="true">{{ re.icono }}</span> {{ ev.reacciones[re.id] }}
+              </button>
+            }
+          </span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="panel" aria-labelledby="titulo-datos">
+    <h2 id="titulo-datos">Tus datos</h2>
+    <button (click)="exportar()">Descargar mis datos (JSON)</button>
+    @if (!confirmarBorrado()) {
+      <button class="danger" (click)="confirmarBorrado.set(true)">Borrar mi cuenta de la comunidad</button>
+    } @else {
+      <p role="alert">Se borra todo en el servidor y en este teléfono. No se puede deshacer.</p>
+      <button class="danger" (click)="borrarCuenta()" [disabled]="ocupado()">Sí, borrar todo</button>
+      <button (click)="confirmarBorrado.set(false)">Cancelar</button>
+    }
+  </section>
+}

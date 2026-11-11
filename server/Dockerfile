@@ -1,12 +1,26 @@
-# Servidor de la comunidad de Progresium: PocketBase + migraciones + hooks.
-# Multi-arquitectura (linux/amd64 y linux/arm64). Se publica en ghcr.io/kyostenas/progresium-server.
-FROM alpine:3.22
+# Progressium en una sola imagen: la PWA (Angular) + la API de la comunidad (PocketBase) en el mismo origen.
+# Multi-arquitectura (linux/amd64 y linux/arm64). Contexto de build: la raíz del repo.
+#   docker build -f server/Dockerfile -t progressium .
 
+# 1) Build de la PWA. Corre en la arquitectura del builder; el resultado (HTML/JS/CSS) sirve para todas.
+FROM --platform=$BUILDPLATFORM node:24-alpine AS pwa
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --no-audit --no-fund
+COPY angular.json tsconfig.json tsconfig.app.json ngsw-config.json ./
+COPY public ./public
+COPY src ./src
+RUN npx ng build --configuration production --base-href / \
+ && test -f dist/racha-app/browser/ngsw-worker.js \
+ && test -f dist/racha-app/browser/manifest.webmanifest
+
+# 2) Imagen final: PocketBase + migraciones + hooks + la PWA en pb_public.
+FROM alpine:3.22
 ARG PB_VERSION=0.40.6
 ARG PB_SHA256_AMD64=0e1f609158ed945f809f8a02ae012aa0427129c66ebb63c1aee76f2c0309373f
 ARG PB_SHA256_ARM64=d22c66ceb67ca92b7d767f36d826e848a276bcfa3c197ead20bf87c42208984f
 ARG TARGETARCH
-ARG PROGRESIUM_VERSION=dev
+ARG PROGRESSIUM_VERSION=dev
 
 RUN set -eux; \
     apk add --no-cache ca-certificates tzdata sqlite wget unzip; \
@@ -18,24 +32,24 @@ RUN set -eux; \
     wget -q -O /tmp/pb.zip "https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSION}/pocketbase_${PB_VERSION}_linux_${TARGETARCH:-amd64}.zip"; \
     echo "$sum  /tmp/pb.zip" | sha256sum -c -; \
     mkdir -p /pb/pb_data; unzip -q /tmp/pb.zip pocketbase -d /pb; rm /tmp/pb.zip; \
-    apk del wget unzip; \
-    addgroup -S -g 10001 progresium; adduser -S -u 10001 -G progresium -h /pb progresium; \
-    chown -R progresium:progresium /pb/pb_data
+    apk del unzip; \
+    addgroup -S -g 10001 progressium; adduser -S -u 10001 -G progressium -h /pb progressium; \
+    chown -R progressium:progressium /pb/pb_data
 
-COPY --chown=root:root pb_migrations /pb/pb_migrations
-COPY --chown=root:root pb_hooks /pb/pb_hooks
-COPY --chown=root:root --chmod=0755 docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY --chown=root:root server/pb_migrations /pb/pb_migrations
+COPY --chown=root:root server/pb_hooks /pb/pb_hooks
+COPY --chown=root:root --chmod=0755 server/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY --from=pwa --chown=root:root /app/dist/racha-app/browser /pb/pb_public
 
-ENV PROGRESIUM_VERSION=${PROGRESIUM_VERSION} \
-    PROGRESIUM_ORIGINS=https://kyostenas.github.io \
+ENV PROGRESSIUM_VERSION=${PROGRESSIUM_VERSION} \
     TZ=America/Mexico_City
 
-LABEL org.opencontainers.image.title="progresium-server" \
-      org.opencontainers.image.description="Servidor opcional de la comunidad de Progresium (PocketBase)" \
+LABEL org.opencontainers.image.title="progressium" \
+      org.opencontainers.image.description="Progressium: PWA + comunidad opcional (PocketBase) en el mismo origen" \
       org.opencontainers.image.source="https://github.com/Kyostenas/racha-app" \
       org.opencontainers.image.licenses="MIT"
 
-USER progresium
+USER progressium
 WORKDIR /pb
 VOLUME /pb/pb_data
 EXPOSE 8090

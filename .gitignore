@@ -53,3 +53,4 @@ Thumbs.db
 /server/secretos/
 /server/respaldos/
 /server/pb_data/
+!/server/.env.example

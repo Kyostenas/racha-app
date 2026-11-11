@@ -86,7 +86,7 @@ test('Ana: onboarding, fuente, hábito, racha, temas, privacidad, offline y borr
   const downloadPromise = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Compartir o descargar PNG' }).click();
   const download = await downloadPromise;
-  expect(download.suggestedFilename()).toBe('progresium-logro.png');
+  expect(download.suggestedFilename()).toBe('progressium-logro.png');
   await download.saveAs(`${shots}/logro-exportado.png`);
   const png = await readFile(`${shots}/logro-exportado.png`);
   expect(png.readUInt32BE(16)).toBe(1080);
@@ -106,7 +106,7 @@ test('Ana: onboarding, fuente, hábito, racha, temas, privacidad, offline y borr
   await page.getByRole('button', { name: 'Alto contraste', exact: true }).click();
   await expect(page.getByLabel('Modo OLED')).toBeDisabled();
   await expect(page.locator('html')).not.toHaveAttribute('data-oled');
-  await page.getByRole('button', { name: 'Progresium', exact: true }).click();
+  await page.getByRole('button', { name: 'Progressium', exact: true }).click();
   await page.getByRole('button', { name: 'Avanzado › IA' }).click();
   await expect(page.getByRole('button', { name: 'En tu cel · Próximamente' })).toBeDisabled();
   await shot(page, '12-ajustes-ia');
@@ -253,7 +253,7 @@ test('datos locales corruptos: recuperación explícita sin bloquear el inicio',
   await page.evaluate(
     () =>
       new Promise<void>((resolve, reject) => {
-        const request = indexedDB.open('racha', 2);
+        const request = indexedDB.open('racha', 3);
         request.onsuccess = () => {
           const db = request.result;
           const tx = db.transaction('ajustes', 'readwrite');
@@ -346,7 +346,7 @@ test('onboarding, despensa y primer día en OLED', async ({ page }) => {
   await page.evaluate(
     (settings) =>
       new Promise<void>((resolve, reject) => {
-        const request = indexedDB.open('racha', 2);
+        const request = indexedDB.open('racha', 3);
         request.onsuccess = () => {
           const db = request.result;
           const tx = db.transaction('ajustes', 'readwrite');

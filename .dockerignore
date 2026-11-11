@@ -1,0 +1,13 @@
+.git
+node_modules
+dist
+.angular
+test-results
+playwright-report
+docs/capturas
+e2e
+server/.env
+server/secretos
+server/respaldos
+server/pb_data
+server/tests

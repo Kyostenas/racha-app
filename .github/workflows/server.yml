@@ -1,18 +1,16 @@
-name: Servidor de la comunidad
+name: Imagen Progressium (PWA + comunidad)
 on:
   push:
     branches: [main]
-    paths: ["server/**", ".github/workflows/server.yml"]
-    tags: ["server-v*"]
+    tags: ["v*"]
   pull_request:
-    paths: ["server/**", ".github/workflows/server.yml"]
   release:
     types: [published]
   workflow_dispatch:
 permissions:
   contents: read
 env:
-  IMAGEN: ghcr.io/kyostenas/progresium-server
+  IMAGEN: ghcr.io/kyostenas/progressium
 jobs:
   probar:
     runs-on: ubuntu-latest
@@ -28,34 +26,48 @@ jobs:
         run: shellcheck install.sh scripts/*.sh docker-entrypoint.sh
       - name: Pruebas unitarias de reglas
         run: node --test tests/reglas.test.mjs
-      - name: Instalar con install.sh (construye la imagen amd64)
+      - name: Instalar con install.sh (construye PWA + servidor, amd64)
         run: |
-          mkdir -p /tmp/inst && cp -r Dockerfile docker-compose.yml .env.example .dockerignore install.sh docker-entrypoint.sh pb_hooks pb_migrations scripts /tmp/inst/
-          /tmp/inst/install.sh --build --sin-cron --origins https://kyostenas.github.io,http://localhost:4200
+          ./install.sh --build --sin-cron
           # Idempotente: una segunda corrida no debe fallar ni cambiar secretos.
-          sum1=$(sha256sum /tmp/inst/secretos/admin.txt /tmp/inst/.env | sha256sum)
-          /tmp/inst/install.sh --build --sin-cron
-          sum2=$(sha256sum /tmp/inst/secretos/admin.txt /tmp/inst/.env | sha256sum)
+          sum1=$(sha256sum secretos/admin.txt .env | sha256sum)
+          ./install.sh --build --sin-cron
+          sum2=$(sha256sum secretos/admin.txt .env | sha256sum)
           test "$sum1" = "$sum2"
       - name: Pruebas de API contra el contenedor
         env:
           PB_URL: http://127.0.0.1:8090
-          PB_ORIGEN: http://localhost:4200
-          PB_SU_EMAIL: admin@progresium.local
-        run: PB_SU_PASSWORD="$(cat /tmp/inst/secretos/admin.txt)" node --test tests/api.test.mjs
+          PB_SU_EMAIL: admin@progressium.local
+        run: PB_SU_PASSWORD="$(cat secretos/admin.txt)" node --test tests/api.test.mjs
+      - name: E2E y axe de la comunidad contra el contenedor (mismo origen)
+        working-directory: .
+        env:
+          E2E_COMUNIDAD_URL: http://127.0.0.1:8090
+          CI: "1"
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          npx playwright test e2e/comunidad.spec.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: comunidad-e2e
+          path: |
+            playwright-report/
+            docs/capturas/comunidad-*.png
       - name: Respaldo y restauración
         run: |
-          cd /tmp/inst && ./scripts/respaldo.sh && ./scripts/restaurar.sh "$(ls -1t respaldos/*.gz | head -1)"
+          ./scripts/respaldo.sh && ./scripts/restaurar.sh "$(ls -1t respaldos/*.gz | head -1)"
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:8090/api/health && break; sleep 1; done
       - name: Memoria del contenedor
         run: docker stats --no-stream --format '{{.Name}} {{.MemUsage}}'
       - name: Bitácora si falla
         if: failure()
-        run: cd /tmp/inst && docker compose logs --tail 100
+        run: docker compose logs --tail 100
 
   publicar:
     needs: probar
-    if: startsWith(github.ref, 'refs/tags/server-v') || github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -74,16 +86,17 @@ jobs:
         with:
           images: ${{ env.IMAGEN }}
           tags: |
-            type=match,pattern=server-v(.*),group=1
+            type=match,pattern=v(.*),group=1
             type=sha,prefix=sha-
-            type=raw,value=latest,enable=${{ startsWith(github.ref, 'refs/tags/server-v') }}
+            type=raw,value=latest,enable=${{ startsWith(github.ref, 'refs/tags/v') }}
       - uses: docker/build-push-action@v6
         with:
-          context: server
+          context: .
+          file: server/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args: PROGRESIUM_VERSION=${{ github.ref_name }}
+          build-args: PROGRESSIUM_VERSION=${{ github.ref_name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

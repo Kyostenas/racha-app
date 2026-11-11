@@ -1,24 +1,25 @@
-# Progresium · servidor de la comunidad. Proyecto de compose propio (no comparte red ni
+# Progressium · PWA + API de la comunidad en el mismo origen. Proyecto de compose propio (no comparte red ni
 # volúmenes con otros servicios del equipo). Configura todo en .env (ver .env.example).
-name: progresium
+name: progressium
 services:
-  progresium:
-    image: ${PROGRESIUM_IMAGE:-ghcr.io/kyostenas/progresium-server}:${PROGRESIUM_TAG:-latest}
+  progressium:
+    image: ${PROGRESSIUM_IMAGE:-ghcr.io/kyostenas/progressium}:${PROGRESSIUM_TAG:-latest}
     build:
-      context: .
+      context: ..
+      dockerfile: server/Dockerfile
       args:
-        PROGRESIUM_VERSION: ${PROGRESIUM_TAG:-local}
+        PROGRESSIUM_VERSION: ${PROGRESSIUM_TAG:-local}
     restart: unless-stopped
     environment:
-      PROGRESIUM_ORIGINS: ${PROGRESIUM_ORIGINS:-https://kyostenas.github.io}
+      PROGRESSIUM_ORIGINS: ${PROGRESSIUM_ORIGINS:-}
       PB_ENCRYPTION_KEY: ${PB_ENCRYPTION_KEY:-}
       TZ: ${TZ:-America/Mexico_City}
     ports:
-      - "${PROGRESIUM_BIND:-127.0.0.1}:${PROGRESIUM_PORT:-8090}:8090"
+      - "${PROGRESSIUM_BIND:-127.0.0.1}:${PROGRESSIUM_PORT:-8090}:8090"
     volumes:
       - datos:/pb/pb_data
-    mem_limit: ${PROGRESIUM_MEM:-256m}
-    cpus: ${PROGRESIUM_CPUS:-1.0}
+    mem_limit: ${PROGRESSIUM_MEM:-256m}
+    cpus: ${PROGRESSIUM_CPUS:-1.0}
     pids_limit: 200
     read_only: true
     tmpfs:
@@ -29,5 +30,28 @@ services:
     logging:
       driver: json-file
       options: { max-size: "5m", max-file: "3" }
+  # Publicación HTTPS con Tailscale Funnel como nodo propio «progressium» (perfil opcional).
+  # Solo arranca si hay TS_AUTHKEY en .env (o con ./install.sh --funnel cuando el nodo ya está unido).
+  tailscale:
+    image: tailscale/tailscale:${TS_IMAGE_TAG:-stable}
+    profiles: ["funnel"]
+    hostname: ${TS_HOSTNAME:-progressium}
+    restart: unless-stopped
+    depends_on: [progressium]
+    environment:
+      TS_AUTHKEY: ${TS_AUTHKEY:-}
+      TS_HOSTNAME: ${TS_HOSTNAME:-progressium}
+      TS_STATE_DIR: /var/lib/tailscale
+      TS_USERSPACE: "true"
+      TS_SERVE_CONFIG: /config/serve.json
+      TS_EXTRA_ARGS: ${TS_EXTRA_ARGS:-}
+    volumes:
+      - tailscale:/var/lib/tailscale
+      - ./tailscale:/config:ro
+    mem_limit: 128m
+    logging:
+      driver: json-file
+      options: { max-size: "5m", max-file: "3" }
 volumes:
   datos:
+  tailscale:

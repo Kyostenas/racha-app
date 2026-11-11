@@ -1,6 +1,6 @@
-# Progresium ■
+# Progressium ■
 
-**Demo pública:** https://kyostenas.github.io/racha-app/
+**Instalación:** la PWA se descarga desde su propia instancia (imagen Docker con la PWA y la API de la comunidad en el mismo origen). Ver [server/README.md](server/README.md). Instancia del equipo: https://progressium.tail2ca124.ts.net/ (cuando Funnel esté activo).
 
 Pequeños pasos. Grandes rachas. Prototipo educativo de Tecnologías de Información, LAMAR.
 
@@ -27,7 +27,7 @@ Para verificar PWA/offline, usa la compilación de producción, no `ng serve` en
 - Hábitos persistentes y reversibles; racha por **días consecutivos con al menos un hábito**, no por clics. Calendario de 42 días sin datos ficticios.
 - Despensa, recetas curadas con fuentes, cantidades y energía de ingredientes según USDA. Solo aparecen si están todos los ingredientes y pasan exclusiones.
 - Mifflin–St Jeor: estimación opcional de **energía en reposo**, no gasto total ni meta de ingesta; omitida con padecimientos/medicamentos declarados. No se modifica la alimentación por la intención de peso del onboarding.
-- Once temas predeterminados (Progresium, Menta, Eléctrico, Talavera, Aguacate, Cempasúchil, Jamaica, Añil, Copal, Cacao y Alto contraste), OLED como `data-oled` independiente de `data-tema`; Mis temas con editor de cuatro colores, contraste WCAG AA, exportar/importar JSON. **Tecla T** (fuera de campos de texto) recorre todos los predeterminados y luego los temas propios.
+- Once temas predeterminados (Progressium, Menta, Eléctrico, Talavera, Aguacate, Cempasúchil, Jamaica, Añil, Copal, Cacao y Alto contraste), OLED como `data-oled` independiente de `data-tema`; Mis temas con editor de cuatro colores, contraste WCAG AA, exportar/importar JSON. **Tecla T** (fuera de campos de texto) recorre todos los predeterminados y luego los temas propios.
 - Tarjeta de logro PNG 1080×1080 sin datos de salud, descarga o compartir mediante acción explícita del usuario.
 - Ajustes avanzados: IA apagada por defecto; local deshabilitada (Próximamente); clave propia compatible con API OpenAI. Clave guardada solo en IndexedDB, **no cifrada**: no usar en perfiles compartidos.
 - Respuesta IA limitada a identificador de receta curada; se revalidan despensa y alergias. Ningún texto o ingrediente inventado se ejecuta o muestra. Solo se transmiten recetas permitidas, nunca perfil clínico ni medidas.

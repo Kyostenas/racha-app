@@ -1,6 +1,6 @@
 {
   "name": "racha-app",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -35,6 +35,7 @@
     "@angular/build": "^22.2.6",
     "@angular/cli": "^22.2.6",
     "@angular/compiler-cli": "^22.2.0",
+    "@axe-core/playwright": "^4.14.0",
     "@playwright/test": "^1.65.0",
     "fake-indexeddb": "^6.2.7",
     "jsdom": "^30.0.0",
@@ -42,6 +43,6 @@
     "typescript": "~6.0.2",
     "vitest": "^5.0.0"
   },
-  "description": "Progresium: hábitos privados y recetas con fuentes para proyecto final TI LAMAR",
+  "description": "Progressium: hábitos privados y recetas con fuentes para proyecto final TI LAMAR",
   "license": "MIT"
 }

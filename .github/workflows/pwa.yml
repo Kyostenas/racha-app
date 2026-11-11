@@ -1,15 +1,14 @@
-name: Verificar y publicar Progresium
+name: Verificar Progressium (PWA)
 on:
   push:
     branches: [main]
   workflow_dispatch:
+  pull_request:
 permissions:
   contents: read
-  pages: write
-  id-token: write
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: pwa-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,18 +34,5 @@ jobs:
           path: |
             docs/capturas/
             playwright-report/
-      - run: npm run build -- --base-href /racha-app/
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist/racha-app/browser
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Publicar
-        id: deployment
-        uses: actions/deploy-pages@v4
+# La PWA ya no se publica en GitHub Pages: va dentro de la imagen Docker (server.yml),
+# servida desde la misma instancia que la API.

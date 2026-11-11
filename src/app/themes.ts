@@ -155,7 +155,7 @@ export function evaluateCustomContrast(
 
 export function themePalette(tokens: Tokens, s: Ajustes): Palette {
   const base = tokens.temas[s.tema] ?? tokens.temas['racha'];
-  if (!base) throw new Error('Faltan tokens de Progresium.');
+  if (!base) throw new Error('Faltan tokens de Progressium.');
   let p: Palette = {
     fondo: base.fondo,
     superficie: base.superficie,
