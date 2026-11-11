@@ -1,6 +1,7 @@
 import { defaultSettings } from '../src/app/domain';
 import { test, expect, Page } from '@playwright/test';
 import { crearCuentaSiAparece } from './cuenta-helper';
+import { DB_VERSION } from '../src/app/storage';
 import { mkdir, readFile } from 'node:fs/promises';
 const shots = 'docs/capturas';
 async function shot(page: Page, name: string) {
@@ -11,7 +12,8 @@ async function shot(page: Page, name: string) {
 
 async function maybeCuenta(page: Page) {
   const crear = page.getByRole('heading', { name: 'Crea tu cuenta' });
-  if (await crear.isVisible().catch(() => false)) {
+  if (await crear.count()) {
+    await crear.scrollIntoViewIfNeeded();
     await page.screenshot({ path: `${shots}/cuenta-crear.png`, fullPage: true });
     await crearCuentaSiAparece(page);
   }
@@ -262,9 +264,9 @@ test('capturas OLED para las slides con todas las pantallas principales', async 
 test('datos locales corruptos: recuperación explícita sin bloquear el inicio', async ({ page }) => {
   await onboard(page);
   await page.evaluate(
-    () =>
+    (version) =>
       new Promise<void>((resolve, reject) => {
-        const request = indexedDB.open('racha', 3);
+        const request = indexedDB.open('racha', version);
         request.onsuccess = () => {
           const db = request.result;
           const tx = db.transaction('ajustes', 'readwrite');
@@ -276,6 +278,7 @@ test('datos locales corruptos: recuperación explícita sin bloquear el inicio',
           tx.onerror = () => reject(tx.error);
         };
       }),
+    DB_VERSION,
   );
   await page.reload();
   await expect(page.getByRole('alert')).toContainText('formato esperado');
@@ -353,11 +356,12 @@ for (const width of [320, 412]) {
 }
 test('onboarding, despensa y primer día en OLED', async ({ page }) => {
   await page.goto('/');
+  await maybeCuenta(page);
   await page.getByRole('heading', { name: 'Elige tu objetivo' }).waitFor();
   await page.evaluate(
-    (settings) =>
+    ({ settings, version }) =>
       new Promise<void>((resolve, reject) => {
-        const request = indexedDB.open('racha', 3);
+        const request = indexedDB.open('racha', version);
         request.onsuccess = () => {
           const db = request.result;
           const tx = db.transaction('ajustes', 'readwrite');
@@ -369,7 +373,7 @@ test('onboarding, despensa y primer día en OLED', async ({ page }) => {
           tx.onerror = () => reject(tx.error);
         };
       }),
-    { ...defaultSettings, oled: true },
+    { settings: { ...defaultSettings, oled: true }, version: DB_VERSION },
   );
   await page.reload();
   await page.getByRole('heading', { name: 'Elige tu objetivo' }).waitFor();
@@ -393,6 +397,7 @@ test('despensa clara: nombre español coherente y fuente externa sin descripció
   page,
 }) => {
   await page.goto('/');
+  await maybeCuenta(page);
   await page.getByRole('heading', { name: 'Elige tu objetivo' }).waitFor();
   await page.getByLabel('Acepto el uso local de mis datos').check();
   await page.getByRole('button', { name: 'Continuar' }).click();

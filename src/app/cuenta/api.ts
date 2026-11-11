@@ -51,8 +51,12 @@ export class CuentaApi {
     return data as T;
   }
 
-  estado() {
-    return this.pedir<{ servicio: string; version: string; version_aviso: string }>('GET', '/estado');
+  async estado() {
+    const d = await this.pedir<{ servicio: string; version: string; version_aviso: string }>('GET', '/estado');
+    if (d?.servicio !== 'progressium') {
+      throw new CuentaError('El servidor de cuentas no está disponible.', 0);
+    }
+    return d;
   }
 
   alta(body: {
