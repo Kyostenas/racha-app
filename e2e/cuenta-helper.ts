@@ -29,7 +29,7 @@ export async function crearCuentaSiAparece(page: Page): Promise<string | null> {
   await page.getByLabel('Contraseña', { exact: true }).fill('secreto12');
   await page.getByLabel('Confirmo que tengo 18 años o más.').check();
   await page.getByLabel(/Acepto los términos/).check();
-  const enviar = page.getByRole('button', { name: 'Crear cuenta' });
+  const enviar = page.locator('form').getByRole('button', { name: 'Crear cuenta' });
   await enviar.scrollIntoViewIfNeeded();
   await enviar.click();
   await expect(page.getByRole('heading', { name: 'Elige tu objetivo' })).toBeVisible({ timeout: 25000 });

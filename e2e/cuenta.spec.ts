@@ -29,7 +29,7 @@ test('alta, sesión, sync entre 2 contextos, offline y borrado; axe en la pantal
   await page.getByLabel('Contraseña', { exact: true }).fill(clave);
   await page.getByLabel('Confirmo que tengo 18 años o más.').check();
   await page.getByLabel(/Acepto los términos/).check();
-  await page.getByRole('button', { name: 'Crear cuenta' }).click();
+  await page.locator('form').getByRole('button', { name: 'Crear cuenta' }).click();
   await expect(page.getByRole('heading', { name: 'Elige tu objetivo' })).toBeVisible();
 
   await page.getByRole('button', { name: 'Bajar de peso', exact: true }).click();
