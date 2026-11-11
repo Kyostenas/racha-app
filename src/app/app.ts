@@ -843,28 +843,38 @@ export class App implements OnInit {
       this.step.set(1);
       this.resetConfirm.set(false);
       this.updateTheme();
+      await this.probarServidor();
       this.navigate(this.servidor() ? 'cuenta' : 'inicio');
       this.announceStatus('Datos y clave eliminados de este dispositivo.');
     } catch {
       this.announceError('No pudimos borrar los datos. Intenta otra vez.');
     }
   }
-  private async prepararCuenta() {
-    const c = await this.sesion.cargar();
-    if (c?.token) this.comunidadApi.usarToken(c.token);
+  private async probarServidor(): Promise<boolean> {
     try {
       await this.cuentaApi.estado();
       this.servidor.set(true);
+      return true;
     } catch {
       this.servidor.set(false);
+      return false;
     }
+  }
+  private async prepararCuenta() {
+    const c = await this.sesion.cargar();
+    if (c?.token) this.comunidadApi.usarToken(c.token);
+    await this.probarServidor();
     cambiosLocales.addEventListener('cambio', () => { void this.sync.marcarSucio(); });
-    window.addEventListener('online', () => { void this.intentarSync(); });
+    window.addEventListener('online', () => { void this.alVolverEnLinea(); });
     if (this.servidor() && !c) {
       this.page.set('cuenta');
       return;
     }
     if (c && this.servidor()) await this.intentarSync();
+  }
+  private async alVolverEnLinea() {
+    await this.probarServidor();
+    void this.intentarSync();
   }
   async alIniciarSesion() {
     const [p, s, h, r] = await Promise.all([
