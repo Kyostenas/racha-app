@@ -2,6 +2,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
+import { createHmac } from "node:crypto";
 const R = createRequire(import.meta.url)("../pb_hooks/lib/reglas.js");
 
 const base = { intencion: "bajar", imc_cat: "sobrepeso", edad_rango: "25-29", dieta: "omnivora", ejercicios: ["Squat"] };
@@ -143,4 +144,18 @@ test("sync: solo blob cifrado, versión entera y sin campos extra", () => {
   assert.equal(R.resolverVersion(3, 5), 5);
   assert.equal(R.resolverVersion(7, 5), 7);
   assert.equal(R.resolverVersion(2, 2), 2);
+});
+
+test("sales falsas: 200-compatible, deterministas y distintas entre alias", () => {
+  const hmac = (msg, key) => createHmac("sha256", key).update(msg).digest("hex");
+  const a = R.salesFalsas("ajolote", "secreto-servidor", hmac);
+  const b = R.salesFalsas("ajolote", "secreto-servidor", hmac);
+  const c = R.salesFalsas("nutria", "secreto-servidor", hmac);
+  const d = R.salesFalsas("ajolote", "otro-secreto", hmac);
+  assert.match(a.salt_cuenta, /^[a-f0-9]{32}$/);
+  assert.match(a.salt_cifrado, /^[a-f0-9]{32}$/);
+  assert.notEqual(a.salt_cuenta, a.salt_cifrado);
+  assert.deepEqual(a, b);
+  assert.notDeepEqual(a, c);
+  assert.notDeepEqual(a, d);
 });

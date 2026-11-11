@@ -45,6 +45,7 @@ umask 077
 [ -f .env ] || { cp .env.example .env; log "Creado .env a partir de .env.example"; }
 chmod 600 .env
 poner PB_ENCRYPTION_KEY "$(aleatorio 32)" si-vacio
+poner PROGRESSIUM_SALES_SECRET "$(aleatorio 32)" si-vacio
 [ -n "$ORIGINS" ] && poner PROGRESSIUM_ORIGINS "$ORIGINS"
 [ -n "$TAG" ] && poner PROGRESSIUM_TAG "$TAG"
 [ -n "$PUERTO" ] && poner PROGRESSIUM_PORT "$PUERTO"

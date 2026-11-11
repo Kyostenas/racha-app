@@ -7,7 +7,7 @@ import { randomBytes } from "node:crypto";
 
 const URL_BASE = process.env.PB_URL || "http://127.0.0.1:8090";
 const ORIGEN_DEV = process.env.PB_ORIGEN_DEV || "";
-const AVISO = "2026-11-11.5";
+const AVISO = "2026-11-11.6";
 let su = null;
 
 // Lee siempre el cuerpo completo para que no queden sockets abiertos (si no, node --test no termina).
@@ -111,12 +111,13 @@ test("la misma instancia sirve la PWA instalable", async () => {
   const aviso = await fetch(URL_BASE + "/aviso-privacidad.html");
   assert.equal(aviso.status, 200);
   const avisoHtml = await aviso.text();
-  assert.match(avisoHtml, /Versión 2026-11-11\.5/);
+  assert.match(avisoHtml, /Versión 2026-11-11\.6/);
   assert.match(avisoHtml, /Yael Benjamín Ramírez Estrada/);
   assert.match(avisoHtml, /kyostenas@gmail\.com/);
   assert.match(avisoHtml, /respaldo cifrado/);
   assert.match(avisoHtml, /nunca viaja al servidor/);
   assert.match(avisoHtml, /dos valores distintos/);
+  assert.match(avisoHtml, /últimas 3 versiones cifradas del respaldo/);
   // Ruta de la SPA: vuelve a index.html; /api no.
   assert.match(await (await fetch(URL_BASE + "/comunidad")).text(), /rel="manifest"/);
   assert.equal((await fetch(URL_BASE + "/api/no-existe")).status, 404);
@@ -371,4 +372,25 @@ test("cuenta: alta, sync cifrado, rechazo de claro, historial de 3 y borrado", a
   const drop = await api("DELETE", "/api/progressium/cuenta", { headers: H });
   assert.equal(drop.status, 200);
   assert.equal((await api("GET", "/api/progressium/sync", { headers: H })).status, 401);
+  const despues = await api("GET", "/api/progressium/cuenta/sales?usuario=" + usuario);
+  assert.equal(despues.status, 200, despues.error);
+  assert.notEqual(despues.data.salt_cuenta, salt_cuenta);
+  assert.match(despues.data.salt_cuenta, /^[a-f0-9]{32}$/);
+  assert.match(despues.data.salt_cifrado, /^[a-f0-9]{32}$/);
+});
+
+test("cuenta: sales de un alias inexistente responden 200, son deterministas y no revelan si existe", async () => {
+  const usuario = "z" + randomBytes(6).toString("hex");
+  const a = await api("GET", "/api/progressium/cuenta/sales?usuario=" + usuario);
+  const b = await api("GET", "/api/progressium/cuenta/sales?usuario=" + usuario);
+  const c = await api("GET", "/api/progressium/cuenta/sales?usuario=" + usuario + "x");
+  assert.equal(a.status, 200, a.error);
+  assert.equal(b.status, 200, b.error);
+  assert.equal(c.status, 200, c.error);
+  assert.match(a.data.salt_cuenta, /^[a-f0-9]{32}$/);
+  assert.match(a.data.salt_cifrado, /^[a-f0-9]{32}$/);
+  assert.notEqual(a.data.salt_cuenta, a.data.salt_cifrado);
+  assert.deepEqual(a.data, b.data);
+  assert.notDeepEqual(a.data, c.data);
+  assert.equal((await api("GET", "/api/progressium/cuenta/sales?usuario=AB")).status, 400);
 });

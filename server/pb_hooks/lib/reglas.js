@@ -2,7 +2,7 @@
 // permitidas, match y percentiles. Se usan en pb_hooks y en las pruebas de Node.
 "use strict";
 
-const VERSION_AVISO = "2026-11-11.5";
+const VERSION_AVISO = "2026-11-11.6";
 const K_MIN = 5; // k-anonimato: tamaño mínimo del grupo (incluye a quien consulta)
 const MAX_LISTA = 10;
 
@@ -237,6 +237,19 @@ function validarSync(body) {
   return { ok: true };
 }
 
+
+function salesFalsas(usuario, secreto, hmac) {
+  const digest = (etiqueta) => {
+    const h = String(hmac(etiqueta + ":" + usuario, String(secreto || "")));
+    if (!/^[a-f0-9]{64}$/i.test(h)) throw new Error("HMAC inválido.");
+    return h.slice(0, 32).toLowerCase();
+  };
+  const salt_cuenta = digest("cuenta");
+  let salt_cifrado = digest("cifrado");
+  if (salt_cifrado === salt_cuenta) salt_cifrado = digest("cifrado2");
+  return { salt_cuenta, salt_cifrado };
+}
+
 function resolverVersion(local, remota) {
   const a = Number(local) || 0;
   const b = Number(remota) || 0;
@@ -247,5 +260,5 @@ module.exports = {
   VERSION_AVISO, K_MIN, MAX_LISTA, EDADES, ESTATURAS, IMC, INTENCIONES, DIETAS, CAMPOS_PERFIL, INTERRUPTORES, RANGOS_PESO,
   REACCIONES, MOTIVOS, REPORTES_PARA_OCULTAR, DIAS_INACTIVIDAD,
   USUARIO_RE, CONTRASENA_CUENTA_RE,
-  extras, validarAlta, validarCuentaAlta, validarSync, resolverVersion, validarPerfil, validarSemana, parecido, puntaje, match, percentil, comparar, aliasAleatorio, semanaISO,
+  extras, validarAlta, validarCuentaAlta, validarSync, salesFalsas, resolverVersion, validarPerfil, validarSemana, parecido, puntaje, match, percentil, comparar, aliasAleatorio, semanaISO,
 };

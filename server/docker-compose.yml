@@ -13,6 +13,7 @@ services:
     environment:
       PROGRESSIUM_ORIGINS: ${PROGRESSIUM_ORIGINS:-}
       PB_ENCRYPTION_KEY: ${PB_ENCRYPTION_KEY:-}
+      PROGRESSIUM_SALES_SECRET: ${PROGRESSIUM_SALES_SECRET:-}
       TZ: ${TZ:-America/Mexico_City}
       # Límite suave del runtime de Go: funciona aunque el kernel no tenga cgroups de memoria (p. ej. Android).
       GOMEMLIMIT: ${PROGRESSIUM_GOMEMLIMIT:-200MiB}

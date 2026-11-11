@@ -4,7 +4,7 @@ import AxeBuilder from '@axe-core/playwright';
 
 test.skip(!process.env['E2E_COMUNIDAD_URL'], 'Solo contra una instancia con la API de cuentas');
 
-const aviso = '2026-11-11.5';
+const aviso = '2026-11-11.6';
 
 function usuario() {
   return 't' + Math.random().toString(36).slice(2, 10);
@@ -65,7 +65,10 @@ test('alta, sesión, sync entre 2 contextos, offline y borrado; axe en la pantal
   await expect(page.getByRole('heading', { name: 'Crea tu cuenta' })).toBeVisible({ timeout: 15000 });
 
   const sales = await request.get('/api/progressium/cuenta/sales?usuario=' + alias);
-  expect(sales.status()).toBe(404);
+  expect(sales.status()).toBe(200);
+  const cuerpo = await sales.json();
+  expect(cuerpo.salt_cuenta).toMatch(/^[a-f0-9]{32}$/);
+  expect(cuerpo.salt_cifrado).toMatch(/^[a-f0-9]{32}$/);
   verificarRed();
   verificarRed2();
   await ctx2.close();

@@ -34,9 +34,13 @@ routerAdd("GET", "/api/progressium/cuenta/sales", (e) => {
   const R = require(`${__hooks}/lib/reglas.js`);
   const usuario = String((e.requestInfo().query || {}).usuario || "").trim().toLowerCase();
   if (!R.USUARIO_RE.test(usuario)) throw new BadRequestError("El alias no es válido.", { campos: ["usuario"] });
+  const secreto = $os.getenv("PROGRESSIUM_SALES_SECRET") || $os.getenv("PB_ENCRYPTION_KEY") || "";
+  const hmac = (msg, key) => $security.hs256(msg, key);
+  // Siempre se calculan sales falsas para no filtrar, por el tiempo de respuesta, si el alias existe.
+  const falsas = R.salesFalsas(usuario, secreto, hmac);
   let u;
   try { u = $app.findFirstRecordByFilter("usuarios", "username = {:u}", { u: usuario }); }
-  catch (_) { throw new NotFoundError("No encontramos esa cuenta."); }
+  catch (_) { return e.json(200, falsas); }
   const salt_cuenta = u.getString("auth_salt");
   const salt_cifrado = u.getString("sync_salt");
   if (!salt_cuenta || !salt_cifrado) throw new BadRequestError("Esta cuenta no tiene sales de cifrado.");
