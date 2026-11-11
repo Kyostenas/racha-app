@@ -354,8 +354,8 @@ test("cuenta: alta, sync cifrado, rechazo de claro, historial de 3 y borrado", a
   const tok = (await auth.json()).token;
   assert.ok(tok);
   const H = { authorization: tok };
-  const claro = await api("PUT", "/api/progressium/sync", { headers: H, body: { dispositivo: "11111111-1111-1111-1111-111111111111", version: 1, datos_cifrados: JSON.stringify({ perfil: { peso: 70 } }) } });
-  assert.equal(claro.status, 400);
+  const syncClaro = await api("PUT", "/api/progressium/sync", { headers: H, body: { dispositivo: "11111111-1111-1111-1111-111111111111", version: 1, datos_cifrados: JSON.stringify({ perfil: { peso: 70 } }) } });
+  assert.equal(syncClaro.status, 400);
   const blob = "v1.YWJjZGVmZ2hpams.YWJjZGVmZ2hpag";
   for (const version of [1, 2, 3, 4]) {
     const r = await api("PUT", "/api/progressium/sync", { headers: H, body: { dispositivo: "11111111-1111-1111-1111-111111111111", version, datos_cifrados: blob } });
