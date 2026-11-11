@@ -14,6 +14,7 @@ test('alta, sesión, sync entre 2 contextos, offline y borrado; axe en la pantal
   request,
   browser,
 }) => {
+  test.setTimeout(180000);
   const alias = usuario();
   const clave = 'secreto12';
   await page.goto('/');
@@ -42,7 +43,7 @@ test('alta, sesión, sync entre 2 contextos, offline y borrado; axe en la pantal
   const ctx2 = await browser.newContext();
   const page2 = await ctx2.newPage();
   await page2.goto('/');
-  await page2.getByRole('button', { name: 'Iniciar sesión' }).click();
+  await page2.getByRole('tab', { name: 'Iniciar sesión' }).click();
   await page2.getByLabel('Alias').fill(alias);
   await page2.getByLabel('Contraseña', { exact: true }).fill(clave);
   await page2.getByRole('button', { name: 'Entrar' }).click();

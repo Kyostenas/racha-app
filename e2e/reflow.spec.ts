@@ -36,9 +36,10 @@ async function sinScrollHorizontal(page: Page, donde: string) {
 test('reflow a 320 px con letra al 200 %: ninguna pantalla se sale de lado', async ({ page }) => {
   await letraAl200(page);
   await page.goto('/');
-  if (await page.getByRole('heading', { name: 'Crea tu cuenta' }).isVisible().catch(() => false)) {
+  if (await page.getByRole('heading', { name: 'Crea tu cuenta' }).count()) {
     await sinScrollHorizontal(page, 'cuenta');
-    await crearCuentaSiAparece(page);
+    const alias = await crearCuentaSiAparece(page);
+    expect(alias).toBeTruthy();
   }
   await expect(page.getByRole('heading', { name: 'Elige tu objetivo' })).toBeVisible();
   await sinScrollHorizontal(page, 'objetivo');
