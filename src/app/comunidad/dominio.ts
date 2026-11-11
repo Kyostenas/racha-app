@@ -2,7 +2,7 @@ import { z } from 'zod';
 import type { Perfil, Registro } from '../domain';
 
 // Debe coincidir con server/pb_hooks/lib/reglas.js
-export const VERSION_AVISO = '2026-11-11.4';
+export const VERSION_AVISO = '2026-11-11.5';
 export const EDADES = ['18-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50-54', '55-59', '60+'] as const;
 export const ESTATURAS = ['<140', '140-149', '150-159', '160-169', '170-179', '180-189', '190-199', '200+'] as const;
 export const IMC = ['bajo', 'normal', 'sobrepeso', 'obesidad'] as const;

@@ -15,6 +15,13 @@ export interface AltaRespuesta {
   usuario: string;
   alias: string;
   salt: string;
+  salt_cuenta: string;
+  salt_cifrado: string;
+}
+
+export interface SalesCuenta {
+  salt_cuenta: string;
+  salt_cifrado: string;
 }
 
 export interface SyncEstado {
@@ -62,6 +69,8 @@ export class CuentaApi {
   alta(body: {
     usuario: string;
     contrasena: string;
+    salt_cuenta: string;
+    salt_cifrado: string;
     correo?: string;
     mayor_de_edad: true;
     acepto_terminos: true;
@@ -70,8 +79,12 @@ export class CuentaApi {
     return this.pedir<AltaRespuesta>('POST', '/cuenta/alta', body);
   }
 
-  async entrar(usuario: string, contrasena: string): Promise<{ token: string }> {
-    const r = await this.pedir<{ token: string }>('POST', '/auth-with-password', { identity: usuario, password: contrasena }, '/api/collections/usuarios');
+  sales(usuario: string) {
+    return this.pedir<SalesCuenta>('GET', '/cuenta/sales?usuario=' + encodeURIComponent(usuario));
+  }
+
+  async entrar(usuario: string, contrasenaCuenta: string): Promise<{ token: string }> {
+    const r = await this.pedir<{ token: string }>('POST', '/auth-with-password', { identity: usuario, password: contrasenaCuenta }, '/api/collections/usuarios');
     return r;
   }
 

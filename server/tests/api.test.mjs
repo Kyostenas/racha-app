@@ -7,7 +7,7 @@ import { randomBytes } from "node:crypto";
 
 const URL_BASE = process.env.PB_URL || "http://127.0.0.1:8090";
 const ORIGEN_DEV = process.env.PB_ORIGEN_DEV || "";
-const AVISO = "2026-11-11.4";
+const AVISO = "2026-11-11.5";
 let su = null;
 
 // Lee siempre el cuerpo completo para que no queden sockets abiertos (si no, node --test no termina).
@@ -111,10 +111,12 @@ test("la misma instancia sirve la PWA instalable", async () => {
   const aviso = await fetch(URL_BASE + "/aviso-privacidad.html");
   assert.equal(aviso.status, 200);
   const avisoHtml = await aviso.text();
-  assert.match(avisoHtml, /Versión 2026-11-11\.4/);
+  assert.match(avisoHtml, /Versión 2026-11-11\.5/);
   assert.match(avisoHtml, /Yael Benjamín Ramírez Estrada/);
   assert.match(avisoHtml, /kyostenas@gmail\.com/);
   assert.match(avisoHtml, /respaldo cifrado/);
+  assert.match(avisoHtml, /nunca viaja al servidor/);
+  assert.match(avisoHtml, /dos valores distintos/);
   // Ruta de la SPA: vuelve a index.html; /api no.
   assert.match(await (await fetch(URL_BASE + "/comunidad")).text(), /rel="manifest"/);
   assert.equal((await fetch(URL_BASE + "/api/no-existe")).status, 404);
@@ -319,12 +321,32 @@ test("los alias no se repiten", async () => {
 
 test("cuenta: alta, sync cifrado, rechazo de claro, historial de 3 y borrado", async () => {
   const usuario = "u" + randomBytes(6).toString("hex");
-  const contrasena = "secreto12";
-  const alta = await api("POST", "/api/progressium/cuenta/alta", {
-    body: { usuario, contrasena, mayor_de_edad: true, acepto_terminos: true, version_aviso: AVISO },
+  const claro = "secreto12";
+  const contrasena = "v1." + randomBytes(32).toString("hex");
+  const salt_cuenta = randomBytes(16).toString("hex");
+  const salt_cifrado = randomBytes(16).toString("hex");
+  const rechazoClaro = await api("POST", "/api/progressium/cuenta/alta", {
+    body: { usuario, contrasena: claro, salt_cuenta, salt_cifrado, mayor_de_edad: true, acepto_terminos: true, version_aviso: AVISO },
   });
+  assert.equal(rechazoClaro.status, 400);
+  const altaBody = { usuario, contrasena, salt_cuenta, salt_cifrado, mayor_de_edad: true, acepto_terminos: true, version_aviso: AVISO };
+  assert.ok(!JSON.stringify(altaBody).includes(claro));
+  const alta = await api("POST", "/api/progressium/cuenta/alta", { body: altaBody });
   assert.equal(alta.status, 200, alta.error);
+  assert.equal(alta.data.salt_cuenta, salt_cuenta);
+  assert.equal(alta.data.salt_cifrado, salt_cifrado);
   assert.ok(alta.data.salt && alta.data.salt.length === 32);
+  const sales = await api("GET", "/api/progressium/cuenta/sales?usuario=" + usuario);
+  assert.equal(sales.status, 200, sales.error);
+  assert.equal(sales.data.salt_cuenta, salt_cuenta);
+  assert.equal(sales.data.salt_cifrado, salt_cifrado);
+  assert.ok(!JSON.stringify(sales.data).includes(claro));
+  assert.ok(!JSON.stringify(sales.data).includes(contrasena));
+  const authClaro = await fetch(URL_BASE + "/api/collections/usuarios/auth-with-password", {
+    method: "POST", headers: { "content-type": "application/json" },
+    body: JSON.stringify({ identity: usuario, password: claro }),
+  });
+  assert.notEqual(authClaro.status, 200);
   const auth = await fetch(URL_BASE + "/api/collections/usuarios/auth-with-password", {
     method: "POST", headers: { "content-type": "application/json" },
     body: JSON.stringify({ identity: usuario, password: contrasena }),

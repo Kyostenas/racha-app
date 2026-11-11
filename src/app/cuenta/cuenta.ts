@@ -6,6 +6,7 @@ import { ComunidadApi } from '../comunidad/api';
 import { CuentaApi, CuentaError } from './api';
 import { Sesion } from './sesion';
 import { SyncService } from './sync';
+import { derivarContrasenaCuenta, generarParDeSales, saltAHex, saltDeHex } from './crypto';
 
 @Component({
   selector: 'app-cuenta',
@@ -55,15 +56,19 @@ export class Cuenta {
           this.fallo('Confirma que eres mayor de 18 años y acepta los términos y el aviso de privacidad.');
           return;
         }
+        const sales = generarParDeSales();
+        const contrasenaCuenta = await derivarContrasenaCuenta(this.contrasena, sales.saltCuenta);
         const alta = await this.api.alta({
           usuario,
-          contrasena: this.contrasena,
+          contrasena: contrasenaCuenta,
+          salt_cuenta: saltAHex(sales.saltCuenta),
+          salt_cifrado: saltAHex(sales.saltCifrado),
           ...(this.correo.trim() ? { correo: this.correo.trim() } : {}),
           mayor_de_edad: true,
           acepto_terminos: true,
           version_aviso: VERSION_AVISO,
         });
-        const auth = await this.api.entrar(alta.usuario, this.contrasena);
+        const auth = await this.api.entrar(alta.usuario, contrasenaCuenta);
         this.comunidad.usarToken(auth.token);
         await this.sesion.guardar({
           id: 'local',
@@ -71,14 +76,16 @@ export class Cuenta {
           usuario: alta.usuario,
           alias: alta.alias,
           userId: alta.id,
-          salt: alta.salt,
+          salt: alta.salt_cifrado || alta.salt,
           dispositivo: this.sync.dispositivo(),
           version: 0,
           sucio: true,
         });
-        await this.sync.prepararLlave(this.contrasena, alta.salt);
+        await this.sync.prepararLlave(this.contrasena, alta.salt_cifrado || alta.salt);
       } else {
-        const auth = await this.api.entrar(usuario, this.contrasena);
+        const sales = await this.api.sales(usuario);
+        const contrasenaCuenta = await derivarContrasenaCuenta(this.contrasena, saltDeHex(sales.salt_cuenta));
+        const auth = await this.api.entrar(usuario, contrasenaCuenta);
         this.comunidad.usarToken(auth.token);
         await this.sesion.guardar({
           id: 'local',
@@ -86,15 +93,12 @@ export class Cuenta {
           usuario,
           alias: usuario,
           userId: '',
-          salt: '',
+          salt: sales.salt_cifrado,
           dispositivo: this.sync.dispositivo(),
           version: 0,
           sucio: false,
         });
-        const remoto = await this.api.sync();
-        const c = this.sesion.actual()!;
-        await this.sesion.guardar({ ...c, salt: remoto.salt, alias: c.alias });
-        await this.sync.prepararLlave(this.contrasena, remoto.salt);
+        await this.sync.prepararLlave(this.contrasena, sales.salt_cifrado);
       }
       this.contrasena = '';
       await this.sync.sincronizar();

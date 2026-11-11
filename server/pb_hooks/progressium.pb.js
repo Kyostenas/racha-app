@@ -22,11 +22,25 @@ routerAdd("POST", "/api/progressium/cuenta/alta", (e) => {
   u.set("alias", body.usuario);
   u.set("oculto", false);
   u.set("ultimo_uso", new DateTime());
-  u.set("sync_salt", $security.randomStringWithAlphabet(32, "0123456789abcdef"));
+  u.set("auth_salt", body.salt_cuenta);
+  u.set("sync_salt", body.salt_cifrado);
   u.setPassword(body.contrasena);
   if (body.correo) u.set("email", body.correo);
   $app.save(u);
-  return e.json(200, { id: u.id, usuario: u.getString("username"), alias: u.getString("alias"), salt: u.getString("sync_salt") });
+  return e.json(200, { id: u.id, usuario: u.getString("username"), alias: u.getString("alias"), salt: u.getString("sync_salt"), salt_cuenta: u.getString("auth_salt"), salt_cifrado: u.getString("sync_salt") });
+});
+
+routerAdd("GET", "/api/progressium/cuenta/sales", (e) => {
+  const R = require(`${__hooks}/lib/reglas.js`);
+  const usuario = String((e.requestInfo().query || {}).usuario || "").trim().toLowerCase();
+  if (!R.USUARIO_RE.test(usuario)) throw new BadRequestError("El alias no es válido.", { campos: ["usuario"] });
+  let u;
+  try { u = $app.findFirstRecordByFilter("usuarios", "username = {:u}", { u: usuario }); }
+  catch (_) { throw new NotFoundError("No encontramos esa cuenta."); }
+  const salt_cuenta = u.getString("auth_salt");
+  const salt_cifrado = u.getString("sync_salt");
+  if (!salt_cuenta || !salt_cifrado) throw new BadRequestError("Esta cuenta no tiene sales de cifrado.");
+  return e.json(200, { salt_cuenta, salt_cifrado });
 });
 
 routerAdd("GET", "/api/progressium/sync", (e) => {

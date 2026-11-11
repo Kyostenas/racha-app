@@ -1,5 +1,17 @@
 import { expect, Page } from '@playwright/test';
 
+/** Recolecta el cuerpo de cada petición y al final comprueba que la contraseña en claro no viajó. */
+export function vigilarClaroEnRed(page: Page, claro: string): () => void {
+  const vistos: string[] = [];
+  page.on('request', (req) => {
+    vistos.push([req.method(), req.url(), req.postData() ?? ''].join(' '));
+  });
+  return () => {
+    const filtrados = vistos.filter((t) => t.includes(claro));
+    expect(filtrados, filtrados.join('\n')).toEqual([]);
+  };
+}
+
 /** Espera a que Angular termine de decidir entre cuenta u onboarding. */
 export async function esperarPortada(page: Page): Promise<void> {
   await expect(page.getByRole('heading', { name: /Crea tu cuenta|Elige tu objetivo/ })).toBeVisible({

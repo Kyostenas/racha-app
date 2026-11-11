@@ -2,7 +2,7 @@
 // permitidas, match y percentiles. Se usan en pb_hooks y en las pruebas de Node.
 "use strict";
 
-const VERSION_AVISO = "2026-11-11.4";
+const VERSION_AVISO = "2026-11-11.5";
 const K_MIN = 5; // k-anonimato: tamaño mínimo del grupo (incluye a quien consulta)
 const MAX_LISTA = 10;
 
@@ -205,13 +205,18 @@ const USUARIO_RE = /^[a-z][a-z0-9_]{2,31}$/;
 const CORREO_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CIFRADO_RE = /^v1\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/;
 const DISPOSITIVO_RE = /^[a-z0-9-]{8,80}$/;
+const SALT_HEX_RE = /^[a-f0-9]{32}$/;
+const CONTRASENA_CUENTA_RE = /^v1\.[a-f0-9]{64}$/;
 
 function validarCuentaAlta(body) {
   if (!esObjeto(body)) return err("Cuerpo inválido.");
-  const ex = extras(body, ["usuario", "contrasena", "correo", "mayor_de_edad", "acepto_terminos", "version_aviso"]);
+  const ex = extras(body, ["usuario", "contrasena", "correo", "mayor_de_edad", "acepto_terminos", "version_aviso", "salt_cuenta", "salt_cifrado"]);
   if (ex.length) return err("Campos no permitidos.", ex);
   if (typeof body.usuario !== "string" || !USUARIO_RE.test(body.usuario)) return err("El alias debe tener de 3 a 32 caracteres, empezar con una letra y solo usar letras, números o guion bajo.", ["usuario"]);
-  if (typeof body.contrasena !== "string" || body.contrasena.length < 8 || body.contrasena.length > 128) return err("La contraseña debe tener entre 8 y 128 caracteres.", ["contrasena"]);
+  if (typeof body.contrasena !== "string" || !CONTRASENA_CUENTA_RE.test(body.contrasena)) return err("La contraseña de la cuenta debe ir derivada en el dispositivo; no se acepta la contraseña en claro.", ["contrasena"]);
+  if (typeof body.salt_cuenta !== "string" || !SALT_HEX_RE.test(body.salt_cuenta)) return err("Falta el salt de la cuenta.", ["salt_cuenta"]);
+  if (typeof body.salt_cifrado !== "string" || !SALT_HEX_RE.test(body.salt_cifrado)) return err("Falta el salt de cifrado.", ["salt_cifrado"]);
+  if (body.salt_cuenta === body.salt_cifrado) return err("Los dos salts tienen que ser distintos.", ["salt_cifrado"]);
   if (body.correo != null && body.correo !== "") {
     if (typeof body.correo !== "string" || body.correo.length > 200 || !CORREO_RE.test(body.correo)) return err("El correo no es válido.", ["correo"]);
   }
@@ -241,5 +246,6 @@ function resolverVersion(local, remota) {
 module.exports = {
   VERSION_AVISO, K_MIN, MAX_LISTA, EDADES, ESTATURAS, IMC, INTENCIONES, DIETAS, CAMPOS_PERFIL, INTERRUPTORES, RANGOS_PESO,
   REACCIONES, MOTIVOS, REPORTES_PARA_OCULTAR, DIAS_INACTIVIDAD,
+  USUARIO_RE, CONTRASENA_CUENTA_RE,
   extras, validarAlta, validarCuentaAlta, validarSync, resolverVersion, validarPerfil, validarSemana, parecido, puntaje, match, percentil, comparar, aliasAleatorio, semanaISO,
 };

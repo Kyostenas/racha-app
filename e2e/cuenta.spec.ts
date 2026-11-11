@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test';
-import { esperarPortada } from './cuenta-helper';
+import { esperarPortada, vigilarClaroEnRed } from './cuenta-helper';
 import AxeBuilder from '@axe-core/playwright';
 
 test.skip(!process.env['E2E_COMUNIDAD_URL'], 'Solo contra una instancia con la API de cuentas');
 
-const aviso = '2026-11-11.4';
+const aviso = '2026-11-11.5';
 
 function usuario() {
   return 't' + Math.random().toString(36).slice(2, 10);
@@ -18,6 +18,7 @@ test('alta, sesión, sync entre 2 contextos, offline y borrado; axe en la pantal
   test.setTimeout(180000);
   const alias = usuario();
   const clave = 'secreto12';
+  const verificarRed = vigilarClaroEnRed(page, clave);
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Crea tu cuenta' })).toBeVisible();
   const axe = await new AxeBuilder({ page }).analyze();
@@ -44,6 +45,7 @@ test('alta, sesión, sync entre 2 contextos, offline y borrado; axe en la pantal
 
   const ctx2 = await browser.newContext();
   const page2 = await ctx2.newPage();
+  const verificarRed2 = vigilarClaroEnRed(page2, clave);
   await page2.goto('/');
   await esperarPortada(page2);
   await page2.getByRole('tab', { name: 'Iniciar sesión' }).click();
@@ -62,10 +64,10 @@ test('alta, sesión, sync entre 2 contextos, offline y borrado; axe en la pantal
   await page.getByRole('button', { name: 'Sí, borrar todo' }).click();
   await expect(page.getByRole('heading', { name: 'Crea tu cuenta' })).toBeVisible({ timeout: 15000 });
 
-  const auth = await request.post('/api/collections/usuarios/auth-with-password', {
-    data: { identity: alias, password: clave },
-  });
-  expect(auth.status()).toBe(400);
+  const sales = await request.get('/api/progressium/cuenta/sales?usuario=' + alias);
+  expect(sales.status()).toBe(404);
+  verificarRed();
+  verificarRed2();
   await ctx2.close();
   expect(aviso).toBeTruthy();
 });

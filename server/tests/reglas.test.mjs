@@ -110,15 +110,27 @@ test("semana ISO", () => {
   assert.equal(R.semanaISO(new Date("2027-01-01T12:00:00Z")), "2026-W53");
 });
 
-test("cuenta: 18+, términos, aviso vigente y alias válido", () => {
-  const ok = { usuario: "ajolote", contrasena: "secreto12", mayor_de_edad: true, acepto_terminos: true, version_aviso: R.VERSION_AVISO };
+test("cuenta: 18+, términos, aviso vigente, alias válido y contraseña derivada (nunca en claro)", () => {
+  const ok = {
+    usuario: "ajolote",
+    contrasena: "v1." + "ab" + "cd".repeat(31),
+    salt_cuenta: "a".repeat(32),
+    salt_cifrado: "b".repeat(32),
+    mayor_de_edad: true,
+    acepto_terminos: true,
+    version_aviso: R.VERSION_AVISO,
+  };
+  assert.equal(ok.contrasena.length, 67);
+  assert.equal(R.CONTRASENA_CUENTA_RE.test(ok.contrasena), true);
   assert.equal(R.validarCuentaAlta(ok).ok, true);
   assert.equal(R.validarCuentaAlta({ ...ok, correo: "a@b.com" }).ok, true);
   assert.equal(R.validarCuentaAlta({ ...ok, mayor_de_edad: false }).ok, false);
   assert.equal(R.validarCuentaAlta({ ...ok, acepto_terminos: false }).ok, false);
   assert.equal(R.validarCuentaAlta({ ...ok, version_aviso: "viejo" }).ok, false);
   assert.equal(R.validarCuentaAlta({ ...ok, usuario: "Ab" }).ok, false);
+  assert.equal(R.validarCuentaAlta({ ...ok, contrasena: "secreto12" }).ok, false);
   assert.equal(R.validarCuentaAlta({ ...ok, contrasena: "corta" }).ok, false);
+  assert.equal(R.validarCuentaAlta({ ...ok, salt_cuenta: ok.salt_cifrado }).ok, false);
   assert.deepEqual(R.validarCuentaAlta({ ...ok, peso: 70 }).campos, ["peso"]);
 });
 

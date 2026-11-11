@@ -54,7 +54,7 @@
       </label>
       <div class="panel privacy">
         <h2>Antes de crear la cuenta</h2>
-        <p><strong>Si olvidas la contraseña, no se pueden recuperar los datos sincronizados.</strong> La llave de cifrado se deriva de tu contraseña y no se guarda en el servidor. Puedes exportar una copia en claro desde la app mientras recuerdes la contraseña o tengas los datos en este dispositivo.</p>
+        <p><strong>Si olvidas la contraseña, no se pueden recuperar los datos sincronizados.</strong> La contraseña en claro no viaja al servidor: en este teléfono se derivan dos valores distintos (la contraseña de la cuenta y la llave de cifrado). La llave no se guarda en el servidor. Puedes exportar una copia en claro desde la app mientras recuerdes la contraseña o tengas los datos en este dispositivo.</p>
       </div>
       <label class="check">
         <input type="checkbox" name="mayor" [(ngModel)]="mayorDeEdad" [disabled]="ocupado()" />
