@@ -37,7 +37,7 @@ test('alta, sesión, sync entre 2 contextos, offline y borrado; axe en la pantal
     await page.getByRole('button', { name, exact: true }).click();
   await page.getByRole('button', { name: 'Crear mi primer día' }).click();
   await page.getByRole('button', { name: 'Empezar', exact: true }).click();
-  await expect(page.getByRole('heading', { name: /Hoy/i })).toBeVisible({ timeout: 15000 });
+  await expect(page.getByRole('heading', { name: 'Hoy', exact: true })).toBeVisible({ timeout: 15000 });
 
   const ctx2 = await browser.newContext();
   const page2 = await ctx2.newPage();
@@ -46,11 +46,11 @@ test('alta, sesión, sync entre 2 contextos, offline y borrado; axe en la pantal
   await page2.getByLabel('Alias').fill(alias);
   await page2.getByLabel('Contraseña', { exact: true }).fill(clave);
   await page2.getByRole('button', { name: 'Entrar' }).click();
-  await expect(page2.getByRole('heading', { name: /Hoy/i })).toBeVisible({ timeout: 20000 });
+  await expect(page2.getByRole('heading', { name: 'Hoy', exact: true })).toBeVisible({ timeout: 20000 });
 
   await page.context().setOffline(true);
   await page.reload();
-  await expect(page.getByRole('heading', { name: /Hoy/i })).toBeVisible({ timeout: 15000 });
+  await expect(page.getByRole('heading', { name: 'Hoy', exact: true })).toBeVisible({ timeout: 15000 });
   await page.context().setOffline(false);
 
   await page.getByRole('button', { name: 'Ajustes' }).click();
