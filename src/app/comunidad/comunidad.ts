@@ -10,7 +10,8 @@ import {
   INTERRUPTORES,
   Visibles,
   VERSION_AVISO,
-  cambioPesoPct,
+  rangoCambioPeso,
+  soloInterruptores,
   claveAleatoria,
   comunidadSchema,
   edadRango,
@@ -79,6 +80,10 @@ export class Comunidad implements OnInit {
   ejerciciosElegidos: string[] = [];
   buscarEjercicio = '';
   pesoSemana: number | null = null;
+  /** Casilla de consentimiento expreso para el cambio de peso (apagada por defecto). */
+  consientoPeso = false;
+  /** El servidor ya tiene el consentimiento expreso vigente para el cambio de peso. */
+  readonly pesoConsentido = signal(false);
   motivo = 'spam';
 
   readonly vista = computed(() => {
@@ -103,7 +108,7 @@ export class Comunidad implements OnInit {
         this.local.set(guardado);
         this.dieta = guardado.dieta;
         this.ejerciciosElegidos = [...guardado.ejercicios];
-        this.visibles.set({ ...todoApagado(), ...guardado.visibles });
+        this.visibles.set(soloInterruptores(guardado.visibles));
         this.pesoSemana = guardado.pesos[semanaISO(new Date())] ?? null;
         await this.conectar();
       }
@@ -131,7 +136,10 @@ export class Comunidad implements OnInit {
     await this.api.entrar(l.usuario, l.clave);
     const yo = await this.api.yo();
     this.oculto.set(yo.oculto);
-    if (yo.perfil) this.visibles.set({ ...todoApagado(), ...(yo.perfil.visibles as Partial<Visibles>) });
+    if (yo.perfil) {
+      this.visibles.set(soloInterruptores(yo.perfil.visibles as Record<string, unknown>));
+      this.pesoConsentido.set(this.visibles().cambio_peso_rango);
+    }
     await this.subirSemana();
     await this.refrescar();
   }
@@ -197,6 +205,7 @@ export class Comunidad implements OnInit {
 
   cambiarInterruptor(id: keyof Visibles, valor: boolean) {
     this.visibles.update((v) => ({ ...v, [id]: valor }));
+    if (id === 'cambio_peso_rango' && !valor) this.consientoPeso = false;
   }
   elegirEjercicio(id: string) {
     if (this.ejerciciosElegidos.includes(id)) this.ejerciciosElegidos = this.ejerciciosElegidos.filter((e) => e !== id);
@@ -215,8 +224,18 @@ export class Comunidad implements OnInit {
   async guardarPerfil() {
     this.ocupado.set(true);
     try {
-      await this.guardarLocal({ dieta: this.dieta, ejercicios: this.ejerciciosElegidos, visibles: this.visibles() });
-      await this.api.perfil(this.vista());
+      const v = this.visibles();
+      // Dato de salud: activar el cambio de peso pide un consentimiento expreso aparte (LFPDPPP).
+      const pideConsentimiento = v.cambio_peso_rango && !this.pesoConsentido();
+      if (pideConsentimiento && !this.consientoPeso) {
+        throw new Error('Para compartir tu cambio de peso marca la casilla de consentimiento expreso.');
+      }
+      await this.guardarLocal({ dieta: this.dieta, ejercicios: this.ejerciciosElegidos, visibles: v });
+      await this.api.perfil({
+        ...this.vista(),
+        ...(pideConsentimiento ? { consentimiento_sensible: { acepto: true, version_aviso: VERSION_AVISO } } : {}),
+      });
+      this.pesoConsentido.set(v.cambio_peso_rango);
       await this.subirSemana();
       await this.refrescar();
       const n = Object.values(this.visibles()).filter(Boolean).length;
@@ -238,7 +257,7 @@ export class Comunidad implements OnInit {
     await this.guardarLocal({ pesos: { ...l.pesos, [semanaISO(new Date())]: this.pesoSemana } });
     try {
       await this.subirSemana();
-      this.ok('Peso guardado solo en tu teléfono. Si compartes el cambio, se envía en % redondeado.');
+      this.ok('Peso guardado solo en tu teléfono. Al servidor solo va el rango de cambio (por ejemplo, -2 a -1 %).');
     } catch (e) {
       this.fallo(e);
     }
@@ -248,12 +267,12 @@ export class Comunidad implements OnInit {
     const v = this.visibles();
     const l = this.local();
     if (!l || !v.progreso) return;
-    const cambio = v.cambio_peso ? cambioPesoPct(l.pesos) : null;
+    const rango = v.cambio_peso_rango ? rangoCambioPeso(l.pesos) : null;
     await this.api.semana({
       semana: semanaISO(new Date()),
       pct_habitos: pctHabitosSemana(this.registros(), this.habitos(), this.hoy()),
       racha: this.racha(),
-      ...(cambio !== null ? { cambio_peso_pct: cambio } : {}),
+      ...(rango !== null ? { cambio_peso_rango: rango } : {}),
     });
   }
 
@@ -344,6 +363,8 @@ export class Comunidad implements OnInit {
     this.api.salir();
     this.local.set(null);
     this.visibles.set(todoApagado());
+    this.pesoConsentido.set(false);
+    this.consientoPeso = false;
     this.match.set(null);
     this.comparacion.set(null);
     this.conexiones.set([]);

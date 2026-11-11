@@ -85,11 +85,10 @@ function semanasRecientes(ids) {
     if (!vis.progreso) return;
     const r = buscar("progreso_semanal", "usuario = {:u} && (semana = {:a} || semana = {:b})", { u: id, a: semanas[0], b: semanas[1] }, "-semana", 1)[0];
     if (!r) return;
-    const cp = r.get("cambio_peso_pct");
     out[id] = {
       pct_habitos: r.getInt("pct_habitos"),
       racha: r.getInt("racha"),
-      cambio_peso_pct: vis.cambio_peso && cp !== null && cp !== undefined && r.getString("cambio_peso_pct") !== "" ? r.getFloat("cambio_peso_pct") : null,
+      cambio_peso_rango: vis.cambio_peso_rango ? r.getString("cambio_peso_rango") || null : null,
     };
   });
   return out;
@@ -102,7 +101,7 @@ function guardarSemana(u, v) {
   const previa = buscar("progreso_semanal", "usuario = {:u}", { u: u.id }, "-racha", 1)[0];
   const rachaAntes = previa ? previa.getInt("racha") : 0;
   if (!r) { r = new Record($app.findCollectionByNameOrId("progreso_semanal")); r.set("usuario", u.id); r.set("semana", v.semana); }
-  r.set("pct_habitos", v.pct_habitos); r.set("racha", v.racha); r.set("cambio_peso_pct", v.cambio_peso_pct);
+  r.set("pct_habitos", v.pct_habitos); r.set("racha", v.racha); r.set("cambio_peso_rango", v.cambio_peso_rango);
   $app.save(r);
   const hito = HITOS.filter((h) => rachaAntes < h && v.racha >= h).pop();
   if (hito) evento(u.id, "racha_hito", null, hito);
@@ -203,7 +202,7 @@ function progresoDe(yo, id) {
   if (!vis.progreso) return { alias: u.getString("alias"), compartido: false, semanas: [] };
   const semanas = buscar("progreso_semanal", "usuario = {:u}", { u: otro }, "-semana", 8).map((r) => ({
     semana: r.getString("semana"), pct_habitos: r.getInt("pct_habitos"), racha: r.getInt("racha"),
-    cambio_peso_pct: vis.cambio_peso && r.getString("cambio_peso_pct") !== "" ? r.getFloat("cambio_peso_pct") : null,
+    cambio_peso_rango: vis.cambio_peso_rango ? r.getString("cambio_peso_rango") || null : null,
   }));
   return { alias: u.getString("alias"), compartido: true, semanas };
 }
@@ -320,9 +319,9 @@ function exportar(yo) {
     aviso: R.VERSION_AVISO,
     cuenta: { id: yo.id, alias: yo.getString("alias"), oculto: yo.getBool("oculto"), creado: yo.getString("creado"), ultimo_uso: yo.getString("ultimo_uso") },
     perfil_publico: buscar("perfil_publico", "usuario = {:u}", { u: yo.id }).map((r) => Object.assign(plano(r, ["edad_rango", "estatura_rango", "imc_cat", "intencion", "dieta", "actualizado"]), { ejercicios: parse(r, "ejercicios"), visibles: parse(r, "visibles") })),
-    progreso_semanal: buscar("progreso_semanal", "usuario = {:u}", { u: yo.id }, "semana").map((r) => plano(r, ["semana", "pct_habitos", "racha", "cambio_peso_pct"])),
+    progreso_semanal: buscar("progreso_semanal", "usuario = {:u}", { u: yo.id }, "semana").map((r) => plano(r, ["semana", "pct_habitos", "racha", "cambio_peso_rango"])),
     conexiones: listarConexiones(yo.id),
-    consentimientos: buscar("consentimientos", "usuario = {:u}", { u: yo.id }, "fecha").map((r) => ({ version_aviso: r.getString("version_aviso"), fecha: r.getString("fecha"), campos_activos: parse(r, "campos_activos") })),
+    consentimientos: buscar("consentimientos", "usuario = {:u}", { u: yo.id }, "fecha").map((r) => ({ version_aviso: r.getString("version_aviso"), fecha: r.getString("fecha"), campos_activos: parse(r, "campos_activos"), consentimiento_sensible: r.getBool("consentimiento_sensible") })),
     participaciones: buscar("participaciones", "usuario = {:u}", { u: yo.id }).map((r) => plano(r, ["semana", "avance", "completado"])),
     eventos: buscar("eventos", "usuario = {:u}", { u: yo.id }).map((r) => plano(r, ["tipo", "valor", "creado"])),
     reacciones_dadas: buscar("reacciones", "de = {:u}", { u: yo.id }).map((r) => plano(r, ["tipo", "creado"])),

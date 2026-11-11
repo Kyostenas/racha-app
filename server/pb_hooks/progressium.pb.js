@@ -50,7 +50,8 @@ routerAdd("PUT", "/api/progressium/perfil", (e) => {
   const R = require(`${__hooks}/lib/reglas.js`);
   const S = require(`${__hooks}/lib/servicio.js`);
   const yo = S.tocar(e.auth);
-  const v = R.validarPerfil(e.requestInfo().body);
+  const actual = $app.findFirstRecordByFilter("perfil_publico", "usuario = {:u}", { u: yo.id });
+  const v = R.validarPerfil(e.requestInfo().body, S.json(actual, "visibles") || {});
   if (!v.ok) throw new BadRequestError(v.error, { campos: v.campos });
   $app.runInTransaction((tx) => {
     const p = tx.findFirstRecordByFilter("perfil_publico", "usuario = {:u}", { u: yo.id });
@@ -61,14 +62,15 @@ routerAdd("PUT", "/api/progressium/perfil", (e) => {
     // Apagar un interruptor borra el dato en el servidor en ese momento.
     if (!v.visibles.progreso) {
       tx.findRecordsByFilter("progreso_semanal", "usuario = {:u}", "", 0, 0, { u: yo.id }).forEach((r) => tx.delete(r));
-    } else if (!v.visibles.cambio_peso) {
-      tx.findRecordsByFilter("progreso_semanal", "usuario = {:u}", "", 0, 0, { u: yo.id }).forEach((r) => { r.set("cambio_peso_pct", null); tx.save(r); });
+    } else if (!v.visibles.cambio_peso_rango) {
+      tx.findRecordsByFilter("progreso_semanal", "usuario = {:u} && cambio_peso_rango != ''", "", 0, 0, { u: yo.id }).forEach((r) => { r.set("cambio_peso_rango", ""); tx.save(r); });
     }
     const activos = R.INTERRUPTORES.filter((k) => v.visibles[k]);
     const antesActivos = R.INTERRUPTORES.filter((k) => antes[k] === true);
-    if (activos.join() !== antesActivos.join()) {
+    if (activos.join() !== antesActivos.join() || v.sensible) {
       const c = new Record(tx.findCollectionByNameOrId("consentimientos"));
       c.set("usuario", yo.id); c.set("version_aviso", R.VERSION_AVISO); c.set("campos_activos", activos);
+      c.set("consentimiento_sensible", v.sensible === true);
       tx.save(c);
     }
   });
@@ -250,16 +252,28 @@ onRecordUpdateRequest((e) => {
 }, "usuarios");
 
 // Encabezados de seguridad para la PWA y la API (mismo origen).
+// Además, el panel /_/ y la autenticación de superusuarios no se sirven por Tailscale Funnel
+// (Internet): solo dentro del tailnet (puerto 8443) o en 127.0.0.1. serve.json ya los desvía en el
+// 443; esto es la segunda barrera, con el encabezado que Tailscale añade a las peticiones de Funnel.
 routerUse((e) => {
+  const ruta = e.request.url.path;
+  const esPanel = ruta === "/_" || ruta.indexOf("/_/") === 0 || ruta.indexOf("/api/collections/_superusers") === 0 || ruta.indexOf("/api/collections/pbc_3142635823") === 0;
+  if (esPanel && e.request.header.get("Tailscale-Funnel-Request")) {
+    throw new NotFoundError("No encontrado.");
+  }
   const h = e.response.header();
   h.set("X-Content-Type-Options", "nosniff");
   h.set("Referrer-Policy", "no-referrer");
   h.set("Permissions-Policy", "camera=(), microphone=(), geolocation=(), interest-cohort=()");
   h.set("X-Frame-Options", "DENY");
+  // Go no conoce .webmanifest (lo serviría como text/plain); el tipo correcto es application/manifest+json.
+  if (ruta.endsWith(".webmanifest")) h.set("Content-Type", "application/manifest+json");
   return e.next();
 });
 
 // /api/* desconocido responde 404 en JSON (sin esto el fallback de la SPA devolvería index.html).
-routerAdd("GET", "/api/{resto...}", (e) => {
-  throw new NotFoundError("No encontrado.");
+["GET", "POST", "PUT", "PATCH", "DELETE"].forEach((m) => {
+  routerAdd(m, "/api/{resto...}", (e) => {
+    throw new NotFoundError("No encontrado.");
+  });
 });

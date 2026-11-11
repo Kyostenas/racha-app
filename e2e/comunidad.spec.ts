@@ -6,7 +6,7 @@ import { mkdir } from 'node:fs/promises';
 // Necesita una instancia real (imagen Docker): E2E_COMUNIDAD_URL=http://127.0.0.1:8090
 test.skip(!process.env['E2E_COMUNIDAD_URL'], 'Solo contra una instancia con la API de la comunidad');
 
-const AVISO = '2026-11-11';
+const AVISO = '2026-11-11.2';
 const PROHIBIDOS = ['peso', 'estatura', 'edad', 'padecimientos', 'medicamentos', 'alergias', 'nombre', 'email'];
 
 async function semilla(request: APIRequestContext, semana: string) {
@@ -95,9 +95,70 @@ test('comunidad: opt-in, todo apagado, match k≥5, conexión, reto, exportar y 
   await page.getByRole('button', { name: 'Guardar lo que comparto' }).click();
   await expect(page.getByRole('status').filter({ hasText: 'Compartes 4 de 8' })).toBeVisible();
 
+  // Cambio de peso: interruptor propio, apagado, con consentimiento expreso aparte y solo en rangos.
+  const pesoSwitch = page.getByLabel(/Mi cambio de peso en rangos de 1 %/);
+  await expect(pesoSwitch).not.toBeChecked();
+  await pesoSwitch.check();
+  const consientoPeso = page.getByLabel(/compartir mi cambio de peso en rangos\./);
+  await expect(consientoPeso).not.toBeChecked();
+  await page.getByRole('button', { name: 'Guardar lo que comparto' }).click();
+  await expect(page.getByRole('alert')).toContainText('consentimiento expreso');
+  await consientoPeso.check();
+  await sinViolaciones(page);
+  await page.getByRole('button', { name: 'Guardar lo que comparto' }).click();
+  await expect(page.getByRole('status').filter({ hasText: 'Compartes 5 de 8' })).toBeVisible();
+  await expect(consientoPeso).toHaveCount(0); // ya consentido: no se vuelve a pedir
+  // Peso de la semana pasada (solo local) y de esta: al servidor va el rango, nunca el número.
+  const semanaPasada = semanaISO(new Date(Date.now() - 7 * 86400000));
+  await page.evaluate(
+    (sem) =>
+      new Promise<void>((ok, mal) => {
+        const r = indexedDB.open('racha');
+        r.onsuccess = () => {
+          const st = r.result.transaction('comunidad', 'readwrite').objectStore('comunidad');
+          const g = st.get('local');
+          g.onsuccess = () => {
+            const v = g.result;
+            v.pesos = { ...v.pesos, [sem]: 81.1 };
+            const p = st.put(v);
+            p.onsuccess = () => ok();
+            p.onerror = () => mal(p.error);
+          };
+        };
+      }),
+    semanaPasada,
+  );
+  await page.reload();
+  await page.getByRole('button', { name: 'Comunidad', exact: true }).click();
+  await expect(page.getByRole('heading', { name: /Tu alias:/ })).toBeVisible();
+  const subida = page.waitForRequest((r) => r.url().endsWith('/api/progressium/semana') && (r.postData() ?? '').includes('cambio_peso_rango'));
+  await page.getByLabel('Peso (kg)').fill('80');
+  await page.getByRole('button', { name: 'Guardar peso' }).click();
+  const enviado = JSON.parse((await subida).postData()!);
+  expect(enviado.cambio_peso_rango).toBe('-2..-1%'); // 81.1 → 80 kg = -1.36 %
+  expect(Object.keys(enviado)).not.toContain('cambio_peso_pct');
+  // El servidor rechaza un número exacto aunque el interruptor esté activo.
+  const yo = await page.evaluate(
+    () =>
+      new Promise<{ usuario: string; clave: string }>((ok) => {
+        const r = indexedDB.open('racha');
+        r.onsuccess = () => {
+          const g = r.result.transaction('comunidad').objectStore('comunidad').get('local');
+          g.onsuccess = () => ok(g.result);
+        };
+      }),
+  );
+  const auth = await request.post('/api/collections/usuarios/auth-with-password', { data: { identity: yo.usuario, password: yo.clave } });
+  const miToken = (await auth.json()).token as string;
+  for (const malo of [{ cambio_peso_rango: -1.36 }, { cambio_peso_rango: '-1.36%' }, { cambio_peso_pct: -1.5 }]) {
+    const r = await request.put('/api/progressium/semana', { headers: { authorization: miToken }, data: { semana, pct_habitos: 10, racha: 1, ...malo } });
+    expect(r.status(), JSON.stringify(malo)).toBe(400);
+  }
+
   // Ningún cuerpo enviado lleva datos prohibidos (solo la clave anónima en el alta/login).
   for (const c of cuerpos) {
     const o = JSON.parse(c);
+    expect(Object.keys(o)).not.toContain('cambio_peso_pct');
     for (const k of PROHIBIDOS) expect(Object.keys(o)).not.toContain(k);
     expect(c).not.toMatch(/"(peso|estatura|edad|padecimientos|medicamentos|alergias)"\s*:/);
   }

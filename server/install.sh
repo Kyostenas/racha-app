@@ -97,7 +97,7 @@ if [ -n "${TS_AUTHKEY:-}" ] || [ "$FUNNEL" = 1 ]; then
   for i in $(seq 1 60); do
     if "${DC[@]}" --profile funnel exec -T tailscale tailscale status --json 2>/dev/null | grep -q '"BackendState": *"Running"'; then
       DOMINIO="$("${DC[@]}" --profile funnel exec -T tailscale tailscale status --json --peers=false | sed -n 's/.*"DNSName": *"\([^"]*\)\.".*/\1/p' | head -1)"
-      log "Nodo unido. URL pública: https://${DOMINIO}/ (si el tailnet permite Funnel)"; break
+      log "Nodo unido. URL pública: https://${DOMINIO}/ (si el tailnet permite Funnel) · Panel solo en el tailnet: https://${DOMINIO}:8443/_/"; break
     fi
     [ "$i" = 60 ] && log "El nodo no quedó listo; revisa: docker compose --profile funnel logs tailscale"
     sleep 2

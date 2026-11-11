@@ -7,7 +7,7 @@ import { randomBytes } from "node:crypto";
 
 const URL_BASE = process.env.PB_URL || "http://127.0.0.1:8090";
 const ORIGEN_DEV = process.env.PB_ORIGEN_DEV || "";
-const AVISO = "2026-11-11";
+const AVISO = "2026-11-11.2";
 let su = null;
 
 // Lee siempre el cuerpo completo para que no queden sockets abiertos (si no, node --test no termina).
@@ -47,11 +47,13 @@ async function nuevaCuenta() {
   return { id: a.data.id, alias: a.data.alias, usuario: a.data.usuario, clave, token: l.data.token };
 }
 
-const TODO = { edad_rango: true, estatura_rango: true, imc_cat: true, intencion: true, dieta: true, ejercicios: true, progreso: true, cambio_peso: true };
+const TODO = { edad_rango: true, estatura_rango: true, imc_cat: true, intencion: true, dieta: true, ejercicios: true, progreso: true, cambio_peso_rango: true };
+const SENSIBLE = { acepto: true, version_aviso: AVISO };
 const PERFIL = { intencion: "subir", imc_cat: "normal", edad_rango: "30-34", estatura_rango: "170-179", dieta: "vegana", ejercicios: ["Squat", "Plank"] };
 
 async function perfilCompleto(c, extra = {}, visibles = TODO) {
-  const r = await api("PUT", "/api/progressium/perfil", { token: c.token, body: { ...PERFIL, ...extra, visibles } });
+  const body = { ...PERFIL, ...extra, visibles, ...(visibles.cambio_peso_rango ? { consentimiento_sensible: SENSIBLE } : {}) };
+  const r = await api("PUT", "/api/progressium/perfil", { token: c.token, body });
   assert.equal(r.status, 200, JSON.stringify(r.data));
 }
 
@@ -101,6 +103,7 @@ test("la misma instancia sirve la PWA instalable", async () => {
   assert.match(html, /<link[^>]+rel="manifest"/);
   const manifest = await fetch(URL_BASE + "/manifest.webmanifest");
   assert.equal(manifest.status, 200);
+  assert.match(manifest.headers.get("content-type") || "", /^application\/manifest\+json/);
   const m = await manifest.json();
   assert.ok(m.icons?.length && m.start_url !== undefined && m.display);
   assert.equal((await fetch(URL_BASE + "/ngsw-worker.js")).status, 200);
@@ -159,13 +162,43 @@ test("perfil: apagado de inicio; campos prohibidos no se guardan", async () => {
   assert.equal(fila.intencion, "");
 });
 
+test("cambio de peso: solo rangos, con consentimiento expreso aparte; números exactos rechazados", async () => {
+  const c = await nuevaCuenta();
+  const vis = { ...TODO };
+  // Sin consentimiento sensible no se puede activar.
+  const sin = await api("PUT", "/api/progressium/perfil", { token: c.token, body: { ...PERFIL, visibles: vis } });
+  assert.equal(sin.status, 400);
+  await perfilCompleto(c);
+  const cons = await api("GET", `/api/collections/consentimientos/records?filter=usuario='${c.id}'&sort=-fecha`, { token: su });
+  assert.equal(cons.data.items[0].consentimiento_sensible, true);
+  assert.ok(cons.data.items[0].campos_activos.includes("cambio_peso_rango"));
+  for (const malo of [-1.3, 1, "-1.3", "1.2%", "-2..-1", "abc", false, [1]]) {
+    const r = await api("PUT", "/api/progressium/semana", { token: c.token, body: { semana, pct_habitos: 50, racha: 3, cambio_peso_rango: malo } });
+    assert.equal(r.status, 400, JSON.stringify(malo));
+  }
+  const viejo = await api("PUT", "/api/progressium/semana", { token: c.token, body: { semana, pct_habitos: 50, racha: 3, cambio_peso_pct: -1.5 } });
+  assert.equal(viejo.status, 400);
+  // La API genérica tampoco deja escribir un número (está cerrada).
+  const gen = await api("PATCH", `/api/collections/progreso_semanal/records/xxxxxxxxxxxxxxx`, { token: c.token, body: { cambio_peso_rango: -1.5 } });
+  assert.ok([403, 404].includes(gen.status));
+  assert.equal((await api("PUT", "/api/progressium/semana", { token: c.token, body: { semana, pct_habitos: 50, racha: 3, cambio_peso_rango: "-2..-1%" } })).status, 200);
+  const exp = await api("GET", "/api/progressium/exportar", { token: c.token });
+  assert.equal(exp.data.progreso_semanal[0].cambio_peso_rango, "-2..-1%");
+});
+
 test("apagar progreso borra las semanas en el servidor", async () => {
   const c = await nuevaCuenta();
   await perfilCompleto(c);
-  assert.equal((await api("PUT", "/api/progressium/semana", { token: c.token, body: { semana, pct_habitos: 80, racha: 4, cambio_peso_pct: 1.2 } })).status, 200);
+  assert.equal((await api("PUT", "/api/progressium/semana", { token: c.token, body: { semana, pct_habitos: 80, racha: 4, cambio_peso_rango: "1..2%" } })).status, 200);
   let raw = await api("GET", `/api/collections/progreso_semanal/records?filter=usuario='${c.id}'`, { token: su });
-  assert.equal(raw.data.items[0].cambio_peso_pct, 1); // redondeado a 0.5
-  await api("PUT", "/api/progressium/perfil", { token: c.token, body: { ...PERFIL, visibles: { ...TODO, progreso: false } } });
+  assert.equal(raw.data.items[0].cambio_peso_rango, "1..2%");
+  assert.ok(!("cambio_peso_pct" in raw.data.items[0])); // la columna del número exacto ya no existe
+  // Apagar solo el cambio de peso lo borra del servidor y conserva el resto.
+  await api("PUT", "/api/progressium/perfil", { token: c.token, body: { ...PERFIL, visibles: { ...TODO, cambio_peso_rango: false } } });
+  raw = await api("GET", `/api/collections/progreso_semanal/records?filter=usuario='${c.id}'`, { token: su });
+  assert.equal(raw.data.items[0].cambio_peso_rango, "");
+  assert.equal(raw.data.items[0].pct_habitos, 80);
+  await api("PUT", "/api/progressium/perfil", { token: c.token, body: { ...PERFIL, visibles: { ...TODO, progreso: false, cambio_peso_rango: false } } });
   raw = await api("GET", `/api/collections/progreso_semanal/records?filter=usuario='${c.id}'`, { token: su });
   assert.equal(raw.data.items.length, 0);
 });
@@ -186,7 +219,7 @@ test("match, comparación, conexiones, retos, feed, reportes, exportar y borrar"
   assert.equal(c4.data.suficiente, false);
   const quinto = await nuevaCuenta(); await perfilCompleto(quinto, extra, vis); gente.push(quinto);
   for (const [i, g] of gente.entries()) {
-    assert.equal((await api("PUT", "/api/progressium/semana", { token: g.token, body: { semana, pct_habitos: 20 * i, racha: 6 + i, cambio_peso_pct: i } })).status, 200);
+    assert.equal((await api("PUT", "/api/progressium/semana", { token: g.token, body: { semana, pct_habitos: 20 * i, racha: 6 + i, cambio_peso_rango: ["-1..0%", "-2..-1%", "0..1%", "<-5%", ">=5%"][i] } })).status, 200);
   }
   const m5 = await api("GET", "/api/progressium/match", { token: gente[0].token });
   assert.equal(m5.data.suficiente, true, JSON.stringify(m5.data));

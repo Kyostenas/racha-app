@@ -2,6 +2,7 @@
 
 El código original de Progressium está bajo MIT. Los datos y recursos de terceros mantienen sus licencias:
 
+- **PocketBase** (servidor de la comunidad, incluido en la imagen Docker `ghcr.io/kyostenas/progressium`): Copyright (c) 2022 - present, Gani Georgiev. Licencia **MIT**, https://github.com/pocketbase/pocketbase . El texto completo de su licencia va dentro de la imagen en `/pb/LICENSE-pocketbase`.
 - **USDA FoodData Central, SR Legacy (abril 2018)**: datos de dominio público, CC0. https://fdc.nal.usda.gov/ — cada alimento conserva `source_ref`. Valores por 100 g del estado indicado; las traducciones son de presentación y no alteran nutrientes.
 - **free-exercise-db**, yuhonas y colaboradores: **Unlicense**, https://github.com/yuhonas/free-exercise-db . Solo datos del catálogo, no fotografías. Cada ejercicio conserva enlace a su ficha original. Traducciones al español indicadas en el catálogo.
 - **Open Food Facts**: su base de datos se distribuye bajo **ODbL** (con atribución y compartir igual en bases derivadas). https://world.openfoodfacts.org/data . No se incluye ningún dato ni imagen de Open Food Facts en esta versión; se documenta la licencia para una posible integración futura.

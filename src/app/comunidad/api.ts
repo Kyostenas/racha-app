@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import type { RangoPeso } from './dominio';
 
 // La API vive en el mismo origen que la PWA (la imagen sirve ambas). No hay URL configurable.
 const BASE = '/api/progressium';
@@ -28,7 +29,7 @@ export interface Comparacion { suficiente: boolean; n?: number; n_minimo?: numbe
 export interface Conexion { id: string; usuario: string; alias: string; estado: string; enviada_por_mi: boolean }
 export interface Reto { clave: string; titulo: string; descripcion: string; meta: number; semana: string; unido: boolean; avance: number; completado: boolean; participantes: number | null }
 export interface Evento { id: string; usuario: string; alias: string; propio: boolean; tipo: string; reto: string | null; valor: number; creado: string; reacciones: Record<string, number>; mi_reaccion: string | null }
-export interface Progreso { alias: string; compartido: boolean; semanas: { semana: string; pct_habitos: number; racha: number; cambio_peso_pct: number | null }[] }
+export interface Progreso { alias: string; compartido: boolean; semanas: { semana: string; pct_habitos: number; racha: number; cambio_peso_rango: string | null }[] }
 
 @Injectable({ providedIn: 'root' })
 export class ComunidadApi {
@@ -70,7 +71,7 @@ export class ComunidadApi {
   }
   yo() { return this.pedir<{ id: string; alias: string; oculto: boolean; perfil: { visibles: Record<string, boolean> } | null }>('GET', '/yo'); }
   perfil(p: object) { return this.pedir('PUT', '/perfil', p); }
-  semana(s: { semana: string; pct_habitos: number; racha: number; cambio_peso_pct?: number | null }) { return this.pedir('PUT', '/semana', s); }
+  semana(s: { semana: string; pct_habitos: number; racha: number; cambio_peso_rango?: RangoPeso }) { return this.pedir('PUT', '/semana', s); }
   match() { return this.pedir<Match>('GET', '/match'); }
   comparar() { return this.pedir<Comparacion>('GET', '/comparar'); }
   conexiones() { return this.pedir<{ conexiones: Conexion[] }>('GET', '/conexiones'); }

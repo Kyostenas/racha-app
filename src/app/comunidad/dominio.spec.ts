@@ -2,7 +2,9 @@ import { describe, it, expect } from 'vitest';
 import type { Perfil } from '../domain';
 import {
   INTERRUPTORES,
-  cambioPesoPct,
+  RANGOS_PESO,
+  rangoCambioPeso,
+  soloInterruptores,
   claveAleatoria,
   edadRango,
   estaturaRango,
@@ -90,10 +92,26 @@ describe('progreso semanal', () => {
     expect(pctHabitosSemana(registros, 2, '2026-11-11')).toBe(50);
     expect(pctHabitosSemana([], 0, '2026-11-11')).toBe(0);
   });
-  it('cambio de peso en % redondeado a 0.5 y nunca en kg', () => {
-    expect(cambioPesoPct({ '2026-W45': 80 })).toBeNull();
-    expect(cambioPesoPct({ '2026-W45': 80, '2026-W46': 78.9 })).toBe(-1.5); // -1.375 → -1.5
-    expect(cambioPesoPct({ '2026-W40': 50, '2026-W46': 80 })).toBe(30);
+  it('cambio de peso solo como rango de 1 % (nunca kg ni el % exacto)', () => {
+    expect(rangoCambioPeso({ '2026-W45': 80 })).toBeNull();
+    expect(rangoCambioPeso({ '2026-W45': 80, '2026-W46': 78.9 })).toBe('-2..-1%'); // -1.375 %
+    expect(rangoCambioPeso({ '2026-W45': 80, '2026-W46': 80 })).toBe('0..1%');
+    expect(rangoCambioPeso({ '2026-W45': 100, '2026-W46': 99 })).toBe('-1..0%'); // -1 % exacto cae en [-1, 0)
+    expect(rangoCambioPeso({ '2026-W45': 100, '2026-W46': 95 })).toBe('-5..-4%');
+    expect(rangoCambioPeso({ '2026-W45': 100, '2026-W46': 94.9 })).toBe('<-5%');
+    expect(rangoCambioPeso({ '2026-W45': 100, '2026-W46': 104.99 })).toBe('4..5%');
+    expect(rangoCambioPeso({ '2026-W40': 50, '2026-W46': 80 })).toBe('>=5%');
+    for (let kg = 60; kg <= 100; kg += 0.7) {
+      const r = rangoCambioPeso({ '2026-W40': 80, '2026-W46': kg });
+      expect(RANGOS_PESO).toContain(r);
+      expect(typeof r).toBe('string');
+    }
+  });
+  it('descarta interruptores viejos o desconocidos', () => {
+    const v = soloInterruptores({ cambio_peso: true, progreso: true, peso: true } as Record<string, unknown>);
+    expect(Object.keys(v).sort()).toEqual(INTERRUPTORES.map((i) => i.id).sort());
+    expect(v.progreso).toBe(true);
+    expect(v.cambio_peso_rango).toBe(false);
   });
   it('clave aleatoria de 64 hex', () => {
     const a = claveAleatoria();

@@ -2,7 +2,7 @@
 // permitidas, match y percentiles. Se usan en pb_hooks y en las pruebas de Node.
 "use strict";
 
-const VERSION_AVISO = "2026-11-11";
+const VERSION_AVISO = "2026-11-11.2";
 const K_MIN = 5; // k-anonimato: tamaño mínimo del grupo (incluye a quien consulta)
 const MAX_LISTA = 10;
 
@@ -12,7 +12,10 @@ const IMC = ["bajo", "normal", "sobrepeso", "obesidad"];
 const INTENCIONES = ["bajar", "mantener", "subir"];
 const DIETAS = ["omnivora", "vegetariana", "vegana", "pescetariana", "sin_gluten", "otra"];
 const CAMPOS_PERFIL = ["edad_rango", "estatura_rango", "imc_cat", "intencion", "dieta", "ejercicios"];
-const INTERRUPTORES = CAMPOS_PERFIL.concat(["progreso", "cambio_peso"]);
+const INTERRUPTORES = CAMPOS_PERFIL.concat(["progreso", "cambio_peso_rango"]);
+// Cambio de peso (dato de salud, sensible en la LFPDPPP): solo en rangos de 1 %, calculados en el cliente.
+// El servidor nunca recibe ni guarda kg ni el porcentaje exacto. Orden de menor a mayor.
+const RANGOS_PESO = ["<-5%", "-5..-4%", "-4..-3%", "-3..-2%", "-2..-1%", "-1..0%", "0..1%", "1..2%", "2..3%", "3..4%", "4..5%", ">=5%"];
 const EJERCICIO_RE = /^[A-Za-z0-9_\-]{1,60}$/;
 const SEMANA_RE = /^\d{4}-W\d{2}$/;
 const REACCIONES = ["aplauso", "fuerza", "fuego"];
@@ -45,9 +48,10 @@ function validarAlta(body) {
   return { ok: true };
 }
 
-function validarPerfil(body) {
+// antes: interruptores vigentes en el servidor. Activar el cambio de peso exige consentimiento expreso aparte.
+function validarPerfil(body, antes) {
   if (!esObjeto(body)) return err("Cuerpo inválido.");
-  const ex = extras(body, CAMPOS_PERFIL.concat(["visibles"]));
+  const ex = extras(body, CAMPOS_PERFIL.concat(["visibles", "consentimiento_sensible"]));
   if (ex.length) return err("Campos no permitidos.", ex);
   const v = body.visibles;
   if (!esObjeto(v)) return err("Faltan los interruptores (visibles).");
@@ -58,6 +62,15 @@ function validarPerfil(body) {
   const limpio = {};
   const visibles = {};
   for (const k of INTERRUPTORES) visibles[k] = v[k] === true; // todo apagado por defecto
+  let sensible = false;
+  if (body.consentimiento_sensible !== undefined) {
+    const c = body.consentimiento_sensible;
+    if (!esObjeto(c) || extras(c, ["acepto", "version_aviso"]).length || c.acepto !== true || c.version_aviso !== VERSION_AVISO)
+      return err("Consentimiento para el cambio de peso inválido.", ["consentimiento_sensible"]);
+    sensible = true;
+  }
+  if (visibles.cambio_peso_rango && !(antes && antes.cambio_peso_rango === true) && !sensible)
+    return err("Compartir el cambio de peso (dato de salud) requiere tu consentimiento expreso.", ["consentimiento_sensible"]);
   for (const k of Object.keys(listas)) {
     const val = body[k];
     if (val === undefined || val === null || !visibles[k]) { limpio[k] = ""; continue; }
@@ -71,26 +84,26 @@ function validarPerfil(body) {
   } else {
     limpio.ejercicios = [];
   }
-  return { ok: true, valor: limpio, visibles };
+  return { ok: true, valor: limpio, visibles, sensible: sensible && visibles.cambio_peso_rango };
 }
-
-function redondearMedio(x) { return Math.round(x * 2) / 2; }
 
 function validarSemana(body, visibles) {
   if (!esObjeto(body)) return err("Cuerpo inválido.");
-  const ex = extras(body, ["semana", "pct_habitos", "racha", "cambio_peso_pct"]);
+  // cambio_peso_pct (número exacto) ya no existe: cae en "Campos no permitidos".
+  const ex = extras(body, ["semana", "pct_habitos", "racha", "cambio_peso_rango"]);
   if (ex.length) return err("Campos no permitidos.", ex);
   if (!visibles || !visibles.progreso) return err("El progreso está apagado; actívalo para compartirlo.");
   if (typeof body.semana !== "string" || !SEMANA_RE.test(body.semana)) return err("Semana inválida (AAAA-Wss).", ["semana"]);
   if (!Number.isInteger(body.pct_habitos) || body.pct_habitos < 0 || body.pct_habitos > 100) return err("pct_habitos inválido.", ["pct_habitos"]);
   if (!Number.isInteger(body.racha) || body.racha < 0 || body.racha > 100000) return err("racha inválida.", ["racha"]);
-  let cambio = null;
-  if (body.cambio_peso_pct !== undefined && body.cambio_peso_pct !== null) {
-    if (!visibles.cambio_peso) return err("El cambio de peso está apagado.", ["cambio_peso_pct"]);
-    if (typeof body.cambio_peso_pct !== "number" || !isFinite(body.cambio_peso_pct) || Math.abs(body.cambio_peso_pct) > 30) return err("cambio_peso_pct inválido.", ["cambio_peso_pct"]);
-    cambio = redondearMedio(body.cambio_peso_pct);
+  let rango = "";
+  if (body.cambio_peso_rango !== undefined && body.cambio_peso_rango !== null) {
+    if (!visibles.cambio_peso_rango) return err("El cambio de peso está apagado.", ["cambio_peso_rango"]);
+    if (typeof body.cambio_peso_rango !== "string" || RANGOS_PESO.indexOf(body.cambio_peso_rango) < 0)
+      return err("cambio_peso_rango debe ser uno de los rangos permitidos (nunca un número).", ["cambio_peso_rango"]);
+    rango = body.cambio_peso_rango;
   }
-  return { ok: true, valor: { semana: body.semana, pct_habitos: body.pct_habitos, racha: body.racha, cambio_peso_pct: cambio } };
+  return { ok: true, valor: { semana: body.semana, pct_habitos: body.pct_habitos, racha: body.racha, cambio_peso_rango: rango } };
 }
 
 function cerca(lista, a, b) {
@@ -160,11 +173,12 @@ function comparar(yo, miSemana, grupoSemanas, k) {
   r.racha = percentil(miSemana.racha, grupoSemanas.map((s) => s.racha).concat([miSemana.racha]));
   // Sin comparación de peso con intención de bajar e IMC bajo (riesgo de conductas alimentarias de riesgo).
   const pesoSeguro = !(yo.intencion === "bajar" && yo.imc_cat === "bajo");
-  const conPeso = grupoSemanas.filter((s) => typeof s.cambio_peso_pct === "number");
-  if (pesoSeguro && typeof miSemana.cambio_peso_pct === "number" && conPeso.length + 1 >= k) {
+  const idx = (x) => RANGOS_PESO.indexOf(x);
+  const conPeso = grupoSemanas.filter((s) => idx(s.cambio_peso_rango) >= 0);
+  if (pesoSeguro && idx(miSemana.cambio_peso_rango) >= 0 && conPeso.length + 1 >= k) {
     const signo = yo.intencion === "subir" ? 1 : -1; // "mejor" depende de la intención
-    const mios = signo * miSemana.cambio_peso_pct;
-    r.cambio_peso = percentil(mios, conPeso.map((s) => signo * s.cambio_peso_pct).concat([mios]));
+    const mios = signo * idx(miSemana.cambio_peso_rango);
+    r.cambio_peso = percentil(mios, conPeso.map((s) => signo * idx(s.cambio_peso_rango)).concat([mios]));
   } else {
     r.cambio_peso = null;
   }
@@ -187,7 +201,7 @@ function semanaISO(fecha) {
 }
 
 module.exports = {
-  VERSION_AVISO, K_MIN, MAX_LISTA, EDADES, ESTATURAS, IMC, INTENCIONES, DIETAS, CAMPOS_PERFIL, INTERRUPTORES,
+  VERSION_AVISO, K_MIN, MAX_LISTA, EDADES, ESTATURAS, IMC, INTENCIONES, DIETAS, CAMPOS_PERFIL, INTERRUPTORES, RANGOS_PESO,
   REACCIONES, MOTIVOS, REPORTES_PARA_OCULTAR, DIAS_INACTIVIDAD,
   extras, validarAlta, validarPerfil, validarSemana, parecido, puntaje, match, percentil, comparar, aliasAleatorio, semanaISO,
 };

@@ -5,7 +5,7 @@ Una sola imagen Docker multi-arch (amd64 + arm64) sirve, **en el mismo origen**:
 - `/` la PWA de Progressium (build de Angular en `pb_public`, instalable: manifest + service worker),
 - `/aviso-privacidad.html` el aviso de privacidad de la comunidad,
 - `/api/progressium/*` la API de la comunidad (PocketBase 0.40 + `pb_migrations/` + `pb_hooks/`),
-- `/_/` el panel de administración (solo superusuario).
+- `/_/` el panel de administración (solo superusuario; por Funnel no se sirve, solo dentro del tailnet o en `127.0.0.1`).
 
 La app usa rutas relativas (`/api/...`): no hay ninguna URL de servidor configurable. CORS queda cerrado.
 La PWA funciona igual sin la comunidad (offline-first); la comunidad es opt-in, solo para mayores de 18 y
@@ -31,23 +31,26 @@ crear un tag `vX.Y.Z` (o un release / ejecución manual).
 
 ## Publicar con HTTPS (la URL pública no cambia)
 
-El contenedor solo escucha en `127.0.0.1:8090`. En el Moto se publica con **Tailscale Funnel** desde un nodo
-`progressium` en el chroot (la app oficial de Android no tiene Funnel):
+El contenedor solo escucha en `127.0.0.1:8090`. Se publica con **Tailscale Funnel** desde un nodo propio
+`progressium` que corre como contenedor del mismo compose (perfil `funnel`, modo userspace; funciona en el
+chroot del Moto, donde la app oficial de Android no tiene Funnel):
 
 ```bash
-# 1) tailscaled propio, en modo userspace, con su propio estado y socket
-sudo mkdir -p /var/lib/tailscale-progressium /run/tailscale-progressium
-sudo tailscaled --tun=userspace-networking \
-  --state=/var/lib/tailscale-progressium/tailscaled.state \
-  --socket=/run/tailscale-progressium/tailscaled.sock --port=0 &
-# 2) Unir el nodo (abre un enlace para iniciar sesión en el tailnet)
-sudo tailscale --socket=/run/tailscale-progressium/tailscaled.sock up --hostname=progressium
-# 3) Publicar
-sudo tailscale --socket=/run/tailscale-progressium/tailscaled.sock funnel --bg 8090
+# La auth key solo por entorno (no se escribe en disco); el estado del nodo queda en el volumen progressium_tailscale.
+TS_AUTHKEY=… ./install.sh --funnel
 ```
 
-URL: `https://progressium.tail2ca124.ts.net/`. Requiere que el admin del tailnet permita Funnel en la política
-(`nodeAttrs` con `funnel`). Plan B: Cloudflare Tunnel con nombre hacia `http://127.0.0.1:8090`.
+`tailscale/serve.json` define:
+
+| Puerto | Quién llega | Qué sirve |
+|---|---|---|
+| 443 (Funnel) | Internet | PWA + API. `/_/` y la autenticación de superusuarios (`/api/collections/_superusers/…`) responden 404. |
+| 8443 | solo el tailnet | todo, incluido el panel: `https://progressium.tail2ca124.ts.net:8443/_/` |
+
+Segunda barrera: `pb_hooks` responde 404 al panel si la petición trae el encabezado `Tailscale-Funnel-Request`.
+
+URL pública: `https://progressium.tail2ca124.ts.net/`. Requiere que la política del tailnet permita Funnel
+(`nodeAttrs` con `funnel`) y HTTPS. Plan B: Cloudflare Tunnel con nombre hacia `http://127.0.0.1:8090`.
 
 ## API (`/api/progressium/*`)
 
@@ -56,8 +59,8 @@ URL: `https://progressium.tail2ca124.ts.net/`. Requiere que el admin del tailnet
 | GET | `/estado` | versión, versión del aviso, k mínimo |
 | POST | `/alta` | cuenta anónima `{clave, mayor_de_edad:true, consentimiento:{acepto, version_aviso}}` → `{usuario, alias}`; luego `POST /api/collections/usuarios/auth-with-password` |
 | GET | `/yo` | cuenta y perfil público propio |
-| PUT | `/perfil` | rangos + `visibles` (interruptores; apagar borra el dato) |
-| PUT | `/semana` | `{semana, pct_habitos, racha, cambio_peso_pct?}` |
+| PUT | `/perfil` | rangos + `visibles` (interruptores; apagar borra el dato). Activar `cambio_peso_rango` exige además `consentimiento_sensible:{acepto:true, version_aviso}` |
+| PUT | `/semana` | `{semana, pct_habitos, racha, cambio_peso_rango?}`; el rango es uno de `<-5%`, `-5..-4%` … `4..5%`, `>=5%` (calculado en el teléfono). Un número se rechaza con 400 |
 | GET | `/match`, `/comparar` | solo si el grupo parecido tiene ≥ 5 personas |
 | GET/POST/PATCH/DELETE | `/conexiones[/{id}]`, `/conexiones/{id}/progreso` | solicitar, aceptar, rechazar, quitar, ver progreso |
 | POST | `/bloquear`, `/reportar` | moderación (3 reportes de personas distintas ocultan el perfil) |

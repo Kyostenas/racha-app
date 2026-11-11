@@ -31,7 +31,7 @@ RUN set -eux; \
     esac; \
     wget -q -O /tmp/pb.zip "https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSION}/pocketbase_${PB_VERSION}_linux_${TARGETARCH:-amd64}.zip"; \
     echo "$sum  /tmp/pb.zip" | sha256sum -c -; \
-    mkdir -p /pb/pb_data; unzip -q /tmp/pb.zip pocketbase -d /pb; rm /tmp/pb.zip; \
+    mkdir -p /pb/pb_data; unzip -q /tmp/pb.zip pocketbase LICENSE.md -d /pb; mv /pb/LICENSE.md /pb/LICENSE-pocketbase; chmod 0444 /pb/LICENSE-pocketbase; rm /tmp/pb.zip; \
     apk del unzip; \
     addgroup -S -g 10001 progressium; adduser -S -u 10001 -G progressium -h /pb progressium; \
     chown -R progressium:progressium /pb/pb_data

@@ -27,16 +27,42 @@ test("perfil: todo apagado por defecto y campos prohibidos rechazados", () => {
     assert.deepEqual(r.campos, [prohibido]);
   }
   assert.equal(R.validarPerfil({ visibles: { peso: true } }).ok, false);
+  assert.equal(R.validarPerfil({ visibles: { cambio_peso: true } }).ok, false); // interruptor viejo
+});
+
+test("perfil: el cambio de peso exige consentimiento expreso aparte (dato sensible)", () => {
+  const vis = { progreso: true, cambio_peso_rango: true };
+  const c = { acepto: true, version_aviso: R.VERSION_AVISO };
+  assert.ok(R.INTERRUPTORES.includes("cambio_peso_rango"));
+  assert.equal(R.validarPerfil({ visibles: {} }).visibles.cambio_peso_rango, false); // apagado por defecto
+  const sin = R.validarPerfil({ visibles: vis }, {});
+  assert.equal(sin.ok, false);
+  assert.deepEqual(sin.campos, ["consentimiento_sensible"]);
+  const con = R.validarPerfil({ visibles: vis, consentimiento_sensible: c }, {});
+  assert.equal(con.ok, true);
+  assert.equal(con.sensible, true);
+  assert.equal(R.validarPerfil({ visibles: vis }, { cambio_peso_rango: true }).ok, true); // ya lo había dado
+  assert.equal(R.validarPerfil({ visibles: vis, consentimiento_sensible: { acepto: false, version_aviso: R.VERSION_AVISO } }, {}).ok, false);
+  assert.equal(R.validarPerfil({ visibles: vis, consentimiento_sensible: { ...c, extra: 1 } }, {}).ok, false);
+  assert.equal(R.validarPerfil({ visibles: vis, consentimiento_sensible: { ...c, version_aviso: "2020-01-01" } }, {}).ok, false);
   assert.equal(R.validarPerfil({ visibles: { edad_rango: true }, edad_rango: "15-17" }).ok, false);
   assert.equal(R.validarPerfil({ visibles: { ejercicios: true }, ejercicios: ["a", "b", "c", "d", "e", "f"] }).ok, false);
   assert.equal(R.validarPerfil({ visibles: { ejercicios: true }, ejercicios: ["<script>"] }).ok, false);
 });
 
-test("semana: requiere progreso activo; peso solo en % redondeado a 0.5", () => {
+test("semana: requiere progreso activo; peso solo como rango permitido, nunca número", () => {
   const s = { semana: "2026-W46", pct_habitos: 70, racha: 9 };
+  const vis = { progreso: true, cambio_peso_rango: true };
   assert.equal(R.validarSemana(s, { progreso: false }).ok, false);
-  assert.equal(R.validarSemana({ ...s, cambio_peso_pct: -1.3 }, { progreso: true }).ok, false);
-  assert.equal(R.validarSemana({ ...s, cambio_peso_pct: -1.3 }, { progreso: true, cambio_peso: true }).valor.cambio_peso_pct, -1.5);
+  assert.equal(R.validarSemana({ ...s, cambio_peso_rango: "-2..-1%" }, { progreso: true }).ok, false); // interruptor apagado
+  assert.equal(R.validarSemana({ ...s, cambio_peso_rango: "-2..-1%" }, vis).valor.cambio_peso_rango, "-2..-1%");
+  assert.equal(R.validarSemana(s, vis).valor.cambio_peso_rango, "");
+  for (const malo of [-1.3, -1, "-1.3", "-1.3%", "-2..-1", "", true, ["-2..-1%"], { r: "-2..-1%" }]) {
+    assert.equal(R.validarSemana({ ...s, cambio_peso_rango: malo }, vis).ok, false, JSON.stringify(malo));
+  }
+  const viejo = R.validarSemana({ ...s, cambio_peso_pct: -1.3 }, vis);
+  assert.equal(viejo.ok, false);
+  assert.deepEqual(viejo.campos, ["cambio_peso_pct"]);
   assert.equal(R.validarSemana({ ...s, peso_kg: 70 }, { progreso: true }).ok, false);
   assert.equal(R.validarSemana({ ...s, pct_habitos: 101 }, { progreso: true }).ok, false);
 });
@@ -68,12 +94,14 @@ test("match: máximo 10 candidatos ordenados por puntaje", () => {
 
 test("percentiles y comparación", () => {
   assert.equal(R.percentil(5, [1, 3, 5, 7, 9]), 50);
-  const otras = [10, 20, 30, 40].map((p) => ({ pct_habitos: p, racha: p, cambio_peso_pct: -p / 10 }));
+  const rangos = ["-1..0%", "-2..-1%", "-3..-2%", "-4..-3%"];
+  const otras = [10, 20, 30, 40].map((p, i) => ({ pct_habitos: p, racha: p, cambio_peso_rango: rangos[i] }));
   assert.equal(R.comparar(base, { pct_habitos: 50, racha: 1 }, otras.slice(0, 3)).suficiente, false);
-  const r = R.comparar(base, { pct_habitos: 50, racha: 1, cambio_peso_pct: -5 }, otras);
+  const r = R.comparar(base, { pct_habitos: 50, racha: 1, cambio_peso_rango: "<-5%" }, otras);
   assert.equal(r.habitos, 90);
   assert.equal(r.cambio_peso, 90); // bajar: más negativo es "mejor"
-  assert.equal(R.comparar({ ...base, imc_cat: "bajo" }, { pct_habitos: 50, racha: 1, cambio_peso_pct: -5 }, otras).cambio_peso, null);
+  assert.equal(R.comparar({ ...base, imc_cat: "bajo" }, { pct_habitos: 50, racha: 1, cambio_peso_rango: "<-5%" }, otras).cambio_peso, null);
+  assert.equal(R.comparar({ ...base, intencion: "subir" }, { pct_habitos: 50, racha: 1, cambio_peso_rango: "<-5%" }, otras).cambio_peso, 10);
   assert.deepEqual(Object.keys(r).sort(), ["cambio_peso", "habitos", "n", "racha", "suficiente"]);
 });
 

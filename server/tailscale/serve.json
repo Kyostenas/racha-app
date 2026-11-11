@@ -1,7 +1,17 @@
 {
-  "TCP": { "443": { "HTTPS": true } },
+  "TCP": { "443": { "HTTPS": true }, "8443": { "HTTPS": true } },
   "Web": {
-    "${TS_CERT_DOMAIN}:443": { "Handlers": { "/": { "Proxy": "http://progressium:8090" } } }
+    "${TS_CERT_DOMAIN}:443": {
+      "Handlers": {
+        "/": { "Proxy": "http://progressium:8090" },
+        "/_/": { "Proxy": "http://progressium:8090/api/progressium/solo-tailnet/" },
+        "/api/collections/_superusers/": { "Proxy": "http://progressium:8090/api/progressium/solo-tailnet/" },
+        "/api/collections/pbc_3142635823/": { "Proxy": "http://progressium:8090/api/progressium/solo-tailnet/" }
+      }
+    },
+    "${TS_CERT_DOMAIN}:8443": {
+      "Handlers": { "/": { "Proxy": "http://progressium:8090" } }
+    }
   },
   "AllowFunnel": { "${TS_CERT_DOMAIN}:443": true }
 }

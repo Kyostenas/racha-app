@@ -1,6 +1,6 @@
 # Progressium ■
 
-**Instalación:** la PWA se descarga desde su propia instancia (imagen Docker con la PWA y la API de la comunidad en el mismo origen). Ver [server/README.md](server/README.md). Instancia del equipo: https://progressium.tail2ca124.ts.net/ (cuando Funnel esté activo).
+**Instalación:** la PWA se descarga desde su propia instancia (imagen Docker con la PWA y la API de la comunidad en el mismo origen). Ver [server/README.md](server/README.md). Instancia del equipo: https://progressium.tail2ca124.ts.net/ (Funnel activo).
 
 Pequeños pasos. Grandes rachas. Prototipo educativo de Tecnologías de Información, LAMAR.
 

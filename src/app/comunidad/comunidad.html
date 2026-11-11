@@ -83,6 +83,20 @@
           {{ i.nombre }}</label
         >
       }
+      @if (visibles().cambio_peso_rango && !pesoConsentido()) {
+        <div class="notice consentimiento-sensible">
+          <p class="small">
+            El cambio de peso es un dato de salud. Solo sale de tu teléfono como rango de 1 %
+            (por ejemplo, de -2 a -1 %), nunca en kg ni con el porcentaje exacto. Lo ven tus
+            conexiones aceptadas y entra, sin tu alias, en la comparación de tu grupo. Lo puedes
+            apagar cuando quieras y se borra del servidor.
+          </p>
+          <label class="check"
+            ><input type="checkbox" [(ngModel)]="consientoPeso" />
+            Doy mi consentimiento expreso para compartir mi cambio de peso en rangos.</label
+          >
+        </div>
+      }
     </fieldset>
     @if (visibles().dieta) {
       <label
@@ -115,10 +129,13 @@
     <button class="primary" [disabled]="ocupado()" (click)="guardarPerfil()">Guardar lo que comparto</button>
   </section>
 
-  @if (visibles().cambio_peso) {
+  @if (visibles().cambio_peso_rango) {
     <section class="panel">
       <h2>Peso de esta semana</h2>
-      <p class="small">Se guarda solo en tu teléfono. Al servidor va el cambio en %, redondeado.</p>
+      <p class="small">
+        Se guarda solo en tu teléfono. Al servidor solo va el rango de cambio de 1 % (por ejemplo,
+        de -2 a -1 %).
+      </p>
       <label
         >Peso (kg)<input type="number" min="30" max="300" step="0.1" [(ngModel)]="pesoSemana"
       /></label>
@@ -220,7 +237,7 @@
           <ul>
             @for (s of p.semanas; track s.semana) {
               <li>
-                {{ s.semana }}: {{ s.pct_habitos }} % de hábitos, racha de {{ s.racha }} días{{ s.cambio_peso_pct !== null ? ', cambio de peso ' + s.cambio_peso_pct + ' %' : '' }}
+                {{ s.semana }}: {{ s.pct_habitos }} % de hábitos, racha de {{ s.racha }} días{{ s.cambio_peso_rango ? ', cambio de peso entre ' + s.cambio_peso_rango : '' }}
               </li>
             }
           </ul>

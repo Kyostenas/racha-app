@@ -2,7 +2,7 @@ import { z } from 'zod';
 import type { Perfil, Registro } from '../domain';
 
 // Debe coincidir con server/pb_hooks/lib/reglas.js
-export const VERSION_AVISO = '2026-11-11';
+export const VERSION_AVISO = '2026-11-11.2';
 export const EDADES = ['18-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50-54', '55-59', '60+'] as const;
 export const ESTATURAS = ['<140', '140-149', '150-159', '160-169', '170-179', '180-189', '190-199', '200+'] as const;
 export const IMC = ['bajo', 'normal', 'sobrepeso', 'obesidad'] as const;
@@ -22,7 +22,7 @@ export const INTERRUPTORES = [
   { id: 'dieta', nombre: 'Mi tipo de alimentación' },
   { id: 'ejercicios', nombre: 'Los ejercicios que hago (hasta 5)' },
   { id: 'progreso', nombre: 'Mi progreso semanal (% de hábitos y racha)' },
-  { id: 'cambio_peso', nombre: 'Mi cambio de peso en % (nunca en kg)' },
+  { id: 'cambio_peso_rango', nombre: 'Mi cambio de peso en rangos de 1 % (dato de salud; nunca kg ni el % exacto)' },
 ] as const;
 export type Interruptor = (typeof INTERRUPTORES)[number]['id'];
 export type Visibles = Record<Interruptor, boolean>;
@@ -87,14 +87,34 @@ export function pctHabitosSemana(registros: Registro[], habitos: number, hoy: st
   return Math.min(100, Math.round((hechos / (habitos * dias)) * 100));
 }
 
-/** Cambio de peso en % desde el primer registro local, redondeado a 0.5. Nunca se envían kg. */
-export function cambioPesoPct(pesos: Record<string, number>): number | null {
+/** Rangos del cambio de peso, de menor a mayor. Deben coincidir con server/pb_hooks/lib/reglas.js. */
+export const RANGOS_PESO = [
+  '<-5%', '-5..-4%', '-4..-3%', '-3..-2%', '-2..-1%', '-1..0%',
+  '0..1%', '1..2%', '2..3%', '3..4%', '4..5%', '>=5%',
+] as const;
+export type RangoPeso = (typeof RANGOS_PESO)[number];
+
+/**
+ * Cambio de peso desde el primer registro local, como rango de 1 % (intervalo [a, b)).
+ * Se calcula en el teléfono: el servidor nunca recibe kg ni el porcentaje exacto.
+ */
+export function rangoCambioPeso(pesos: Record<string, number>): RangoPeso | null {
   const semanas = Object.keys(pesos).sort();
   if (semanas.length < 2) return null;
   const ini = pesos[semanas[0]];
   const fin = pesos[semanas[semanas.length - 1]];
   const pct = ((fin - ini) / ini) * 100;
-  return Math.max(-30, Math.min(30, Math.round(pct * 2) / 2));
+  if (!Number.isFinite(pct)) return null;
+  if (pct < -5) return '<-5%';
+  if (pct >= 5) return '>=5%';
+  return RANGOS_PESO[Math.floor(pct) + 6];
+}
+
+/** Solo los interruptores que existen hoy (descarta claves viejas guardadas, como «cambio_peso»). */
+export function soloInterruptores(v: Record<string, unknown> | null | undefined): Visibles {
+  const out = todoApagado();
+  for (const i of INTERRUPTORES) out[i.id] = v?.[i.id] === true;
+  return out;
 }
 
 /** Construye el perfil público con SOLO rangos permitidos; lo apagado va vacío. */
