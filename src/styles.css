@@ -6,7 +6,8 @@
 @import '@fontsource/atkinson-hyperlegible/latin-700.css';
 @import 'material-symbols/sharp.css';
 :root {
-  --alto-barra: 76px;
+  /* Crece con el tamaño de letra del sistema (76 px con letra normal). */
+  --alto-barra: max(76px, calc(2.875rem + 30px));
   --espacio-barra: calc(var(--alto-barra) + env(safe-area-inset-bottom, 0px));
   --fondo: #fff8ec;
   --superficie: #fff;
@@ -836,7 +837,7 @@ footer span {
   .bottom-nav button {
     flex-direction: column;
     gap: 6px;
-    padding: 12px 8px;
+    padding: 12px 5px;
     font-size: max(0.875rem, 0.625rem);
     min-height: 0;
   }
@@ -1064,4 +1065,57 @@ html[data-vista-sencilla] .big-number {
 }
 .lista-comunidad > li > strong {
   flex-basis: 100%;
+}
+
+/* Reflow a 320 px con el texto al 200 % (WCAG 1.4.4 y 1.4.10): ningún hijo de grid o flex
+   puede ensanchar la página por su contenido mínimo, y las palabras largas parten línea. */
+body {
+  overflow-wrap: break-word;
+}
+main,
+.panel,
+.bento > *,
+.plan-layout > *,
+.settings-layout > *,
+.share-layout > *,
+.onboarding-layout > *,
+.recipe-art > *,
+.streak-panel > *,
+.plan-preview > *,
+.bottom-nav button {
+  min-width: 0;
+}
+/* Con letra muy grande la barra se desplaza en horizontal dentro de sí misma (la página no):
+   las etiquetas quedan completas en vez de partirse a media palabra. */
+.bottom-nav {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.bottom-nav button {
+  flex: 1 0 auto;
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+h1,
+h2,
+h3,
+.eyebrow,
+.big-number,
+.achievement-number {
+  overflow-wrap: anywhere;
+}
+img,
+svg,
+video {
+  max-width: 100%;
+}
+/* El ancho de un icono no debe depender del nombre de su ligadura («arrow_forward»): mientras la
+   fuente de iconos no carga, el texto crudo ensancharía botones y la página. */
+.material-symbols-sharp {
+  display: inline-block;
+  width: 1em;
+  overflow: hidden;
+  flex: none;
+  vertical-align: middle;
 }
