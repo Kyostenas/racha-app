@@ -69,6 +69,15 @@ else
   "${DC[@]}" pull || { log "No se pudo descargar; construyendo localmente."; "${DC[@]}" build; }
 fi
 
+# Kernels Android (CONFIG_ANDROID_PARANOID_NETWORK): un uid sin privilegios no puede abrir sockets.
+# Se detecta con una prueba real y, solo ahí, se usa root sin capacidades (cap_drop ALL sigue activo).
+if [ -z "${PROGRESSIUM_USER:-}" ] && ! "${DC[@]}" run --rm --no-deps -T --user 10001:10001 --entrypoint sh progressium \
+  -c 'timeout 1 nc -l -p 18090 >/dev/null 2>&1; [ $? -ne 1 ]' >/dev/null 2>&1; then
+  log "El kernel no deja abrir sockets a uids sin privilegios (Android); se usará 0:0 sin capacidades."
+  poner PROGRESSIUM_USER 0:0; PROGRESSIUM_USER=0:0; export PROGRESSIUM_USER
+  "${DC[@]}" run --rm --no-deps -T --user 0:0 --cap-add CHOWN --entrypoint chown progressium -R 0:0 /pb/pb_data
+fi
+
 log "Aplicando migraciones y superusuario…"
 "${DC[@]}" run --rm -T -e PB_ADMIN_EMAIL="${PB_ADMIN_EMAIL}" progressium admin-upsert <secretos/admin.txt
 "${DC[@]}" up -d --remove-orphans

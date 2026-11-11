@@ -30,6 +30,9 @@ services:
     security_opt:
       - no-new-privileges:true
     cap_drop: [ALL]
+    # Usuario sin privilegios por defecto. En kernels Android (CONFIG_ANDROID_PARANOID_NETWORK) un uid sin
+    # privilegios no puede abrir sockets; install.sh lo detecta y usa 0:0 (sin capacidades: cap_drop ALL).
+    user: "${PROGRESSIUM_USER:-10001:10001}"
     logging:
       driver: json-file
       options: { max-size: "5m", max-file: "3" }
