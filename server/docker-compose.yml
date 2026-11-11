@@ -41,7 +41,8 @@ services:
   tailscale:
     image: tailscale/tailscale:${TS_IMAGE_TAG:-stable}
     profiles: ["funnel"]
-    hostname: ${TS_HOSTNAME:-progressium}
+    # Sin «hostname:» a propósito: si el contenedor se llamara «progressium», el proxy de serve.json
+    # (http://progressium:8090) se resolvería a sí mismo. El nombre del nodo lo da TS_HOSTNAME.
     restart: unless-stopped
     depends_on: [progressium]
     environment:
