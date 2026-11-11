@@ -1,0 +1,74 @@
+<section class="onboarding" aria-labelledby="cuenta-titulo">
+  <div class="eyebrow">Cuenta · Progressium</div>
+  <h1 id="cuenta-titulo">{{ modo() === 'crear' ? 'Crea tu cuenta' : 'Inicia sesión' }}</h1>
+  <p>Para usar Progressium en más de un dispositivo, empieza por una cuenta. Siempre es gratis. Tus hábitos, rachas, ajustes y registros se cifran en este teléfono antes de salir; el servidor no puede leerlos.</p>
+
+  <div class="choices" role="tablist" aria-label="Cuenta">
+    <button type="button" role="tab" [class.selected]="modo() === 'crear'" [attr.aria-selected]="modo() === 'crear'" (click)="cambiarModo('crear')">Crear cuenta</button>
+    <button type="button" role="tab" [class.selected]="modo() === 'entrar'" [attr.aria-selected]="modo() === 'entrar'" (click)="cambiarModo('entrar')">Iniciar sesión</button>
+  </div>
+
+  @if (error()) {
+    <div class="notice error" role="alert">{{ error() }}</div>
+  }
+
+  <form (ngSubmit)="enviar()" novalidate>
+    <label>
+      Alias
+      <input
+        name="usuario"
+        type="text"
+        autocomplete="username"
+        autocapitalize="off"
+        spellcheck="false"
+        required
+        minlength="3"
+        maxlength="32"
+        [(ngModel)]="usuario"
+        [disabled]="ocupado()"
+      />
+    </label>
+    <label>
+      Contraseña
+      <input
+        name="contrasena"
+        type="password"
+        [attr.autocomplete]="modo() === 'crear' ? 'new-password' : 'current-password'"
+        required
+        minlength="8"
+        maxlength="128"
+        [(ngModel)]="contrasena"
+        [disabled]="ocupado()"
+      />
+    </label>
+    @if (modo() === 'crear') {
+      <label>
+        Correo (opcional)
+        <input
+          name="correo"
+          type="email"
+          autocomplete="email"
+          [(ngModel)]="correo"
+          [disabled]="ocupado()"
+        />
+      </label>
+      <div class="panel privacy">
+        <h2>Antes de crear la cuenta</h2>
+        <p><strong>Si olvidas la contraseña, no se pueden recuperar los datos sincronizados.</strong> La llave de cifrado se deriva de tu contraseña y no se guarda en el servidor. Puedes exportar una copia en claro desde la app mientras recuerdes la contraseña o tengas los datos en este dispositivo.</p>
+      </div>
+      <label class="check">
+        <input type="checkbox" name="mayor" [(ngModel)]="mayorDeEdad" [disabled]="ocupado()" />
+        Confirmo que tengo 18 años o más.
+      </label>
+      <label class="check">
+        <input type="checkbox" name="terminos" [(ngModel)]="aceptoTerminos" [disabled]="ocupado()" />
+        Acepto los términos y el
+        <a href="aviso-privacidad.html" target="_blank" rel="noopener">aviso de privacidad</a>
+        (versión {{ versionAviso }}).
+      </label>
+    }
+    <button class="primary" type="submit" [disabled]="ocupado()">
+      {{ ocupado() ? 'Un momento…' : (modo() === 'crear' ? 'Crear cuenta' : 'Entrar') }}
+    </button>
+  </form>
+</section>

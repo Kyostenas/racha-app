@@ -56,6 +56,7 @@ export class ComunidadApi {
   }
 
   conectado() { return !!this.token; }
+  usarToken(token: string) { this.token = token; }
   salir() { this.token = ''; }
   estado() { return this.pedir<{ version_aviso: string; k_min: number }>('GET', '/estado'); }
   alta(clave: string, version_aviso: string) {

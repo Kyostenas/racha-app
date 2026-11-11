@@ -109,3 +109,26 @@ test("semana ISO", () => {
   assert.equal(R.semanaISO(new Date("2026-11-11T12:00:00Z")), "2026-W46");
   assert.equal(R.semanaISO(new Date("2027-01-01T12:00:00Z")), "2026-W53");
 });
+
+test("cuenta: 18+, términos, aviso vigente y alias válido", () => {
+  const ok = { usuario: "ajolote", contrasena: "secreto12", mayor_de_edad: true, acepto_terminos: true, version_aviso: R.VERSION_AVISO };
+  assert.equal(R.validarCuentaAlta(ok).ok, true);
+  assert.equal(R.validarCuentaAlta({ ...ok, correo: "a@b.com" }).ok, true);
+  assert.equal(R.validarCuentaAlta({ ...ok, mayor_de_edad: false }).ok, false);
+  assert.equal(R.validarCuentaAlta({ ...ok, acepto_terminos: false }).ok, false);
+  assert.equal(R.validarCuentaAlta({ ...ok, version_aviso: "viejo" }).ok, false);
+  assert.equal(R.validarCuentaAlta({ ...ok, usuario: "Ab" }).ok, false);
+  assert.equal(R.validarCuentaAlta({ ...ok, contrasena: "corta" }).ok, false);
+  assert.deepEqual(R.validarCuentaAlta({ ...ok, peso: 70 }).campos, ["peso"]);
+});
+
+test("sync: solo blob cifrado, versión entera y sin campos extra", () => {
+  const ok = { dispositivo: "11111111-1111-1111-1111-111111111111", version: 1, datos_cifrados: "v1.YWJjZGVmZ2hpams.YWJjZGVmZ2hpag" };
+  assert.equal(R.validarSync(ok).ok, true);
+  assert.equal(R.validarSync({ ...ok, datos_cifrados: JSON.stringify({ perfil: { peso: 70 } }) }).ok, false);
+  assert.equal(R.validarSync({ ...ok, version: 0 }).ok, false);
+  assert.deepEqual(R.validarSync({ ...ok, peso: 70 }).campos, ["peso"]);
+  assert.equal(R.resolverVersion(3, 5), 5);
+  assert.equal(R.resolverVersion(7, 5), 7);
+  assert.equal(R.resolverVersion(2, 2), 2);
+});

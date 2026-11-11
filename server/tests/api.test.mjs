@@ -7,7 +7,7 @@ import { randomBytes } from "node:crypto";
 
 const URL_BASE = process.env.PB_URL || "http://127.0.0.1:8090";
 const ORIGEN_DEV = process.env.PB_ORIGEN_DEV || "";
-const AVISO = "2026-11-11.3";
+const AVISO = "2026-11-11.4";
 let su = null;
 
 // Lee siempre el cuerpo completo para que no queden sockets abiertos (si no, node --test no termina).
@@ -111,9 +111,10 @@ test("la misma instancia sirve la PWA instalable", async () => {
   const aviso = await fetch(URL_BASE + "/aviso-privacidad.html");
   assert.equal(aviso.status, 200);
   const avisoHtml = await aviso.text();
-  assert.match(avisoHtml, /Versión 2026-11-11\.3/);
+  assert.match(avisoHtml, /Versión 2026-11-11\.4/);
   assert.match(avisoHtml, /Yael Benjamín Ramírez Estrada/);
   assert.match(avisoHtml, /kyostenas@gmail\.com/);
+  assert.match(avisoHtml, /respaldo cifrado/);
   // Ruta de la SPA: vuelve a index.html; /api no.
   assert.match(await (await fetch(URL_BASE + "/comunidad")).text(), /rel="manifest"/);
   assert.equal((await fetch(URL_BASE + "/api/no-existe")).status, 404);
@@ -314,4 +315,38 @@ test("los alias no se repiten", async () => {
   const alias = new Set();
   for (let i = 0; i < 25; i++) alias.add((await nuevaCuenta()).alias);
   assert.equal(alias.size, 25);
+});
+
+test("cuenta: alta, sync cifrado, rechazo de claro, historial de 3 y borrado", async () => {
+  const usuario = "u" + randomBytes(6).toString("hex");
+  const contrasena = "secreto12";
+  const alta = await api("POST", "/api/progressium/cuenta/alta", {
+    body: { usuario, contrasena, mayor_de_edad: true, acepto_terminos: true, version_aviso: AVISO },
+  });
+  assert.equal(alta.status, 200, alta.error);
+  assert.ok(alta.data.salt && alta.data.salt.length === 32);
+  const auth = await fetch(URL_BASE + "/api/collections/usuarios/auth-with-password", {
+    method: "POST", headers: { "content-type": "application/json" },
+    body: JSON.stringify({ identity: usuario, password: contrasena }),
+  });
+  const tok = (await auth.json()).token;
+  assert.ok(tok);
+  const H = { authorization: tok };
+  const claro = await api("PUT", "/api/progressium/sync", { headers: H, body: { dispositivo: "11111111-1111-1111-1111-111111111111", version: 1, datos_cifrados: JSON.stringify({ perfil: { peso: 70 } }) } });
+  assert.equal(claro.status, 400);
+  const blob = "v1.YWJjZGVmZ2hpams.YWJjZGVmZ2hpag";
+  for (const version of [1, 2, 3, 4]) {
+    const r = await api("PUT", "/api/progressium/sync", { headers: H, body: { dispositivo: "11111111-1111-1111-1111-111111111111", version, datos_cifrados: blob } });
+    assert.equal(r.status, 200, r.error);
+  }
+  const st = await api("GET", "/api/progressium/sync", { headers: H });
+  assert.equal(st.status, 200);
+  assert.equal(st.data.max_version, 4);
+  assert.equal(st.data.historial.length, 3);
+  assert.equal(st.data.ultimo.datos_cifrados, blob);
+  const conflicto = await api("PUT", "/api/progressium/sync", { headers: H, body: { dispositivo: "11111111-1111-1111-1111-111111111111", version: 4, datos_cifrados: blob } });
+  assert.equal(conflicto.status, 409);
+  const drop = await api("DELETE", "/api/progressium/cuenta", { headers: H });
+  assert.equal(drop.status, 200);
+  assert.equal((await api("GET", "/api/progressium/sync", { headers: H })).status, 401);
 });

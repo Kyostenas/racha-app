@@ -24,9 +24,13 @@ import {
   customThemesSchema,
   TemaPersonalizado,
 } from './domain';
-import { LocalStore } from './storage';
+import { LocalStore, cambiosLocales } from './storage';
 import { Comunidad } from './comunidad/comunidad';
 import { ComunidadApi } from './comunidad/api';
+import { Cuenta } from './cuenta/cuenta';
+import { CuentaApi } from './cuenta/api';
+import { Sesion } from './cuenta/sesion';
+import { SyncService } from './cuenta/sync';
 import { comunidadSchema } from './comunidad/dominio';
 import { Tokens, Palette, applyTheme, contrast, evaluateCustomContrast, tokensSchema } from './themes';
 import { buildThemeExport, parseThemeImport, MAX_THEME_IMPORT_BYTES } from './theme-io';
@@ -41,17 +45,21 @@ import {
   validateAiSuggestion,
 } from './engine';
 
-type Page = 'inicio' | 'primer-dia' | 'hoy' | 'plan' | 'progreso' | 'logro' | 'comunidad' | 'ajustes';
+type Page = 'cuenta' | 'inicio' | 'primer-dia' | 'hoy' | 'plan' | 'progreso' | 'logro' | 'comunidad' | 'ajustes';
 @Component({
   selector: 'app-root',
-  imports: [FormsModule, CdkTrapFocus, Comunidad],
+  imports: [FormsModule, CdkTrapFocus, Comunidad, Cuenta],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App implements OnInit {
   private db = inject(LocalStore);
   private comunidadApi = inject(ComunidadApi);
+  private cuentaApi = inject(CuentaApi);
+  private sesion = inject(Sesion);
+  private sync = inject(SyncService);
   private live = inject(LiveAnnouncer);
+  readonly servidor = signal(false);
   private lastFocus: HTMLElement | null = null;
   readonly createThemeBtn = viewChild<ElementRef<HTMLButtonElement>>('createThemeBtn');
   readonly deleteConfirm = signal<{ id: string; nombre: string } | null>(null);
@@ -207,6 +215,7 @@ export class App implements OnInit {
         if (s.personalizado) this.custom = { ...s.personalizado };
       }
       await this.loadCustomThemes();
+      await this.prepararCuenta();
       this.ready.set(true);
     } catch (e) {
       this.announceError(e instanceof Error ? e.message : 'No pudimos abrir Progressium.');
@@ -783,17 +792,22 @@ export class App implements OnInit {
   }
   async reset() {
     try {
-      // «Borrar todo» también borra la cuenta de la comunidad en el servidor, si existe.
-      const comunidad = await this.db.get('comunidad', 'local', comunidadSchema).catch(() => null);
-      if (comunidad) {
-        try {
-          await this.comunidadApi.entrar(comunidad.usuario, comunidad.clave);
-          await this.comunidadApi.borrarCuenta();
-        } catch {
-          // Sin conexión: la cuenta se borra sola tras 180 días sin uso.
+      // «Borrar todo» borra la cuenta (respaldo cifrado y comunidad) en el servidor, si hay sesión.
+      try {
+        if (this.sesion.token()) await this.cuentaApi.borrarCuenta();
+        else {
+          const comunidad = await this.db.get('comunidad', 'local', comunidadSchema).catch(() => null);
+          if (comunidad) {
+            await this.comunidadApi.entrar(comunidad.usuario, comunidad.clave);
+            await this.comunidadApi.borrarCuenta();
+          }
         }
-        this.comunidadApi.salir();
+      } catch {
+        // Sin conexión: la cuenta se borra sola tras 180 días sin uso.
       }
+      this.comunidadApi.salir();
+      this.sync.olvidarLlave();
+      await this.sesion.borrar();
       await this.db.clear();
       if (!this.ready()) {
         window.location.reload();
@@ -829,10 +843,50 @@ export class App implements OnInit {
       this.step.set(1);
       this.resetConfirm.set(false);
       this.updateTheme();
-      this.navigate('inicio');
+      this.navigate(this.servidor() ? 'cuenta' : 'inicio');
       this.announceStatus('Datos y clave eliminados de este dispositivo.');
     } catch {
       this.announceError('No pudimos borrar los datos. Intenta otra vez.');
+    }
+  }
+  private async prepararCuenta() {
+    const c = await this.sesion.cargar();
+    if (c?.token) this.comunidadApi.usarToken(c.token);
+    try {
+      await this.cuentaApi.estado();
+      this.servidor.set(true);
+    } catch {
+      this.servidor.set(false);
+    }
+    cambiosLocales.addEventListener('cambio', () => { void this.sync.marcarSucio(); });
+    window.addEventListener('online', () => { void this.intentarSync(); });
+    if (this.servidor() && !c) {
+      this.page.set('cuenta');
+      return;
+    }
+    if (c && this.servidor()) await this.intentarSync();
+  }
+  async alIniciarSesion() {
+    const [p, s, h, r] = await Promise.all([
+      this.db.get('perfil', 'local', profileSchema),
+      this.db.get('ajustes', 'local', settingsSchema),
+      this.db.all('hábitos', habitsSchema),
+      this.db.all('registros', recordsSchema),
+    ]);
+    this.profile.set(p);
+    this.settings.set(s ?? { ...defaultSettings });
+    this.habits.set(h.length ? h : initialHabits);
+    this.records.set(r);
+    if (p) this.pantry = [...p.despensa];
+    this.updateTheme();
+    this.navigate(p ? 'hoy' : 'inicio');
+  }
+  private async intentarSync() {
+    try {
+      const r = await this.sync.sincronizar();
+      if (r === 'bajado') await this.alIniciarSesion();
+    } catch {
+      // Sin llave en memoria (recarga) o red: se sincroniza al volver a iniciar sesión.
     }
   }
 }

@@ -7,6 +7,62 @@ routerAdd("GET", "/api/progressium/estado", (e) => {
   return e.json(200, { servicio: "progressium", version: $os.getenv("PROGRESSIUM_VERSION") || "dev", version_aviso: R.VERSION_AVISO, k_min: R.K_MIN });
 });
 
+
+routerAdd("POST", "/api/progressium/cuenta/alta", (e) => {
+  const R = require(`${__hooks}/lib/reglas.js`);
+  const body = e.requestInfo().body;
+  const v = R.validarCuentaAlta(body);
+  if (!v.ok) throw new BadRequestError(v.error, { campos: v.campos });
+  const col = $app.findCollectionByNameOrId("usuarios");
+  let tomado = false;
+  try { $app.findFirstRecordByFilter("usuarios", "username = {:u}", { u: body.usuario }); tomado = true; } catch (_) {}
+  if (tomado) throw new BadRequestError("Ese alias ya está en uso.", { campos: ["usuario"] });
+  const u = new Record(col);
+  u.set("username", body.usuario);
+  u.set("alias", body.usuario);
+  u.set("oculto", false);
+  u.set("ultimo_uso", new DateTime());
+  u.set("sync_salt", $security.randomStringWithAlphabet(32, "0123456789abcdef"));
+  u.setPassword(body.contrasena);
+  if (body.correo) u.set("email", body.correo);
+  $app.save(u);
+  return e.json(200, { id: u.id, usuario: u.getString("username"), alias: u.getString("alias"), salt: u.getString("sync_salt") });
+});
+
+routerAdd("GET", "/api/progressium/sync", (e) => {
+  const S = require(`${__hooks}/lib/servicio.js`);
+  const yo = S.tocar(e.auth);
+  const salt = yo.getString("sync_salt");
+  if (!salt) throw new BadRequestError("Esta cuenta no tiene respaldo cifrado.");
+  const filas = $app.findRecordsByFilter("respaldo_sync", "usuario = {:u}", "-version", 3, 0, { u: yo.id });
+  const historial = filas.map((r) => ({ dispositivo: r.getString("dispositivo"), version: r.getInt("version"), actualizado: r.get("actualizado") }));
+  const ultimo = filas[0] ? { dispositivo: filas[0].getString("dispositivo"), version: filas[0].getInt("version"), actualizado: filas[0].get("actualizado"), datos_cifrados: filas[0].getString("datos_cifrados") } : null;
+  return e.json(200, { salt, max_version: ultimo ? ultimo.version : 0, ultimo, historial });
+}, $apis.requireAuth("usuarios"));
+
+routerAdd("PUT", "/api/progressium/sync", (e) => {
+  const R = require(`${__hooks}/lib/reglas.js`);
+  const S = require(`${__hooks}/lib/servicio.js`);
+  const yo = S.tocar(e.auth);
+  if (!yo.getString("sync_salt")) throw new BadRequestError("Esta cuenta no tiene respaldo cifrado.");
+  const v = R.validarSync(e.requestInfo().body);
+  if (!v.ok) throw new BadRequestError(v.error, { campos: v.campos });
+  const body = e.requestInfo().body;
+  const prev = $app.findRecordsByFilter("respaldo_sync", "usuario = {:u}", "-version", 1, 0, { u: yo.id });
+  const max = prev[0] ? prev[0].getInt("version") : 0;
+  if (body.version <= max) return e.json(409, { message: "Ya hay una versión igual o más nueva.", max_version: max });
+  const rec = new Record($app.findCollectionByNameOrId("respaldo_sync"));
+  rec.set("usuario", yo.id);
+  rec.set("dispositivo", body.dispositivo);
+  rec.set("version", body.version);
+  rec.set("datos_cifrados", body.datos_cifrados);
+  $app.save(rec);
+  $app.findRecordsByFilter("respaldo_sync", "usuario = {:u}", "-version", 0, 0, { u: yo.id }).forEach((r, i) => {
+    if (i >= 3) $app.delete(r);
+  });
+  return e.json(200, { version: body.version });
+}, $apis.requireAuth("usuarios"));
+
 routerAdd("POST", "/api/progressium/alta", (e) => {
   const R = require(`${__hooks}/lib/reglas.js`);
   const body = e.requestInfo().body;

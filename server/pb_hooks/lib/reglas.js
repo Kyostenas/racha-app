@@ -2,7 +2,7 @@
 // permitidas, match y percentiles. Se usan en pb_hooks y en las pruebas de Node.
 "use strict";
 
-const VERSION_AVISO = "2026-11-11.3";
+const VERSION_AVISO = "2026-11-11.4";
 const K_MIN = 5; // k-anonimato: tamaño mínimo del grupo (incluye a quien consulta)
 const MAX_LISTA = 10;
 
@@ -200,8 +200,46 @@ function semanaISO(fecha) {
   return d.getUTCFullYear() + "-W" + (sem < 10 ? "0" : "") + sem;
 }
 
+
+const USUARIO_RE = /^[a-z][a-z0-9_]{2,31}$/;
+const CORREO_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const CIFRADO_RE = /^v1\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/;
+const DISPOSITIVO_RE = /^[a-z0-9-]{8,80}$/;
+
+function validarCuentaAlta(body) {
+  if (!esObjeto(body)) return err("Cuerpo inválido.");
+  const ex = extras(body, ["usuario", "contrasena", "correo", "mayor_de_edad", "acepto_terminos", "version_aviso"]);
+  if (ex.length) return err("Campos no permitidos.", ex);
+  if (typeof body.usuario !== "string" || !USUARIO_RE.test(body.usuario)) return err("El alias debe tener de 3 a 32 caracteres, empezar con una letra y solo usar letras, números o guion bajo.", ["usuario"]);
+  if (typeof body.contrasena !== "string" || body.contrasena.length < 8 || body.contrasena.length > 128) return err("La contraseña debe tener entre 8 y 128 caracteres.", ["contrasena"]);
+  if (body.correo != null && body.correo !== "") {
+    if (typeof body.correo !== "string" || body.correo.length > 200 || !CORREO_RE.test(body.correo)) return err("El correo no es válido.", ["correo"]);
+  }
+  if (body.mayor_de_edad !== true) return err("La app es solo para mayores de 18 años.", ["mayor_de_edad"]);
+  if (body.acepto_terminos !== true) return err("Hay que aceptar los términos y el aviso de privacidad.", ["acepto_terminos"]);
+  if (body.version_aviso !== VERSION_AVISO) return err("Falta aceptar la versión vigente del aviso de privacidad.", ["version_aviso"]);
+  return { ok: true };
+}
+
+function validarSync(body) {
+  if (!esObjeto(body)) return err("Cuerpo inválido.");
+  const ex = extras(body, ["dispositivo", "version", "datos_cifrados"]);
+  if (ex.length) return err("Campos no permitidos.", ex);
+  if (typeof body.dispositivo !== "string" || !DISPOSITIVO_RE.test(body.dispositivo)) return err("Dispositivo inválido.", ["dispositivo"]);
+  if (!Number.isInteger(body.version) || body.version < 1) return err("La versión debe ser un entero mayor que 0.", ["version"]);
+  if (typeof body.datos_cifrados !== "string" || body.datos_cifrados.length < 16 || body.datos_cifrados.length > 500000) return err("El respaldo cifrado no es válido.", ["datos_cifrados"]);
+  if (!CIFRADO_RE.test(body.datos_cifrados)) return err("El servidor no acepta datos en claro. El respaldo debe ir cifrado.", ["datos_cifrados"]);
+  return { ok: true };
+}
+
+function resolverVersion(local, remota) {
+  const a = Number(local) || 0;
+  const b = Number(remota) || 0;
+  return a >= b ? a : b;
+}
+
 module.exports = {
   VERSION_AVISO, K_MIN, MAX_LISTA, EDADES, ESTATURAS, IMC, INTENCIONES, DIETAS, CAMPOS_PERFIL, INTERRUPTORES, RANGOS_PESO,
   REACCIONES, MOTIVOS, REPORTES_PARA_OCULTAR, DIAS_INACTIVIDAD,
-  extras, validarAlta, validarPerfil, validarSemana, parecido, puntaje, match, percentil, comparar, aliasAleatorio, semanaISO,
+  extras, validarAlta, validarCuentaAlta, validarSync, resolverVersion, validarPerfil, validarSemana, parecido, puntaje, match, percentil, comparar, aliasAleatorio, semanaISO,
 };

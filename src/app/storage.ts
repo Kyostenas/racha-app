@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { z } from 'zod';
-export const STORES = ['perfil', 'hábitos', 'rachas', 'registros', 'ajustes', 'temasPersonalizados', 'comunidad'];
-export const DB_VERSION = 3;
+export const cambiosLocales = new EventTarget();
+export const STORES = ['perfil', 'hábitos', 'rachas', 'registros', 'ajustes', 'temasPersonalizados', 'comunidad', 'cuenta'];
+export const STORES_SYNC = ['perfil', 'hábitos', 'rachas', 'registros', 'ajustes', 'temasPersonalizados', 'comunidad'] as const;
+export const DB_VERSION = 4;
 @Injectable({ providedIn: 'root' })
 export class LocalStore {
   private connection: Promise<IDBDatabase> | null = null;
@@ -63,7 +65,7 @@ export class LocalStore {
     return new Promise((resolve, reject) => {
       const tx = db.transaction(store, 'readwrite');
       tx.objectStore(store).put(value);
-      tx.oncomplete = () => resolve();
+      tx.oncomplete = () => { if (store !== 'cuenta') cambiosLocales.dispatchEvent(new Event('cambio')); resolve(); };
       tx.onerror = () => reject(tx.error);
       tx.onabort = () => reject(tx.error);
     });
@@ -73,7 +75,7 @@ export class LocalStore {
     return new Promise((resolve, reject) => {
       const tx = db.transaction(store, 'readwrite');
       tx.objectStore(store).delete(id);
-      tx.oncomplete = () => resolve();
+      tx.oncomplete = () => { if (store !== 'cuenta') cambiosLocales.dispatchEvent(new Event('cambio')); resolve(); };
       tx.onerror = () => reject(tx.error);
       tx.onabort = () => reject(tx.error);
     });
@@ -85,6 +87,33 @@ export class LocalStore {
       for (const name of STORES) tx.objectStore(name).clear();
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
+    });
+  }
+  // Volcado de solo texto para el respaldo cifrado. No incluye la sesión (token).
+  async exportarSync(): Promise<Record<string, unknown[]>> {
+    const db = await this.db();
+    const out: Record<string, unknown[]> = {};
+    for (const name of STORES_SYNC) {
+      out[name] = await new Promise((resolve, reject) => {
+        const r = db.transaction(name).objectStore(name).getAll();
+        r.onsuccess = () => resolve(r.result as unknown[]);
+        r.onerror = () => reject(r.error);
+      });
+    }
+    return out;
+  }
+  async importarSync(datos: Record<string, unknown[]>): Promise<void> {
+    const db = await this.db();
+    await new Promise<void>((resolve, reject) => {
+      const tx = db.transaction([...STORES_SYNC], 'readwrite');
+      for (const name of STORES_SYNC) {
+        const store = tx.objectStore(name);
+        store.clear();
+        for (const fila of datos[name] ?? []) store.put(fila);
+      }
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+      tx.onabort = () => reject(tx.error);
     });
   }
 }

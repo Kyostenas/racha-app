@@ -1,6 +1,6 @@
 <div
   class="app-shell"
-  [class.with-nav]="profile() && page() !== 'inicio' && page() !== 'primer-dia'"
+  [class.with-nav]="profile() && page() !== 'inicio' && page() !== 'primer-dia' && page() !== 'cuenta'"
 >
   <a class="skip" href="#contenido">Saltar al contenido</a>
   <div class="vista-sencilla-bar">
@@ -32,6 +32,16 @@
       <button class="quiet" (click)="reset()">Borrar datos locales e intentar de nuevo</button>
     } @else {
       @switch (page()) {
+        @case ('cuenta') {
+          <div class="onboarding-layout">
+            <aside class="intro-art" aria-hidden="true">
+              <div class="pixel-art">
+                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              </div>
+            </aside>
+            <app-cuenta (listo)="alIniciarSesion()" />
+          </div>
+        }
         @case ('inicio') {
           <div class="onboarding-layout">
             <aside class="intro-art" aria-hidden="true">
@@ -67,9 +77,9 @@
                 <div class="panel privacy">
                   <h2>Privacidad</h2>
                   <ol>
-                    <li>Tu información vive en este dispositivo.</li>
-                    <li>No hay cuentas ni rastreadores.</li>
-                    <li>Tú decides borrarla o activar IA externa.</li>
+                    <li>Tus datos se guardan en este dispositivo y, si tienes cuenta, un respaldo cifrado en el servidor (el servidor no puede leerlos).</li>
+                    <li>No hay anuncios ni rastreadores. Siempre es gratis.</li>
+                    <li>Tú decides exportar o borrar tu cuenta y tus datos.</li>
                   </ol>
                 </div>
                 <label class="check"

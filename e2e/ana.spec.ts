@@ -1,5 +1,6 @@
 import { defaultSettings } from '../src/app/domain';
 import { test, expect, Page } from '@playwright/test';
+import { crearCuentaSiAparece } from './cuenta-helper';
 import { mkdir, readFile } from 'node:fs/promises';
 const shots = 'docs/capturas';
 async function shot(page: Page, name: string) {
@@ -7,8 +8,17 @@ async function shot(page: Page, name: string) {
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({ path: `${shots}/${name}.png`, fullPage: true });
 }
+
+async function maybeCuenta(page: Page) {
+  const crear = page.getByRole('heading', { name: 'Crea tu cuenta' });
+  if (await crear.isVisible().catch(() => false)) {
+    await page.screenshot({ path: `${shots}/cuenta-crear.png`, fullPage: true });
+    await crearCuentaSiAparece(page);
+  }
+}
 async function onboard(page: Page, allergy = '') {
   await page.goto('/');
+  await maybeCuenta(page);
   await expect(page.getByRole('heading', { name: 'Elige tu objetivo' })).toBeVisible();
   await page.getByRole('button', { name: 'Bajar de peso', exact: true }).click();
   await page.getByLabel('Acepto el uso local de mis datos').check();
@@ -28,6 +38,7 @@ test('Ana: onboarding, fuente, hábito, racha, temas, privacidad, offline y borr
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/');
+  await maybeCuenta(page);
   await expect(page.getByRole('heading', { name: 'Elige tu objetivo' })).toBeVisible();
   await shot(page, '01-intencion');
   await page.getByRole('button', { name: 'Continuar' }).click();

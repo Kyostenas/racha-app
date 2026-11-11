@@ -2,11 +2,12 @@ import { test, expect, Page, APIRequestContext } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { randomBytes } from 'node:crypto';
 import { mkdir } from 'node:fs/promises';
+import { crearCuentaSiAparece } from './cuenta-helper';
 
 // Necesita una instancia real (imagen Docker): E2E_COMUNIDAD_URL=http://127.0.0.1:8090
 test.skip(!process.env['E2E_COMUNIDAD_URL'], 'Solo contra una instancia con la API de la comunidad');
 
-const AVISO = '2026-11-11.3';
+const AVISO = '2026-11-11.4';
 const PROHIBIDOS = ['peso', 'estatura', 'edad', 'padecimientos', 'medicamentos', 'alergias', 'nombre', 'email'];
 
 async function semilla(request: APIRequestContext, semana: string) {
@@ -35,6 +36,7 @@ function semanaISO(f: Date) {
 
 async function onboard(page: Page) {
   await page.goto('/');
+  await crearCuentaSiAparece(page);
   await expect(page.getByRole('heading', { name: 'Elige tu objetivo' })).toBeVisible();
   await page.getByRole('button', { name: 'Bajar de peso', exact: true }).click();
   await page.getByLabel('Acepto el uso local de mis datos').check();
