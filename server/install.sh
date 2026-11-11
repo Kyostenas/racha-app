@@ -48,10 +48,14 @@ poner PB_ENCRYPTION_KEY "$(aleatorio 32)" si-vacio
 [ -n "$ORIGINS" ] && poner PROGRESSIUM_ORIGINS "$ORIGINS"
 [ -n "$TAG" ] && poner PROGRESSIUM_TAG "$TAG"
 [ -n "$PUERTO" ] && poner PROGRESSIUM_PORT "$PUERTO"
+# TS_AUTHKEY puede llegar por el entorno (sin escribirse en disco); tiene prioridad sobre .env.
+TS_AUTHKEY_ENTORNO="${TS_AUTHKEY:-}"
 set -a
 # shellcheck disable=SC1091
 . ./.env
 set +a
+if [ -n "$TS_AUTHKEY_ENTORNO" ]; then TS_AUTHKEY="$TS_AUTHKEY_ENTORNO"; export TS_AUTHKEY; fi
+unset TS_AUTHKEY_ENTORNO
 
 mkdir -p secretos "${RESPALDO_DIR:-./respaldos}"
 chmod 700 secretos
