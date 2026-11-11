@@ -165,9 +165,9 @@ test('Ana: onboarding, fuente, hábito, racha, temas, privacidad, offline y borr
   await page.getByRole('button', { name: 'Ajustes', exact: true }).click();
   await page.getByRole('button', { name: 'Borrar todos mis datos', exact: true }).click();
   await page.getByRole('button', { name: 'Sí, borrar todo', exact: true }).click();
-  await expect(page.getByRole('heading', { name: 'Elige tu objetivo' })).toBeVisible();
+  await esperarPortada(page);
   await page.reload();
-  await expect(page.getByRole('heading', { name: 'Elige tu objetivo' })).toBeVisible();
+  await esperarPortada(page);
   expect(errors).toEqual([]);
 });
 test('alergia declarada bloquea receta de huevo', async ({ page }) => {
@@ -284,7 +284,7 @@ test('datos locales corruptos: recuperación explícita sin bloquear el inicio',
   await page.reload();
   await expect(page.getByRole('alert')).toContainText('formato esperado');
   await page.getByRole('button', { name: 'Borrar datos locales e intentar de nuevo' }).click();
-  await expect(page.getByRole('heading', { name: 'Elige tu objetivo' })).toBeVisible();
+  await esperarPortada(page);
 });
 
 for (const width of [320, 412]) {
