@@ -44,6 +44,20 @@ import {
   streak,
   validateAiSuggestion,
 } from './engine';
+import {
+  analyzeHabits,
+  analyzePantry,
+  askLocalAi,
+  BrowserBuiltInAiStatus,
+  buildDailyBrief,
+  computeRecipeMacros,
+  detectBrowserBuiltInAi,
+  enhanceWithDeviceModel,
+  LocalAiAnswer,
+  LocalAiContext,
+  suggestLocalExercise,
+  suggestLocalRecipe,
+} from './local-ai';
 
 type Page = 'cuenta' | 'inicio' | 'primer-dia' | 'hoy' | 'plan' | 'progreso' | 'logro' | 'comunidad' | 'ajustes';
 @Component({
@@ -174,6 +188,27 @@ export class App implements OnInit {
     const p = this.profile();
     return p && !p.padecimientos && !p.medicamentos ? mifflin(p) : null;
   });
+  readonly browserAiStatus = signal<BrowserBuiltInAiStatus>('no-disponible');
+  localAiQuestion = '';
+  readonly localAiBusy = signal(false);
+  readonly localAiAnswer = signal<LocalAiAnswer | null>(null);
+  readonly localAiPromptChips = [
+    '¿Qué cocino hoy?',
+    '¿Qué me falta en la despensa?',
+    '¿Qué ejercicio me conviene?',
+    '¿Cómo va mi racha?',
+  ];
+  readonly habitInsights = computed(() =>
+    analyzeHabits(this.habits(), this.records(), this.today, this.profile()),
+  );
+  readonly pantryInsights = computed(() => analyzePantry(this.localAiContext()));
+  readonly localBrief = computed(() =>
+    buildDailyBrief(this.localAiContext(), this.browserAiStatus()),
+  );
+  readonly selectedRecipeMacros = computed(() => {
+    const r = this.recipe();
+    return r ? computeRecipeMacros(r, this.foods()) : null;
+  });
   async ngOnInit() {
     try {
       const fetchJson = async (path: string): Promise<unknown> => {
@@ -216,6 +251,7 @@ export class App implements OnInit {
       }
       await this.loadCustomThemes();
       await this.prepararCuenta();
+      void detectBrowserBuiltInAi().then((status) => this.browserAiStatus.set(status));
       this.ready.set(true);
     } catch (e) {
       this.announceError(e instanceof Error ? e.message : 'No pudimos abrir Progressium.');
@@ -557,10 +593,13 @@ export class App implements OnInit {
           (a, b) => a.nombre.localeCompare(b.nombre, 'es') || a.id.localeCompare(b.id),
         ),
       );
+      const warn = result.warnings.length
+        ? ` (${result.warnings.length} con advertencia de contraste bajo).`
+        : '';
       const extra = result.rejected.length
         ? ` Se descartaron ${result.rejected.length}.`
         : '';
-      this.announceStatus(`Importados ${created.length} temas.${extra}`);
+      this.announceStatus(`Importados ${created.length} temas.${warn}${extra}`);
     } catch {
       this.announceError('No se pudo leer el JSON de temas.');
     }
@@ -599,10 +638,6 @@ export class App implements OnInit {
       return;
     }
     const report = evaluateCustomContrast(result.data, this.settings().oled);
-    if (!report.ok) {
-      this.announceError(report.failures[0] ?? 'Contraste insuficiente.');
-      return;
-    }
     const name = (this.customName.trim() || 'Mi tema').slice(0, 40);
     const now = new Date().toISOString();
     const id = this.editingThemeId ?? 'custom:' + crypto.randomUUID();
@@ -632,7 +667,9 @@ export class App implements OnInit {
     this.themeEditor.set(false);
     this.editingThemeId = null;
     this.customName = '';
-    this.announceStatus('Tema guardado.');
+    this.announceStatus(
+      report.ok ? 'Tema guardado.' : 'Tema guardado con advertencia de contraste bajo.',
+    );
   }
   openThemeEditor(id: string | null = null, nombre = '', colores?: typeof this.custom) {
     this.rememberFocus();
@@ -666,12 +703,73 @@ export class App implements OnInit {
       this.announceError('No pudimos guardar la despensa.');
     }
   }
-  async setAi(mode: 'apagada' | 'propia') {
-    if (mode === 'apagada') {
+  private localAiContext(): LocalAiContext {
+    return {
+      profile: this.profile(),
+      foods: this.foods(),
+      recipes: this.recipes(),
+      exercises: this.exercises(),
+      habits: this.habits(),
+      records: this.records(),
+      today: this.today,
+      currentRecipeId: this.recipe()?.id,
+      currentExerciseId: this.exercise()?.id,
+    };
+  }
+  async askLocalAssistant(preset?: string) {
+    const query = (preset ?? this.localAiQuestion).trim() || '¿Qué me sugieres hoy?';
+    this.localAiQuestion = query;
+    this.localAiBusy.set(true);
+    try {
+      const base = askLocalAi(query, this.localAiContext());
+      if (this.browserAiStatus() === 'disponible') {
+        const enhanced = await enhanceWithDeviceModel(query, base.reply);
+        this.localAiAnswer.set({
+          ...base,
+          reply: enhanced.text,
+          browserAiUsed: enhanced.usedModel,
+        });
+      } else {
+        this.localAiAnswer.set(base);
+      }
+      this.announceStatus('Respuesta local lista.');
+    } finally {
+      this.localAiBusy.set(false);
+    }
+  }
+  applyLocalAction(action: NonNullable<LocalAiAnswer['action']>) {
+    if (action.type === 'select-recipe') {
+      this.selectedRecipe.set(action.id);
+      this.navigate('plan');
+      this.announceStatus('Receta aplicada en tu plan.');
+      return;
+    }
+    if (action.type === 'select-exercise') {
+      this.selectedExercise.set(action.id);
+      this.navigate('plan');
+      this.announceStatus('Ejercicio seleccionado en tu plan.');
+      return;
+    }
+    this.navigate(action.page);
+  }
+  suggestAnotherLocalRecipe() {
+    const suggestion = suggestLocalRecipe(this.localAiContext(), true);
+    if (!suggestion) return;
+    this.selectedRecipe.set(suggestion.recipe.id);
+    this.announceStatus(`Sugerencia local: ${suggestion.recipe.nombre}.`);
+  }
+  suggestLocalExerciseNow() {
+    const suggestion = suggestLocalExercise(this.localAiContext(), true);
+    if (!suggestion) return;
+    this.selectedExercise.set(suggestion.exercise.id);
+    this.announceStatus(`Ejercicio local: ${suggestion.exercise.nombre}.`);
+  }
+  async setAi(mode: 'apagada' | 'local' | 'propia') {
+    if (mode === 'apagada' || mode === 'local') {
       if (
         !(await this.saveSettings({
           ...this.settings(),
-          ia: 'apagada',
+          ia: mode,
           clave: '',
           consentimientoIA: false,
         }))
@@ -679,7 +777,11 @@ export class App implements OnInit {
         return;
       this.aiForm.clave = '';
       this.aiForm.consentimientoIA = false;
-      this.announceStatus('IA apagada. Clave eliminada del dispositivo.');
+      this.announceStatus(
+        mode === 'local'
+          ? 'IA local activada en tu dispositivo.'
+          : 'IA apagada. Clave eliminada del dispositivo.',
+      );
       return;
     }
     try {
@@ -827,6 +929,8 @@ export class App implements OnInit {
       this.inspectedFoodId.set('');
       this.advanced.set(false);
       this.themeEditor.set(false);
+      this.localAiAnswer.set(null);
+      this.localAiQuestion = '';
       this.form = {
         intencion: 'mantener',
         dormirMejor: true,

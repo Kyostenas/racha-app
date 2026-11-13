@@ -122,7 +122,8 @@ test('Ana: onboarding, fuente, hábito, racha, temas, privacidad, offline y borr
   await expect(page.locator('html')).not.toHaveAttribute('data-oled');
   await page.getByRole('button', { name: 'Progressium', exact: true }).click();
   await page.getByRole('button', { name: 'Avanzado › IA' }).click();
-  await expect(page.getByRole('button', { name: 'En tu cel · Próximamente' })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'En tu cel', exact: true })).toBeEnabled();
+  await expect(page.getByRole('button', { name: 'En tu cel', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await shot(page, '12-ajustes-ia');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   expect(
@@ -308,8 +309,9 @@ for (const width of [320, 412]) {
     await expect(
       page.getByText('Tu clave se guarda solo en este teléfono, sin candado.', { exact: false }),
     ).toBeVisible();
-    const local = page.getByRole('button', { name: 'En tu cel · Próximamente', exact: true });
-    await expect(local).toBeDisabled();
+    const local = page.getByRole('button', { name: 'En tu cel', exact: true });
+    await expect(local).toBeEnabled();
+    await expect(local).toHaveAttribute('aria-pressed', 'true');
     expect(await local.evaluate((e) => getComputedStyle(e).textTransform)).toBe('none');
     expect(
       await local.evaluate(
@@ -415,4 +417,63 @@ test('despensa clara: nombre español coherente y fuente externa sin descripció
     'https://fdc.nal.usda.gov/food-details/170457/nutrients',
   );
   await shot(page, '20-despensa');
+});
+
+test('primer día permite elegir hábito inicial, temas sin bloqueo de contraste e IA local activa por defecto', async ({
+  page,
+}) => {
+  await page.goto('/');
+  await maybeCuenta(page);
+  await page.getByRole('heading', { name: 'Elige tu objetivo' }).waitFor();
+  await page.getByLabel('Acepto el uso local de mis datos').check();
+  await page.getByRole('button', { name: 'Continuar' }).click();
+  await page.getByRole('button', { name: 'Continuar' }).click();
+  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Jitomate rojo crudo'])
+    await page.getByRole('button', { name, exact: true }).click();
+  await page.getByRole('button', { name: 'Crear mi primer día' }).click();
+  await expect(page.getByRole('heading', { name: 'Tu primer día.' })).toBeVisible();
+
+  const firstHabit = page.getByRole('button', { name: /Elegir agua en una comida/ });
+  await firstHabit.click();
+  await expect(firstHabit).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByTestId('primer-dia-streak')).toContainText('1');
+
+  await page.getByRole('button', { name: 'Empezar', exact: true }).click();
+  await expect(page.getByTestId('streak')).toContainText('1');
+  await expect(page.getByRole('button', { name: /Elegir agua en una comida/ })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+
+  // IA local activa por defecto en Hoy
+  const localHoy = page.getByTestId('local-ai-hoy');
+  await expect(localHoy).toBeVisible();
+  await localHoy.getByLabel(/Pregunta en tu dispositivo/).fill('proteína del huevo');
+  await localHoy.getByRole('button', { name: 'Preguntar', exact: true }).click();
+  await expect(page.getByTestId('local-ai-reply')).toContainText('USDA');
+
+  // Plan muestra IA local activa y sugerencia local
+  await page.getByRole('button', { name: 'Plan', exact: true }).click();
+  await expect(page.getByText('Plan / IA local activa')).toBeVisible();
+  await expect(page.getByTestId('local-ai-plan')).toBeVisible();
+
+  // Tema personalizado con advertencia de contraste pero guardado permitido
+  await page.getByRole('button', { name: 'Ajustes', exact: true }).click();
+  await page.getByRole('button', { name: 'Crear tema', exact: true }).click();
+  const editor = page.getByRole('dialog');
+  await editor.getByPlaceholder('Mi tema').fill('Suave libre');
+  const colorInputs = editor.locator('input[type="color"]');
+  await colorInputs.nth(0).fill('#ffffff');
+  await colorInputs.nth(1).fill('#eeeeee');
+  await colorInputs.nth(2).fill('#dddddd');
+  await colorInputs.nth(3).fill('#cccccc');
+  await expect(editor.locator('.warning')).toBeVisible();
+  const saveTheme = editor.getByRole('button', { name: 'Guardar y usar', exact: true });
+  await expect(saveTheme).toBeEnabled();
+  await saveTheme.click();
+  await expect(editor).not.toBeVisible();
+  await expect(page.getByRole('button', { name: /Suave libre/ })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
 });

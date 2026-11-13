@@ -29,26 +29,28 @@ describe('export/import de temas', () => {
     expect(r.rejected.join(' ')).toMatch(/Clave no permitida|Versión/);
   });
 
-  it('bloquea temas con contraste insuficiente', () => {
+  it('acepta cualquier combinación válida aunque tenga advertencia de contraste', () => {
     const r = parseThemeImport(
       {
         schemaVersion: 1,
         temas: [
           {
-            nombre: 'Mal',
+            nombre: 'Libre',
             colores: { fondo: '#FFFFFF', primario: '#EEEEEE', acento: '#DDDDDD', urgente: '#CCCCCC' },
           },
         ],
       },
       false,
     );
-    expect(r.accepted).toEqual([]);
-    expect(r.rejected[0]).toMatch(/contraste/i);
+    expect(r.accepted).toHaveLength(1);
+    expect(r.rejected).toEqual([]);
+    expect(r.warnings[0]).toMatch(/contraste/i);
   });
 
-  it('acepta tema con contraste AA', () => {
+  it('acepta tema con contraste AA sin advertencias', () => {
     const r = parseThemeImport({ schemaVersion: 1, temas: [{ nombre: 'Ok', colores: good }] }, false);
     expect(r.accepted).toHaveLength(1);
     expect(r.rejected).toEqual([]);
+    expect(r.warnings).toEqual([]);
   });
 });

@@ -208,14 +208,23 @@
           <section class="first-day">
             <h1>Tu primer día.</h1>
             <p class="lede">Elige un hábito.</p>
-            <div class="big-number">0<span>DÍAS DE RACHA</span></div>
+            <div class="big-number" data-testid="primer-dia-streak">
+              {{ streak() }}<span>{{ streak() === 1 ? 'DÍA DE RACHA' : 'DÍAS DE RACHA' }}</span>
+            </div>
             <div class="habit-list">
               @for (h of habits(); track h.id) {
-                <div class="habit">
+                <button
+                  type="button"
+                  class="habit"
+                  [class.done]="done(h.id)"
+                  [attr.aria-pressed]="done(h.id)"
+                  (click)="toggleHabit(h.id)"
+                >
                   <span aria-hidden="true" class="material-symbols-sharp">{{ h.icono }}</span
                   ><strong>{{ h.nombre }}</strong
-                  ><span class="square"></span>
-                </div>
+                  ><span class="habit-state">{{ done(h.id) ? 'Completo' : 'Pendiente' }}</span
+                  ><span class="square" aria-hidden="true">{{ done(h.id) ? '✓' : '○' }}</span>
+                </button>
               }
             </div>
             <button class="primary" (click)="navigate('hoy')">
@@ -274,6 +283,54 @@
                 </button>
               </div>
             </section>
+            @if (settings().ia === 'local') {
+              <section class="panel local-ai-panel" data-testid="local-ai-hoy">
+                <div class="eyebrow">
+                  IA local activa · En tu dispositivo
+                  @if (browserAiStatus() === 'disponible') {
+                    · Modelo del navegador listo
+                  }
+                </div>
+                <h2>Asistente local</h2>
+                <p>{{ localBrief().habitSummary }} {{ localBrief().pantryTip }}</p>
+                @if (localBrief().recipeSuggestion; as rs) {
+                  <p class="small">
+                    Receta sugerida: <strong>{{ rs.recipe.nombre }}</strong> (~{{ rs.macros.kcal }}
+                    kcal, {{ rs.macros.proteina }} g proteína).
+                  </p>
+                }
+                @if (localBrief().exerciseSuggestion; as es) {
+                  <p class="small">
+                    Movimiento sugerido: <strong>{{ es.exercise.nombre }}</strong>.
+                  </p>
+                }
+                <div class="choices local-ai-chips">
+                  @for (chip of localAiPromptChips; track chip) {
+                    <button type="button" (click)="askLocalAssistant(chip)">{{ chip }}</button>
+                  }
+                </div>
+                <form class="local-ai-form" (ngSubmit)="askLocalAssistant()">
+                  <label
+                    >Pregunta en tu dispositivo (recetas, alimentos USDA, ejercicios o racha)
+                    <input
+                      [(ngModel)]="localAiQuestion"
+                      name="localAiQuestion"
+                      placeholder="Ej. proteína del pollo o qué cocino hoy"
+                  /></label>
+                  <button type="submit" class="primary" [disabled]="localAiBusy()">
+                    {{ localAiBusy() ? 'Consultando…' : 'Preguntar' }}
+                  </button>
+                </form>
+                @if (localAiAnswer(); as ans) {
+                  <div class="local-ai-reply" aria-live="polite" data-testid="local-ai-reply">
+                    <p>{{ ans.reply }}</p>
+                    @if (ans.action; as act) {
+                      <button type="button" (click)="applyLocalAction(act)">{{ act.label }}</button>
+                    }
+                  </div>
+                }
+              </section>
+            }
             @if (total() > 0) {
               <button class="panel achievement-link" (click)="navigate('logro')">
                 <span aria-hidden="true" class="material-symbols-sharp">workspace_premium</span
@@ -285,7 +342,16 @@
         @case ('plan') {
           <div class="page-heading">
             <div>
-              <div class="eyebrow">Plan / Sin IA por defecto</div>
+              <div class="eyebrow">
+                Plan /
+                {{
+                  settings().ia === 'local'
+                    ? 'IA local activa'
+                    : settings().ia === 'propia'
+                      ? 'IA externa activa'
+                      : 'Sin IA'
+                }}
+              </div>
               <h1>Plan</h1>
             </div>
           </div>
@@ -318,7 +384,12 @@
                   </ol>
                   <p class="small">
                     Energía aproximada de ingredientes: {{ energy(r) ?? 'sin dato' }}
-                    {{ energy(r) !== null ? 'kcal' : '' }}. No es una meta diaria.
+                    {{ energy(r) !== null ? 'kcal' : '' }}.
+                    @if (selectedRecipeMacros(); as m) {
+                      Proteína: {{ m.proteina }} g · Carbohidratos: {{ m.carbohidratos }} g ·
+                      Grasa: {{ m.grasa }} g · Fibra: {{ m.fibra }} g.
+                    }
+                    No es una meta diaria.
                   </p>
                 </article>
                 <section class="panel sources">
@@ -479,6 +550,32 @@
                   >
                 </section>
               }
+              @if (settings().ia === 'local') {
+                <section class="panel local-ai-panel" data-testid="local-ai-plan">
+                  <div class="eyebrow">IA local · 100% en tu dispositivo</div>
+                  <h2>Sugerencia local</h2>
+                  @if (localBrief().recipeSuggestion; as rs) {
+                    <p>{{ rs.reason }}</p>
+                    @if (suggestions().length > 1) {
+                      <button type="button" (click)="suggestAnotherLocalRecipe()">
+                        Otra sugerencia local
+                      </button>
+                    }
+                  } @else {
+                    <p>{{ localBrief().pantryTip }}</p>
+                  }
+                  @if (pantryInsights().unlockable.length > 0) {
+                    <p class="small">
+                      Despensa: {{ localBrief().pantryTip }}
+                    </p>
+                  }
+                  <div class="actions">
+                    <button type="button" (click)="suggestLocalExerciseNow()">
+                      Sugerir ejercicio local
+                    </button>
+                  </div>
+                </section>
+              }
               @if (settings().ia === 'propia') {
                 <section class="panel">
                   <h2>IA opcional</h2>
@@ -524,6 +621,18 @@
                 Ver mi logro
               </button>
             </section>
+            @if (settings().ia === 'local') {
+              <section class="panel local-ai-panel" data-testid="local-ai-progreso">
+                <div class="eyebrow">IA local · Lectura de progreso</div>
+                <h2>Resumen semanal</h2>
+                <p>{{ habitInsights().summary }}</p>
+                <p class="small">
+                  Cumplimiento últimos 7 días: {{ habitInsights().rate7d }}% · Días activos (42d):
+                  {{ habitInsights().activeDays42d }} · Mejor racha (42d):
+                  {{ habitInsights().bestStreak42d }} días.
+                </p>
+              </section>
+            }
           </div>
         }
         @case ('comunidad') {
@@ -648,8 +757,8 @@
                 /></label>
               </div>
               <p class="small">
-                Exporta solo nombres y cuatro colores. La importación crea IDs nuevos y bloquea
-                combinaciones sin contraste AA.
+                Exporta solo nombres y cuatro colores. La importación crea IDs nuevos y permite
+                cualquier combinación (muestra aviso si el contraste es menor a AA).
               </p>
               @if (themeEditor()) {
                 <div
@@ -690,8 +799,8 @@
                   </p>
                   <div class="actions">
                     <button
+                      type="button"
                       class="primary"
-                      [disabled]="!contrastReport().ok"
                       (click)="saveCustom()"
                     >
                       Guardar y usar
@@ -789,15 +898,31 @@
                 <span aria-hidden="true" class="material-symbols-sharp">expand_more</span>
               </button>
               @if (advanced()) {
-                <h2>IA externa</h2>
+                <h2>Inteligencia artificial</h2>
                 <div class="choices">
-                  <button [class.selected]="settings().ia === 'apagada'" (click)="setAi('apagada')">
+                  <button
+                    type="button"
+                    [class.selected]="settings().ia === 'apagada'"
+                    [attr.aria-pressed]="settings().ia === 'apagada'"
+                    (click)="setAi('apagada')"
+                  >
                     Apagada</button
-                  ><button disabled>En tu cel · Próximamente</button
+                  ><button
+                    type="button"
+                    [class.selected]="settings().ia === 'local'"
+                    [attr.aria-pressed]="settings().ia === 'local'"
+                    (click)="setAi('local')"
+                  >
+                    En tu cel</button
                   ><span class="chip" [class.selected]="settings().ia === 'propia'"
                     >Clave propia</span
                   >
                 </div>
+                <p class="small">
+                  «En tu cel» viene activa por defecto y funciona sin internet con tus hábitos,
+                  recetas, 300 alimentos USDA y 80 ejercicios. No envía ningún dato fuera de tu
+                  dispositivo.
+                </p>
                 <p>
                   Tu clave se guarda solo en este teléfono, sin candado. Si alguien más usa tu
                   teléfono, podría verla.
@@ -857,8 +982,8 @@
                 computadora. Sin cuenta ni sincronización.
               </p>
               <p>
-                La IA externa está apagada al empezar. El botón siguiente elimina también su clave
-                local.
+                La IA local viene activa por defecto y la IA externa está apagada al empezar. El
+                botón siguiente elimina también su clave local.
               </p>
               @if (!resetConfirm()) {
                 <button (click)="resetConfirm.set(true)">Borrar todos mis datos</button>

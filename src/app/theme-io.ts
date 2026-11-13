@@ -28,12 +28,19 @@ export type ThemeImportResult = {
   ok: boolean;
   accepted: { nombre: string; colores: z.infer<typeof customThemeSchema> }[];
   rejected: string[];
+  warnings: string[];
 };
 
 export function parseThemeImport(raw: unknown, oled: boolean): ThemeImportResult {
   const rejected: string[] = [];
+  const warnings: string[] = [];
   if (raw === null || typeof raw !== 'object' || Array.isArray(raw)) {
-    return { ok: false, accepted: [], rejected: ['El archivo no es un objeto JSON válido.'] };
+    return {
+      ok: false,
+      accepted: [],
+      rejected: ['El archivo no es un objeto JSON válido.'],
+      warnings,
+    };
   }
   const obj = raw as Record<string, unknown>;
   const allowed = new Set(['schemaVersion', 'temas']);
@@ -42,23 +49,22 @@ export function parseThemeImport(raw: unknown, oled: boolean): ThemeImportResult
   }
   if (obj['schemaVersion'] !== 1) {
     rejected.push('Versión de esquema desconocida o ausente.');
-    return { ok: false, accepted: [], rejected };
+    return { ok: false, accepted: [], rejected, warnings };
   }
   const parsed = themeExportSchema.safeParse(obj);
   if (!parsed.success) {
     rejected.push('Estructura inválida o hex mal formado.');
-    return { ok: false, accepted: [], rejected };
+    return { ok: false, accepted: [], rejected, warnings };
   }
   const accepted: ThemeImportResult['accepted'] = [];
   for (const item of parsed.data.temas) {
     const report = evaluateCustomContrast(item.colores, oled);
     if (!report.ok) {
-      rejected.push(
-        `«${item.nombre}»: contraste insuficiente (${report.failures[0] ?? 'AA'}).`,
+      warnings.push(
+        `«${item.nombre}»: contraste bajo (${report.failures[0] ?? 'AA'}).`,
       );
-      continue;
     }
     accepted.push(item);
   }
-  return { ok: accepted.length > 0 && rejected.length === 0, accepted, rejected };
+  return { ok: accepted.length > 0 && rejected.length === 0, accepted, rejected, warnings };
 }

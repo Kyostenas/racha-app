@@ -1119,3 +1119,39 @@ video {
   flex: none;
   vertical-align: middle;
 }
+
+/* Asistente e IA local */
+.bento .local-ai-panel {
+  grid-column: 1 / -1;
+}
+.local-ai-chips {
+  margin: 16px 0;
+}
+.local-ai-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  margin-top: 12px;
+}
+.local-ai-form label {
+  flex: 1 1 240px;
+  min-width: 0;
+  margin: 0;
+}
+.local-ai-reply {
+  margin-top: 16px;
+  padding: 16px;
+  border: 3px solid var(--tinta);
+  background: var(--superficieAlta);
+  overflow-wrap: anywhere;
+}
+.local-ai-reply p {
+  margin: 0 0 12px;
+}
+.local-ai-reply p:last-child {
+  margin-bottom: 0;
+}
+.local-ai-panel > * {
+  min-width: 0;
+}
