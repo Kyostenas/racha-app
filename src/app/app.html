@@ -1134,11 +1134,90 @@
                 </button>
               }
             </section>
+            <section class="panel respaldo" data-testid="respaldo" aria-labelledby="titulo-respaldo">
+              <h2 id="titulo-respaldo">Respaldo de datos locales en el servidor</h2>
+              <p>
+                Guarda una copia cifrada en este dispositivo antes de subirla: el servidor no puede
+                leerla y la puedes recuperar si cambias de cel o se borran los datos del navegador.
+              </p>
+              @if (!sesionActual()) {
+                <p>Para respaldar necesitas una cuenta de Progressium. Tus datos actuales se suben cifrados al crearla.</p>
+                <button class="primary" (click)="irACuenta()">Crear cuenta para respaldar</button>
+              } @else {
+                <p class="respaldo-estado" role="status" data-testid="respaldo-estado">
+                  Último respaldo: <strong>{{ fechaRespaldo(respaldo.estado().ultimoOk) }}</strong>
+                  @if (respaldo.estado().resultado === 'ok') {
+                    · <span class="ok">OK</span>
+                  } @else if (respaldo.estado().resultado === 'error') {
+                    · <span class="err">Error: {{ respaldo.estado().mensaje }}</span>
+                  }
+                  <span class="small"> · cuenta {{ sesionActual()!.usuario }}</span>
+                </p>
+                @if (respaldo.necesitaContrasena()) {
+                  <form class="respaldo-clave" (ngSubmit)="desbloquearRespaldo()">
+                    <label
+                      >Escribe tu contraseña para activar el respaldo en este dispositivo<input
+                        type="password"
+                        name="respaldoContrasena"
+                        autocomplete="current-password"
+                        [(ngModel)]="respaldoContrasena"
+                    /></label>
+                    <button class="primary" type="submit" [disabled]="respaldo.ocupado() || respaldoContrasena.length < 8">
+                      Activar respaldo
+                    </button>
+                  </form>
+                } @else {
+                  <div class="actions">
+                    <button class="primary" (click)="respaldarAhora()" [disabled]="respaldo.ocupado()">
+                      {{ respaldo.ocupado() ? 'Respaldando…' : 'Respaldar ahora' }}
+                    </button>
+                    @if (!restaurarConfirm()) {
+                      <button (click)="restaurarConfirm.set(true)" [disabled]="respaldo.ocupado()">Restaurar desde el respaldo</button>
+                    }
+                  </div>
+                  @if (restaurarConfirm()) {
+                    <div
+                      class="confirm-dialog"
+                      role="dialog"
+                      aria-modal="true"
+                      aria-labelledby="restaurar-title"
+                      cdkTrapFocus
+                      [cdkTrapFocusAutoCapture]="true"
+                    >
+                      <p id="restaurar-title" role="alert">
+                        <strong>Se reemplazan los datos de este dispositivo</strong> por los del último
+                        respaldo del servidor. ¿Restauramos?
+                      </p>
+                      <div class="actions">
+                        <button class="primary" (click)="restaurarRespaldo()">Sí, restaurar</button>
+                        <button type="button" (click)="restaurarConfirm.set(false)">Cancelar</button>
+                      </div>
+                    </div>
+                  }
+                  <fieldset class="respaldo-programa">
+                    <legend>Respaldo diario</legend>
+                    <label class="check"
+                      ><input type="checkbox" name="respaldoActivo" [(ngModel)]="respaldoForm.activo" (ngModelChange)="guardarProgramaRespaldo()" />
+                      Respaldar todos los días</label
+                    >
+                    <label
+                      >Hora<input
+                        type="time"
+                        name="respaldoHora"
+                        [(ngModel)]="respaldoForm.hora"
+                        (change)="guardarProgramaRespaldo()"
+                        [disabled]="!respaldoForm.activo"
+                    /></label>
+                  </fieldset>
+                  <p class="small" data-testid="respaldo-explicacion">{{ explicacionRespaldo() }}</p>
+                }
+              }
+            </section>
             <section class="panel danger">
               <h2>Datos locales</h2>
               <p>
-                Tu perfil, hábitos, rachas, registros y ajustes se guardan solo en este teléfono o
-                computadora. Sin cuenta ni sincronización.
+                Tu perfil, hábitos, rachas, registros y ajustes se guardan en este teléfono o
+                computadora. Si tienes cuenta, también se respaldan cifrados en el servidor.
               </p>
               <p>
                 La IA local viene activa por defecto y la IA externa está apagada al empezar. El

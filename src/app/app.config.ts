@@ -4,7 +4,7 @@ import { provideServiceWorker } from '@angular/service-worker';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideServiceWorker('ngsw-worker.js', {
+    provideServiceWorker('sw-respaldo.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerImmediately',
     }),

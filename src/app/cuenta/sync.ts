@@ -1,4 +1,5 @@
 import { Injectable, inject } from '@angular/core';
+import { z } from 'zod';
 import { LocalStore } from '../storage';
 import { CuentaApi, CuentaError } from './api';
 import { Sesion } from './sesion';
@@ -14,6 +15,17 @@ function dispositivoId(): string {
   return id;
 }
 
+/**
+ * La llave AES-GCM se guarda en IndexedDB como CryptoKey NO extraíble: el código no puede leer sus
+ * bytes, solo usarla para cifrar/descifrar en este dispositivo. Así el respaldo programado funciona
+ * tras recargar sin volver a pedir la contraseña. Los datos que protege ya están en claro en el
+ * mismo IndexedDB, así que no expone nada nuevo; «Borrar todos mis datos» la elimina.
+ */
+const llaveGuardadaSchema = z.object({
+  id: z.literal('llave'),
+  llave: z.custom<CryptoKey>((v) => typeof v === 'object' && v !== null),
+});
+
 function volcadoVacio(datos: Record<string, unknown[]>): boolean {
   return !Object.values(datos).some((arr) => Array.isArray(arr) && arr.length > 0);
 }
@@ -27,6 +39,9 @@ export class SyncService {
   private timer: ReturnType<typeof setTimeout> | null = null;
   private enCurso: Promise<'subido' | 'bajado' | 'igual' | 'sin-llave' | 'sin-red'> | null = null;
   private cambiosMientras = false;
+  /** Se llama tras cada subida correcta (respaldo manual, programado o sincronización). */
+  alSubir: ((origen: 'sincronizacion' | 'manual' | 'programado') => void) | null = null;
+  private origenSubida: 'sincronizacion' | 'manual' | 'programado' = 'sincronizacion';
 
   dispositivo(): string {
     return dispositivoId();
@@ -34,10 +49,68 @@ export class SyncService {
 
   async prepararLlave(contrasena: string, saltHex: string): Promise<void> {
     this.llave = await derivarLlave(contrasena, saltDeHex(saltHex));
+    await this.db.put('cuenta', { id: 'llave', llave: this.llave }).catch(() => undefined);
+  }
+
+  /** Recupera la llave guardada en este dispositivo (si hay). */
+  async cargarLlave(): Promise<boolean> {
+    const g = await this.db.get('cuenta', 'llave', llaveGuardadaSchema).catch(() => null);
+    if (g) this.llave = g.llave;
+    return !!this.llave;
   }
 
   olvidarLlave(): void {
     this.llave = null;
+    void this.db.delete('cuenta', 'llave').catch(() => undefined);
+  }
+
+  /**
+   * «Respaldar ahora»: sube lo que hay en este dispositivo como versión más nueva, aunque otro
+   * dispositivo haya subido antes (el servidor conserva las 3 últimas versiones).
+   */
+  async subirAhora(origen: 'manual' | 'programado'): Promise<void> {
+    if (this.enCurso) await this.enCurso.catch(() => undefined);
+    const c = this.sesion.actual();
+    if (!c) throw new Error('Crea una cuenta o inicia sesión para respaldar.');
+    if (!this.llave) throw new Error('Escribe tu contraseña para activar el respaldo en este dispositivo.');
+    const datos = await this.db.exportarSync();
+    if (volcadoVacio(datos)) throw new Error('Aún no hay datos que respaldar.');
+    const datos_cifrados = await cifrar(this.llave, datos);
+    this.cambiosMientras = false;
+    for (let intento = 0; ; intento++) {
+      const remoto = await this.api.sync();
+      const version = Math.max(c.version, remoto.max_version) + 1;
+      try {
+        const r = await this.api.subir({ dispositivo: c.dispositivo, version, datos_cifrados });
+        this.origenSubida = origen;
+        await this.cerrarSubida(c, r.version);
+        return;
+      } catch (e) {
+        if (!(e instanceof CuentaError && e.status === 409) || intento >= 1) {
+          this.marcarEstado('error');
+          throw e;
+        }
+      }
+    }
+  }
+
+  /** Reemplaza los datos de este dispositivo con el último respaldo del servidor. */
+  async restaurarUltimo(): Promise<string> {
+    if (this.enCurso) await this.enCurso.catch(() => undefined);
+    const c = this.sesion.actual();
+    if (!c) throw new Error('Crea una cuenta o inicia sesión para restaurar.');
+    if (!this.llave) throw new Error('Escribe tu contraseña para activar el respaldo en este dispositivo.');
+    const remoto = await this.api.sync();
+    if (!remoto.ultimo) throw new Error('Aún no hay un respaldo en el servidor.');
+    this.cambiosMientras = false;
+    try {
+      await this.bajar(c, remoto.ultimo.datos_cifrados, remoto.max_version);
+    } catch (e) {
+      if (e instanceof DOMException || (e instanceof Error && e.name === 'OperationError'))
+        throw new Error('No pudimos descifrar el respaldo con la llave de este dispositivo. Vuelve a escribir tu contraseña.');
+      throw e;
+    }
+    return remoto.ultimo.actualizado;
   }
 
   tieneLlave(): boolean {
@@ -139,6 +212,8 @@ export class SyncService {
     const actual = this.sesion.actual() ?? c;
     await this.sesion.guardar({ ...actual, version, sucio: this.cambiosMientras });
     this.marcarEstado(this.cambiosMientras ? 'pendiente' : 'ok');
+    this.alSubir?.(this.origenSubida);
+    this.origenSubida = 'sincronizacion';
     if (this.cambiosMientras) this.programar();
   }
 }

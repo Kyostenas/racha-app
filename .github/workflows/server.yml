@@ -47,7 +47,7 @@ jobs:
         run: |
           npm ci
           npx playwright install chromium || npx playwright install --with-deps chromium
-          npx playwright test e2e/comunidad.spec.ts e2e/reflow.spec.ts e2e/cuenta.spec.ts
+          npx playwright test e2e/comunidad.spec.ts e2e/reflow.spec.ts e2e/cuenta.spec.ts e2e/respaldo.spec.ts
       - uses: actions/upload-artifact@v4
         if: always()
         with:

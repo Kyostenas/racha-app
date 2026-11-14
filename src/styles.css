@@ -1245,3 +1245,33 @@ video {
 .community-today progress {
   width: 100%;
 }
+
+/* v0.4.7: respaldo de datos locales en el servidor */
+.respaldo .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 12px 0;
+}
+.respaldo-estado .ok {
+  font-weight: 700;
+  color: var(--texto);
+}
+.respaldo-estado .err {
+  font-weight: 700;
+  text-decoration: underline;
+}
+.respaldo {
+  grid-column: 1/-1;
+}
+.respaldo-programa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 16px;
+  margin-top: 12px;
+}
+.respaldo-clave {
+  display: grid;
+  gap: 12px;
+}

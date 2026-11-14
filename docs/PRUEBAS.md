@@ -81,3 +81,14 @@ CI reproduce unidades, build y E2E; después compila con base `/racha-app/` y pu
 
 - En vivo, v0.4.5 ilustraba la receta con su momento principal: un caldo abierto desde «Comida» mostraba el huevo y «Mañana · Desayuno». Ahora el arte usa el momento desde el que se abrió (Hoy o Plan) si la receta le corresponde; si no, su momento principal.
 - `e2e/iconos.spec.ts` exige que desayuno, comida y cena muestren `egg_alt`, `skillet` y `dinner_dining` respectivamente.
+
+## v0.4.7 · 2026-11-13
+
+- Ajustes → «Respaldo de datos locales en el servidor», sobre el respaldo cifrado de cuenta/sync (AES-GCM en el dispositivo; al servidor solo viaja `v1.iv.ct`; el servidor guarda las 3 últimas versiones):
+  - «Respaldar ahora» con estado: último respaldo (fecha y hora) y OK o el error.
+  - Respaldo diario on/off + hora. Como es PWA, corre al abrir la app o mientras está abierta (revisa cada minuto y al volver a la pestaña) si ya pasó la hora y no hay respaldo desde entonces; tras un error reintenta cada 15 min. Con Periodic Background Sync (Chrome con la app instalada) `public/sw-respaldo.js` (ngsw + manejador `periodicsync`) lo intenta también en segundo plano.
+  - «Restaurar desde el respaldo» con confirmación.
+  - Sin cuenta: invita a crearla. Si falta la llave en el dispositivo o venció la sesión: pide la contraseña (renueva el token y guarda la llave).
+- La llave AES-GCM ahora se guarda en IndexedDB como CryptoKey no extraíble (antes solo en memoria, y tras recargar la sincronización quedaba en «sin-llave»). «Borrar todos mis datos» la elimina.
+- `npm test`: 126/126 (nuevo `respaldo-programa.spec.ts`: hora local, pendiente, reintento, último OK).
+- E2E `e2e/respaldo.spec.ts`: sin cuenta invita a crearla; con servidor: respaldar ahora (PUT 200, solo texto cifrado, sin contraseña en claro), programar 00:00 y persistir al recargar, respaldo pendiente al abrir (origen «programado»), restaurar con confirmación (Cancelar no cambia nada; Sí revierte un cambio no respaldado). Se agregó al job de contenedor de `server.yml`. Captura `v047-respaldo.png`.

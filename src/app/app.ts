@@ -26,6 +26,8 @@ import {
   Momento,
 } from './domain';
 import { LocalStore, cambiosLocales } from './storage';
+import { RespaldoService } from './cuenta/respaldo';
+import { fechaRespaldo } from './cuenta/respaldo-programa';
 import { Comunidad } from './comunidad/comunidad';
 import { ComunidadApi, Evento, Reto } from './comunidad/api';
 import { Cuenta } from './cuenta/cuenta';
@@ -93,6 +95,19 @@ export class App implements OnInit {
   private cuentaApi = inject(CuentaApi);
   private sesion = inject(Sesion);
   private sync = inject(SyncService);
+  readonly respaldo = inject(RespaldoService);
+  readonly fechaRespaldo = fechaRespaldo;
+  readonly sesionActual = computed(() => this.sesion.actual());
+  readonly restaurarConfirm = signal(false);
+  respaldoContrasena = '';
+  readonly explicacionRespaldo = computed(
+    () =>
+      'Al ser app web, se respalda al abrir Progressium (o mientras está abierta) si ya pasó la hora y hoy no se ha hecho' +
+      (this.respaldo.segundoPlano() === 'activo'
+        ? '; además, este navegador lo intenta en segundo plano.'
+        : '; en Chrome con la app instalada también puede hacerse en segundo plano.'),
+  );
+  respaldoForm = { activo: false, hora: '21:00' };
   private live = inject(LiveAnnouncer);
   readonly servidor = signal(false);
   private lastFocus: HTMLElement | null = null;
@@ -1084,6 +1099,8 @@ export class App implements OnInit {
       this.sync.olvidarLlave();
       await this.sesion.borrar();
       await this.db.clear();
+      this.restaurarConfirm.set(false);
+      await this.cargarRespaldo();
       if (!this.ready()) {
         window.location.reload();
         return;
@@ -1140,6 +1157,8 @@ export class App implements OnInit {
   private async prepararCuenta() {
     const c = await this.sesion.cargar();
     if (c?.token) this.comunidadApi.usarToken(c.token);
+    if (c) await this.sync.cargarLlave();
+    await this.cargarRespaldo();
     await this.probarServidor();
     cambiosLocales.addEventListener('cambio', () => { void this.sync.marcarSucio(); });
     window.addEventListener('online', () => { void this.alVolverEnLinea(); });
@@ -1148,12 +1167,60 @@ export class App implements OnInit {
       return;
     }
     if (c && this.servidor()) await this.intentarSync();
+    if (c) void this.respaldo.iniciar();
+  }
+  private async cargarRespaldo() {
+    const cfg = await this.respaldo.cargar();
+    this.respaldoForm = { activo: cfg.activo, hora: cfg.hora };
+  }
+  irACuenta() {
+    this.navigate('cuenta');
+  }
+  async respaldarAhora() {
+    if (await this.respaldo.respaldarAhora('manual')) this.announceStatus('Respaldo cifrado guardado en el servidor.');
+    else this.announceError(this.respaldo.estado().mensaje || 'No pudimos respaldar.');
+  }
+  async guardarProgramaRespaldo() {
+    try {
+      await this.respaldo.programar(this.respaldoForm.activo, this.respaldoForm.hora);
+      this.announceStatus(
+        this.respaldoForm.activo
+          ? `Respaldo diario programado a las ${this.respaldoForm.hora}.`
+          : 'Respaldo diario apagado.',
+      );
+      await this.respaldo.revisarPendiente();
+    } catch {
+      this.announceError('Elige una hora válida (HH:MM).');
+    }
+  }
+  async desbloquearRespaldo() {
+    try {
+      await this.respaldo.desbloquear(this.respaldoContrasena);
+      this.respaldoContrasena = '';
+      this.announceStatus('Respaldo activado en este dispositivo.');
+      void this.respaldo.iniciar();
+    } catch (e) {
+      this.announceError(e instanceof Error ? e.message : 'No pudimos activar el respaldo.');
+    }
+  }
+  async restaurarRespaldo() {
+    this.restaurarConfirm.set(false);
+    try {
+      const fecha = await this.respaldo.restaurar();
+      await this.alIniciarSesion();
+      this.navigate('ajustes');
+      this.announceStatus(`Datos restaurados del respaldo del ${fechaRespaldo(fecha.replace(' ', 'T'))}.`);
+    } catch (e) {
+      this.announceError(e instanceof Error ? e.message : 'No pudimos restaurar el respaldo.');
+    }
   }
   private async alVolverEnLinea() {
     await this.probarServidor();
     void this.intentarSync();
   }
   async alIniciarSesion() {
+    await this.cargarRespaldo();
+    void this.respaldo.iniciar();
     const [p, s, h, r] = await Promise.all([
       this.db.get('perfil', 'local', profileSchema),
       this.db.get('ajustes', 'local', settingsSchema),
