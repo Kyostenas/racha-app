@@ -1,0 +1,395 @@
+{
+  "estado": "PASS",
+  "entradas_v043": 300,
+  "ids_fusionados_como_alias": 48,
+  "ingredientes_v043_sin_duplicados_de_estado": 252,
+  "agregados_mexicanos": 55,
+  "ingredientes_v044": 307,
+  "fuentes": {
+    "SR Legacy 2018 (CC0)": "0fe8ae486a2c8eb42cb96413f058deb51863a46c8fb8eeb4b1fb45006dd338ef",
+    "Foundation Foods 2026-04-30 (CC0)": "186e988ec542e913f51ef62b86a47758e8cdd0d1dc3889e7b055581f3c09c77a"
+  },
+  "regla_estado": "Granos, leguminosas, carnes y pescados con valor ya preparado; verduras y frutas frescas.",
+  "agregados": [
+    {
+      "id": "usda-169997",
+      "nombre": "Cilantro",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Coriander (cilantro) leaves, raw"
+    },
+    {
+      "id": "usda-169398",
+      "nombre": "Epazote",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Epazote, raw"
+    },
+    {
+      "id": "usda-169396",
+      "nombre": "Chile ancho",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Peppers, ancho, dried"
+    },
+    {
+      "id": "usda-168579",
+      "nombre": "Chile pasilla",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Peppers, pasilla, dried"
+    },
+    {
+      "id": "usda-2747662",
+      "nombre": "Chile poblano",
+      "fuente": "Foundation Foods 2026-04",
+      "descripcion_usda": "Peppers, poblano, seeded, raw"
+    },
+    {
+      "id": "usda-2747660",
+      "nombre": "Chile güero",
+      "fuente": "Foundation Foods 2026-04",
+      "descripcion_usda": "Peppers, banana or Hungarian wax, seeded, raw"
+    },
+    {
+      "id": "usda-1999634",
+      "nombre": "Jitomate saladet (roma)",
+      "fuente": "Foundation Foods 2026-04",
+      "descripcion_usda": "Tomato, roma"
+    },
+    {
+      "id": "usda-790577",
+      "nombre": "Cebolla morada",
+      "fuente": "Foundation Foods 2026-04",
+      "descripcion_usda": "Onions, red, raw"
+    },
+    {
+      "id": "usda-169274",
+      "nombre": "Verdolagas",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Purslane, raw"
+    },
+    {
+      "id": "usda-169244",
+      "nombre": "Quelites (quelite cenizo)",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Lambsquarters, raw"
+    },
+    {
+      "id": "usda-169985",
+      "nombre": "Yuca",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Cassava, raw"
+    },
+    {
+      "id": "usda-168170",
+      "nombre": "Flor de jamaica",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Roselle, raw"
+    },
+    {
+      "id": "usda-171946",
+      "nombre": "Agua de jamaica sin azúcar",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Beverages, tea, hibiscus, brewed"
+    },
+    {
+      "id": "usda-169098",
+      "nombre": "Jugo de naranja natural",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Orange juice, raw (Includes foods for USDA's Food Distribution Program)"
+    },
+    {
+      "id": "usda-167763",
+      "nombre": "Tamarindo",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Tamarinds, raw"
+    },
+    {
+      "id": "usda-167760",
+      "nombre": "Mamey",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Sapote, mamey, raw"
+    },
+    {
+      "id": "usda-167759",
+      "nombre": "Chicozapote",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Sapodilla, raw"
+    },
+    {
+      "id": "usda-167761",
+      "nombre": "Guanábana",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Soursop, raw"
+    },
+    {
+      "id": "usda-173953",
+      "nombre": "Chirimoya",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Cherimoya, raw"
+    },
+    {
+      "id": "usda-2710834",
+      "nombre": "Mango Ataulfo",
+      "fuente": "Foundation Foods 2026-04",
+      "descripcion_usda": "Mango, Ataulfo, peeled, raw"
+    },
+    {
+      "id": "usda-169131",
+      "nombre": "Plátano macho",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Plantains, yellow, baked"
+    },
+    {
+      "id": "usda-173753",
+      "nombre": "Habas",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Broadbeans (fava beans), mature seeds, cooked, boiled, without salt"
+    },
+    {
+      "id": "usda-172429",
+      "nombre": "Alverjón (chícharo partido)",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Peas, split, mature seeds, cooked, boiled, without salt"
+    },
+    {
+      "id": "usda-172438",
+      "nombre": "Frijoles refritos (lata)",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Refried beans, canned, traditional style"
+    },
+    {
+      "id": "usda-169701",
+      "nombre": "Maíz pozolero",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Hominy, canned, white"
+    },
+    {
+      "id": "usda-169694",
+      "nombre": "Harina de maíz nixtamalizado (masa)",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Corn flour, masa, enriched, white"
+    },
+    {
+      "id": "usda-167525",
+      "nombre": "Tostadas de maíz",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Tostada shells, corn"
+    },
+    {
+      "id": "usda-167558",
+      "nombre": "Totopos de maíz",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Snacks, tortilla chips, plain, white corn, salted"
+    },
+    {
+      "id": "usda-169737",
+      "nombre": "Pasta para sopa (fideo)",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Pasta, cooked, enriched, without added salt"
+    },
+    {
+      "id": "usda-174924",
+      "nombre": "Pan blanco de caja",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Bread, white, commercially prepared (includes soft bread crumbs)"
+    },
+    {
+      "id": "usda-172224",
+      "nombre": "Queso blanco",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Cheese, white, queso blanco"
+    },
+    {
+      "id": "usda-172222",
+      "nombre": "Queso seco",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Cheese, dry white, queso seco"
+    },
+    {
+      "id": "usda-2647441",
+      "nombre": "Queso Oaxaca",
+      "fuente": "Foundation Foods 2026-04",
+      "descripcion_usda": "Cheese, oaxaca, solid"
+    },
+    {
+      "id": "usda-171269",
+      "nombre": "Leche descremada",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Milk, nonfat, fluid, with added vitamin A and vitamin D (fat free or skim)"
+    },
+    {
+      "id": "usda-171267",
+      "nombre": "Leche semidescremada (2 %)",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Milk, reduced fat, fluid, 2% milkfat, with added vitamin A and vitamin D"
+    },
+    {
+      "id": "usda-168649",
+      "nombre": "Bistec de res (pulpa magra)",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Beef, round, top round steak, boneless, separable lean only, trimmed to 0\" fat, all grades, cooked, grilled"
+    },
+    {
+      "id": "usda-168611",
+      "nombre": "Arrachera de res",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Beef, flank, steak, separable lean only, trimmed to 0\" fat, choice, cooked, broiled"
+    },
+    {
+      "id": "usda-170615",
+      "nombre": "Res para guisar (espaldilla magra)",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Beef, chuck, arm pot roast, separable lean only, trimmed to 0\" fat, choice, cooked, braised"
+    },
+    {
+      "id": "usda-167846",
+      "nombre": "Maciza de cerdo (espaldilla magra)",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Pork, fresh, shoulder, whole, separable lean only, cooked, roasted"
+    },
+    {
+      "id": "usda-168626",
+      "nombre": "Hígado de res",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Beef, variety meats and by-products, liver, cooked, braised"
+    },
+    {
+      "id": "usda-175304",
+      "nombre": "Cabrito",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Game meat, goat, cooked, roasted"
+    },
+    {
+      "id": "usda-746781",
+      "nombre": "Chorizo de cerdo",
+      "fuente": "Foundation Foods 2026-04",
+      "descripcion_usda": "Sausage, pork, chorizo, link or ground, cooked, pan-fried"
+    },
+    {
+      "id": "usda-167961",
+      "nombre": "Chicharrón de cerdo",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Snacks, pork skins, plain"
+    },
+    {
+      "id": "usda-173864",
+      "nombre": "Jamón de cerdo",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Ham, sliced, regular (approximately 11% fat)"
+    },
+    {
+      "id": "usda-168092",
+      "nombre": "Jamón de pavo",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Ham, turkey, sliced, extra lean, prepackaged or deli"
+    },
+    {
+      "id": "usda-171625",
+      "nombre": "Salchicha de pavo",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Frankfurter, turkey"
+    },
+    {
+      "id": "usda-174249",
+      "nombre": "Pulpo",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Mollusks, octopus, common, cooked, moist heat"
+    },
+    {
+      "id": "usda-171401",
+      "nombre": "Manteca de cerdo",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Lard"
+    },
+    {
+      "id": "usda-171009",
+      "nombre": "Mayonesa",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Salad dressing, mayonnaise, regular"
+    },
+    {
+      "id": "usda-170170",
+      "nombre": "Coco rallado sin azúcar",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Nuts, coconut meat, dried (desiccated), not sweetened"
+    },
+    {
+      "id": "usda-171824",
+      "nombre": "Salsa verde lista",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Sauce, salsa, verde, ready-to-serve"
+    },
+    {
+      "id": "usda-174524",
+      "nombre": "Salsa roja lista",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Sauce, salsa, ready-to-serve"
+    },
+    {
+      "id": "usda-171319",
+      "nombre": "Chile en polvo",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Spices, chili powder"
+    },
+    {
+      "id": "usda-171325",
+      "nombre": "Ajo en polvo",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Spices, garlic powder"
+    },
+    {
+      "id": "usda-170917",
+      "nombre": "Laurel",
+      "fuente": "SR Legacy 2018",
+      "descripcion_usda": "Spices, bay leaf"
+    }
+  ],
+  "alias": {
+    "usda-170050": "usda-170457",
+    "usda-171478": "usda-171477",
+    "usda-168390": "usda-168389",
+    "usda-169146": "usda-169145",
+    "usda-169243": "usda-169255",
+    "usda-170682": "usda-170683",
+    "usda-170284": "usda-170285",
+    "usda-168873": "usda-168872",
+    "usda-168874": "usda-168917",
+    "usda-169703": "usda-169704",
+    "usda-169742": "usda-168914",
+    "usda-169738": "usda-168910",
+    "usda-174270": "usda-172441",
+    "usda-171052": "usda-171054",
+    "usda-171451": "usda-171054",
+    "usda-171474": "usda-171075",
+    "usda-172373": "usda-173612",
+    "usda-172385": "usda-173625",
+    "usda-172389": "usda-172388",
+    "usda-172390": "usda-173630",
+    "usda-171480": "usda-171481",
+    "usda-167902": "usda-167903",
+    "usda-168312": "usda-167905",
+    "usda-168249": "usda-168250",
+    "usda-174030": "usda-171794",
+    "usda-171793": "usda-174031",
+    "usda-175167": "usda-175168",
+    "usda-173686": "usda-171998",
+    "usda-175176": "usda-175177",
+    "usda-171955": "usda-171956",
+    "usda-173717": "usda-173718",
+    "usda-175179": "usda-175180",
+    "usda-174204": "usda-174205",
+    "usda-169388": "usda-168571",
+    "usda-173734": "usda-173735",
+    "usda-175199": "usda-175200",
+    "usda-173744": "usda-175194",
+    "usda-175202": "usda-175203",
+    "usda-172420": "usda-172421",
+    "usda-174284": "usda-172421",
+    "usda-173756": "usda-173757",
+    "usda-168484": "usda-168482",
+    "usda-170030": "usda-170026",
+    "usda-173424": "usda-171287",
+    "usda-172187": "usda-171287",
+    "usda-169699": "usda-169700",
+    "usda-170688": "usda-170287",
+    "usda-170556": "usda-170557"
+  }
+}

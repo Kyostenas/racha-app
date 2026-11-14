@@ -24,6 +24,11 @@
     "source_ref": [
       "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
       "https://www.foodsafety.gov/keep-food-safe/4-steps-to-food-safety"
+    ],
+    "momentos": [
+      "desayuno",
+      "comida",
+      "cena"
     ]
   },
   {
@@ -50,6 +55,9 @@
     ],
     "source_ref": [
       "https://www.foodsafety.gov/keep-food-safe/4-steps-to-food-safety"
+    ],
+    "momentos": [
+      "desayuno"
     ]
   },
   {
@@ -77,6 +85,10 @@
     "source_ref": [
       "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures",
       "https://www.foodsafety.gov/keep-food-safe/4-steps-to-food-safety"
+    ],
+    "momentos": [
+      "comida",
+      "cena"
     ]
   },
   {
@@ -103,6 +115,10 @@
     ],
     "source_ref": [
       "https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures"
+    ],
+    "momentos": [
+      "comida",
+      "cena"
     ]
   }
 ]

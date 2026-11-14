@@ -18,9 +18,9 @@ describe('presentación compacta, sin cambiar datos', () => {
     expect(formatNutrient(null)).toBe('sin dato');
   });
   it('mantiene nombres cortos', () =>
-    expect(shortFoodName('Huevo entero crudo')).toBe('Huevo entero crudo'));
+    expect(shortFoodName('Huevo entero')).toBe('Huevo entero'));
   it('retira paréntesis en el chip, sin alterar el nombre fuente', () =>
-    expect(shortFoodName('Poro crudo (bulbo y parte inferior de las hojas)')).toBe('Poro crudo'));
+    expect(shortFoodName('Tomate verde (tomatillo)')).toBe('Tomate verde'));
   it('abrevia nombres largos conservando su final', () => {
     const full = 'Tortilla de harina de trigo refrigerada lista para calentar';
     const short = shortFoodName(full);

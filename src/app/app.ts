@@ -23,10 +23,11 @@ import {
   customThemeSchema,
   customThemesSchema,
   TemaPersonalizado,
+  Momento,
 } from './domain';
 import { LocalStore, cambiosLocales } from './storage';
 import { Comunidad } from './comunidad/comunidad';
-import { ComunidadApi } from './comunidad/api';
+import { ComunidadApi, Evento, Reto } from './comunidad/api';
 import { Cuenta } from './cuenta/cuenta';
 import { CuentaApi } from './cuenta/api';
 import { Sesion } from './cuenta/sesion';
@@ -57,7 +58,26 @@ import {
   LocalAiContext,
   suggestLocalExercise,
   suggestLocalRecipe,
+  polishRecipeWithDeviceModel,
 } from './local-ai';
+import {
+  GENERATED_LABEL,
+  MOMENTO_LABEL,
+  MOMENTOS,
+  buildDayPlan,
+  generateAllRecipes,
+} from './recipe-generator';
+import { HEALTH_SOURCES, healthLimits, healthSafety } from './health-rules';
+
+export interface ComunidadHoy {
+  activa: boolean;
+  retos: Reto[];
+  eventos: Evento[];
+  error: string;
+}
+export function textoEventoComunidad(ev: Pick<Evento, 'tipo' | 'reto' | 'valor'>): string {
+  return ev.tipo === 'reto_completado' ? `completó el reto «${ev.reto ?? ''}»` : `llegó a ${ev.valor} días de racha`;
+}
 
 type Page = 'cuenta' | 'inicio' | 'primer-dia' | 'hoy' | 'plan' | 'progreso' | 'logro' | 'comunidad' | 'ajustes';
 @Component({
@@ -174,16 +194,72 @@ export class App implements OnInit {
   readonly completed = computed(
     () => this.records().filter((r) => r.fecha === this.today && r.hecho).length,
   );
-  readonly suggestions = computed(() => {
+  /** Recetas nuevas armadas en el dispositivo con la despensa (desayuno, comida y cena). */
+  readonly generated = computed(() => {
     const p = this.profile();
-    return p ? selectRecipes(this.recipes(), this.foods(), p) : [];
+    return p && this.foods().length ? generateAllRecipes({ profile: p, foods: this.foods() }) : [];
   });
-  readonly recipe = computed(
-    () =>
-      this.suggestions().find((r) => r.id === this.selectedRecipe()) ??
-      this.suggestions()[0] ??
-      null,
-  );
+  /** Curadas que pasan alergias y reglas de salud. */
+  readonly curatedSafe = computed(() => {
+    const p = this.profile();
+    if (!p) return [];
+    const limits = healthLimits(p);
+    return selectRecipes(this.recipes(), this.foods(), {
+      alergias: [...p.alergias, ...limits.alergiasExtra],
+      despensa: p.despensa,
+    }).filter((r) => healthSafety(r, this.foods(), p, limits).segura);
+  });
+  readonly allRecipes = computed(() => [...this.recipes(), ...this.generated()]);
+  readonly suggestions = computed(() => [...this.curatedSafe(), ...this.generated()]);
+  readonly healthNotes = computed(() => {
+    const p = this.profile();
+    return p ? healthLimits(p) : null;
+  });
+  readonly healthSources = HEALTH_SOURCES;
+  readonly generatedLabel = GENERATED_LABEL;
+  readonly momentoLabel = MOMENTO_LABEL;
+  readonly momentos = MOMENTOS;
+  readonly planDayOffset = signal(0);
+  readonly planChoices = signal<Record<string, number>>({});
+  readonly planDate = computed(() => {
+    const d = new Date(this.today + 'T12:00:00');
+    d.setDate(d.getDate() + this.planDayOffset());
+    return localDate(d);
+  });
+  readonly dayPlan = computed(() => {
+    const p = this.profile();
+    if (!p) return null;
+    const date = this.planDate();
+    const choices = this.planChoices();
+    return buildDayPlan(
+      { profile: p, foods: this.foods(), curated: this.curatedSafe() },
+      date,
+      this.generated(),
+      {
+        desayuno: choices[date + ':desayuno'] ?? 0,
+        comida: choices[date + ':comida'] ?? 0,
+        cena: choices[date + ':cena'] ?? 0,
+      },
+    );
+  });
+  readonly todayPlan = computed(() => {
+    const p = this.profile();
+    if (!p) return null;
+    const choices = this.planChoices();
+    return buildDayPlan({ profile: p, foods: this.foods(), curated: this.curatedSafe() }, this.today, this.generated(), {
+      desayuno: choices[this.today + ':desayuno'] ?? 0,
+      comida: choices[this.today + ':comida'] ?? 0,
+      cena: choices[this.today + ':cena'] ?? 0,
+    });
+  });
+  readonly comunidadHoy = signal<ComunidadHoy | null>(null);
+  readonly textoEvento = textoEventoComunidad;
+  readonly polished = signal<Record<string, Receta>>({});
+  readonly recipe = computed(() => {
+    const r =
+      this.suggestions().find((x) => x.id === this.selectedRecipe()) ?? this.suggestions()[0] ?? null;
+    return r ? (this.polished()[r.id] ?? r) : null;
+  });
   readonly basal = computed(() => {
     const p = this.profile();
     return p && !p.padecimientos && !p.medicamentos ? mifflin(p) : null;
@@ -238,7 +314,9 @@ export class App implements OnInit {
       this.updateTheme();
       if (p) {
         this.pantry = [...p.despensa];
+        await this.persistMigratedPantry(p);
         this.page.set('hoy');
+        void this.cargarComunidadHoy();
       }
       if (s) {
         this.aiForm = {
@@ -257,7 +335,84 @@ export class App implements OnInit {
       this.announceError(e instanceof Error ? e.message : 'No pudimos abrir Progressium.');
     }
   }
+  /** Si la despensa guardada tenía IDs crudo/cocido de v0.4.3, se guarda ya migrada (sin perder nada). */
+  private async persistMigratedPantry(p: Perfil) {
+    try {
+      const raw = await this.db.get('perfil', 'local', z.object({ despensa: z.array(z.string()) }).passthrough());
+      if (raw && JSON.stringify(raw.despensa) !== JSON.stringify(p.despensa)) await this.db.put('perfil', p);
+    } catch {
+      // Sin cambios: el perfil migrado sigue en memoria y se guardará con el siguiente cambio.
+    }
+  }
+  async cargarComunidadHoy() {
+    const vacio: ComunidadHoy = { activa: false, retos: [], eventos: [], error: '' };
+    try {
+      const local = await this.db.get('comunidad', 'local', comunidadSchema).catch(() => null);
+      if (!local && !this.comunidadApi.conectado()) {
+        this.comunidadHoy.set(vacio);
+        return;
+      }
+      if (local) await this.comunidadApi.entrar(local.usuario, local.clave);
+      const [r, f] = await Promise.all([this.comunidadApi.retos(), this.comunidadApi.feed()]);
+      this.comunidadHoy.set({ activa: true, retos: r.retos, eventos: f.eventos.slice(0, 4), error: '' });
+    } catch {
+      const local = await this.db.get('comunidad', 'local', comunidadSchema).catch(() => null);
+      this.comunidadHoy.set(
+        local
+          ? { ...vacio, activa: true, error: 'La comunidad no está disponible ahora. Tu app sigue funcionando.' }
+          : vacio,
+      );
+    }
+  }
+  retosEnCurso() {
+    return (this.comunidadHoy()?.retos ?? []).filter((r) => r.unido && !r.completado);
+  }
+  retosDisponibles() {
+    return (this.comunidadHoy()?.retos ?? []).filter((r) => !r.unido);
+  }
+  verComida(momento: Momento, fromToday = false) {
+    const plan = fromToday ? this.todayPlan() : this.dayPlan();
+    const meal = plan?.comidas.find((c) => c.momento === momento);
+    if (!meal?.receta) return;
+    if (fromToday) this.planDayOffset.set(0);
+    this.selectedRecipe.set(meal.receta.id);
+    if (this.page() !== 'plan') this.navigate('plan');
+    setTimeout(() => document.getElementById('receta-seleccionada')?.scrollIntoView({ block: 'start' }), 0);
+  }
+  otraOpcion(momento: Momento) {
+    const key = this.planDate() + ':' + momento;
+    this.planChoices.update((c) => ({ ...c, [key]: (c[key] ?? 0) + 1 }));
+  }
+  cambiarDia(delta: number) {
+    this.planDayOffset.update((d) => Math.min(6, Math.max(0, d + delta)));
+  }
+  planDayLabel() {
+    const o = this.planDayOffset();
+    if (o === 0) return 'Hoy';
+    if (o === 1) return 'Mañana';
+    return new Date(this.planDate() + 'T12:00:00').toLocaleDateString('es-MX', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+    });
+  }
+  isGenerated(r: Receta | null | undefined) {
+    return r?.origen === 'ia-local';
+  }
+  recipesFor(momento: Momento) {
+    return this.generated().filter((r) => r.momentos[0] === momento);
+  }
+  async redactarConModelo() {
+    const r = this.recipe();
+    if (!r || !this.isGenerated(r)) return;
+    const done = await polishRecipeWithDeviceModel(r);
+    if (done) {
+      this.polished.update((x) => ({ ...x, [r.id]: done }));
+      this.announceStatus('Redacción del modelo del navegador aplicada; ingredientes y cantidades sin cambios.');
+    } else this.announceStatus('El modelo del navegador no está disponible o su redacción no pasó la validación.');
+  }
   navigate(page: Page) {
+    if (page === 'hoy' && this.profile()) void this.cargarComunidadHoy();
     this.page.set(page);
     this.error.set('');
     this.message.set('');
@@ -316,6 +471,10 @@ export class App implements OnInit {
         return;
       }
       this.step.set(3);
+      return;
+    }
+    if (this.pantry.length < 3) {
+      this.announceError('Elige al menos 3 ingredientes y revisa el consentimiento de salud.');
       return;
     }
     const result = profileSchema.safeParse({
@@ -707,7 +866,7 @@ export class App implements OnInit {
     return {
       profile: this.profile(),
       foods: this.foods(),
-      recipes: this.recipes(),
+      recipes: this.suggestions(),
       exercises: this.exercises(),
       habits: this.habits(),
       records: this.records(),
@@ -839,9 +998,9 @@ export class App implements OnInit {
       });
       if (!response.ok) throw new Error('Proveedor no disponible');
       const raw: unknown = await response.json();
-      const recipe = validateAiSuggestion(raw, this.recipes(), this.foods(), p);
+      const recipe = validateAiSuggestion(raw, this.allRecipes(), this.foods(), p);
       this.selectedRecipe.set(recipe.id);
-      this.announceStatus('Sugerencia validada otra vez: solo una receta curada de tu despensa.');
+      this.announceStatus('Sugerencia validada otra vez: solo una receta permitida de tu despensa.');
     } catch {
       this.announceError(
         'No se pudo validar la respuesta. Tu plan sin IA sigue disponible. Revisa tu servicio en Detalles.',
@@ -991,7 +1150,10 @@ export class App implements OnInit {
     this.settings.set(s ?? { ...defaultSettings });
     this.habits.set(h.length ? h : initialHabits);
     this.records.set(r);
-    if (p) this.pantry = [...p.despensa];
+    if (p) {
+      this.pantry = [...p.despensa];
+      await this.persistMigratedPantry(p);
+    }
     this.updateTheme();
     this.navigate(p ? 'hoy' : 'inicio');
   }

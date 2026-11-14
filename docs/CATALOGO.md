@@ -1,12 +1,23 @@
 # Catálogo único de Progressium
 
-La PWA distribuye solo `public/data/alimentos.json` (300 alimentos) y `public/data/ejercicios.json` (80 ejercicios), además de recetas y tokens que usan la interfaz y el motor. No hay una segunda copia en `public/catalogo/` ni en el precache.
+La PWA distribuye solo `public/data/alimentos.json` (307 ingredientes únicos desde v0.4.4) y `public/data/ejercicios.json` (80 ejercicios), además de recetas y tokens que usan la interfaz y el motor. No hay una segunda copia en `public/catalogo/` ni en el precache.
 
 ## Nombres y valores
 
 Cada alimento tiene un único `nombre` canónico en español, tomado directamente de la traducción curada. El chip se deriva de ese mismo nombre con `shortFoodName`; el detalle muestra el nombre completo, no una variante con otro término. Jitomate rojo y tomate verde/tomatillo se mantienen como alimentos diferentes. Las dos variantes de aceite de girasol conservan su diferencia de ácido linoleico también en el chip. No se incluye `nombreOriginal`, `nombre_en` ni una descripción USDA inglesa en el catálogo distribuido. El enlace `source_ref` permite consultar la ficha original externa.
 
-Los nutrientes por 100 g, sus estados crudo/cocido y los identificadores USDA no cambian. Ausencias se conservan como null y se muestran como «sin dato». No hay MET ni cálculo de calorías quemadas por ejercicio. Las etiquetas de alérgenos son precauciones inferidas, no certificaciones.
+Los nutrientes por 100 g y los identificadores USDA de los alimentos conservados no cambian. Ausencias se conservan como null y se muestran como «sin dato». No hay MET ni cálculo de calorías quemadas por ejercicio. Las etiquetas de alérgenos son precauciones inferidas, no certificaciones.
+
+## v0.4.4: sin crudo/cocido e ingredientes mexicanos
+
+`tools/ampliar_catalogo_mx.py` parte de la misma selección de SR Legacy, une los 48 estados duplicados (crudo/cocido/hervido, etc.) en 45 ingredientes canónicos y agrega 55 ingredientes comunes en México tomados de USDA FDC (SR Legacy 2018 y Foundation Foods 2026-04-30, ambos verificados por SHA-256). Regla: granos, leguminosas, carnes y pescados usan el valor preparado; verduras y frutas, el crudo. Panela no existe en FDC y no se agregó: ningún valor es inventado.
+
+Campos nuevos opcionales: `grupo`, `usos` (papel culinario para el generador de recetas), `sodio_mg100g` (nutriente 1093) y `nota`. Los IDs retirados se publican como alias en `src/app/alimentos-alias.ts` y la despensa guardada se migra al leerla. Resumen en `docs/catalogo/ampliacion_mx.json`.
+
+```sh
+python3 tools/ampliar_catalogo_mx.py   # descarga y verifica los zips de FDC si no se pasan --sr/--foundation
+npm run validate:catalog
+```
 
 ## Auditoría y procedencia
 

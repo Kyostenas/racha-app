@@ -1155,3 +1155,91 @@ video {
 .local-ai-panel > * {
   min-width: 0;
 }
+
+/* v0.4.4: comidas del día (Hoy y Plan) y resumen de comunidad en Hoy */
+.community-today {
+  grid-column: 1/-1;
+}
+.meals-today > div {
+  width: 100%;
+}
+.meal-links {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+.meal-links > li {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.meal-link {
+  display: grid;
+  gap: 4px;
+  text-align: left;
+  width: 100%;
+  border: 3px solid var(--tinta);
+  background: var(--superficie);
+  padding: 12px;
+  min-height: 72px;
+}
+.day-plan {
+  margin-bottom: 24px;
+}
+.day-plan-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas: 'titulo titulo titulo' 'prev . next';
+  align-items: center;
+  gap: 8px 12px;
+}
+.day-plan-head > div {
+  grid-area: titulo;
+  min-width: 0;
+}
+.day-plan-head > button:first-child {
+  grid-area: prev;
+}
+.day-plan-head > button:last-child {
+  grid-area: next;
+}
+@media (min-width: 720px) {
+  .day-plan-head {
+    grid-template-areas: 'prev titulo next';
+  }
+}
+.meals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 16px;
+}
+.meal {
+  border: 3px solid var(--tinta);
+  padding: 16px;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  min-width: 0;
+}
+.meal h3 {
+  margin: 0;
+}
+.meal .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tag {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 2px solid currentColor;
+  padding: 2px 6px;
+  margin: 0;
+}
+.community-today progress {
+  width: 100%;
+}

@@ -3,10 +3,19 @@ import assert from 'node:assert/strict';
 import { shortFoodName } from '../src/app/presentation.ts';
 const foods = JSON.parse(readFileSync('public/data/alimentos.json', 'utf8'));
 const exercises = JSON.parse(readFileSync('public/data/ejercicios.json', 'utf8'));
-assert.equal(foods.length, 300);
+import { FOOD_ALIASES } from '../src/app/alimentos-alias.ts';
+assert.ok(foods.length >= 300, 'v0.4.4: al menos 300 ingredientes únicos');
 assert.equal(exercises.length, 80);
-assert.equal(new Set(foods.map((f) => f.id)).size, 300);
-assert.equal(new Set(foods.map((f) => f.nombre)).size, 300);
+assert.equal(new Set(foods.map((f) => f.id)).size, foods.length);
+assert.equal(new Set(foods.map((f) => f.nombre)).size, foods.length);
+const ids = new Set(foods.map((f) => f.id));
+for (const [viejo, nuevo] of Object.entries(FOOD_ALIASES)) {
+  assert.equal(ids.has(viejo), false, `alias todavía publicado: ${viejo}`);
+  assert.ok(ids.has(nuevo), `alias sin destino: ${viejo} → ${nuevo}`);
+}
+for (const f of foods) assert.doesNotMatch(f.nombre, /\b(crud|cocid|hervid)/i, f.id);
+const recipes = JSON.parse(readFileSync('public/data/recetas.json', 'utf8'));
+for (const r of recipes) for (const i of r.ingredientes) assert.ok(ids.has(i.alimento), `${r.id}: ${i.alimento}`);
 const labels = new Map();
 for (const food of foods) {
   assert.equal(typeof food.nombre, 'string');
@@ -23,6 +32,7 @@ for (const food of foods) {
   labels.set(label, [...(labels.get(label) ?? []), food.id]);
   for (const key of [
     'kcal100g',
+    'sodio_mg100g',
     'proteina100g',
     'carbohidratos100g',
     'grasa100g',
@@ -47,5 +57,5 @@ assert.equal(
   false,
 );
 console.log(
-  'PASS: 300 nombres españoles coherentes y chips únicos; nutrientes válidos; 80 ejercicios; un solo catálogo publicado y precargado.',
+  `PASS: ${foods.length} ingredientes únicos (sin crudo/cocido, ${Object.keys(FOOD_ALIASES).length} IDs viejos migrados) y chips únicos; nutrientes válidos; 80 ejercicios; un solo catálogo publicado y precargado.`,
 );

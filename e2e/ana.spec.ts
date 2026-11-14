@@ -28,7 +28,7 @@ async function onboard(page: Page, allergy = '') {
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
   if (allergy) await page.getByLabel('Alergias (separadas por coma)').fill(allergy);
-  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Jitomate rojo crudo'])
+  for (const name of ['Arroz blanco', 'Huevo entero', 'Jitomate rojo'])
     await page.getByRole('button', { name, exact: true }).click();
   await page.getByRole('button', { name: 'Crear mi primer día' }).click();
   await page.getByRole('button', { name: 'Empezar', exact: true }).click();
@@ -56,7 +56,7 @@ test('Ana: onboarding, fuente, hábito, racha, temas, privacidad, offline y borr
   await page.getByLabel('Edad (años)').fill('21');
   await page.getByRole('button', { name: 'Continuar' }).click();
   await expect(page.getByLabel('Padecimientos (opcional)')).toHaveCount(0);
-  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Jitomate rojo crudo'])
+  for (const name of ['Arroz blanco', 'Huevo entero', 'Jitomate rojo'])
     await page.getByRole('button', { name, exact: true }).click();
   await shot(page, '03-despensa-seguridad');
   await page.getByRole('button', { name: 'Crear mi primer día' }).click();
@@ -71,7 +71,7 @@ test('Ana: onboarding, fuente, hábito, racha, temas, privacidad, offline y borr
   ).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Fuentes y método' })).toBeVisible();
   await expect(
-    page.getByRole('link', { name: 'USDA · Arroz blanco de grano largo enriquecido cocido ↗' }),
+    page.getByRole('link', { name: 'USDA · Arroz blanco ↗' }),
   ).toHaveAttribute('href', /168878/);
   await shot(page, '06-plan-fuentes');
   await page.getByRole('button', { name: 'Hoy', exact: true }).click();
@@ -174,9 +174,14 @@ test('Ana: onboarding, fuente, hábito, racha, temas, privacidad, offline y borr
 test('alergia declarada bloquea receta de huevo', async ({ page }) => {
   await onboard(page, 'huevo');
   await page.getByRole('button', { name: 'Plan', exact: true }).click();
+  // v0.4.4: con arroz y jitomate la IA local aún puede generar recetas, pero ninguna con huevo.
   await expect(
-    page.getByRole('heading', { name: 'No hay receta que pase las reglas.' }),
-  ).toBeVisible();
+    page.getByRole('heading', { name: 'Arroz con huevo y jitomate', exact: true }),
+  ).toHaveCount(0);
+  await expect(page.locator('#receta-seleccionada .ingredients')).not.toContainText('Huevo');
+  expect(
+    (await page.locator('select option').allTextContents()).filter((o) => /huevo/i.test(o)),
+  ).toEqual([]);
   await expect(page.getByText('NO SUSTITUYE A TU MÉDICO.', { exact: true })).toBeVisible();
 });
 test('alergia desconocida no se ignora', async ({ page }) => {
@@ -295,8 +300,8 @@ for (const width of [320, 412]) {
     await page.setViewportSize({ width, height: 820 });
     await onboard(page);
     await page.getByRole('button', { name: 'Plan', exact: true }).click();
-    const full = 'Tortilla de harina de trigo refrigerada lista para calentar';
-    await page.getByLabel('Buscar en catálogo').fill('Tortilla de harina');
+    const full = 'Aceite de girasol con aproximadamente 65 % de ácido linoleico';
+    await page.getByLabel('Buscar en catálogo').fill('Aceite de girasol');
     const chip = page.getByTitle(full, { exact: true });
     await expect(chip).toBeVisible();
     expect((await chip.innerText()).length).toBeLessThanOrEqual(44);
@@ -388,7 +393,7 @@ test('onboarding, despensa y primer día en OLED', async ({ page }) => {
   await expect(
     page.getByText('Si no reconocemos una alergia, bloqueamos las recetas.', { exact: false }),
   ).toBeVisible();
-  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Jitomate rojo crudo'])
+  for (const name of ['Arroz blanco', 'Huevo entero', 'Jitomate rojo'])
     await page.getByRole('button', { name, exact: true }).click();
   await shot(page, '20-despensa-oled');
   await page.getByRole('button', { name: 'Crear mi primer día' }).click();
@@ -405,11 +410,11 @@ test('despensa clara: nombre español coherente y fuente externa sin descripció
   await page.getByLabel('Acepto el uso local de mis datos').check();
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
-  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Jitomate rojo crudo'])
+  for (const name of ['Arroz blanco', 'Huevo entero', 'Jitomate rojo'])
     await page.getByRole('button', { name, exact: true }).click();
   const detail = page.locator('.food-detail');
   await expect(
-    detail.getByRole('heading', { name: 'Jitomate rojo crudo', exact: true }),
+    detail.getByRole('heading', { name: 'Jitomate rojo', exact: true }),
   ).toBeVisible();
   await expect(detail).not.toContainText(/Tomatoes|year round|nombreOriginal/);
   await expect(detail.getByRole('link', { name: 'Ver fuente del alimento ↗' })).toHaveAttribute(
@@ -428,7 +433,7 @@ test('primer día permite elegir hábito inicial, temas sin bloqueo de contraste
   await page.getByLabel('Acepto el uso local de mis datos').check();
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
-  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Jitomate rojo crudo'])
+  for (const name of ['Arroz blanco', 'Huevo entero', 'Jitomate rojo'])
     await page.getByRole('button', { name, exact: true }).click();
   await page.getByRole('button', { name: 'Crear mi primer día' }).click();
   await expect(page.getByRole('heading', { name: 'Tu primer día.' })).toBeVisible();

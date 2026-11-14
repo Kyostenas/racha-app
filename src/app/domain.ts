@@ -1,4 +1,19 @@
 import { z } from 'zod';
+import { FOOD_ALIASES } from './alimentos-alias';
+
+/** v0.4.4: los IDs viejos crudo/cocido se migran al ingrediente único; sin duplicados ni pérdida. */
+export function migrateFoodIds(ids: readonly string[]): string[] {
+  const out: string[] = [];
+  for (const id of ids) {
+    const next = FOOD_ALIASES[id] ?? id;
+    if (!out.includes(next)) out.push(next);
+  }
+  return out;
+}
+const despensaSchema = z.preprocess(
+  (v) => (Array.isArray(v) && v.every((x) => typeof x === 'string') ? migrateFoodIds(v) : v),
+  z.array(z.string()).min(1).max(30),
+);
 
 export const profileSchema = z
   .object({
@@ -14,7 +29,7 @@ export const profileSchema = z
     medicamentos: z.string().max(300),
     consentimiento: z.literal(true),
     consentimientoSalud: z.boolean(),
-    despensa: z.array(z.string()).min(3).max(30),
+    despensa: despensaSchema,
     creado: z.string(),
   })
   .refine((p) => p.consentimientoSalud || (!p.padecimientos && !p.medicamentos), {
@@ -30,8 +45,12 @@ export const foodSchema = z.object({
   grasa100g: z.number().nonnegative().nullable(),
   fibra100g: z.number().nonnegative().nullable().optional(),
   azucares100g: z.number().nonnegative().nullable().optional(),
+  sodio_mg100g: z.number().nonnegative().nullable().optional(),
   source_ref: z.string().url(),
   alergenos: z.array(z.string()),
+  grupo: z.string().optional(),
+  usos: z.array(z.string()).optional(),
+  nota: z.string().optional(),
 });
 export type Alimento = z.infer<typeof foodSchema>;
 export const exerciseSchema = z.object({
@@ -47,8 +66,11 @@ export const recipeSchema = z.object({
   ingredientes: z.array(z.object({ alimento: z.string(), gramos: z.number().positive() })).min(1),
   pasos: z.array(z.string()).min(1),
   source_ref: z.array(z.string().url()).min(1),
+  origen: z.enum(['curada', 'ia-local']).optional(),
+  momentos: z.array(z.enum(['desayuno', 'comida', 'cena'])).optional(),
 });
 export type Receta = z.infer<typeof recipeSchema>;
+export type Momento = 'desayuno' | 'comida' | 'cena';
 export const customThemeSchema = z.object({
   fondo: z.string().regex(/^#[0-9a-f]{6}$/i),
   primario: z.string().regex(/^#[0-9a-f]{6}$/i),

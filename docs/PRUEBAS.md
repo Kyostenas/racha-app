@@ -59,4 +59,12 @@ CI reproduce unidades, build y E2E; después compila con base `/racha-app/` y pu
 - Detalle de ingrediente: español coherente con el chip; la descripción original solo está disponible mediante el enlace externo de fuente.
 - Las fuentes crudas duplicadas se retiran de `public/`. Queda una sola copia de alimentos/ejercicios, usada por el motor y referenciada explícitamente por el service worker. Procedencia y esquema quedan fuera del bundle en docs/catalogo/.
 - El E2E inspecciona las claves reales del precache: un alimentos.json, un ejercicios.json, ninguna ruta /catalogo/. La recarga offline de Hoy y Plan sigue funcionando.
-- Despensa recapturada en claro (`20-despensa.png`) y OLED (`20-despensa-oled.png`), con tres ingredientes ficticios y el detalle de Jitomate rojo crudo abierto.
+- Despensa recapturada en claro (`20-despensa.png`) y OLED (`20-despensa-oled.png`), con tres ingredientes ficticios y el detalle de Jitomate rojo abierto.
+
+## v0.4.4 · 2026-11-13
+
+- Catálogo: 300 entradas (252 ingredientes distintos por duplicados crudo/cocido) → **307 ingredientes únicos**, 55 mexicanos nuevos, 48 IDs viejos migrados sin perder despensas.
+- Recetas en el caso de prueba (arroz, huevo, jitomate, pechuga, tortilla de maíz, cebolla): **2 curadas antes → 2 curadas + 33 generadas** (35 opciones: 6 de desayuno, 18 de comida y 14 de cena; las curadas cuentan en varios momentos).
+- `npm test -- --watch=false`: 121/121 PASS. Nuevas: generador (alergias, alergia desconocida, diabetes, hipertensión, estatinas/IMAO/quinolonas, celiaquía, sin duplicados, solo despensa, temperaturas seguras, escala por Mifflin), plan de 3 momentos, migración de IDs, modelo del navegador solo redacta, IA local por momento y resumen de comunidad.
+- E2E: `e2e/mexico.spec.ts` (despensa sin crudo/cocido, ≥20 recetas, Hoy con comidas y comunidad, Plan por día con desayuno/comida/cena y «Otra opción», alergia + hipertensión bloquean huevo/chorizo/jamón). Capturas `v044-*.png`.
+- Limitaciones: las reglas de salud son filtros prudentes, no una dieta clínica ni evaluación de interacciones; un padecimiento no reconocido activa el filtro más conservador.

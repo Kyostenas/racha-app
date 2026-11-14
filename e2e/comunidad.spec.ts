@@ -42,7 +42,7 @@ async function onboard(page: Page) {
   await page.getByLabel('Acepto el uso local de mis datos').check();
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
-  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Jitomate rojo crudo'])
+  for (const name of ['Arroz blanco', 'Huevo entero', 'Jitomate rojo'])
     await page.getByRole('button', { name, exact: true }).click();
   await page.getByRole('button', { name: 'Crear mi primer día' }).click();
   await page.getByRole('button', { name: 'Empezar', exact: true }).click();
@@ -189,6 +189,16 @@ test('comunidad: opt-in, todo apagado, match k≥5, conexión, reto, exportar y 
   await expect(conexion).toContainText('40 % de hábitos');
   await sinViolaciones(page);
   await page.screenshot({ path: 'docs/capturas/comunidad-3-retos.png', fullPage: true });
+
+  // Hoy resume la comunidad (solo lo que ya comparte Comunidad) y enlaza a ella.
+  await page.getByRole('button', { name: 'Hoy', exact: true }).click();
+  const resumen = page.getByTestId('comunidad-hoy');
+  await expect(resumen).toContainText('completó el reto «3 días de fuerza»');
+  await expect(resumen).not.toContainText(/kg|IMC|peso/);
+  await expect(page.getByTestId('comidas-hoy').locator('.meal-link')).toHaveCount(3);
+  await page.screenshot({ path: 'docs/capturas/comunidad-4-hoy.png', fullPage: true });
+  await resumen.getByRole('button', { name: 'Ir a Comunidad' }).click();
+  await expect(page.getByRole('heading', { name: 'Comunidad', level: 1 })).toBeVisible();
 
   // Exportar descarga un JSON.
   const descarga = page.waitForEvent('download');

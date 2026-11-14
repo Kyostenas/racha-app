@@ -5,8 +5,6 @@ export function formatNutrient(value: number | null | undefined): string {
 
 export function shortFoodName(name: string): string {
   const displayNames: Record<string, string> = {
-    'Arroz blanco de grano largo enriquecido cocido': 'Arroz blanco cocido',
-    'Avena en grano cruda': 'Avena cruda',
     'Aceite de girasol con menos de 60 % de ácido linoleico': 'Aceite de girasol · linoleico <60 %',
     'Aceite de girasol con aproximadamente 65 % de ácido linoleico':
       'Aceite de girasol · linoleico ≈65 %',

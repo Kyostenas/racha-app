@@ -50,7 +50,7 @@ test('reflow a 320 px con letra al 200 %: ninguna pantalla se sale de lado', asy
   await sinScrollHorizontal(page, 'lo mínimo');
   await page.getByRole('button', { name: 'Continuar' }).click();
   await sinScrollHorizontal(page, 'alimentos');
-  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Jitomate rojo crudo'])
+  for (const name of ['Arroz blanco', 'Huevo entero', 'Jitomate rojo'])
     await page.getByRole('button', { name, exact: true }).click();
   await page.getByRole('button', { name: 'Crear mi primer día' }).click();
   await sinScrollHorizontal(page, 'primer día');

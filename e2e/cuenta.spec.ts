@@ -36,7 +36,7 @@ test('alta, sesión, sync entre 2 contextos, offline y borrado; axe en la pantal
   await page.getByLabel('Acepto el uso local de mis datos').check();
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
-  for (const name of ['Arroz blanco cocido', 'Huevo entero crudo', 'Jitomate rojo crudo'])
+  for (const name of ['Arroz blanco', 'Huevo entero', 'Jitomate rojo'])
     await page.getByRole('button', { name, exact: true }).click();
   await page.getByRole('button', { name: 'Crear mi primer día' }).click();
   await page.getByRole('button', { name: 'Empezar', exact: true }).click();

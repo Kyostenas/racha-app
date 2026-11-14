@@ -181,14 +181,17 @@
                     <details open class="food-detail">
                       <summary>Detalle del ingrediente</summary>
                       <h3>{{ food.nombre }}</h3>
+                      @if (food.nota) {
+                        <p class="small">{{ food.nota }}</p>
+                      }
                       <a [href]="food.source_ref" target="_blank" rel="noopener noreferrer"
                         >Ver fuente del alimento ↗</a
                       >
                     </details>
                   }
                   <p class="small">
-                    {{ pantry.length }} elegidos. Los estados importan: crudo y cocido son alimentos
-                    distintos.
+                    {{ pantry.length }} elegidos. Cada ingrediente aparece una sola vez; la IA local
+                    arma recetas de desayuno, comida y cena con lo que elijas.
                   </p>
                 </fieldset>
               }
@@ -272,16 +275,79 @@
               </div>
               <p class="small">Puedes desmarcar sin perder tus otros registros.</p>
             </section>
-            <section class="panel plan-preview">
-              <span aria-hidden="true" class="material-symbols-sharp big-icon">skillet</span>
+            <section class="panel plan-preview meals-today" data-testid="comidas-hoy" aria-labelledby="titulo-comidas-hoy">
               <div>
-                <div class="eyebrow">Despensa</div>
-                <h2>{{ recipe()?.nombre ?? 'Sin receta disponible' }}</h2>
+                <div class="eyebrow">Tu plan de hoy · IA local</div>
+                <h2 id="titulo-comidas-hoy">Comidas de hoy</h2>
+                @if (todayPlan(); as plan) {
+                  <ul class="meal-links">
+                    @for (c of plan.comidas; track c.momento) {
+                      <li>
+                        <span class="eyebrow">{{ c.etiqueta }}</span>
+                        @if (c.receta; as r) {
+                          <button class="meal-link" (click)="verComida(c.momento, true)">
+                            <strong>{{ r.nombre }}</strong>
+                            <span class="small">{{ c.macros?.kcal }} kcal · Ver receta</span>
+                          </button>
+                        } @else {
+                          <span class="small">Sin receta segura con tu despensa.</span>
+                        }
+                      </li>
+                    }
+                  </ul>
+                }
                 <button class="primary" (click)="navigate('plan')">
                   Ver mi plan
                   <span aria-hidden="true" class="material-symbols-sharp">arrow_forward</span>
                 </button>
               </div>
+            </section>
+            <section class="panel community-today" data-testid="comunidad-hoy" aria-labelledby="titulo-comunidad-hoy">
+              <div class="eyebrow">Comunidad</div>
+              <h2 id="titulo-comunidad-hoy">Retos y novedades</h2>
+              @if (comunidadHoy(); as ch) {
+                @if (!ch.activa) {
+                  <p>Activa la comunidad para unirte a retos semanales con alias y sin datos de salud.</p>
+                } @else if (ch.error) {
+                  <p>{{ ch.error }}</p>
+                } @else {
+                  @if (retosEnCurso().length) {
+                    <h3>Tus retos en curso</h3>
+                    <ul class="lista-comunidad">
+                      @for (r of retosEnCurso(); track r.clave) {
+                        <li>
+                          <strong>{{ r.titulo }}</strong>
+                          <span>{{ r.avance }} de {{ r.meta }} días</span>
+                          <progress [max]="r.meta" [value]="r.avance" [attr.aria-label]="'Avance en ' + r.titulo"></progress>
+                        </li>
+                      }
+                    </ul>
+                  } @else if (retosDisponibles().length) {
+                    <p>
+                      {{ retosDisponibles().length }} reto{{ retosDisponibles().length === 1 ? '' : 's' }} esta semana:
+                      {{ retosDisponibles()[0].titulo }}@if (retosDisponibles()[0].participantes) {
+                        · {{ retosDisponibles()[0].participantes }} participantes
+                      }.
+                    </p>
+                  }
+                  @if (ch.eventos.length) {
+                    <h3>Actividad reciente</h3>
+                    <ul class="lista-comunidad">
+                      @for (ev of ch.eventos; track ev.id) {
+                        <li><strong>{{ ev.propio ? 'Tú' : ev.alias }}</strong> {{ textoEvento(ev) }}</li>
+                      }
+                    </ul>
+                  } @else {
+                    <p class="small">Sin novedades todavía.</p>
+                  }
+                }
+              } @else {
+                <p class="small">Cargando comunidad…</p>
+              }
+              <button class="primary" (click)="navigate('comunidad')">
+                Ir a Comunidad
+                <span aria-hidden="true" class="material-symbols-sharp">arrow_forward</span>
+              </button>
             </section>
             @if (settings().ia === 'local') {
               <section class="panel local-ai-panel" data-testid="local-ai-hoy">
@@ -356,20 +422,80 @@
             </div>
           </div>
           @if (profile()?.padecimientos || profile()?.medicamentos) {
-            <div class="notice">
-              No adaptamos recetas a enfermedades ni medicamentos. Revisa este plan con tu
-              profesional de salud.
+            <div class="notice" data-testid="aviso-salud">
+              Filtramos las recetas con reglas prudentes para lo que declaraste
+              @if (healthNotes(); as h) {
+                ({{ h.motivos.join('; ') }})
+              }. No es una dieta clínica: revisa este plan con tu profesional de salud.
             </div>
+          }
+          @if (dayPlan(); as plan) {
+            <section class="panel day-plan" data-testid="plan-dia" aria-labelledby="titulo-plan-dia">
+              <div class="day-plan-head">
+                <button class="quiet" (click)="cambiarDia(-1)" [disabled]="planDayOffset() === 0" aria-label="Día anterior">
+                  <span aria-hidden="true" class="material-symbols-sharp">chevron_left</span>
+                </button>
+                <div>
+                  <div class="eyebrow">Plan por día · {{ plan.fecha }}</div>
+                  <h2 id="titulo-plan-dia">{{ planDayLabel() }}: mañana, tarde y noche</h2>
+                </div>
+                <button class="quiet" (click)="cambiarDia(1)" [disabled]="planDayOffset() === 6" aria-label="Día siguiente">
+                  <span aria-hidden="true" class="material-symbols-sharp">chevron_right</span>
+                </button>
+              </div>
+              <p class="small">
+                @if (plan.referenciaKcal) {
+                  Porciones repartidas sobre una referencia orientativa de {{ plan.referenciaKcal }} kcal/día
+                  (Mifflin–St Jeor × 1.2, ajustada a tu objetivo): 30 % desayuno, 45 % comida y 25 % cena.
+                } @else {
+                  Porciones estándar: sin cálculo de energía por tu perfil.
+                }
+                {{ suggestions().length }} recetas seguras con tu despensa.
+              </p>
+              <div class="meals">
+                @for (c of plan.comidas; track c.momento) {
+                  <article class="meal" [attr.data-momento]="c.momento">
+                    <div class="eyebrow">{{ c.etiqueta }}</div>
+                    @if (c.receta; as r) {
+                      <h3>{{ r.nombre }}</h3>
+                      <p class="small">
+                        {{ c.macros?.kcal }} kcal
+                        @if (c.metaKcal) {
+                          de ~{{ c.metaKcal }}
+                        }
+                        · {{ c.macros?.proteina }} g proteína · {{ c.opciones.length }} opciones
+                      </p>
+                      @if (isGenerated(r)) {
+                        <p class="tag">{{ generatedLabel }}</p>
+                      }
+                      <div class="actions">
+                        <button class="primary" (click)="verComida(c.momento)">Ver receta</button>
+                        @if (c.opciones.length > 1) {
+                          <button class="quiet" (click)="otraOpcion(c.momento)">Otra opción</button>
+                        }
+                      </div>
+                    } @else {
+                      <p>Sin receta segura para este momento. Agrega ingredientes a tu despensa.</p>
+                    }
+                  </article>
+                }
+              </div>
+            </section>
           }
           <div class="plan-layout">
             <section>
               @if (recipe(); as r) {
-                <article class="panel recipe">
+                <article class="panel recipe" id="receta-seleccionada">
                   <div class="recipe-art" aria-hidden="true">
                     <span aria-hidden="true" class="material-symbols-sharp">skillet</span>
                   </div>
-                  <div class="eyebrow">Receta curada / 1 porción orientativa</div>
+                  <div class="eyebrow">
+                    {{ isGenerated(r) ? generatedLabel : 'Receta curada' }} / 1 porción orientativa
+                  </div>
                   <h2>{{ r.nombre }}</h2>
+                  @if (isGenerated(r) && browserAiStatus() === 'disponible') {
+                    <button class="quiet" (click)="redactarConModelo()">Redactar con el modelo del navegador</button>
+                  }
                   <ul class="ingredients">
                     @for (i of r.ingredientes; track i.alimento) {
                       <li>
@@ -406,13 +532,27 @@
                     Reglas v1: solo ingredientes presentes, sin alergias declaradas; porciones
                     ilustrativas. No es una dieta clínica ni garantía contra trazas.
                   </p>
+                  @if (isGenerated(r)) {
+                    <p>
+                      Receta generada en tu dispositivo con plantillas de platillos mexicanos y tu
+                      despensa. No proviene de un libro ni de un autor; los enlaces de abajo solo
+                      respaldan temperaturas e inocuidad y los datos nutrimentales de USDA.
+                    </p>
+                  }
                   <ul>
                     @for (url of r.source_ref; track url) {
                       <li>
                         <a [href]="url" target="_blank" rel="noopener noreferrer"
-                          >Fuente de preparación ↗</a
+                          >{{ isGenerated(r) ? 'Fuente de inocuidad' : 'Fuente de preparación' }} ↗</a
                         >
                       </li>
+                    }
+                    @if (healthNotes()?.motivos?.length) {
+                      @for (url of healthSources; track url) {
+                        <li>
+                          <a [href]="url" target="_blank" rel="noopener noreferrer">Regla de salud ↗</a>
+                        </li>
+                      }
                     }
                     @for (i of r.ingredientes; track i.alimento) {
                       <li>
@@ -434,10 +574,12 @@
                       </li>
                     }
                   </ul>
-                  <p>
-                    La preparación es una propuesta original de Progressium; los enlaces de preparación
-                    sustentan técnicas e inocuidad, no son recetas copiadas.
-                  </p>
+                  @if (!isGenerated(r)) {
+                    <p>
+                      La preparación es una propuesta original de Progressium; los enlaces de
+                      preparación sustentan técnicas e inocuidad, no son recetas copiadas.
+                    </p>
+                  }
                   @if (basal(); as basal) {
                     <p>
                       <strong>{{ basal }} kcal/día en reposo.</strong> Estimación orientativa
@@ -463,20 +605,32 @@
                     adivinamos: consulta a un profesional.
                   </p>
                   <p class="small">
-                    Ideas de despensa: arroz blanco cocido + huevo entero crudo + jitomate rojo
-                    crudo; o avena cruda + plátano + manzana. Elige las variantes exactas
-                    disponibles.
+                    Ideas de despensa: tortilla de maíz + huevo entero + jitomate rojo + cebolla; o
+                    avena en hojuelas + plátano + leche.
                   </p>
                 </section>
               }
               @if (suggestions().length > 1) {
                 <label
-                  >Otras recetas disponibles<select
+                  >Otras recetas disponibles ({{ suggestions().length }})<select
                     [ngModel]="recipe()?.id"
                     (ngModelChange)="selectedRecipe.set($event)"
                   >
-                    @for (r of suggestions(); track r.id) {
-                      <option [value]="r.id">{{ r.nombre }}</option>
+                    @if (curatedSafe().length) {
+                      <optgroup label="Recetas curadas">
+                        @for (r of curatedSafe(); track r.id) {
+                          <option [value]="r.id">{{ r.nombre }}</option>
+                        }
+                      </optgroup>
+                    }
+                    @for (m of momentos; track m) {
+                      @if (recipesFor(m).length) {
+                        <optgroup [label]="momentoLabel[m] + ' · IA local'">
+                          @for (r of recipesFor(m); track r.id) {
+                            <option [value]="r.id">{{ r.nombre }}</option>
+                          }
+                        </optgroup>
+                      }
                     }
                   </select></label
                 >
@@ -507,6 +661,9 @@
                   <details open class="food-detail">
                     <summary>Detalle del ingrediente</summary>
                     <h3>{{ food.nombre }}</h3>
+                    @if (food.nota) {
+                      <p class="small">{{ food.nota }}</p>
+                    }
                     <a [href]="food.source_ref" target="_blank" rel="noopener noreferrer"
                       >Ver fuente del alimento ↗</a
                     >
@@ -919,9 +1076,10 @@
                   >
                 </div>
                 <p class="small">
-                  «En tu cel» viene activa por defecto y funciona sin internet con tus hábitos,
-                  recetas, 300 alimentos USDA y 80 ejercicios. No envía ningún dato fuera de tu
-                  dispositivo.
+                  «En tu cel» viene activa por defecto y funciona sin internet: genera recetas de
+                  desayuno, comida y cena con tu despensa y usa tus hábitos, {{ foods().length }}
+                  alimentos USDA y {{ exercises().length }} ejercicios. No envía ningún dato fuera de
+                  tu dispositivo.
                 </p>
                 <p>
                   Tu clave se guarda solo en este teléfono, sin candado. Si alguien más usa tu

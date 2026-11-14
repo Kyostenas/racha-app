@@ -1,4 +1,4 @@
-import { Alimento, Ejercicio, Habito, Perfil, Receta, Registro } from './domain';
+import { Alimento, Ejercicio, Habito, Momento, Perfil, Receta, Registro } from './domain';
 import { mifflin, recipeSafety, selectRecipes } from './engine';
 
 export interface LocalAiContext {
@@ -98,6 +98,14 @@ interface BrowserLanguageModelApi {
     destroy?: () => void;
   }>;
 }
+
+/**
+ * Instrucción para el modelo del navegador. Desde v0.4.4 las recetas sí se generan en el dispositivo,
+ * pero las arma y valida el generador local (ingredientes, cantidades, alergias y salud); el modelo
+ * solo redacta con otras palabras.
+ */
+export const DEVICE_MODEL_SYSTEM_PROMPT =
+  'Eres el asistente local de Progressium en español. Responde en máximo 3 frases claras usando SOLO los datos verificados que te doy. Las recetas ya vienen generadas y validadas por la app contra alergias, padecimientos y medicamentos: puedes redactarlas con otras palabras, pero nunca agregues, quites ni cambies ingredientes, cantidades o temperaturas, y nunca inventes alergias ni diagnósticos médicos.';
 
 export function normalizeText(value: string): string {
   return value
@@ -207,13 +215,23 @@ function formatGoalLabel(intencion: Perfil['intencion']): string {
   return 'mantener tu ritmo';
 }
 
+export function momentoFromText(text: string): Momento | null {
+  const q = normalizeText(text);
+  if (/desayun|manana|temprano/.test(q)) return 'desayuno';
+  if (/cena|cenar|ceno|noche/.test(q)) return 'cena';
+  if (/comida|almuerzo|mediodia|tarde/.test(q)) return 'comida';
+  return null;
+}
+
 export function suggestLocalRecipe(
   ctx: LocalAiContext,
   excludeCurrent = false,
+  momento: Momento | null = null,
 ): LocalRecipeSuggestion | null {
   if (!ctx.profile) return null;
   const profile = ctx.profile;
-  const safe = selectRecipes(ctx.recipes, ctx.foods, profile)
+  const pool = momento ? ctx.recipes.filter((r) => (r.momentos ?? ['comida', 'cena']).includes(momento)) : ctx.recipes;
+  const safe = selectRecipes(pool, ctx.foods, profile)
     .map((recipe) => {
       const macros = computeRecipeMacros(recipe, ctx.foods);
       return { recipe, macros, score: scoreRecipeForGoal(macros, profile.intencion) };
@@ -228,7 +246,8 @@ export function suggestLocalRecipe(
   }
 
   const goalText = formatGoalLabel(profile.intencion);
-  const reason = `Apta para tus alergias y despensa, pensada para ${goalText}: aporta aprox. ${picked.macros.kcal} kcal, ${picked.macros.proteina} g de proteína y ${picked.macros.fibra} g de fibra.`;
+  const generada = picked.recipe.origen === 'ia-local' ? ' Generada por IA local con tu despensa; revísala antes de cocinar.' : '';
+  const reason = `Apta para tus alergias y despensa, pensada para ${goalText}: aporta aprox. ${picked.macros.kcal} kcal, ${picked.macros.proteina} g de proteína y ${picked.macros.fibra} g de fibra.${generada}`;
   return { recipe: picked.recipe, macros: picked.macros, reason };
 }
 
@@ -536,7 +555,7 @@ export async function enhanceWithDeviceModel(
         {
           role: 'system',
           content:
-            'Eres el asistente local de Progressium en español. Responde en máximo 3 frases claras usando SOLO los datos verificados que te doy. Nunca inventes recetas, ingredientes, alergias ni diagnósticos médicos.',
+            DEVICE_MODEL_SYSTEM_PROMPT,
         },
       ],
     });
@@ -597,7 +616,7 @@ export function askLocalAi(question: string, ctx: LocalAiContext): LocalAiAnswer
     return {
       intent: 'privacidad',
       reply:
-        'La IA local funciona 100% en tu dispositivo, incluso sin internet: analiza tu despensa, tus alergias, los 300 alimentos USDA, 80 ejercicios y tu historial de hábitos sin enviar datos a ningún servidor externo.',
+        `La IA local funciona 100% en tu dispositivo, incluso sin internet: genera recetas con tu despensa, revisa tus alergias, padecimientos y medicamentos, y usa ${ctx.foods.length} alimentos USDA, ${ctx.exercises.length} ejercicios y tu historial de hábitos sin enviar datos a ningún servidor externo.`,
     };
   }
 
@@ -621,12 +640,17 @@ export function askLocalAi(question: string, ctx: LocalAiContext): LocalAiAnswer
     };
   }
 
-  if (/receta|cocin|comer|comida|desayun|cenar|cena|almuerzo|menu|sugerencia/.test(q)) {
-    const suggestion = suggestLocalRecipe(ctx);
+  if (/receta|cocin|comer|comida|desayun|cenar|cena|ceno|almuerzo|menu|sugerencia|plan del dia/.test(q)) {
+    const momento = momentoFromText(question);
+    const suggestion = suggestLocalRecipe(ctx, false, momento);
     if (suggestion) {
+      const total = profile ? selectRecipes(ctx.recipes, ctx.foods, profile).length : 0;
+      const porMomento = (m: Momento) =>
+        profile ? selectRecipes(ctx.recipes.filter((r) => (r.momentos ?? ['comida', 'cena']).includes(m)), ctx.foods, profile).length : 0;
+      const resumen = ` Tienes ${total} opciones seguras: ${porMomento('desayuno')} de desayuno, ${porMomento('comida')} de comida y ${porMomento('cena')} de cena.`;
       return {
         intent: 'receta',
-        reply: `Te sugiero «${suggestion.recipe.nombre}»: ${suggestion.reason}`,
+        reply: `${momento ? `Para ${momento === 'comida' ? 'la comida' : momento === 'cena' ? 'la cena' : 'el desayuno'} te` : 'Te'} sugiero «${suggestion.recipe.nombre}»: ${suggestion.reason}${resumen}`,
         action: { type: 'select-recipe', id: suggestion.recipe.id, label: 'Abrir receta en Plan' },
       };
     }
@@ -718,7 +742,7 @@ export function askLocalAi(question: string, ctx: LocalAiContext): LocalAiAnswer
     }
     return {
       intent: 'alimento',
-      reply: 'No encontré ese alimento exacto en el catálogo local de 300 alimentos USDA. Prueba con el nombre simple, por ejemplo «avena», «huevo», «pollo» o «frijol».',
+      reply: `No encontré ese alimento exacto en el catálogo local de ${ctx.foods.length} alimentos USDA. Prueba con el nombre simple, por ejemplo «avena», «huevo», «nopales» o «frijol».`,
     };
   }
 
@@ -742,4 +766,53 @@ export function askLocalAi(question: string, ctx: LocalAiContext): LocalAiAnswer
     intent: 'general',
     reply: parts.join(' '),
   };
+}
+
+/**
+ * Si el navegador trae un modelo local, solo redacta nombre y pasos de una receta generada.
+ * Se acepta únicamente si conserva el número de pasos y todas las cifras (temperaturas, ml, minutos)
+ * de cada paso; los ingredientes y cantidades nunca salen del modelo.
+ */
+export function acceptPolishedRecipe(recipe: Receta, raw: string): Receta | null {
+  let data: unknown;
+  try {
+    data = JSON.parse(raw.trim().replace(/^```(?:json)?|```$/g, ''));
+  } catch {
+    return null;
+  }
+  const d = data as { nombre?: unknown; pasos?: unknown };
+  if (typeof d.nombre !== 'string' || !Array.isArray(d.pasos)) return null;
+  const nombre = d.nombre.trim();
+  const pasos = d.pasos.map((x) => (typeof x === 'string' ? x.trim() : ''));
+  if (!nombre || nombre.length > 70 || pasos.length !== recipe.pasos.length || pasos.some((x) => x.length < 8)) return null;
+  const nums = (t: string) => (t.match(/\d+/g) ?? []).sort().join(',');
+  if (pasos.some((p, i) => nums(p) !== nums(recipe.pasos[i]))) return null;
+  return { ...recipe, nombre, pasos };
+}
+
+export async function polishRecipeWithDeviceModel(recipe: Receta): Promise<Receta | null> {
+  if (recipe.origen !== 'ia-local') return null;
+  const g = globalThis as unknown as {
+    LanguageModel?: BrowserLanguageModelApi;
+    ai?: { languageModel?: BrowserLanguageModelApi };
+  };
+  const api = g.LanguageModel ?? g.ai?.languageModel;
+  if (!api || typeof api.availability !== 'function' || typeof api.create !== 'function') return null;
+  try {
+    const state = await api.availability();
+    if (state !== 'available' && state !== 'readily') return null;
+    const session = await api.create({ initialPrompts: [{ role: 'system', content: DEVICE_MODEL_SYSTEM_PROMPT }] });
+    try {
+      const prompt = `Redacta de forma clara y amable esta receta. Devuelve solo JSON {"nombre": string, "pasos": string[]} con el mismo número de pasos y las mismas cifras.\n${JSON.stringify({ nombre: recipe.nombre, pasos: recipe.pasos })}`;
+      const result = await Promise.race([
+        session.prompt(prompt),
+        new Promise<string>((_, reject) => setTimeout(() => reject(new Error('timeout')), 6000)),
+      ]);
+      return acceptPolishedRecipe(recipe, result);
+    } finally {
+      session.destroy?.();
+    }
+  } catch {
+    return null;
+  }
 }
