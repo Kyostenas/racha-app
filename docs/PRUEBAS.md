@@ -76,3 +76,8 @@ CI reproduce unidades, build y E2E; después compila con base `/racha-app/` y pu
 - `npm run verify:icons` (en CI): lee las ligaduras reales de `material-symbols-sharp.woff2` y comprueba los 17 nombres usados en plantillas, hábitos y `MOMENTO_ICONO`.
 - E2E `e2e/iconos.spec.ts`: recorre Despensa, Primer día, Hoy, Plan, Progreso, Comunidad y Ajustes y falla si algún ícono no usa la fuente o desborda su caja; con el CSS de v0.4.4 falla en Plan («skillet» en Space Grotesk). Captura `v045-receta-icono.png`.
 - `npm test`: 121/121 PASS. E2E: 16 PASS, 2 omitidas (las de instancia real).
+
+## v0.4.6 · 2026-11-13
+
+- En vivo, v0.4.5 ilustraba la receta con su momento principal: un caldo abierto desde «Comida» mostraba el huevo y «Mañana · Desayuno». Ahora el arte usa el momento desde el que se abrió (Hoy o Plan) si la receta le corresponde; si no, su momento principal.
+- `e2e/iconos.spec.ts` exige que desayuno, comida y cena muestren `egg_alt`, `skillet` y `dinner_dining` respectivamente.

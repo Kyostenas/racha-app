@@ -113,6 +113,8 @@ export class App implements OnInit {
   readonly habits = signal<Habito[]>(initialHabits);
   readonly records = signal<Registro[]>([]);
   readonly selectedRecipe = signal('');
+  /** Momento desde el que se abrió la receta (Hoy o Plan), para el ícono y la etiqueta del arte. */
+  readonly selectedMomento = signal<Momento | null>(null);
   readonly resetConfirm = signal(false);
   readonly advanced = signal(false);
   readonly themeEditor = signal(false);
@@ -378,6 +380,7 @@ export class App implements OnInit {
     if (!meal?.receta) return;
     if (fromToday) this.planDayOffset.set(0);
     this.selectedRecipe.set(meal.receta.id);
+    this.selectedMomento.set(momento);
     if (this.page() !== 'plan') this.navigate('plan');
     setTimeout(() => document.getElementById('receta-seleccionada')?.scrollIntoView({ block: 'start' }), 0);
   }
@@ -401,9 +404,14 @@ export class App implements OnInit {
   isGenerated(r: Receta | null | undefined) {
     return r?.origen === 'ia-local';
   }
-  /** Momento principal de una receta; las curadas sin momento cuentan como comida. */
+  /**
+   * Momento que ilustra el arte de la receta: el de la comida desde la que se abrió si la receta
+   * le corresponde; si no, su momento principal (las curadas sin momento cuentan como comida y cena).
+   */
   momentoDe(r: Receta): Momento {
-    return r.momentos?.[0] ?? 'comida';
+    const momentos = r.momentos ?? ['comida', 'cena'];
+    const elegido = this.selectedMomento();
+    return elegido && momentos.includes(elegido) ? elegido : momentos[0];
   }
   recipesFor(momento: Momento) {
     return this.generated().filter((r) => r.momentos[0] === momento);

@@ -54,9 +54,8 @@ test('todas las pantallas muestran íconos, no su nombre', async ({ page }) => {
     if ((await ver.count()) === 0) continue;
     await ver.click();
     const arte = page.locator('#receta-seleccionada .recipe-art');
-    await expect(arte).toHaveAttribute('data-momento', /desayuno|comida|cena/);
-    const momento = (await arte.getAttribute('data-momento')) as keyof typeof iconos;
-    await expect(arte.locator('.material-symbols-sharp')).toHaveText(iconos[momento]);
+    await expect(arte).toHaveAttribute('data-momento', m);
+    await expect(arte.locator('.material-symbols-sharp')).toHaveText(icono);
     await expect(arte.locator('.recipe-art-label')).toBeVisible();
     expect(await iconosRotos(page), `Receta de ${m}`).toEqual([]);
   }
