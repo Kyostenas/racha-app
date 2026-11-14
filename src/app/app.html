@@ -486,8 +486,9 @@
             <section>
               @if (recipe(); as r) {
                 <article class="panel recipe" id="receta-seleccionada">
-                  <div class="recipe-art" aria-hidden="true">
-                    <span aria-hidden="true" class="material-symbols-sharp">skillet</span>
+                  <div class="recipe-art" aria-hidden="true" [attr.data-momento]="momentoDe(r)">
+                    <span aria-hidden="true" class="material-symbols-sharp">{{ momentoIcono[momentoDe(r)] }}</span
+                    ><span class="recipe-art-label">{{ momentoLabel[momentoDe(r)] }}</span>
                   </div>
                   <div class="eyebrow">
                     {{ isGenerated(r) ? generatedLabel : 'Receta curada' }} / 1 porción orientativa

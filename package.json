@@ -1,6 +1,6 @@
 {
   "name": "racha-app",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,7 +10,8 @@
     "preview": "node tools/serve.mjs",
     "test:e2e": "playwright test",
     "verify:identity": "node tools/check-identity.mjs",
-    "validate:catalog": "node tools/validar-catalogo.mjs"
+    "validate:catalog": "node tools/validar-catalogo.mjs",
+    "verify:icons": "node tools/verificar-iconos.mjs"
   },
   "private": true,
   "packageManager": "npm@12.2.0",

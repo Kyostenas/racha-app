@@ -547,7 +547,9 @@ summary {
 .recipe-art .material-symbols-sharp {
   font-size: 80px;
 }
-.recipe-art > span:last-child {
+/* Por clase y no con «> span:last-child»: ese selector le ganaba al ícono cuando era el único
+   span, le cambiaba la fuente a Space Grotesk y se veía «sk» en vez de la sartén (v0.4.4). */
+.recipe-art-label {
   font: 700 24px 'Space Grotesk';
   line-height: 1.1;
 }
@@ -867,7 +869,7 @@ footer span {
     padding: 18px;
     gap: 18px;
   }
-  .recipe-art > span:last-child {
+  .recipe-art-label {
     font-size: 20px;
   }
   .heatmap {

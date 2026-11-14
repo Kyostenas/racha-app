@@ -62,6 +62,7 @@ import {
 } from './local-ai';
 import {
   GENERATED_LABEL,
+  MOMENTO_ICONO,
   MOMENTO_LABEL,
   MOMENTOS,
   buildDayPlan,
@@ -219,6 +220,7 @@ export class App implements OnInit {
   readonly generatedLabel = GENERATED_LABEL;
   readonly momentoLabel = MOMENTO_LABEL;
   readonly momentos = MOMENTOS;
+  readonly momentoIcono = MOMENTO_ICONO;
   readonly planDayOffset = signal(0);
   readonly planChoices = signal<Record<string, number>>({});
   readonly planDate = computed(() => {
@@ -398,6 +400,10 @@ export class App implements OnInit {
   }
   isGenerated(r: Receta | null | undefined) {
     return r?.origen === 'ia-local';
+  }
+  /** Momento principal de una receta; las curadas sin momento cuentan como comida. */
+  momentoDe(r: Receta): Momento {
+    return r.momentos?.[0] ?? 'comida';
   }
   recipesFor(momento: Momento) {
     return this.generated().filter((r) => r.momentos[0] === momento);

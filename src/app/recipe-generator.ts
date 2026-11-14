@@ -16,6 +16,15 @@ export const MOMENTO_LABEL: Record<Momento, string> = {
   comida: 'Tarde · Comida',
   cena: 'Noche · Cena',
 };
+/**
+ * Ícono (ligadura de Material Symbols Sharp) para el arte de la receta según el momento del día.
+ * tools/verificar-iconos.mjs comprueba que cada uno exista en la fuente empaquetada.
+ */
+export const MOMENTO_ICONO: Record<Momento, string> = {
+  desayuno: 'egg_alt',
+  comida: 'skillet',
+  cena: 'dinner_dining',
+};
 /** Reparto del día: desayuno moderado, comida principal y cena ligera. */
 export const MEAL_SHARE: Record<Momento, number> = { desayuno: 0.3, comida: 0.45, cena: 0.25 };
 const FOODSAFETY_STEPS = 'https://www.foodsafety.gov/keep-food-safe/4-steps-to-food-safety';

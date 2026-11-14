@@ -68,3 +68,11 @@ CI reproduce unidades, build y E2E; después compila con base `/racha-app/` y pu
 - `npm test -- --watch=false`: 121/121 PASS. Nuevas: generador (alergias, alergia desconocida, diabetes, hipertensión, estatinas/IMAO/quinolonas, celiaquía, sin duplicados, solo despensa, temperaturas seguras, escala por Mifflin), plan de 3 momentos, migración de IDs, modelo del navegador solo redacta, IA local por momento y resumen de comunidad.
 - E2E: `e2e/mexico.spec.ts` (despensa sin crudo/cocido, ≥20 recetas, Hoy con comidas y comunidad, Plan por día con desayuno/comida/cena y «Otra opción», alergia + hipertensión bloquean huevo/chorizo/jamón). Capturas `v044-*.png`.
 - Limitaciones: las reglas de salud son filtros prudentes, no una dieta clínica ni evaluación de interacciones; un padecimiento no reconocido activa el filtro más conservador.
+
+## v0.4.5 · 2026-11-13
+
+- Bug: en Plan, el cuadro amarillo de la receta mostraba «sk» en vez de la sartén. Causa: la regla `.recipe-art > span:last-child { font: 700 24px 'Space Grotesk' }` (pensada para un texto que ya no existía) también atrapaba al ícono, que era el único `span`; ganaba en especificidad, le cambiaba la fuente y la ligadura `skillet` no se formaba (la caja de 1em recortaba el texto crudo). La fuente Material Symbols Sharp sí trae `skillet`.
+- Arreglo: la etiqueta usa la clase `.recipe-art-label`; el arte muestra un ícono según el momento (desayuno `egg_alt`, comida `skillet`, cena `dinner_dining`) con su etiqueta «Mañana · Desayuno», etc.
+- `npm run verify:icons` (en CI): lee las ligaduras reales de `material-symbols-sharp.woff2` y comprueba los 17 nombres usados en plantillas, hábitos y `MOMENTO_ICONO`.
+- E2E `e2e/iconos.spec.ts`: recorre Despensa, Primer día, Hoy, Plan, Progreso, Comunidad y Ajustes y falla si algún ícono no usa la fuente o desborda su caja; con el CSS de v0.4.4 falla en Plan («skillet» en Space Grotesk). Captura `v045-receta-icono.png`.
+- `npm test`: 121/121 PASS. E2E: 16 PASS, 2 omitidas (las de instancia real).
